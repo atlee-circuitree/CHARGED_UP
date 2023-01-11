@@ -11,6 +11,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -130,7 +131,14 @@ public class Drivetrain extends SubsystemBase {
     navx = new AHRS(SPI.Port.kMXP);
     navx.reset();
 
-    odometry = new SwerveDriveOdometry(Constants.driveKinematics, navx.getRotation2d());
+    //odometry = new SwerveDriveOdometry(Constants.driveKinematics, navx.getRotation2d());
+    SwerveModulePosition[] zeroModulePositionArray = {
+      new SwerveModulePosition(0, new Rotation2d(0)), 
+      new SwerveModulePosition(0, new Rotation2d(0)),
+      new SwerveModulePosition(0, new Rotation2d(0)),
+      new SwerveModulePosition(0, new Rotation2d(0))}; 
+    
+    odometry = new SwerveDriveOdometry(Constants.driveKinematics, navx.getRotation2d(), zeroModulePositionArray);
 
   }
 
@@ -139,40 +147,13 @@ public class Drivetrain extends SubsystemBase {
     // This method will be called once per scheduler run
 
     //Updates odometry
-    odometry.update(navx.getRotation2d(), 
-    new SwerveModuleState(positionChangePer100msToMetersPerSecond(frontLeftDrvMotor.getSelectedSensorVelocity()), 
-    Rotation2d.fromDegrees(getRotEncoderValue(SwerveModule.FRONT_LEFT))),
+    SwerveModulePosition[] swerveModulePositions = {
+      new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.FRONT_LEFT), new Rotation2d(getRotEncoderValue(SwerveModule.FRONT_LEFT))),
+      new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.FRONT_RIGHT), new Rotation2d(getRotEncoderValue(SwerveModule.FRONT_RIGHT))),
+      new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.REAR_LEFT), new Rotation2d(getRotEncoderValue(SwerveModule.REAR_LEFT))),
+      new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.REAR_RIGHT), new Rotation2d(getRotEncoderValue(SwerveModule.REAR_RIGHT)))};
     
-    new SwerveModuleState(positionChangePer100msToMetersPerSecond(frontRightDrvMotor.getSelectedSensorVelocity()), 
-    Rotation2d.fromDegrees(getRotEncoderValue(SwerveModule.FRONT_RIGHT))),
-    
-    new SwerveModuleState(positionChangePer100msToMetersPerSecond(rearLeftDrvMotor.getSelectedSensorVelocity()), 
-    Rotation2d.fromDegrees(getRotEncoderValue(SwerveModule.REAR_LEFT))),
-    
-    new SwerveModuleState(positionChangePer100msToMetersPerSecond(rearRightDrvMotor.getSelectedSensorVelocity()), 
-    Rotation2d.fromDegrees(getRotEncoderValue(SwerveModule.REAR_RIGHT))));
-
-    drivetrainDashboard = "frontLeft rot encoder/" + getRotEncoderValue(SwerveModule.FRONT_LEFT) + ";";
-    drivetrainDashboard = drivetrainDashboard + "frontLeft PID Output/" + getRotPIDOutput(SwerveModule.FRONT_LEFT) + ";";
-    drivetrainDashboard = drivetrainDashboard + "frontLeft PID Setpoint/" + frontLeftPID.getSetpoint() + ";";
-
-    drivetrainDashboard = drivetrainDashboard + "frontRight rot encoder/" + getRotEncoderValue(SwerveModule.FRONT_RIGHT) + ";";
-    drivetrainDashboard = drivetrainDashboard + "frontRight PID/" + getRotPIDOutput(SwerveModule.FRONT_RIGHT) + ";";
-    drivetrainDashboard = drivetrainDashboard + "frontRight PID Setpoint/" + frontRightPID.getSetpoint() + ";";
-
-    drivetrainDashboard = drivetrainDashboard + "rearLeft rot encoder/" + getRotEncoderValue(SwerveModule.REAR_LEFT) + ";";
-    drivetrainDashboard = drivetrainDashboard + "rearLeft PID/" + getRotPIDOutput(SwerveModule.REAR_LEFT) + ";";
-    drivetrainDashboard = drivetrainDashboard + "rearleft PID Setpoint/" + rearLeftPID.getSetpoint() + ";";
-
-    drivetrainDashboard = drivetrainDashboard + "rearRight rot encoder/" + getRotEncoderValue(SwerveModule.REAR_RIGHT) + ";";
-    drivetrainDashboard = drivetrainDashboard + "rearRight PID/" + getRotPIDOutput(SwerveModule.REAR_RIGHT) + ";";
-    drivetrainDashboard = drivetrainDashboard + "rearRight PID Setpoint/" + rearRightPID.getSetpoint() + ";"; 
-
-    drivetrainDashboard = drivetrainDashboard + "odometry X/" + odometry.getPoseMeters().getX() + ";";
-    drivetrainDashboard = drivetrainDashboard + "odometry Y/" + odometry.getPoseMeters().getY() + ";";
-    drivetrainDashboard = drivetrainDashboard + "odometry Z/" + odometry.getPoseMeters().getRotation().getDegrees() + ";";
-
-    drivetrainDashboard = drivetrainDashboard + "FL Encoder Position/" + getDriveEncoder(SwerveModule.FRONT_LEFT) + ";";
+    odometry.update(navx.getRotation2d(), swerveModulePositions);
 
   }
 
@@ -378,6 +359,29 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
+  //Return the inbuilt encoders on the drive Falcons but converts them to meters
+  public double getDriveEncoderMeters(SwerveModule module){
+    
+    //Divides encoder value by 2048 (CPR) to get to rotations of the motor
+    //Divides rotations of the motor by 6.12 (Gear Ratio) to get rotations fo the wheel
+    //Multiplies rotations of the wheel by the circumference of the wheel in meters (2*PI*RadiusMeters) to get the distance in meters
+    if(module == SwerveModule.FRONT_LEFT){
+      return (((frontLeftDrvMotor.getSelectedSensorPosition()/2048)/6.12)*(2*Math.PI*0.0508));
+    }
+    else if(module == SwerveModule.FRONT_RIGHT){
+      return (((frontRightDrvMotor.getSelectedSensorPosition()/2048)/6.12)*(2*Math.PI*0.0508));
+    }
+    else if(module == SwerveModule.REAR_LEFT){
+      return (((rearLeftDrvMotor.getSelectedSensorPosition()/2048)/6.12)*(2*Math.PI*0.0508));
+    }
+    else if(module == SwerveModule.REAR_RIGHT){
+      return (((rearRightDrvMotor.getSelectedSensorPosition()/2048)/6.12)*(2*Math.PI*0.0508));
+    }
+    else{
+      return 0;
+    }
+  }
+
   //Resets the drive falcon encoders
   public void resetDriveEncoders(){
     frontLeftDrvMotor.setSelectedSensorPosition(0);
@@ -537,7 +541,14 @@ public double getOdometryZ(){
 
 
 public void resetOdometry(Pose2d pose2d) {
-  odometry.resetPosition(pose2d, navx.getRotation2d());
+
+  SwerveModulePosition[] zeroModulePositionArray = {
+    new SwerveModulePosition(0, new Rotation2d(0)), 
+    new SwerveModulePosition(0, new Rotation2d(0)),
+    new SwerveModulePosition(0, new Rotation2d(0)),
+    new SwerveModulePosition(0, new Rotation2d(0))};
+
+  odometry.resetPosition(new Rotation2d(0), zeroModulePositionArray, new Pose2d(0, 0, new Rotation2d(0)));
 }
 /*
 public void updateOdometry(){
