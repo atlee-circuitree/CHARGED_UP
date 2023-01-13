@@ -82,14 +82,14 @@ public class PathFollower extends CommandBase {
 
     //Auto calculations
     
-    //Pose2d currentPos = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(),
-    //new Rotation2d(Math.toRadians(drivetrain.getOdometryZ())));
+  
+    //Rotation values are just placeholders bc we don't want the HolonomicDriveController to know that we are rotating
+    //We deal with the rotation separately since it is waaaay easier
+    //However, because of this, if you want to know the current robot Z, DO NOT USE CURRENTPOS IT WILL JUST RETURN ZERO
+    //Use drivertain.getOdometryZ() instead
     Pose2d currentPos = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(),
     new Rotation2d(0));
 
-    //Rotation values are just placeholders
-    //Pose2d targetPos = new Pose2d(pathEQ.solvePoint(targetUValue)[0], pathEQ.solvePoint(targetUValue)[1], 
-    //  new Rotation2d(Math.toRadians(pathEQ.solveAngle(targetUValue))));
     Pose2d targetPos = new Pose2d(pathEQ.solvePoint(targetUValue)[0], pathEQ.solvePoint(targetUValue)[1], 
       new Rotation2d(0));
 
@@ -101,8 +101,8 @@ public class PathFollower extends CommandBase {
 
     forward = chassisSpeeds.vyMetersPerSecond;
     strafe = chassisSpeeds.vxMetersPerSecond;
-    //rotation = zPID.calculate(drivetrain.getOdometryZ());
-    rotation = (pathEQ.solveAngle(targetUValue) - drivetrain.getOdometryZ())/5;
+    //rotation = 0;
+    rotation = (pathEQ.solveAngle(targetUValue) - drivetrain.getOdometryZ())/10;
 
     //Normalize calculated vx and vy velocities
     if(Math.abs(forward) > 1 && Math.abs(forward) >= Math.abs(strafe)){
@@ -117,7 +117,7 @@ public class PathFollower extends CommandBase {
     //Invert fwd so it goes the correct direction
     forward = -forward;
     //Invert rot so it rotates in the correct direction
-    //rotation = -rotation;
+    rotation = -rotation;
 
     //Clamp calculated vz velocity between -1 and 1
     if(rotation > 1){

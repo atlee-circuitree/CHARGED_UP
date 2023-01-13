@@ -54,6 +54,7 @@ public class Drivetrain extends SubsystemBase {
 
   SwerveDriveOdometry odometry;
   DecimalFormat odometryRounder = new DecimalFormat("##.##");
+  
 
   public static String drivetrainDashboard;
 
@@ -148,12 +149,12 @@ public class Drivetrain extends SubsystemBase {
 
     //Updates odometry
     SwerveModulePosition[] swerveModulePositions = {
-      new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.FRONT_LEFT), new Rotation2d(getRotEncoderValue(SwerveModule.FRONT_LEFT))),
-      new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.FRONT_RIGHT), new Rotation2d(getRotEncoderValue(SwerveModule.FRONT_RIGHT))),
-      new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.REAR_LEFT), new Rotation2d(getRotEncoderValue(SwerveModule.REAR_LEFT))),
-      new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.REAR_RIGHT), new Rotation2d(getRotEncoderValue(SwerveModule.REAR_RIGHT)))};
+      new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.FRONT_LEFT), new Rotation2d(Math.toRadians(getRotEncoderValue(SwerveModule.FRONT_LEFT)))),
+      new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.FRONT_RIGHT), new Rotation2d(Math.toRadians(getRotEncoderValue(SwerveModule.FRONT_RIGHT)))),
+      new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.REAR_LEFT), new Rotation2d(Math.toRadians(getRotEncoderValue(SwerveModule.REAR_LEFT)))),
+      new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.REAR_RIGHT), new Rotation2d(Math.toRadians(getRotEncoderValue(SwerveModule.REAR_RIGHT))))};
     
-    odometry.update(navx.getRotation2d(), swerveModulePositions);
+    odometry.update(new Rotation2d(getNavXOutputRadians()), swerveModulePositions);
 
   }
 
@@ -542,13 +543,14 @@ public double getOdometryZ(){
 
 public void resetOdometry(Pose2d pose2d) {
 
-  SwerveModulePosition[] zeroModulePositionArray = {
-    new SwerveModulePosition(0, new Rotation2d(0)), 
-    new SwerveModulePosition(0, new Rotation2d(0)),
-    new SwerveModulePosition(0, new Rotation2d(0)),
-    new SwerveModulePosition(0, new Rotation2d(0))};
+  SwerveModulePosition[] swerveModulePositions = {
+    new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.FRONT_LEFT), new Rotation2d(Math.toRadians(getRotEncoderValue(SwerveModule.FRONT_LEFT)))),
+    new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.FRONT_RIGHT), new Rotation2d(Math.toRadians(getRotEncoderValue(SwerveModule.FRONT_RIGHT)))),
+    new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.REAR_LEFT), new Rotation2d(Math.toRadians(getRotEncoderValue(SwerveModule.REAR_LEFT)))),
+    new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.REAR_RIGHT), new Rotation2d(Math.toRadians(getRotEncoderValue(SwerveModule.REAR_RIGHT))))};
+  
 
-  odometry.resetPosition(new Rotation2d(0), zeroModulePositionArray, new Pose2d(0, 0, new Rotation2d(0)));
+  odometry.resetPosition(new Rotation2d(getNavXOutputRadians()), swerveModulePositions, pose2d);
 }
 /*
 public void updateOdometry(){

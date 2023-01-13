@@ -8,6 +8,7 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.util.RuntimeDetector;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -27,7 +28,7 @@ public class DriveWithXbox extends CommandBase {
   private SlewRateLimiter slewRateLimiterZ = new SlewRateLimiter(0.2);
   
   private XboxController xbox;
-
+ private RuntimeDetector TEST;
   public boolean isTesting;
   private boolean fieldOrientation = true;
 
@@ -38,7 +39,7 @@ public class DriveWithXbox extends CommandBase {
   public static String driveWithXboxDashboard;
  
   public DriveWithXbox(Drivetrain dt, XboxController xboxController, boolean testing) {
-    
+  
     drivetrain = dt;
     xbox = xboxController;
 
@@ -163,9 +164,13 @@ public class DriveWithXbox extends CommandBase {
       drivetrain.rotateMotor(Motors.REAR_RIGHT_DRV, rearRightSpeed);
     }
 
-    SmartDashboard.putNumber("getRoundedOdometryX()", drivetrain.getOdometryX());
-    SmartDashboard.putNumber("getRoundedOdometryY()", drivetrain.getOdometryY());
-    SmartDashboard.putNumber("getRoundedOdometryZ()", drivetrain.getOdometryZ());
+    SmartDashboard.putNumber("getOdometryX()", drivetrain.getOdometryX());
+    SmartDashboard.putNumber("getOdometryY()", drivetrain.getOdometryY());
+    SmartDashboard.putNumber("getOdometryZ()", drivetrain.getOdometryZ());
+
+    SmartDashboard.putNumber("getRawOdometryX()", drivetrain.getRawOdometryX());
+    SmartDashboard.putNumber("getRawOdometryY()", drivetrain.getRawOdometryY());
+    SmartDashboard.putNumber("getRawOdometryZ()", drivetrain.getRawOdometryZ());
 
 
     //Reset gyro button
