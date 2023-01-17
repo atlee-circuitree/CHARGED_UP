@@ -6,13 +6,18 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.DriveWithXbox;
 import frc.robot.commands.PathFollower;
 import frc.robot.commands.PathGenerator;
+import frc.robot.commands.PlayAudio;
 import frc.robot.commands.RecalibrateModules;
 import frc.robot.commands.TestPathFollower;
+import frc.robot.subsystems.Audio;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -24,6 +29,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private final Drivetrain drivetrain;
+  private final Audio audio;
 
   private final DriveWithXbox driveWithXbox;
   private final RecalibrateModules recalibrateModules;
@@ -33,6 +39,7 @@ public class RobotContainer {
   //private final TestPathFollower testPathFollower;
   private final PathEQ pathEQ; 
 
+  private final PlayAudio playAudio;
 
   public XboxController xbox = new XboxController(0);
 
@@ -41,11 +48,15 @@ public class RobotContainer {
     // Configure the button bindings
     
     drivetrain = new Drivetrain();
+    audio = new Audio();
+
+    playAudio = new PlayAudio(audio, 2, 2);
 
     pathEQ = new PathEQ(Constants.autoCoordinates, true);
 
     //Teleop commands
     driveWithXbox = new DriveWithXbox(drivetrain, xbox, false);
+ 
     driveWithXbox.addRequirements(drivetrain);
     drivetrain.setDefaultCommand(driveWithXbox);
 
@@ -69,7 +80,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    
+    JoystickButton driver1L3 = new JoystickButton(xbox, XboxController.Button.kB.value);
+    driver1L3.onTrue(playAudio);
+
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

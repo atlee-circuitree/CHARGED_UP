@@ -15,14 +15,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Audio extends SubsystemBase {
 
   /* The orchestra object that holds all the instruments */
-  Orchestra orchestra;
+  public Orchestra orchestra;
 
   /* Talon FXs to play music through.  
   More complex music MIDIs will contain several tracks, requiring multiple instruments.  */
-  WPI_TalonFX []  fxes =  { new WPI_TalonFX(1, "rio"), new WPI_TalonFX(2, "rio") };
+  WPI_TalonFX []  fxes =  { new WPI_TalonFX(1, "rio"), new WPI_TalonFX(2, "rio"), new WPI_TalonFX(3, "rio"), new WPI_TalonFX(4, "rio"), new WPI_TalonFX(5, "rio"), new WPI_TalonFX(6, "rio"), new WPI_TalonFX(7, "rio"), new WPI_TalonFX(8, "rio") };
 
   String[] songs = new String[] {
     "LowBatteryBeeping.chrp",
+    "song2.chrp"
   };
 
   int songSelection = 0;

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.Audio;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Drivetrain.Motors;
 import frc.robot.subsystems.Drivetrain.SwerveModule;
@@ -50,10 +51,13 @@ public class DriveWithXbox extends CommandBase {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+ 
+  }
 
   @Override
   public void execute() {
+ 
     /*
     Holy cow this is going to be A LOT of code eventually...
     (Actually, it's pretty compact/efficient currently. I thought this was going to need a lot more code... - Simon 8/3/21)
@@ -179,10 +183,14 @@ public class DriveWithXbox extends CommandBase {
 
 
     //Reset gyro button
+    //if(xbox.getBackButtonPressed()){
+    //  drivetrain.zeroNavXYaw();
+    //  drivetrain.resetDriveEncoders();
+    //  drivetrain.resetOdometry(new Pose2d(new Translation2d(0, new Rotation2d(0)), new Rotation2d(0)));
+    //}
     if(xbox.getBackButtonPressed()){
       drivetrain.zeroNavXYaw();
-      drivetrain.resetDriveEncoders();
-      drivetrain.resetOdometry(new Pose2d(new Translation2d(0, new Rotation2d(0)), new Rotation2d(0)));
+      drivetrain.TESTresetOdometry(new Pose2d(new Translation2d(0, new Rotation2d(0)), new Rotation2d(0)));
     }
   }  
 
