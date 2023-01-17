@@ -62,6 +62,7 @@ public class PathFollower extends CommandBase {
     aTolerance = angleTolerance;
 
     zPID.enableContinuousInput(-180, 180);
+    driveController.setTolerance(new Pose2d(pointTolerance, pointTolerance, new Rotation2d(angleTolerance)));
 
     addRequirements(drivetrain);
 
@@ -101,8 +102,10 @@ public class PathFollower extends CommandBase {
 
     forward = chassisSpeeds.vyMetersPerSecond;
     strafe = chassisSpeeds.vxMetersPerSecond;
-    //rotation = 0;
-    rotation = (pathEQ.solveAngle(targetUValue) - drivetrain.getOdometryZ())/10;
+    //forward = 0;
+    //strafe = 0;
+    rotation = 0.2;
+    //rotation = (pathEQ.solveAngle(targetUValue) - drivetrain.getOdometryZ())/10;
 
     //Normalize calculated vx and vy velocities
     if(Math.abs(forward) > 1 && Math.abs(forward) >= Math.abs(strafe)){
@@ -127,10 +130,12 @@ public class PathFollower extends CommandBase {
       rotation = -1;
     }
 
+    
+
     //Modify target values for field orientation (temp used to save calculations before original forward and strafe values are modified)
-    double temp = forward * Math.cos(-drivetrain.getNavXOutputRadians()) + strafe * Math.sin(-drivetrain.getNavXOutputRadians()); 
-    strafe = -forward * Math.sin(-drivetrain.getNavXOutputRadians()) + strafe * Math.cos(-drivetrain.getNavXOutputRadians()); 
-    forward = temp;
+    //double temp = forward * Math.cos(-drivetrain.getNavXOutputRadians()) + strafe * Math.sin(-drivetrain.getNavXOutputRadians()); 
+    //strafe = -forward * Math.sin(-drivetrain.getNavXOutputRadians()) + strafe * Math.cos(-drivetrain.getNavXOutputRadians()); 
+    //forward = temp;
 
     //Alphabet vars
     double A = strafe - (rotation * (Constants.wheelbase/Constants.drivetrainRadius));
@@ -182,7 +187,7 @@ public class PathFollower extends CommandBase {
     drivetrain.rotateMotor(Motors.REAR_RIGHT_DRV, rearRightSpeed * speedMod);
   
 
-
+    /* 
     //If we have reached the current target X value
     if(targetPos.getX() - pTolerance <= currentPos.getX() && currentPos.getX() <= targetPos.getX() + pTolerance){
       //And the current target Y value
@@ -194,6 +199,10 @@ public class PathFollower extends CommandBase {
           targetUValue = targetUValue + uIncrement;
         }
       }
+    }
+    */
+    if(driveController.atReference()){
+      targetUValue = targetUValue + uIncrement;
     }
     //If the target u value is greater than the final u value, the robot has finished moving
     if(targetUValue > pathEQ.getFinalUValue()){
@@ -221,13 +230,15 @@ public class PathFollower extends CommandBase {
 
     SmartDashboard.putNumber("Current X", currentPos.getX());
     SmartDashboard.putNumber("Current Y", currentPos.getY());
-    SmartDashboard.putNumber("Current Z", currentPos.getRotation().getDegrees());
+    SmartDashboard.putNumber("Fake Current Z", currentPos.getRotation().getDegrees());
+    SmartDashboard.putNumber("Actual Current Z", drivetrain.getOdometryZ());
 
     SmartDashboard.putNumber("Target X", targetPos.getX());
     SmartDashboard.putNumber("Target Y", targetPos.getY());
     SmartDashboard.putNumber("Target Z", pathEQ.solveAngle(targetUValue));
     
     SmartDashboard.putNumber("Target U", targetUValue);
+    SmartDashboard.putBoolean("Drivecontroller Within Tolerance", driveController.atReference());
     SmartDashboard.putBoolean("IsFinished", isFinished);
 
   }  

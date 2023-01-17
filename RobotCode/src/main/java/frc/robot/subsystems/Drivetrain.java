@@ -14,6 +14,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.text.DecimalFormat;
 
@@ -105,7 +106,8 @@ public class Drivetrain extends SubsystemBase {
     frontRightRotEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
     rearLeftRotEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
     rearRightRotEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
-    
+
+    resetDriveEncoders();
 
     //We are using getAboslutePosition(), but just in case
     frontLeftRotEncoder.setPosition(0);
@@ -132,14 +134,14 @@ public class Drivetrain extends SubsystemBase {
     navx = new AHRS(SPI.Port.kMXP);
     navx.reset();
 
-    //odometry = new SwerveDriveOdometry(Constants.driveKinematics, navx.getRotation2d());
     SwerveModulePosition[] zeroModulePositionArray = {
       new SwerveModulePosition(0, new Rotation2d(0)), 
       new SwerveModulePosition(0, new Rotation2d(0)),
       new SwerveModulePosition(0, new Rotation2d(0)),
-      new SwerveModulePosition(0, new Rotation2d(0))}; 
+      new SwerveModulePosition(0, new Rotation2d(0))
+    }; 
     
-    odometry = new SwerveDriveOdometry(Constants.driveKinematics, navx.getRotation2d(), zeroModulePositionArray);
+    odometry = new SwerveDriveOdometry(Constants.driveKinematics, new Rotation2d(getNavXOutputRadians()), zeroModulePositionArray);
 
   }
 
@@ -155,6 +157,10 @@ public class Drivetrain extends SubsystemBase {
       new SwerveModulePosition(getDriveEncoderMeters(SwerveModule.REAR_RIGHT), new Rotation2d(Math.toRadians(getRotEncoderValue(SwerveModule.REAR_RIGHT))))};
     
     odometry.update(new Rotation2d(getNavXOutputRadians()), swerveModulePositions);
+
+    SmartDashboard.putNumber("navx.getyaw()", getNavXOutput());
+    SmartDashboard.putNumber("navx.getRotation2d()", navx.getRotation2d().getDegrees());
+    SmartDashboard.putNumber("navx.getAngle()", navx.getAngle());
 
   }
 

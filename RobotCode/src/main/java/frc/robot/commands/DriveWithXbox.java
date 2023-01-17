@@ -172,10 +172,16 @@ public class DriveWithXbox extends CommandBase {
     SmartDashboard.putNumber("getRawOdometryY()", drivetrain.getRawOdometryY());
     SmartDashboard.putNumber("getRawOdometryZ()", drivetrain.getRawOdometryZ());
 
+    SmartDashboard.putNumber("FR Wheel Encoder", drivetrain.getDriveEncoder(SwerveModule.FRONT_RIGHT));
+    SmartDashboard.putNumber("FR Wheel Encoder Meters", drivetrain.getDriveEncoderMeters(SwerveModule.FRONT_RIGHT));
+
+    
+
 
     //Reset gyro button
     if(xbox.getBackButtonPressed()){
       drivetrain.zeroNavXYaw();
+      drivetrain.resetDriveEncoders();
       drivetrain.resetOdometry(new Pose2d(new Translation2d(0, new Rotation2d(0)), new Rotation2d(0)));
     }
   }  

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveWithXbox;
 import frc.robot.commands.PathFollower;
 import frc.robot.commands.PathGenerator;
+import frc.robot.commands.RecalibrateModules;
 import frc.robot.commands.TestPathFollower;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,6 +26,7 @@ public class RobotContainer {
   private final Drivetrain drivetrain;
 
   private final DriveWithXbox driveWithXbox;
+  private final RecalibrateModules recalibrateModules;
 
   //private final PathGenerator pathGenerator;
   private final PathFollower pathFollower;
@@ -47,9 +49,13 @@ public class RobotContainer {
     driveWithXbox.addRequirements(drivetrain);
     drivetrain.setDefaultCommand(driveWithXbox);
 
+    recalibrateModules = new RecalibrateModules(drivetrain, xbox);
+    //recalibrateModules.addRequirements(drivetrain);
+    //drivetrain.setDefaultCommand(recalibrateModules);
+    
     //pathGenerator = new PathGenerator();
 
-    pathFollower = new PathFollower(drivetrain, pathEQ, 0.2, 0.15, 3);
+    pathFollower = new PathFollower(drivetrain, pathEQ, 0.2, 0.2, 5);
     //testPathFollower = new TestPathFollower(drivetrain, pathEQ, 0.1, 0.05);
     
     

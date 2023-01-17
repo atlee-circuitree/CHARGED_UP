@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.I2C;
 public final class Constants {
 
     //Declare coordinates in the form {u, x, y, angle}
-    public static final double[][] autoCoordinates = {{0, 0,0.25 ,0}, {1, 0,0.5 ,0}, {2, 0,0.75 ,0}, {3, 0,1 ,0}};
+    public static final double[][] autoCoordinates = {{0, 0,0 ,0}, {1, 0,0.5 ,0}, {2, 0,1 ,0}, {3, 1.5,1.5 ,0}};
 
     public static final int frontLeftDrvMotorPort = 4;
     public static final int frontRightDrvMotorPort = 2;
@@ -40,10 +40,14 @@ public final class Constants {
     public static final int rearRightRotEncoderPort = 10;
     
 
-    public static final double frontLeftEncoderOffset = 285.380859375;
-    public static final double frontRightEncoderOffset = 252.685546875;
-    public static final double rearLeftEncoderOffset = 130.25390625;
-    public static final double rearRightEncoderOffset = 69.345703125;
+    //public static final double frontLeftEncoderOffset = 285.380859375;
+    //public static final double frontRightEncoderOffset = 252.685546875;
+    //public static final double rearLeftEncoderOffset = 130.25390625;
+    //public static final double rearRightEncoderOffset = 69.345703125;
+    public static final double frontLeftEncoderOffset = 286.259765625;
+    public static final double frontRightEncoderOffset = 250.224609375;
+    public static final double rearLeftEncoderOffset = 128.759765625;
+    public static final double rearRightEncoderOffset = 76.201171875;
 
  
     public static final double trackwidth = 22.5;
