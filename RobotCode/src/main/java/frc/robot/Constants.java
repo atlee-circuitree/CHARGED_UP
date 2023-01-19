@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.I2C;
 public final class Constants {
 
     //Declare coordinates in the form {u, x, y, angle}
-    public static final double[][] autoCoordinates = {{0, 0,0 ,0}, {1, 0,0.5 ,0}, {2, 0,1 ,0}, {3, 1.5,1.5 ,0}};
+    public static final double[][] autoCoordinates = {{0, 0,0 ,0}, {1, 0,0.5 ,20}, {2, 0,1 ,40}, {3, 0,1.5 ,60}};
 
     public static final int frontLeftDrvMotorPort = 4;
     public static final int frontRightDrvMotorPort = 2;

@@ -102,10 +102,7 @@ public class PathFollower extends CommandBase {
 
     forward = chassisSpeeds.vyMetersPerSecond;
     strafe = chassisSpeeds.vxMetersPerSecond;
-    //forward = 0;
-    //strafe = 0;
-    rotation = 0.2;
-    //rotation = (pathEQ.solveAngle(targetUValue) - drivetrain.getOdometryZ())/10;
+    rotation = (pathEQ.solveAngle(targetUValue) - drivetrain.getOdometryZ())/10;
 
     //Normalize calculated vx and vy velocities
     if(Math.abs(forward) > 1 && Math.abs(forward) >= Math.abs(strafe)){
@@ -120,7 +117,7 @@ public class PathFollower extends CommandBase {
     //Invert fwd so it goes the correct direction
     forward = -forward;
     //Invert rot so it rotates in the correct direction
-    rotation = -rotation;
+    //rotation = -rotation;
 
     //Clamp calculated vz velocity between -1 and 1
     if(rotation > 1){
@@ -187,22 +184,14 @@ public class PathFollower extends CommandBase {
     drivetrain.rotateMotor(Motors.REAR_RIGHT_DRV, rearRightSpeed * speedMod);
   
 
-    /* 
-    //If we have reached the current target X value
-    if(targetPos.getX() - pTolerance <= currentPos.getX() && currentPos.getX() <= targetPos.getX() + pTolerance){
-      //And the current target Y value
-      if(targetPos.getY() - pTolerance <= currentPos.getY() && currentPos.getY() <= targetPos.getY() + pTolerance){
-        //And the curent target angle
-        if(pathEQ.solveAngle(targetUValue) - aTolerance <= drivetrain.getOdometryZ() && 
-          drivetrain.getOdometryZ() <= pathEQ.solveAngle(targetUValue) + aTolerance){
-          //Set the next target u value
-          targetUValue = targetUValue + uIncrement;
-        }
-      }
-    }
-    */
+    //If robot at target position, increment the target u value
     if(driveController.atReference()){
-      targetUValue = targetUValue + uIncrement;
+      if(pathEQ.solveAngle(targetUValue) - aTolerance <= drivetrain.getOdometryZ() && 
+        drivetrain.getOdometryZ() <= pathEQ.solveAngle(targetUValue) + aTolerance){
+        
+        targetUValue = targetUValue + uIncrement;
+
+      }
     }
     //If the target u value is greater than the final u value, the robot has finished moving
     if(targetUValue > pathEQ.getFinalUValue()){
