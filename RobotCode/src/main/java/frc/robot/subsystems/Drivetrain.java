@@ -480,10 +480,10 @@ public class Drivetrain extends SubsystemBase {
   }
   
 
-  public double getNavXOutput(){
+  public double getNavXYawOutput(){
     return navx.getYaw();
   }
-  public double getNavXOutputRadians(){
+  public double getNavXYawOutputRadians(){
     return Math.toRadians(navx.getYaw());
   }
   public void zeroNavXYaw(){

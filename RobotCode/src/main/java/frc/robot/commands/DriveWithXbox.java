@@ -106,8 +106,8 @@ public class DriveWithXbox extends CommandBase {
     }
 
     //Modify target values for field orientation (temp used to save calculations before original forward and strafe values are modified)
-    double temp = forward * Math.cos(-drivetrain.getNavXOutputRadians()) + strafe * Math.sin(-drivetrain.getNavXOutputRadians()); 
-    strafe = -forward * Math.sin(-drivetrain.getNavXOutputRadians()) + strafe * Math.cos(-drivetrain.getNavXOutputRadians()); 
+    double temp = forward * Math.cos(-drivetrain.getNavXYawOutputRadians()) + strafe * Math.sin(-drivetrain.getNavXYawOutputRadians()); 
+    strafe = -forward * Math.sin(-drivetrain.getNavXYawOutputRadians()) + strafe * Math.cos(-drivetrain.getNavXYawOutputRadians()); 
     forward = temp;
 
     
