@@ -38,8 +38,12 @@ public final class Constants {
     public static final int frontRightRotEncoderPort = 9;
     public static final int rearLeftRotEncoderPort = 12;
     public static final int rearRightRotEncoderPort = 10;
-    
 
+    public static final int leftAngMotorPort = 0;
+    public static final int rightAngMotorPort = 0;
+    public static final int leftExtMotorPort = 0;
+    public static final int rightExtMotorPort = 0;
+    
     //public static final double frontLeftEncoderOffset = 285.380859375;
     //public static final double frontRightEncoderOffset = 252.685546875;
     //public static final double rearLeftEncoderOffset = 130.25390625;
