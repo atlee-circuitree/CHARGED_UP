@@ -9,6 +9,8 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -18,6 +20,9 @@ public class Slide extends SubsystemBase {
   TalonFX rightAngMotor;
   TalonFX leftExtMotor;
   TalonFX rightExtMotor;
+
+  DutyCycleEncoder leftAngleBore;
+  DutyCycleEncoder rightAngleBore;
  
   public Slide() {
 
@@ -25,6 +30,9 @@ public class Slide extends SubsystemBase {
     rightAngMotor = new TalonFX(Constants.rightAngMotorPort);
     leftExtMotor = new TalonFX(Constants.leftExtMotorPort);
     rightExtMotor = new TalonFX(Constants.rightExtMotorPort);
+
+    //leftAngleBore = new DutyCycleEncoder(0);
+    //rightAngleBore = new DutyCycleEncoder(0);
 
     leftAngMotor.setInverted(true);
     rightAngMotor.setInverted(false);
@@ -40,7 +48,10 @@ public class Slide extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    
+    //SmartDashboard.putNumber("Left Angle Encoder Position", leftAngleBore.get());
+    //SmartDashboard.putNumber("Right Angle Encoder Position", rightAngleBore.get());
+
   }
 
   public void changeAngleUsingPower(double speed) {

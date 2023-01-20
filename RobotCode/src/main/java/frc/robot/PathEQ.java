@@ -309,21 +309,11 @@ public class PathEQ {
 
     }
 
-
-
-
-
-
-
-
-
-
     public void dashboardYCoefs(){
         for(int i = 0; i < yCoefs.length; i++){
             SmartDashboard.putNumberArray(String.valueOf(i), yCoefs[i]);
         }
     }
-
 
     /**
      * @param uValue Input a U value
