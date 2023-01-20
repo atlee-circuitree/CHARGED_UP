@@ -12,9 +12,11 @@ import frc.robot.commands.PathFollower;
 import frc.robot.commands.PathGenerator;
 import frc.robot.commands.PlayAudio;
 import frc.robot.commands.RecalibrateModules;
+import frc.robot.commands.SlideWithXbox;
 import frc.robot.commands.TestPathFollower;
 import frc.robot.subsystems.Audio;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Slide;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -30,8 +32,10 @@ public class RobotContainer {
 
   private final Drivetrain drivetrain;
   private final Audio audio;
+  private final Slide slide;
 
   private final DriveWithXbox driveWithXbox;
+  private final SlideWithXbox slideWithXbox;
   private final RecalibrateModules recalibrateModules;
 
   //private final PathGenerator pathGenerator;
@@ -41,13 +45,15 @@ public class RobotContainer {
 
   private final PlayAudio playAudio;
 
-  public XboxController xbox = new XboxController(0);
+  public XboxController xbox1 = new XboxController(0);
+  public XboxController xbox2 = new XboxController(1);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     
     drivetrain = new Drivetrain();
+    slide = new Slide();
     audio = new Audio();
 
     playAudio = new PlayAudio(audio, 2, 2);
@@ -55,12 +61,16 @@ public class RobotContainer {
     pathEQ = new PathEQ(Constants.autoCoordinates, true);
 
     //Teleop commands
-    driveWithXbox = new DriveWithXbox(drivetrain, xbox, false);
+    driveWithXbox = new DriveWithXbox(drivetrain, xbox1, false);
+    slideWithXbox = new SlideWithXbox(xbox2, slide);
  
     driveWithXbox.addRequirements(drivetrain);
+    slideWithXbox.addRequirements(slide);
     drivetrain.setDefaultCommand(driveWithXbox);
+    slide.setDefaultCommand(slideWithXbox);
 
-    recalibrateModules = new RecalibrateModules(drivetrain, xbox);
+
+    recalibrateModules = new RecalibrateModules(drivetrain, xbox1);
     //recalibrateModules.addRequirements(drivetrain);
     //drivetrain.setDefaultCommand(recalibrateModules);
     
@@ -68,10 +78,9 @@ public class RobotContainer {
 
     pathFollower = new PathFollower(drivetrain, pathEQ, 0.2, 0.2, 5);
     //testPathFollower = new TestPathFollower(drivetrain, pathEQ, 0.1, 0.05);
-    
-    
 
     configureButtonBindings();
+
   }
 
   /**
@@ -81,9 +90,22 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    
-    JoystickButton driver1L3 = new JoystickButton(xbox, XboxController.Button.kB.value);
-    driver1L3.onTrue(playAudio);
+
+    JoystickButton driver1A = new JoystickButton(xbox1, XboxController.Button.kA.value);
+    JoystickButton driver1B = new JoystickButton(xbox1, XboxController.Button.kB.value);
+    JoystickButton driver1X = new JoystickButton(xbox1, XboxController.Button.kX.value);
+    JoystickButton driver1Y = new JoystickButton(xbox1, XboxController.Button.kY.value);
+    JoystickButton driver1LB = new JoystickButton(xbox1, XboxController.Button.kLeftBumper.value);
+    JoystickButton driver1RB = new JoystickButton(xbox1, XboxController.Button.kRightBumper.value);
+
+    JoystickButton driver2A = new JoystickButton(xbox2, XboxController.Button.kA.value);
+    JoystickButton driver2B = new JoystickButton(xbox2, XboxController.Button.kB.value);
+    JoystickButton driver2X = new JoystickButton(xbox2, XboxController.Button.kX.value);
+    JoystickButton driver2Y = new JoystickButton(xbox2, XboxController.Button.kY.value);
+    JoystickButton driver2LB = new JoystickButton(xbox2, XboxController.Button.kLeftBumper.value);
+    JoystickButton driver2RB = new JoystickButton(xbox2, XboxController.Button.kRightBumper.value);
+
+    driver1B.onTrue(playAudio);
 
   }
 
