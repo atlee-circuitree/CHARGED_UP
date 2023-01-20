@@ -31,7 +31,7 @@ public class Claw extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void runClaw(int speed) {
+  public void runClaw(double speed) {
 
     leftClawMotor.set(speed);
     rightClawMotor.set(speed);

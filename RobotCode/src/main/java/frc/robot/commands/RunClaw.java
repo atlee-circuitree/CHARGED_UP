@@ -4,21 +4,19 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Slide;
+import frc.robot.subsystems.Claw;
 
-public class SlideWithXbox extends CommandBase {
+public class RunClaw extends CommandBase {
+ 
+  Claw claw;
+  double speed;
 
-  XboxController xbox;
-  Slide slide;
-
-  public SlideWithXbox(XboxController xb, Slide sl) {
-  
-    xbox = xb;
-    slide = sl;
-
-    addRequirements(slide);
+  public RunClaw(Claw cw, double Speed) {
+     
+    claw = cw;
+    speed = Speed;
+    addRequirements(claw);
 
   }
 
@@ -30,8 +28,7 @@ public class SlideWithXbox extends CommandBase {
   @Override
   public void execute() {
 
-    slide.changeAngleUsingPower(xbox.getLeftY() / 3);
-    slide.extendArmUsingPower(xbox.getRightY() / 3);
+    claw.runClaw(speed);
 
   }
 
@@ -39,8 +36,7 @@ public class SlideWithXbox extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    slide.changeAngleUsingPower(0);
-    slide.extendArmUsingPower(0);
+    claw.runClaw(0);
 
   }
 

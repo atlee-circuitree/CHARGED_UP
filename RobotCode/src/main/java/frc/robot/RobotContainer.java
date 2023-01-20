@@ -12,9 +12,11 @@ import frc.robot.commands.PathFollower;
 import frc.robot.commands.PathGenerator;
 import frc.robot.commands.PlayAudio;
 import frc.robot.commands.RecalibrateModules;
+import frc.robot.commands.RunClaw;
 import frc.robot.commands.SlideWithXbox;
 import frc.robot.commands.TestPathFollower;
 import frc.robot.subsystems.Audio;
+import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Slide;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,9 +35,14 @@ public class RobotContainer {
   private final Drivetrain drivetrain;
   private final Audio audio;
   private final Slide slide;
+  private final Claw claw;
 
   private final DriveWithXbox driveWithXbox;
   private final SlideWithXbox slideWithXbox;
+  private Command GenerateClawCommand(double PercentSpeed) {
+    Command runClaw = new RunClaw(claw, PercentSpeed);
+    return runClaw;
+  }
   private final RecalibrateModules recalibrateModules;
 
   //private final PathGenerator pathGenerator;
@@ -53,6 +60,7 @@ public class RobotContainer {
     // Configure the button bindings
     
     drivetrain = new Drivetrain();
+    claw = new Claw();
     slide = new Slide();
     audio = new Audio();
 
@@ -68,7 +76,6 @@ public class RobotContainer {
     slideWithXbox.addRequirements(slide);
     drivetrain.setDefaultCommand(driveWithXbox);
     slide.setDefaultCommand(slideWithXbox);
-
 
     recalibrateModules = new RecalibrateModules(drivetrain, xbox1);
     //recalibrateModules.addRequirements(drivetrain);
@@ -105,7 +112,10 @@ public class RobotContainer {
     JoystickButton driver2LB = new JoystickButton(xbox2, XboxController.Button.kLeftBumper.value);
     JoystickButton driver2RB = new JoystickButton(xbox2, XboxController.Button.kRightBumper.value);
 
-    driver1B.onTrue(playAudio);
+    driver1A.onTrue(playAudio);
+
+    driver2LB.onTrue(GenerateClawCommand(-.3));
+    driver2RB.onTrue(GenerateClawCommand(.3));
 
   }
 
