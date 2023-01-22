@@ -45,18 +45,23 @@ public class AutoBalance extends CommandBase {
       drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
       drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
       drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
-
-      //When navx thinks unbalanced forward,drive motors back
-      drivetrain.driveAllModules(speedBack);
-
-      //When navx thinks unbalanced backwards, drive motors forward
-      drivetrain.driveAllModules(speedForward);
+      
+      //repeat until let go of button
+      while (xbox.getXButtonPressed() == true){
+      
+        //When navx thinks unbalanced forward,drive motors back
+        if (drivetrain.getNavXRollOutput() >= unbalancedAngleForward){
+          drivetrain.driveAllModules(speedBack);
+          }
+        
+          //When navx thinks unbalanced backwards, drive motors forward
+        if (drivetrain.getNavXRollOutput() <= unbalancedAngleBack){
+          drivetrain.driveAllModules(speedForward);
+          }
+        }
       }
     }
-    //repeat until let go of button
-
-
-
+    
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
