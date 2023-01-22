@@ -52,15 +52,15 @@ public class AutoBalance extends CommandBase {
         //When navx thinks unbalanced forward,drive motors back
         if (drivetrain.getNavXRollOutput() >= unbalancedAngleForward){
           drivetrain.driveAllModules(speedBack);
-          }
+        }
         
           //When navx thinks unbalanced backwards, drive motors forward
         if (drivetrain.getNavXRollOutput() <= unbalancedAngleBack){
           drivetrain.driveAllModules(speedForward);
-          }
         }
       }
     }
+  }
     
   // Called once the command ends or is interrupted.
   @Override
