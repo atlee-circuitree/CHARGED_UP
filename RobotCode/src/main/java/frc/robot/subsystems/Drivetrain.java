@@ -64,6 +64,7 @@ public class Drivetrain extends SubsystemBase {
   public static String drivetrainDashboard;
 
   public Drivetrain() {
+
     frontLeftDrvMotor = new TalonFX(Constants.frontLeftDrvMotorPort);
     frontRightDrvMotor = new TalonFX(Constants.frontRightDrvMotorPort);
     rearLeftDrvMotor = new TalonFX(Constants.rearLeftDrvMotorPort);

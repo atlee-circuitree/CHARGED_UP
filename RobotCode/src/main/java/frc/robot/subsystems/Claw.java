@@ -27,7 +27,7 @@ public class Claw extends SubsystemBase {
 
     clawMotor.setIdleMode(IdleMode.kBrake);
     rotateClawMotor.setIdleMode(IdleMode.kBrake);
-
+ 
     rotationBore = new DutyCycleEncoder(Constants.rotationEncoderChannel);
 
   }
