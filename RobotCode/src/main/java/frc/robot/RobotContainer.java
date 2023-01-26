@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.DriveWithXbox;
 import frc.robot.commands.AutoCommands.PathFollower;
+import frc.robot.commands.ClawCommands.RotateClaw;
 import frc.robot.commands.ClawCommands.RunClaw;
 import frc.robot.commands.MiscCommands.PlayAudio;
 import frc.robot.commands.MiscCommands.RecalibrateModules;
@@ -40,6 +41,10 @@ public class RobotContainer {
   private final SlideWithXbox slideWithXbox;
   private Command GenerateClawCommand(double PercentSpeed) {
     Command runClaw = new RunClaw(claw, PercentSpeed);
+    return runClaw;
+  }
+  private Command GenerateRotateClawCommand(double PercentSpeed) {
+    Command runClaw = new RotateClaw(claw, PercentSpeed);
     return runClaw;
   }
   private final RecalibrateModules recalibrateModules;
@@ -115,6 +120,18 @@ public class RobotContainer {
 
     driver2LB.onTrue(GenerateClawCommand(-.3));
     driver2RB.onTrue(GenerateClawCommand(.3));
+
+    if (xbox1.getLeftTriggerAxis() > .5) {
+
+      GenerateRotateClawCommand(.5);
+
+    }
+
+    if (xbox1.getRightTriggerAxis() > .5) {
+
+      GenerateRotateClawCommand(-.5);
+  
+    }
 
   }
 
