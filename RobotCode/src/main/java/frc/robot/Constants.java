@@ -22,7 +22,16 @@ import edu.wpi.first.wpilibj.I2C;
 public final class Constants {
 
     //Declare coordinates in the form {u, x, y, angle}
+<<<<<<< Updated upstream
     public static final double[][] autoCoordinates = {{0, 0,0 ,0}, {1, 0,0.5 ,0}, {2, 0,1 ,0}, {3, 1.5,1.5 ,0}};
+=======
+    public static final double[][] autoCoordinates = {{0, 0,0 ,0}, {1, -0.11,0.12 , 0}};
+    public static final double[][] autoCoordinates1 = {{0, -0.11,0.12 , 0}, {1, 4.84,0.52 , 180}};
+    public static final double[][] autoCoordinates2 = {{0, 4.84,0.52 , 180}, {1, -0.11,1.238 , 0}}; 
+    public static final double[][] autoCoordinates3 = {{0, -0.11,1.238 , 0}, {1, 4.84,1.741 , 180}};
+    public static final double[][] autoCoordinates4 = {{0, 4.84,1.741 , 180}, {1, -0.11,1.238 , 0}};
+    public static final double[][] autoCoordinates5 = {{0, -0.11,1.238 , 0}, {1, 0.94,1.738 , 0}};
+>>>>>>> Stashed changes
 
     public static final int frontLeftDrvMotorPort = 4;
     public static final int frontRightDrvMotorPort = 2;
@@ -38,6 +47,19 @@ public final class Constants {
     public static final int frontRightRotEncoderPort = 9;
     public static final int rearLeftRotEncoderPort = 12;
     public static final int rearRightRotEncoderPort = 10;
+<<<<<<< Updated upstream
+=======
+
+    public static final int leftAngMotorPort = 0;
+    public static final int rightAngMotorPort = 0;
+    public static final int extensionMotorPort = 0;
+    public static final int angleEncoderChannel = 0;
+
+    public static final int clawMotorPort = 0;
+    public static final int rotateClawMotorPort = 1;
+    public static final int rotationEncoderChannel = 0;
+
+>>>>>>> Stashed changes
     
 
     //public static final double frontLeftEncoderOffset = 285.380859375;
