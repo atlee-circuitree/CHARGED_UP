@@ -25,8 +25,12 @@ public class AutoBalance extends CommandBase {
   private double speedBack = .25;
 
 
-  public AutoBalance() {
+  public AutoBalance(Drivetrain dt, XboxController xboxController) {
     // Use addRequirements() here to declare subsystem dependencies.
+    drivetrain = dt;
+    xbox = xboxController;
+
+    addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.
@@ -54,7 +58,7 @@ public class AutoBalance extends CommandBase {
           drivetrain.driveAllModules(speedBack);
         }
         
-          //When navx thinks unbalanced backwards, drive motors forward
+        //When navx thinks unbalanced backwards, drive motors forward
         if (drivetrain.getNavXRollOutput() <= unbalancedAngleBack){
           drivetrain.driveAllModules(speedForward);
         }
