@@ -22,7 +22,7 @@ public class AutoBalance extends CommandBase {
   private double unbalancedAngleBack = -10;
   
   private double speedForward = .25;
-  private double speedBack = .25;
+  private double speedBack = -.25;
 
 
   public AutoBalance(Drivetrain dt, XboxController xboxController) {
