@@ -21,7 +21,7 @@ public class Slide extends SubsystemBase {
   TalonFX leftExtMotor;
   TalonFX rightExtMotor;
 
-  DutyCycleEncoder angleBore;
+  //DutyCycleEncoder angleBore;
  
   public Slide() {
 
@@ -30,7 +30,7 @@ public class Slide extends SubsystemBase {
     leftExtMotor = new TalonFX(Constants.leftExtMotorPort);
     rightExtMotor = new TalonFX(Constants.rightExtMotorPort);
 
-    angleBore = new DutyCycleEncoder(Constants.angleEncoderChannel);
+    //angleBore = new DutyCycleEncoder(Constants.angleEncoderChannel);
  
     leftAngMotor.setInverted(true);
     rightAngMotor.setInverted(false);
@@ -47,7 +47,7 @@ public class Slide extends SubsystemBase {
   @Override
   public void periodic() {
  
-    SmartDashboard.putNumber("Angle Encoder Position", angleBore.get());
+    //SmartDashboard.putNumber("Angle Encoder Position", angleBore.get());
     SmartDashboard.putNumber("Angle Encoder Maximum", Constants.maxAngleEncoderValue);
     SmartDashboard.putNumber("Angle Encoder Minimum", Constants.minAngleEncoderValue);
 
@@ -55,6 +55,7 @@ public class Slide extends SubsystemBase {
 
   public void changeAngleUsingPower(double speed) {
 
+    /*
     if (angleBore.get() < Constants.maxAngleEncoderValue && angleBore.get() > Constants.minAngleEncoderValue) {
       
     leftAngMotor.set(TalonFXControlMode.PercentOutput, speed);
@@ -66,6 +67,7 @@ public class Slide extends SubsystemBase {
     rightAngMotor.set(TalonFXControlMode.PercentOutput, 0);
 
     }
+    */
 
   }
 

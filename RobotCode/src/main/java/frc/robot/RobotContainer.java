@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.DriveWithXbox;
+import frc.robot.commands.AutoCommands.AutoBalance;
 import frc.robot.commands.AutoCommands.PathFollower;
 import frc.robot.commands.ClawCommands.RotateClaw;
 import frc.robot.commands.ClawCommands.RunClaw;
@@ -39,6 +40,7 @@ public class RobotContainer {
 
   private final DriveWithXbox driveWithXbox;
   private final SlideWithXbox slideWithXbox;
+  private final AutoBalance autoBalance;
   private Command GenerateClawCommand(double PercentSpeed) {
     Command runClaw = new RunClaw(claw, PercentSpeed);
     return runClaw;
@@ -70,6 +72,8 @@ public class RobotContainer {
 
     playAudio = new PlayAudio(audio, 2, 2);
 
+    autoBalance = new AutoBalance(drivetrain, xbox1);
+
     pathEQ = new PathEQ(Constants.autoCoordinates, true);
 
     //Teleop commands
@@ -78,6 +82,7 @@ public class RobotContainer {
  
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
+    autoBalance.addRequirements(drivetrain);
     drivetrain.setDefaultCommand(driveWithXbox);
     slide.setDefaultCommand(slideWithXbox);
 

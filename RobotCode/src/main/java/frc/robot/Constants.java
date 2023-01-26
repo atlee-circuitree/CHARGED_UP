@@ -92,6 +92,8 @@ public final class Constants {
     public static final double zControllerI = 0;
     public static final double zControllerD = 0;
 
+    public static final double aBalanceValue = .25;
+
 
     //Instansiated in this order:
     //FrontLeft, FrontRight, RearLeft, RearRight

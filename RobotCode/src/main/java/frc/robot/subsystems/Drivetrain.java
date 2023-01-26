@@ -484,6 +484,19 @@ public class Drivetrain extends SubsystemBase {
     navx.zeroYaw();
   }
 
+  public double getNavXRollOutput(){
+    return navx.getRoll();
+  }
+
+  public double getNavXPitchOutput(){
+    return navx.getPitch();
+  }
+  
+  public double getNavXRollOutputRadians(){
+    return Math.toRadians(navx.getRoll());
+  }
+  
+
 
   //------------------------------------------------------------------------------------------------------------------------------------
   //OTHER FUNCTIONS

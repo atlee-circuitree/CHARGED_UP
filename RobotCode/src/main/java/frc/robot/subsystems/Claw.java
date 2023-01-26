@@ -15,18 +15,18 @@ import frc.robot.Constants;
 
 public class Claw extends SubsystemBase {
   
-  CANSparkMax clawMotor = null;
-  CANSparkMax rotateClawMotor = null;
+  //CANSparkMax clawMotor = null;
+  //CANSparkMax rotateClawMotor = null;
 
   DutyCycleEncoder rotationBore;
 
   public Claw() {
  
-    clawMotor = new CANSparkMax(Constants.clawMotorPort, MotorType.kBrushless);
-    rotateClawMotor = new CANSparkMax(Constants.rotateClawMotorPort, MotorType.kBrushless);
+    //clawMotor = new CANSparkMax(Constants.clawMotorPort, MotorType.kBrushless);
+    //rotateClawMotor = new CANSparkMax(Constants.rotateClawMotorPort, MotorType.kBrushless);
 
-    clawMotor.setIdleMode(IdleMode.kBrake);
-    rotateClawMotor.setIdleMode(IdleMode.kBrake);
+    //clawMotor.setIdleMode(IdleMode.kBrake);
+    //rotateClawMotor.setIdleMode(IdleMode.kBrake);
  
     rotationBore = new DutyCycleEncoder(Constants.rotationEncoderChannel);
 
@@ -43,7 +43,7 @@ public class Claw extends SubsystemBase {
 
   public void runClaw(double speed) {
 
-    clawMotor.set(speed);
+    //clawMotor.set(speed);
 
   }
 
@@ -51,11 +51,11 @@ public class Claw extends SubsystemBase {
 
     if (rotationBore.get() < Constants.maxRotationEncoderValue && rotationBore.get() > Constants.minRotationEncoderValue) {
       
-      rotateClawMotor.set(speed);
+      //rotateClawMotor.set(speed);
       
       } else {
   
-      rotateClawMotor.set(0);
+      //rotateClawMotor.set(0);
        
       }
 
