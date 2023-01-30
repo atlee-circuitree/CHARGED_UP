@@ -43,8 +43,7 @@ public final class Constants {
 
     public static final int leftAngMotorPort = 0;
     public static final int rightAngMotorPort = 0;
-    public static final int leftExtMotorPort = 0;
-    public static final int rightExtMotorPort = 0;
+    public static final int extMotorPort = 0;
     public static final int angleEncoderChannel = 0;
 
     public static final int clawMotorPort = 0;

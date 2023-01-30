@@ -21,9 +21,8 @@ public class Slide extends SubsystemBase {
 
   TalonFX leftAngMotor;
   TalonFX rightAngMotor;
-  TalonFX leftExtMotor;
-  TalonFX rightExtMotor;
-
+  TalonFX extMotor;
+ 
   Rev2mDistanceSensor extensionDistance;
 
   //DutyCycleEncoder angleBore;
@@ -32,9 +31,8 @@ public class Slide extends SubsystemBase {
 
     leftAngMotor = new TalonFX(Constants.leftAngMotorPort);
     rightAngMotor = new TalonFX(Constants.rightAngMotorPort);
-    leftExtMotor = new TalonFX(Constants.leftExtMotorPort);
-    rightExtMotor = new TalonFX(Constants.rightExtMotorPort);
-
+    extMotor = new TalonFX(Constants.extMotorPort);
+ 
     //angleBore = new DutyCycleEncoder(Constants.angleEncoderChannel);
 
     extensionDistance = new Rev2mDistanceSensor(Port.kOnboard);
@@ -42,14 +40,11 @@ public class Slide extends SubsystemBase {
     extensionDistance.setAutomaticMode(true);
     leftAngMotor.setInverted(true);
     rightAngMotor.setInverted(false);
-    leftExtMotor.setInverted(true);
-    rightExtMotor.setInverted(false);
 
     leftAngMotor.setNeutralMode(NeutralMode.Brake);
     rightAngMotor.setNeutralMode(NeutralMode.Brake);
-    leftExtMotor.setNeutralMode(NeutralMode.Brake);
-    rightExtMotor.setNeutralMode(NeutralMode.Brake);
-
+    extMotor.setNeutralMode(NeutralMode.Brake);
+ 
   }
 
   @Override
@@ -58,7 +53,8 @@ public class Slide extends SubsystemBase {
     //SmartDashboard.putNumber("Angle Encoder Position", angleBore.get());
     SmartDashboard.putNumber("Angle Encoder Maximum", Constants.maxAngleEncoderValue);
     SmartDashboard.putNumber("Angle Encoder Minimum", Constants.minAngleEncoderValue);
- 
+    SmartDashboard.putNumber("Extension Encoder", extMotor.getSelectedSensorPosition());
+
     SmartDashboard.putNumber("Distance", extensionDistance.getRange(Unit.kInches));
     SmartDashboard.putBoolean("Is Range Valid", extensionDistance.isRangeValid());
     SmartDashboard.putBoolean("Is Enabled Valid", extensionDistance.isEnabled());
@@ -85,8 +81,7 @@ public class Slide extends SubsystemBase {
 
   public void extendArmUsingPower(double speed) {
 
-    leftExtMotor.set(TalonFXControlMode.PercentOutput, speed);
-    rightExtMotor.set(TalonFXControlMode.PercentOutput, speed);
+    extMotor.set(TalonFXControlMode.PercentOutput, speed);
 
   }
 
