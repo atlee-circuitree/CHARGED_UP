@@ -8,6 +8,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.revrobotics.Rev2mDistanceSensor;
+import com.revrobotics.Rev2mDistanceSensor.Port;
+import com.revrobotics.Rev2mDistanceSensor.Unit;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,6 +24,8 @@ public class Slide extends SubsystemBase {
   TalonFX leftExtMotor;
   TalonFX rightExtMotor;
 
+  Rev2mDistanceSensor extensionDistance;
+
   //DutyCycleEncoder angleBore;
  
   public Slide() {
@@ -31,7 +36,10 @@ public class Slide extends SubsystemBase {
     rightExtMotor = new TalonFX(Constants.rightExtMotorPort);
 
     //angleBore = new DutyCycleEncoder(Constants.angleEncoderChannel);
- 
+
+    extensionDistance = new Rev2mDistanceSensor(Port.kOnboard);
+    extensionDistance.setEnabled(true);
+    extensionDistance.setAutomaticMode(true);
     leftAngMotor.setInverted(true);
     rightAngMotor.setInverted(false);
     leftExtMotor.setInverted(true);
@@ -50,6 +58,10 @@ public class Slide extends SubsystemBase {
     //SmartDashboard.putNumber("Angle Encoder Position", angleBore.get());
     SmartDashboard.putNumber("Angle Encoder Maximum", Constants.maxAngleEncoderValue);
     SmartDashboard.putNumber("Angle Encoder Minimum", Constants.minAngleEncoderValue);
+ 
+    SmartDashboard.putNumber("Distance", extensionDistance.getRange(Unit.kInches));
+    SmartDashboard.putBoolean("Is Range Valid", extensionDistance.isRangeValid());
+    SmartDashboard.putBoolean("Is Enabled Valid", extensionDistance.isEnabled());
 
   }
 
