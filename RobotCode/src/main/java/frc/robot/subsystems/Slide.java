@@ -19,6 +19,10 @@ public class Slide extends SubsystemBase {
   TalonFX leftAngMotor;
   TalonFX rightAngMotor;
   TalonFX extMotor;
+
+  double extensionPosition;
+  double tolerance = 100;
+  double CurrentStage = 1;
  
   //DutyCycleEncoder angleBore;
  
@@ -42,10 +46,35 @@ public class Slide extends SubsystemBase {
   @Override
   public void periodic() {
  
+    extensionPosition = extMotor.getSelectedSensorPosition();
+
     //SmartDashboard.putNumber("Angle Encoder Position", angleBore.get());
     SmartDashboard.putNumber("Angle Encoder Maximum", Constants.maxAngleEncoderValue);
     SmartDashboard.putNumber("Angle Encoder Minimum", Constants.minAngleEncoderValue);
-    SmartDashboard.putNumber("Extension Encoder", extMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Extension Encoder Position", extensionPosition);
+
+    if (extensionPosition > Constants.extensionStage1EncoderValue + tolerance && 
+    extensionPosition < Constants.extensionStage1EncoderValue - tolerance ) {
+
+    CurrentStage = 1;
+
+    } else if (extensionPosition > Constants.extensionStage2EncoderValue + tolerance && 
+    extensionPosition < Constants.extensionStage2EncoderValue - tolerance ) {
+
+    CurrentStage = 2;
+
+    } else if (extensionPosition > Constants.extensionStage3EncoderValue + tolerance && 
+    extensionPosition < Constants.extensionStage3EncoderValue - tolerance ) {
+
+    CurrentStage = 3;
+
+    } else {
+
+    CurrentStage = 0;
+
+    }
+
+    SmartDashboard.putNumber("Extension Stage", CurrentStage);
  
   }
 
@@ -70,6 +99,64 @@ public class Slide extends SubsystemBase {
   public void extendArmUsingPower(double speed) {
 
     extMotor.set(TalonFXControlMode.PercentOutput, speed);
+
+  }
+
+  public void extendToStage(int Stage) {
+
+    if (Stage == 1) {
+
+      if (extensionPosition < (Constants.extensionStage1EncoderValue - tolerance)) {
+
+        extMotor.set(TalonFXControlMode.PercentOutput, .3);
+
+      } else if (extensionPosition > (Constants.extensionStage1EncoderValue + tolerance)) {
+
+        extMotor.set(TalonFXControlMode.PercentOutput, -.3);
+
+      } else {
+
+        extMotor.set(TalonFXControlMode.PercentOutput, 0);
+
+      }
+
+    }
+
+    if (Stage == 2) {
+
+      if (extensionPosition < (Constants.extensionStage2EncoderValue - tolerance)) {
+
+        extMotor.set(TalonFXControlMode.PercentOutput, .3);
+
+      } else if (extensionPosition > (Constants.extensionStage2EncoderValue + tolerance)) {
+
+        extMotor.set(TalonFXControlMode.PercentOutput, -.3);
+
+      } else {
+
+        extMotor.set(TalonFXControlMode.PercentOutput, 0);
+
+      }
+
+    }
+
+    if (Stage == 3) {
+
+      if (extensionPosition < (Constants.extensionStage3EncoderValue - tolerance)) {
+
+        extMotor.set(TalonFXControlMode.PercentOutput, .3);
+
+      } else if (extensionPosition > (Constants.extensionStage3EncoderValue + tolerance)) {
+
+        extMotor.set(TalonFXControlMode.PercentOutput, -.3);
+
+      } else {
+
+        extMotor.set(TalonFXControlMode.PercentOutput, 0);
+
+      }
+
+    }
 
   }
 
