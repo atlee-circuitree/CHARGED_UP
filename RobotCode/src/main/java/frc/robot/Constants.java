@@ -63,6 +63,10 @@ public final class Constants {
     public static final double maxRotationEncoderValue = 999999999;
     public static final double minRotationEncoderValue = -999999999;
 
+    public static final double extensionStage1EncoderValue = 0;
+    public static final double extensionStage2EncoderValue = 1000;
+    public static final double extensionStage3EncoderValue = 2000;
+
     public static final double trackwidth = 22.5;
     public static final double wheelbase = 22.5;
 

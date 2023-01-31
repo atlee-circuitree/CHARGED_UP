@@ -69,13 +69,13 @@ public class AutoBalance extends CommandBase {
         if (speedForward > 1)
         speedForward = 1;
         
-        //When navx thinks unbalanced forward, drive motors back
         if (drivetrain.getNavXPitchOutput() > unbalancedAngleForward){
+          //When navx thinks unbalanced forward, drive motors back
           //drivetrain.driveAllModules(speedBack);
           movementDirection = "Tilted Forward";
 
         } else  if (drivetrain.getNavXPitchOutput() < unbalancedAngleBack){
-        //When navx thinks unbalanced backwards, drive motors forward
+          //When navx thinks unbalanced backwards, drive motors forward
           //drivetrain.driveAllModules(speedForward);
           movementDirection = "Tilted Backwards";
    

@@ -23,8 +23,6 @@ public class Slide extends SubsystemBase {
   TalonFX rightAngMotor;
   TalonFX extMotor;
  
-  Rev2mDistanceSensor extensionDistance;
-
   //DutyCycleEncoder angleBore;
  
   public Slide() {
@@ -34,10 +32,7 @@ public class Slide extends SubsystemBase {
     extMotor = new TalonFX(Constants.extMotorPort);
  
     //angleBore = new DutyCycleEncoder(Constants.angleEncoderChannel);
-
-    extensionDistance = new Rev2mDistanceSensor(Port.kOnboard);
-    extensionDistance.setEnabled(true);
-    extensionDistance.setAutomaticMode(true);
+ 
     leftAngMotor.setInverted(true);
     rightAngMotor.setInverted(false);
 
@@ -54,11 +49,7 @@ public class Slide extends SubsystemBase {
     SmartDashboard.putNumber("Angle Encoder Maximum", Constants.maxAngleEncoderValue);
     SmartDashboard.putNumber("Angle Encoder Minimum", Constants.minAngleEncoderValue);
     SmartDashboard.putNumber("Extension Encoder", extMotor.getSelectedSensorPosition());
-
-    SmartDashboard.putNumber("Distance", extensionDistance.getRange(Unit.kInches));
-    SmartDashboard.putBoolean("Is Range Valid", extensionDistance.isRangeValid());
-    SmartDashboard.putBoolean("Is Enabled Valid", extensionDistance.isEnabled());
-
+ 
   }
 
   public void changeAngleUsingPower(double speed) {
