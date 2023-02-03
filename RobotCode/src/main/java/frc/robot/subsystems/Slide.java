@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
@@ -16,37 +17,37 @@ import frc.robot.Constants;
 
 public class Slide extends SubsystemBase {
 
-  TalonFX leftAngMotor;
-  TalonFX rightAngMotor;
-  TalonFX extMotor;
+  TalonFX leftExtMotor;
+  TalonFX rightExtMotor;
+  TalonFX angMotor;
 
   double extensionPosition;
   double tolerance = 100;
   double CurrentStage = 1;
  
-  //DutyCycleEncoder angleBore;
+  DutyCycleEncoder angleBore;
  
   public Slide() {
 
-    leftAngMotor = new TalonFX(Constants.leftAngMotorPort);
-    rightAngMotor = new TalonFX(Constants.rightAngMotorPort);
-    extMotor = new TalonFX(Constants.extMotorPort);
+    leftExtMotor = new TalonFX(Constants.leftExtMotorPort);
+    rightExtMotor = new TalonFX(Constants.rightExtMotorPort);
+    angMotor = new TalonFX(Constants.angMotorPort);
  
-    //angleBore = new DutyCycleEncoder(Constants.angleEncoderChannel);
+    angleBore = new DutyCycleEncoder(Constants.angleEncoderChannel);
  
-    leftAngMotor.setInverted(true);
-    rightAngMotor.setInverted(false);
+    leftExtMotor.setInverted(true);
+    rightExtMotor.setInverted(false);
 
-    leftAngMotor.setNeutralMode(NeutralMode.Brake);
-    rightAngMotor.setNeutralMode(NeutralMode.Brake);
-    extMotor.setNeutralMode(NeutralMode.Brake);
+    leftExtMotor.setNeutralMode(NeutralMode.Brake);
+    rightExtMotor.setNeutralMode(NeutralMode.Brake);
+    angMotor.setNeutralMode(NeutralMode.Brake);
  
   }
 
   @Override
   public void periodic() {
  
-    extensionPosition = extMotor.getSelectedSensorPosition();
+    extensionPosition = angMotor.getSelectedSensorPosition();
 
     //SmartDashboard.putNumber("Angle Encoder Position", angleBore.get());
     SmartDashboard.putNumber("Angle Encoder Maximum", Constants.maxAngleEncoderValue);
@@ -80,25 +81,14 @@ public class Slide extends SubsystemBase {
 
   public void changeAngleUsingPower(double speed) {
 
-    /*
-    if (angleBore.get() < Constants.maxAngleEncoderValue && angleBore.get() > Constants.minAngleEncoderValue) {
-      
-    leftAngMotor.set(TalonFXControlMode.PercentOutput, speed);
-    rightAngMotor.set(TalonFXControlMode.PercentOutput, speed);
-
-    } else {
-
-    leftAngMotor.set(TalonFXControlMode.PercentOutput, 0);
-    rightAngMotor.set(TalonFXControlMode.PercentOutput, 0);
-
-    }
-    */
+    angMotor.set(ControlMode.PercentOutput, speed);
 
   }
 
   public void extendArmUsingPower(double speed) {
 
-    extMotor.set(TalonFXControlMode.PercentOutput, speed);
+    leftExtMotor.set(ControlMode.PercentOutput, speed);
+    rightExtMotor.set(ControlMode.PercentOutput, speed);
 
   }
 
@@ -108,15 +98,15 @@ public class Slide extends SubsystemBase {
 
       if (extensionPosition < (Constants.extensionStage1EncoderValue - tolerance)) {
 
-        extMotor.set(TalonFXControlMode.PercentOutput, .3);
+        angMotor.set(TalonFXControlMode.PercentOutput, .3);
 
       } else if (extensionPosition > (Constants.extensionStage1EncoderValue + tolerance)) {
 
-        extMotor.set(TalonFXControlMode.PercentOutput, -.3);
+        angMotor.set(TalonFXControlMode.PercentOutput, -.3);
 
       } else {
 
-        extMotor.set(TalonFXControlMode.PercentOutput, 0);
+        angMotor.set(TalonFXControlMode.PercentOutput, 0);
 
       }
 
@@ -126,15 +116,15 @@ public class Slide extends SubsystemBase {
 
       if (extensionPosition < (Constants.extensionStage2EncoderValue - tolerance)) {
 
-        extMotor.set(TalonFXControlMode.PercentOutput, .3);
+        angMotor.set(TalonFXControlMode.PercentOutput, .3);
 
       } else if (extensionPosition > (Constants.extensionStage2EncoderValue + tolerance)) {
 
-        extMotor.set(TalonFXControlMode.PercentOutput, -.3);
+        angMotor.set(TalonFXControlMode.PercentOutput, -.3);
 
       } else {
 
-        extMotor.set(TalonFXControlMode.PercentOutput, 0);
+        angMotor.set(TalonFXControlMode.PercentOutput, 0);
 
       }
 
@@ -144,15 +134,15 @@ public class Slide extends SubsystemBase {
 
       if (extensionPosition < (Constants.extensionStage3EncoderValue - tolerance)) {
 
-        extMotor.set(TalonFXControlMode.PercentOutput, .3);
+        angMotor.set(TalonFXControlMode.PercentOutput, .3);
 
       } else if (extensionPosition > (Constants.extensionStage3EncoderValue + tolerance)) {
 
-        extMotor.set(TalonFXControlMode.PercentOutput, -.3);
+        angMotor.set(TalonFXControlMode.PercentOutput, -.3);
 
       } else {
 
-        extMotor.set(TalonFXControlMode.PercentOutput, 0);
+        angMotor.set(TalonFXControlMode.PercentOutput, 0);
 
       }
 

@@ -78,12 +78,12 @@ public class RobotContainer {
 
     //Teleop commands
     driveWithXbox = new DriveWithXbox(drivetrain, xbox1, false);
-    slideWithXbox = new SlideWithXbox(xbox2, slide);
+    slideWithXbox = new SlideWithXbox(xbox1, slide);
  
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
     autoBalance.addRequirements(drivetrain);
-    drivetrain.setDefaultCommand(driveWithXbox);
+    //drivetrain.setDefaultCommand(driveWithXbox);
     slide.setDefaultCommand(slideWithXbox);
 
     recalibrateModules = new RecalibrateModules(drivetrain, xbox1);
@@ -123,8 +123,8 @@ public class RobotContainer {
 
     driver1A.onTrue(playAudio);
 
-    driver2LB.onTrue(GenerateClawCommand(-.3)).debounce(.3);
-    driver2RB.onTrue(GenerateClawCommand(.3)).debounce(.3);
+    driver1LB.onTrue(GenerateClawCommand(-.3)).debounce(.3);
+    driver1RB.onTrue(GenerateClawCommand(.3)).debounce(.3);
 
     if (xbox1.getLeftTriggerAxis() > .5) {
 

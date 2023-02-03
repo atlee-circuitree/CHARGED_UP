@@ -30,8 +30,8 @@ public class SlideWithXbox extends CommandBase {
   @Override
   public void execute() {
 
-    slide.changeAngleUsingPower(xbox.getLeftY() / 3);
-    slide.extendArmUsingPower(xbox.getRightY() / 3);
+    slide.changeAngleUsingPower(-xbox.getLeftY() / 1);
+    slide.extendArmUsingPower(-xbox.getRightY() / 1);
 
   }
 

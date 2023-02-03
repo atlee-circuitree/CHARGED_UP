@@ -26,28 +26,28 @@ public final class Constants {
 
 
     //Ports
-    public static final int frontLeftDrvMotorPort = 4;
-    public static final int frontRightDrvMotorPort = 2;
-    public static final int rearLeftDrvMotorPort = 6;
-    public static final int rearRightDrvMotorPort = 8;
+    public static final int frontLeftDrvMotorPort = 0;
+    public static final int frontRightDrvMotorPort = 0;
+    public static final int rearLeftDrvMotorPort = 0;
+    public static final int rearRightDrvMotorPort = 0;
 
-    public static final int frontLeftRotMotorPort = 3;
-    public static final int frontRightRotMotorPort = 1;
-    public static final int rearLeftRotMotorPort = 5;
-    public static final int rearRightRotMotorPort = 7;
+    public static final int frontLeftRotMotorPort = 0;
+    public static final int frontRightRotMotorPort = 0;
+    public static final int rearLeftRotMotorPort = 0;
+    public static final int rearRightRotMotorPort = 0;
 
-    public static final int frontLeftRotEncoderPort = 11;
-    public static final int frontRightRotEncoderPort = 9;
-    public static final int rearLeftRotEncoderPort = 12;
-    public static final int rearRightRotEncoderPort = 10;
+    public static final int frontLeftRotEncoderPort = 0;
+    public static final int frontRightRotEncoderPort = 0;
+    public static final int rearLeftRotEncoderPort = 0;
+    public static final int rearRightRotEncoderPort = 0;
 
-    public static final int leftAngMotorPort = 0;
-    public static final int rightAngMotorPort = 0;
-    public static final int extMotorPort = 0;
-    public static final int angleEncoderChannel = 0;
+    public static final int leftExtMotorPort = 2;
+    public static final int rightExtMotorPort = 1;
+    public static final int angMotorPort = 3;
+    public static final int angleEncoderChannel = 3;
 
-    public static final int clawMotorPort = 0;
-    public static final int rotateClawMotorPort = 1;
+    public static final int clawMotorPort = 6;
+    public static final int rotateClawMotorPort = 5;
     public static final int rotationEncoderChannel = 0;
 
     
