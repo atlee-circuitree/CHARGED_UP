@@ -5,8 +5,11 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -38,6 +41,10 @@ public class Slide extends SubsystemBase {
 
     leftExtMotor = new TalonFX(Constants.leftExtMotorPort);
     rightExtMotor = new TalonFX(Constants.rightExtMotorPort);
+
+    rightExtMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    rightExtMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
+    
     angMotor = new TalonFX(Constants.angMotorPort);
 
     anglePID = new PIDController(.01, 0, .01);
@@ -45,7 +52,7 @@ public class Slide extends SubsystemBase {
     angleFeed = new SimpleMotorFeedforward(.01, .01);
  
     angEncoder = new DutyCycleEncoder(Constants.angleEncoderChannel);
-  
+
     leftExtMotor.setInverted(true);
     rightExtMotor.setInverted(false);
 
@@ -61,8 +68,7 @@ public class Slide extends SubsystemBase {
     SmartDashboard.putNumber("Angle Encoder Maximum", Constants.maxAngleEncoderValue);
     SmartDashboard.putNumber("Angle Encoder Minimum", Constants.minAngleEncoderValue);
     SmartDashboard.putNumber("Angle Encoder Reading", angEncoder.getAbsolutePosition());
- 
-    SmartDashboard.putNumber("Extension Stage", CurrentStage);
+    SmartDashboard.putNumber("TEST Encoder output", rightExtMotor.getSelectedSensorPosition());
  
   }
 
