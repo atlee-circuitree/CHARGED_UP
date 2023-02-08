@@ -19,10 +19,7 @@ public class Limelight extends SubsystemBase {
 
 
   public static String limelightDashboard;
-
-  // private static drivetrainSubsystem m_drivetrainSubsystem = new
-  // drivetrainSubsystem();
-
+ 
   boolean m_LimelightHasValidTarget = false;
   double m_LimelightDriveCommand = 0.0;
   double m_LimelightSteerCommand = 0.0;

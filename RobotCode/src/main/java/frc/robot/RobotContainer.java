@@ -84,10 +84,10 @@ public class RobotContainer {
     limelight = new Limelight();
 
     limelight.EnableLED();
-
-    playAudio = new PlayAudio(audio, 2, 2);
-
+ 
     autoBalance = new AutoBalance(drivetrain, xbox1);
+
+    playAudio = new PlayAudio(audio, 0, 0);
 
     pathEQ = new PathEQ(Constants.autoCoordinates, true);
 
@@ -128,6 +128,8 @@ public class RobotContainer {
     JoystickButton driver1Y = new JoystickButton(xbox1, XboxController.Button.kY.value);
     JoystickButton driver1LB = new JoystickButton(xbox1, XboxController.Button.kLeftBumper.value);
     JoystickButton driver1RB = new JoystickButton(xbox1, XboxController.Button.kRightBumper.value);
+    JoystickButton driver1LS = new JoystickButton(xbox1, XboxController.Button.kLeftStick.value);
+    JoystickButton driver1RS = new JoystickButton(xbox1, XboxController.Button.kRightStick.value);
 
     JoystickButton driver2A = new JoystickButton(xbox2, XboxController.Button.kA.value);
     JoystickButton driver2B = new JoystickButton(xbox2, XboxController.Button.kB.value);
@@ -135,13 +137,15 @@ public class RobotContainer {
     JoystickButton driver2Y = new JoystickButton(xbox2, XboxController.Button.kY.value);
     JoystickButton driver2LB = new JoystickButton(xbox2, XboxController.Button.kLeftBumper.value);
     JoystickButton driver2RB = new JoystickButton(xbox2, XboxController.Button.kRightBumper.value);
-
-    //driver1A.onTrue(playAudio);
+    JoystickButton driver2LS = new JoystickButton(xbox2, XboxController.Button.kLeftStick.value);
+    JoystickButton driver2RS = new JoystickButton(xbox2, XboxController.Button.kRightStick.value);
 
     driver1A.whileTrue(GenerateClawCommand(-.3));
     driver1B.whileTrue(GenerateClawCommand(.3));
     driver1LB.whileTrue(GenerateRotateClawCommand(-.3));
     driver1RB.whileTrue(GenerateRotateClawCommand(.3));
+
+    driver1X.whileTrue(new PlayAudio(audio, 0, 2));
 
   }
 

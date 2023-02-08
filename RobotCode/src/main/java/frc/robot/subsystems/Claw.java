@@ -34,10 +34,11 @@ public class Claw extends SubsystemBase {
 
   @Override
   public void periodic() {
-    
-    SmartDashboard.putNumber("Rotation Encoder Position", rotationBore.get());
+ 
     SmartDashboard.putNumber("Rotation Encoder Maximum", Constants.maxRotationEncoderValue);
     SmartDashboard.putNumber("Rotation Encoder Minimum", Constants.minRotationEncoderValue);
+
+    SmartDashboard.putNumber("Rotation Encoder Position", rotationBore.getAbsolutePosition());
 
   }
 

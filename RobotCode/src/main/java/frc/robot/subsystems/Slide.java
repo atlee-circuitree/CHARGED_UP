@@ -6,12 +6,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
- 
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -22,9 +21,12 @@ public class Slide extends SubsystemBase {
   TalonFX rightExtMotor;
   TalonFX angMotor;
 
-  public String Competition;
-  public String One_Controller;
-  String modeSelected;
+  PIDController anglePID;
+  PIDController extensionPID;
+
+  SimpleMotorFeedforward angleFeed;
+
+  DutyCycleEncoder angEncoder;
 
   double angleBore;
   double angle;
@@ -37,6 +39,12 @@ public class Slide extends SubsystemBase {
     leftExtMotor = new TalonFX(Constants.leftExtMotorPort);
     rightExtMotor = new TalonFX(Constants.rightExtMotorPort);
     angMotor = new TalonFX(Constants.angMotorPort);
+
+    anglePID = new PIDController(.01, 0, .01);
+    extensionPID = new PIDController(.01, 0, .01);
+    angleFeed = new SimpleMotorFeedforward(.01, .01);
+ 
+    angEncoder = new DutyCycleEncoder(Constants.angleEncoderChannel);
   
     leftExtMotor.setInverted(true);
     rightExtMotor.setInverted(false);
@@ -50,34 +58,10 @@ public class Slide extends SubsystemBase {
   @Override
   public void periodic() {
  
-    angleBore = angMotor.getSelectedSensorPosition();
-    angle = ((angleBore / -3352)) + 180;
-  
     SmartDashboard.putNumber("Angle Encoder Maximum", Constants.maxAngleEncoderValue);
     SmartDashboard.putNumber("Angle Encoder Minimum", Constants.minAngleEncoderValue);
-    SmartDashboard.putNumber("Angle Encoder Position", angle);
-
-    if (angleBore > Constants.extensionStage1EncoderValue + tolerance && 
-    angleBore < Constants.extensionStage1EncoderValue - tolerance ) {
-
-    CurrentStage = 1;
-
-    } else if (angleBore > Constants.extensionStage2EncoderValue + tolerance && 
-    angleBore < Constants.extensionStage2EncoderValue - tolerance ) {
-
-    CurrentStage = 2;
-
-    } else if (angleBore > Constants.extensionStage3EncoderValue + tolerance && 
-    angleBore < Constants.extensionStage3EncoderValue - tolerance ) {
-
-    CurrentStage = 3;
-
-    } else {
-
-    CurrentStage = 0;
-
-    }
-
+    SmartDashboard.putNumber("Angle Encoder Reading", angEncoder.getAbsolutePosition());
+ 
     SmartDashboard.putNumber("Extension Stage", CurrentStage);
  
   }
@@ -85,7 +69,13 @@ public class Slide extends SubsystemBase {
   public void changeAngleUsingPower(double speed) {
  
     angMotor.set(ControlMode.PercentOutput, speed);
+ 
+  }
 
+  public void changeAngleUsingVoltage(double speed) {
+ 
+    angMotor.set(ControlMode.Current, angleFeed.calculate(speed));
+ 
   }
 
   public void extendArmUsingPower(double speed) {
@@ -96,60 +86,7 @@ public class Slide extends SubsystemBase {
   }
 
   public void extendToStage(int Stage) {
-
-    if (Stage == 1) {
-
-      if (angleBore < (Constants.extensionStage1EncoderValue - tolerance)) {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, .3);
-
-      } else if (angleBore > (Constants.extensionStage1EncoderValue + tolerance)) {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, -.3);
-
-      } else {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, 0);
-
-      }
-
-    }
-
-    if (Stage == 2) {
-
-      if (angleBore < (Constants.extensionStage2EncoderValue - tolerance)) {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, .3);
-
-      } else if (angleBore > (Constants.extensionStage2EncoderValue + tolerance)) {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, -.3);
-
-      } else {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, 0);
-
-      }
-
-    }
-
-    if (Stage == 3) {
-
-      if (angleBore < (Constants.extensionStage3EncoderValue - tolerance)) {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, .3);
-
-      } else if (angleBore > (Constants.extensionStage3EncoderValue + tolerance)) {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, -.3);
-
-      } else {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, 0);
-
-      }
-
-    }
+    
 
   }
 

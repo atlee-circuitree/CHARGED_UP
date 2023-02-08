@@ -19,9 +19,7 @@ public class Audio extends SubsystemBase {
 
   /* Talon FXs to play music through.  
   More complex music MIDIs will contain several tracks, requiring multiple instruments.  */
-  WPI_TalonFX []  fxes =  { new WPI_TalonFX(1, "rio"), new WPI_TalonFX(2, "rio"), new WPI_TalonFX(3, "rio"),
-  new WPI_TalonFX(4, "rio"), new WPI_TalonFX(5, "rio"), new WPI_TalonFX(6, "rio"), new WPI_TalonFX(7, "rio"), new WPI_TalonFX(8, "rio") };
-
+  WPI_TalonFX []  fxes =  { new WPI_TalonFX(2, "rio"), new WPI_TalonFX(13, "rio"), new WPI_TalonFX(15, "rio") };
   String[] songs = new String[] {
     "RickRoll.chrp",
     "WeAreTheChampions.chrp",
