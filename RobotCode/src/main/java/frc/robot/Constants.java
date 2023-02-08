@@ -51,7 +51,6 @@ public final class Constants {
     public static final int clawMotorPort = 10;
     public static final int rotateClawMotorPort = 21;
     public static final int rotationEncoderChannel = 21;
-
     
     //Encoder Values
     public static final double frontLeftEncoderOffset = 286.259765625;
@@ -121,6 +120,28 @@ public final class Constants {
     // Constraint for the motion profilied robot angle controller
     public static final TrapezoidProfile.Constraints thetaControllerConstraints =
         new TrapezoidProfile.Constraints(Math.PI, Math.PI);
+
+    public double smoothValues(double input, double max, double divideBy) {
+        
+        double input2 = 0;
+
+        input2 = (((input / max) / divideBy) - 1) * -1;
+
+        if (input2 < .15 && input2 > 0) {
+
+            input2 = .15;
+
+        }
+
+        if (input2 > -.15 && input2 < 0) {
+
+            input2 = -.15;
+
+        }
+
+        return input2;
+
+    }
     
 
 }
