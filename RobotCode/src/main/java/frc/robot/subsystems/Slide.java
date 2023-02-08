@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
  
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -21,12 +22,15 @@ public class Slide extends SubsystemBase {
   TalonFX rightExtMotor;
   TalonFX angMotor;
 
+  public String Competition;
+  public String One_Controller;
+  String modeSelected;
+
   double extensionPosition;
   double tolerance = 100;
   double CurrentStage = 1;
  
   DutyCycleEncoder angleBore;
- 
   public Slide() {
 
     leftExtMotor = new TalonFX(Constants.leftExtMotorPort);
@@ -48,7 +52,7 @@ public class Slide extends SubsystemBase {
   public void periodic() {
  
     extensionPosition = angMotor.getSelectedSensorPosition();
-
+ 
     //SmartDashboard.putNumber("Angle Encoder Position", angleBore.get());
     SmartDashboard.putNumber("Angle Encoder Maximum", Constants.maxAngleEncoderValue);
     SmartDashboard.putNumber("Angle Encoder Minimum", Constants.minAngleEncoderValue);

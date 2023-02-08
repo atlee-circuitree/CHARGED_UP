@@ -7,6 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveWithXbox;
 import frc.robot.commands.AutoCommands.AutoBalance;
 import frc.robot.commands.AutoCommands.PathFollower;
@@ -19,6 +21,7 @@ import frc.robot.commands.SlideCommands.SlideWithXbox;
 import frc.robot.subsystems.Audio;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Slide;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -37,9 +40,10 @@ public class RobotContainer {
   private final Audio audio;
   private final Slide slide;
   private final Claw claw;
+  private final Limelight limelight;
 
-  private final DriveWithXbox driveWithXbox;
-  private final SlideWithXbox slideWithXbox;
+  private DriveWithXbox driveWithXbox;
+  private SlideWithXbox slideWithXbox;
   private final AutoBalance autoBalance;
   private Command GenerateClawCommand(double PercentSpeed) {
     Command runClaw = new RunClaw(claw, PercentSpeed);
@@ -63,12 +67,23 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+     
+    Constants.modeSelect = new SendableChooser<>();
+ 
+    Constants.modeSelect.setDefaultOption("Competition", "Competition");
+    Constants.modeSelect.addOption("Player_Two", "Player_Two");
+
+    SmartDashboard.putData("Select Mode", Constants.modeSelect);
+
     // Configure the button bindings
-    
     drivetrain = new Drivetrain();
     claw = new Claw();
     slide = new Slide();
     audio = new Audio();
+    limelight = new Limelight();
+
+    limelight.EnableLED();
 
     playAudio = new PlayAudio(audio, 2, 2);
 
@@ -77,13 +92,13 @@ public class RobotContainer {
     pathEQ = new PathEQ(Constants.autoCoordinates, true);
 
     //Teleop commands
-    driveWithXbox = new DriveWithXbox(drivetrain, xbox1, false);
-    slideWithXbox = new SlideWithXbox(xbox1, slide);
+    driveWithXbox = new DriveWithXbox(drivetrain, xbox1, xbox2, false);
+    slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
  
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
     autoBalance.addRequirements(drivetrain);
-    //drivetrain.setDefaultCommand(driveWithXbox);
+    drivetrain.setDefaultCommand(driveWithXbox);
     slide.setDefaultCommand(slideWithXbox);
 
     recalibrateModules = new RecalibrateModules(drivetrain, xbox1);
@@ -121,7 +136,7 @@ public class RobotContainer {
     JoystickButton driver2LB = new JoystickButton(xbox2, XboxController.Button.kLeftBumper.value);
     JoystickButton driver2RB = new JoystickButton(xbox2, XboxController.Button.kRightBumper.value);
 
-    driver1A.onTrue(playAudio);
+    //driver1A.onTrue(playAudio);
 
     driver1LB.onTrue(GenerateClawCommand(-.3)).debounce(.3);
     driver1RB.onTrue(GenerateClawCommand(.3)).debounce(.3);

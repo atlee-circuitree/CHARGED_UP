@@ -29,7 +29,11 @@ public class DriveWithXbox extends CommandBase {
   private SlewRateLimiter slewRateLimiterZ = new SlewRateLimiter(0.2);
   
   private XboxController xbox;
- private RuntimeDetector TEST;
+
+  private XboxController xbox1;
+  private XboxController xbox2;
+
+  private RuntimeDetector TEST;
   public boolean isTesting;
   private boolean fieldOrientation = true;
 
@@ -39,11 +43,11 @@ public class DriveWithXbox extends CommandBase {
 
   public static String driveWithXboxDashboard;
  
-  public DriveWithXbox(Drivetrain dt, XboxController xboxController, boolean testing) {
+  public DriveWithXbox(Drivetrain dt, XboxController xb1, XboxController xb2, boolean testing) {
   
     drivetrain = dt;
-    xbox = xboxController;
-
+    xbox1 = xb1;
+    xbox2 = xb2;
     isTesting = testing;
 
     addRequirements(drivetrain);
@@ -52,6 +56,16 @@ public class DriveWithXbox extends CommandBase {
 
   @Override
   public void initialize() {
+
+    if (Constants.modeSelect.getSelected() == "Player_Two") {
+
+      xbox = xbox2;
+
+    } else {
+
+      xbox = xbox1;
+
+    }
  
   }
 
@@ -82,15 +96,16 @@ public class DriveWithXbox extends CommandBase {
 
     //Define robot target vector variables (X,Y,Z respectively)
     //A Button = TURBO MODE
-    if(xbox.getXButton()){
+    //if(xbox.getXButton()){
+    if(xbox.getRightStickButton()){
       forward = xbox.getLeftY();
       strafe = xbox.getLeftX();
       rotation = xbox.getRightX();
     }
     else{
-      forward = xbox.getLeftY() * 0.3;
-      strafe = xbox.getLeftX() * 0.3;
-      rotation = xbox.getRightX() * 0.3;
+      forward = xbox.getLeftY() * 0.5;
+      strafe = xbox.getLeftX() * 0.5;
+      rotation = xbox.getRightX() * 0.5;
     }
 
 

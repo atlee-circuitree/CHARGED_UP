@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -24,31 +25,32 @@ public final class Constants {
     //Declare coordinates in the form {u, x, y, angle}
     public static final double[][] autoCoordinates = {{0, 0,0 ,0}, {1, 0,0.5 ,20}, {2, 0,1 ,40}, {3, 0,1.5 ,60}};
 
+    public static SendableChooser<String> modeSelect;
 
     //Ports
-    public static final int frontLeftDrvMotorPort = 0;
+    public static final int frontLeftDrvMotorPort = 4;
     public static final int frontRightDrvMotorPort = 0;
-    public static final int rearLeftDrvMotorPort = 0;
-    public static final int rearRightDrvMotorPort = 0;
+    public static final int rearLeftDrvMotorPort = 6;
+    public static final int rearRightDrvMotorPort = 8;
 
-    public static final int frontLeftRotMotorPort = 0;
-    public static final int frontRightRotMotorPort = 0;
-    public static final int rearLeftRotMotorPort = 0;
-    public static final int rearRightRotMotorPort = 0;
+    public static final int frontLeftRotMotorPort = 3;
+    public static final int frontRightRotMotorPort = 1;
+    public static final int rearLeftRotMotorPort = 5;
+    public static final int rearRightRotMotorPort = 7;
 
-    public static final int frontLeftRotEncoderPort = 0;
-    public static final int frontRightRotEncoderPort = 0;
-    public static final int rearLeftRotEncoderPort = 0;
-    public static final int rearRightRotEncoderPort = 0;
+    public static final int frontLeftRotEncoderPort = 11;
+    public static final int frontRightRotEncoderPort = 9;
+    public static final int rearLeftRotEncoderPort = 12;
+    public static final int rearRightRotEncoderPort = 10;
 
     public static final int leftExtMotorPort = 2;
-    public static final int rightExtMotorPort = 1;
-    public static final int angMotorPort = 3;
-    public static final int angleEncoderChannel = 3;
+    public static final int rightExtMotorPort = 13;
+    public static final int angMotorPort = 15;
+    public static final int angleEncoderChannel = 13;
 
     public static final int clawMotorPort = 6;
     public static final int rotateClawMotorPort = 5;
-    public static final int rotationEncoderChannel = 0;
+    public static final int rotationEncoderChannel = 5;
 
     
     //Encoder Values
