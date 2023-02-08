@@ -138,20 +138,10 @@ public class RobotContainer {
 
     //driver1A.onTrue(playAudio);
 
-    driver1LB.onTrue(GenerateClawCommand(-.3)).debounce(.3);
-    driver1RB.onTrue(GenerateClawCommand(.3)).debounce(.3);
-
-    if (xbox1.getLeftTriggerAxis() > .5) {
-
-      GenerateRotateClawCommand(-.5);
-
-    }
-
-    if (xbox1.getRightTriggerAxis() > .5) {
-
-      GenerateRotateClawCommand(.5);
-  
-    }
+    driver1A.whileTrue(GenerateClawCommand(-.3));
+    driver1B.whileTrue(GenerateClawCommand(.3));
+    driver1LB.whileTrue(GenerateRotateClawCommand(-.3));
+    driver1RB.whileTrue(GenerateRotateClawCommand(.3));
 
   }
 

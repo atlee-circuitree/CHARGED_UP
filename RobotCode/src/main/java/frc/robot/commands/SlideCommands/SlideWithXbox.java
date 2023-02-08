@@ -49,8 +49,6 @@ public class SlideWithXbox extends CommandBase {
   @Override
   public void execute() {
  
-    System.out.println(Constants.modeSelect.getSelected());
-    System.out.println(Constants.modeSelect.getSelected() == "Player_Two");
     slide.changeAngleUsingPower(-xbox.getLeftY() / 1);
     slide.extendArmUsingPower(-xbox.getRightY() / 1);
 
