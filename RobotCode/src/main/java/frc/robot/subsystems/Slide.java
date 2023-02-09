@@ -27,32 +27,33 @@ public class Slide extends SubsystemBase {
   PIDController anglePID;
   PIDController extensionPID;
 
+  DutyCycleEncoder angleEncoder;
+  DutyCycleEncoder extEncoder;
+
   SimpleMotorFeedforward angleFeed;
-
-  DutyCycleEncoder angEncoder;
-
+ 
   double angleBore;
   double angle;
   double tolerance = 100;
   double CurrentStage = 1;
  
- 
   public Slide() {
 
     leftExtMotor = new TalonFX(Constants.leftExtMotorPort);
     rightExtMotor = new TalonFX(Constants.rightExtMotorPort);
+    angMotor = new TalonFX(Constants.angMotorPort);
 
     rightExtMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
     rightExtMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
-    
-    angMotor = new TalonFX(Constants.angMotorPort);
 
+    angleEncoder = new DutyCycleEncoder(0);
+    extEncoder = new DutyCycleEncoder(9);
+
+ 
     anglePID = new PIDController(.01, 0, .01);
     extensionPID = new PIDController(.01, 0, .01);
     angleFeed = new SimpleMotorFeedforward(.01, .01);
  
-    angEncoder = new DutyCycleEncoder(Constants.angleEncoderChannel);
-
     leftExtMotor.setInverted(true);
     rightExtMotor.setInverted(false);
 
@@ -64,17 +65,33 @@ public class Slide extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+    angle = (angleEncoder.getAbsolutePosition() - .3903) * 384.6153;
  
     SmartDashboard.putNumber("Angle Encoder Maximum", Constants.maxAngleEncoderValue);
     SmartDashboard.putNumber("Angle Encoder Minimum", Constants.minAngleEncoderValue);
-    SmartDashboard.putNumber("Angle Encoder Reading", angEncoder.getAbsolutePosition());
-    SmartDashboard.putNumber("TEST Encoder output", rightExtMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Angle Encoder Reading 1", angle);
+    SmartDashboard.putNumber("Extension Encoder Reading 1", extEncoder.getAbsolutePosition());
+    //SmartDashboard.putNumber("Angle Encoder Reading", angle);
+    //SmartDashboard.putNumber("Extension Encoder Reading", extEncoder.getDistance());
  
   }
 
   public void changeAngleUsingPower(double speed) {
  
-    angMotor.set(ControlMode.PercentOutput, speed);
+    if (speed > 0 && angle > Constants.maxAngleEncoderValue) {
+
+      angMotor.set(ControlMode.PercentOutput, 0);
+
+    } else if (speed < 0 && angle < Constants.minAngleEncoderValue) {
+
+      angMotor.set(ControlMode.PercentOutput, 0);
+  
+    } else {
+
+      angMotor.set(ControlMode.PercentOutput, speed);
+
+    }
  
   }
 
