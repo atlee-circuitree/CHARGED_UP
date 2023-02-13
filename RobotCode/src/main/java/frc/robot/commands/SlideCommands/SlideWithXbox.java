@@ -5,6 +5,7 @@
 package frc.robot.commands.SlideCommands;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -14,10 +15,21 @@ public class SlideWithXbox extends CommandBase {
 
   XboxController xbox;
 
-  private XboxController xbox1;
-  private XboxController xbox2;
+  XboxController xbox1;
+  XboxController xbox2;
 
   Slide slide;
+
+  enum AngleState {
+
+    AUTOMATIC_CONTROL,
+    MANUAL_CONTROL
+
+  }
+ 
+  double targetAngle = 0;
+
+  AngleState currentAngleState = AngleState.AUTOMATIC_CONTROL;
 
   public SlideWithXbox(XboxController xb1, XboxController xb2, Slide sl) {
   
@@ -49,7 +61,64 @@ public class SlideWithXbox extends CommandBase {
   @Override
   public void execute() {
  
-    slide.changeAngleUsingPower(-xbox.getLeftY() / 1);
+    if (xbox.getLeftY() > .2 || xbox.getLeftY() < -.2) {
+
+      currentAngleState = AngleState.MANUAL_CONTROL;
+
+    } else {
+
+      currentAngleState = AngleState.AUTOMATIC_CONTROL;
+
+    }
+
+    if (currentAngleState == AngleState.MANUAL_CONTROL) {
+
+      slide.changeAngleUsingPower(-xbox.getLeftY() / 1);
+
+    }
+
+    if (currentAngleState == AngleState.AUTOMATIC_CONTROL) {
+
+      if (slide.returnAngle() < targetAngle - .5) {
+
+        slide.changeAngleUsingPower(-.3);
+
+      } else if (slide.returnAngle() > targetAngle + .5) {
+
+        slide.changeAngleUsingPower(.3);
+
+      } else {
+
+        slide.changeAngleUsingPower(0);
+
+      }
+
+    }
+
+    if (xbox.getYButtonPressed()) {
+
+      targetAngle = 15;
+
+    }
+
+    if (xbox.getXButtonPressed()) {
+
+      targetAngle = -15;
+
+    }
+
+    if (xbox.getStartButtonPressed()) {
+
+      targetAngle = 0;
+
+    }
+
+    if (xbox.getLeftTriggerAxis() > .5) {
+
+      targetAngle = SmartDashboard.getNumber("Custom Angle", 0);
+
+    }
+ 
     slide.extendArmUsingPower(-xbox.getRightY() / 1);
 
   }

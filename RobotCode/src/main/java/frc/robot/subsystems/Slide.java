@@ -72,8 +72,7 @@ public class Slide extends SubsystemBase {
     SmartDashboard.putNumber("Angle Encoder Minimum", Constants.minAngleEncoderValue);
     SmartDashboard.putNumber("Angle Encoder Reading 1", angle);
     SmartDashboard.putNumber("Extension Encoder Reading 1", extEncoder.getAbsolutePosition());
-    //SmartDashboard.putNumber("Angle Encoder Reading", angle);
-    //SmartDashboard.putNumber("Extension Encoder Reading", extEncoder.getDistance());
+    SmartDashboard.putNumber("Custom Angle", 0);
  
   }
 
@@ -93,6 +92,12 @@ public class Slide extends SubsystemBase {
 
     }
  
+  }
+
+  public double returnAngle() {
+
+    return angle;
+
   }
 
   public void changeAngleUsingVoltage(double speed) {
