@@ -74,6 +74,7 @@ public class SlideWithXbox extends CommandBase {
     if (currentAngleState == AngleState.MANUAL_CONTROL) {
 
       slide.changeAngleUsingPower(-xbox.getLeftY() / 1);
+      targetAngle = slide.returnAngle();
 
     }
 
