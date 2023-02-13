@@ -14,6 +14,7 @@ import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -49,7 +50,6 @@ public class Slide extends SubsystemBase {
     angleEncoder = new DutyCycleEncoder(0);
     extEncoder = new DutyCycleEncoder(9);
 
- 
     anglePID = new PIDController(.01, 0, .01);
     extensionPID = new PIDController(.01, 0, .01);
     angleFeed = new SimpleMotorFeedforward(.01, .01);
@@ -94,9 +94,15 @@ public class Slide extends SubsystemBase {
  
   }
 
-  public double returnAngle() {
+  public double getAngle() {
 
     return angle;
+
+  }
+
+  public void setZeroAngle() {
+
+    Preferences.initDouble(Constants.angleZeroKey, angleEncoder.getAbsolutePosition());
 
   }
 

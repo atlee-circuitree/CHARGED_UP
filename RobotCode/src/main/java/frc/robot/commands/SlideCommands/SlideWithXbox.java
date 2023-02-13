@@ -74,17 +74,17 @@ public class SlideWithXbox extends CommandBase {
     if (currentAngleState == AngleState.MANUAL_CONTROL) {
 
       slide.changeAngleUsingPower(-xbox.getLeftY() / 1);
-      targetAngle = slide.returnAngle();
+      targetAngle = slide.getAngle();
 
     }
 
     if (currentAngleState == AngleState.AUTOMATIC_CONTROL) {
 
-      if (slide.returnAngle() < targetAngle - .5) {
+      if (slide.getAngle() < targetAngle - .5) {
 
         slide.changeAngleUsingPower(-.3);
 
-      } else if (slide.returnAngle() > targetAngle + .5) {
+      } else if (slide.getAngle() > targetAngle + .5) {
 
         slide.changeAngleUsingPower(.3);
 
@@ -108,15 +108,15 @@ public class SlideWithXbox extends CommandBase {
 
     }
 
-    if (xbox.getStartButtonPressed()) {
-
-      targetAngle = 0;
-
-    }
-
     if (xbox.getLeftTriggerAxis() > .5) {
 
       targetAngle = SmartDashboard.getNumber("Custom Angle", 0);
+
+    }
+
+    if (xbox.getRightTriggerAxis() > .5) {
+
+      targetAngle = 0;
 
     }
  

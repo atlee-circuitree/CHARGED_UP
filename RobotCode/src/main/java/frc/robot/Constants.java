@@ -25,8 +25,12 @@ public final class Constants {
     //Declare coordinates in the form {u, x, y, angle}
     public static final double[][] autoCoordinates = {{0, 0,0 ,0}, {1, 0,0.5 ,20}, {2, 0,1 ,40}, {3, 0,1.5 ,60}};
 
-    public static SendableChooser modeSelect;
+    //Create Mode Select
+    public static SendableChooser<String> modeSelect;
 
+    //Offsets and Zeroing
+    public static String angleZeroKey = "AngleZero";
+    public static double angleZeroValue = 0;
 
     //Ports
     public static final int frontLeftDrvMotorPort = 4;
@@ -60,8 +64,8 @@ public final class Constants {
     public static final double rearLeftEncoderOffset = 128.759765625;
     public static final double rearRightEncoderOffset = 76.201171875;
  
-    public static final double maxAngleEncoderValue = 999999999;
-    public static final double minAngleEncoderValue = -999999999;
+    public static final double maxAngleEncoderValue = 20;
+    public static final double minAngleEncoderValue = -15;
 
     public static final double maxRotationEncoderValue = 999999999;
     public static final double minRotationEncoderValue = -999999999;
