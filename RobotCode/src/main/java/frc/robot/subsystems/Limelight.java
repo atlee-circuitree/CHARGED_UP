@@ -17,9 +17,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  
 public class Limelight extends SubsystemBase {
 
-  // private static drivetrainSubsystem m_drivetrainSubsystem = new
-  // drivetrainSubsystem();
 
+  public static String limelightDashboard;
+ 
   boolean m_LimelightHasValidTarget = false;
   double m_LimelightDriveCommand = 0.0;
   double m_LimelightSteerCommand = 0.0;
@@ -158,9 +158,62 @@ public class Limelight extends SubsystemBase {
 
   }
 
+  public void LimelightSteer() {
+
+    updateLimelightTracking();
+     
+  }
+
+  public void stopDrive() {
+
+    //m_drivetrainSubsystem.robotDrive.arcadeDrive(0.0, 0.0);
+
+  }
+
   @Override
   public void periodic() {
-   
+    ReadNetworkTables();
+    limelightDashboard = "Limelight Horizontal/" + dbl_tx + ";";
+    limelightDashboard = limelightDashboard + "Limelight Vertical/" + dbl_ty + ";";
+    limelightDashboard = limelightDashboard + "Theoretical Distance To Target/" + getDistanceToTarget() + ";";
+    
+    SmartDashboard.putNumber("Limelight Distance", getDistanceToTarget());
+
+  }
+
+
+  public double getDistanceToTarget(){
+
+    double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+  
+    double targetOffsetAngle_Vertical = ty;
+
+    //how many degrees back is your limelight rotated from perfectly vertical?
+    double limelightMountAngleDegrees = 29;//was30
+
+    //distance from the center of the Limelight lens to the floor
+    double limelightHeightInches = 26.0;
+
+    //distance from the target to the floor
+    double goalHeightInches = 100.0;
+
+    double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
+    double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+
+    //calculate distance
+    double distanceFromLimelightToGoalInches = (goalHeightInches - limelightHeightInches)/Math.tan(angleToGoalRadians);
+    double distanceFromLimelighttoGoalMeters = distanceFromLimelightToGoalInches / 39.37;
+    //return in meters
+    if (HasValidTarget() == false) {
+
+      return 0;
+
+    } else {
+
+      return distanceFromLimelighttoGoalMeters;
+
+    }
+
   }
  
 }

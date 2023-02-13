@@ -5,11 +5,14 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
- 
+import com.ctre.phoenix.sensors.SensorInitializationStrategy;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -21,19 +24,35 @@ public class Slide extends SubsystemBase {
   TalonFX rightExtMotor;
   TalonFX angMotor;
 
-  double extensionPosition;
+  PIDController anglePID;
+  PIDController extensionPID;
+
+  DutyCycleEncoder angleEncoder;
+  DutyCycleEncoder extEncoder;
+
+  SimpleMotorFeedforward angleFeed;
+ 
+  double angleBore;
+  double angle;
   double tolerance = 100;
   double CurrentStage = 1;
- 
-  DutyCycleEncoder angleBore;
  
   public Slide() {
 
     leftExtMotor = new TalonFX(Constants.leftExtMotorPort);
     rightExtMotor = new TalonFX(Constants.rightExtMotorPort);
     angMotor = new TalonFX(Constants.angMotorPort);
+
+    rightExtMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    rightExtMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
+
+    angleEncoder = new DutyCycleEncoder(0);
+    extEncoder = new DutyCycleEncoder(9);
+
  
-    angleBore = new DutyCycleEncoder(Constants.angleEncoderChannel);
+    anglePID = new PIDController(.01, 0, .01);
+    extensionPID = new PIDController(.01, 0, .01);
+    angleFeed = new SimpleMotorFeedforward(.01, .01);
  
     leftExtMotor.setInverted(true);
     rightExtMotor.setInverted(false);
@@ -46,43 +65,45 @@ public class Slide extends SubsystemBase {
 
   @Override
   public void periodic() {
- 
-    extensionPosition = angMotor.getSelectedSensorPosition();
 
-    //SmartDashboard.putNumber("Angle Encoder Position", angleBore.get());
+    angle = (angleEncoder.getAbsolutePosition() - .3903) * 384.6153;
+ 
     SmartDashboard.putNumber("Angle Encoder Maximum", Constants.maxAngleEncoderValue);
     SmartDashboard.putNumber("Angle Encoder Minimum", Constants.minAngleEncoderValue);
-    SmartDashboard.putNumber("Extension Encoder Position", extensionPosition);
-
-    if (extensionPosition > Constants.extensionStage1EncoderValue + tolerance && 
-    extensionPosition < Constants.extensionStage1EncoderValue - tolerance ) {
-
-    CurrentStage = 1;
-
-    } else if (extensionPosition > Constants.extensionStage2EncoderValue + tolerance && 
-    extensionPosition < Constants.extensionStage2EncoderValue - tolerance ) {
-
-    CurrentStage = 2;
-
-    } else if (extensionPosition > Constants.extensionStage3EncoderValue + tolerance && 
-    extensionPosition < Constants.extensionStage3EncoderValue - tolerance ) {
-
-    CurrentStage = 3;
-
-    } else {
-
-    CurrentStage = 0;
-
-    }
-
-    SmartDashboard.putNumber("Extension Stage", CurrentStage);
+    SmartDashboard.putNumber("Angle Encoder Reading 1", angle);
+    SmartDashboard.putNumber("Extension Encoder Reading 1", extEncoder.getAbsolutePosition());
+    SmartDashboard.putNumber("Custom Angle", 0);
  
   }
 
   public void changeAngleUsingPower(double speed) {
+ 
+    if (speed > 0 && angle > Constants.maxAngleEncoderValue) {
 
-    angMotor.set(ControlMode.PercentOutput, speed);
+      angMotor.set(ControlMode.PercentOutput, 0);
 
+    } else if (speed < 0 && angle < Constants.minAngleEncoderValue) {
+
+      angMotor.set(ControlMode.PercentOutput, 0);
+  
+    } else {
+
+      angMotor.set(ControlMode.PercentOutput, speed);
+
+    }
+ 
+  }
+
+  public double returnAngle() {
+
+    return angle;
+
+  }
+
+  public void changeAngleUsingVoltage(double speed) {
+ 
+    angMotor.set(ControlMode.Current, angleFeed.calculate(speed));
+ 
   }
 
   public void extendArmUsingPower(double speed) {
@@ -93,60 +114,7 @@ public class Slide extends SubsystemBase {
   }
 
   public void extendToStage(int Stage) {
-
-    if (Stage == 1) {
-
-      if (extensionPosition < (Constants.extensionStage1EncoderValue - tolerance)) {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, .3);
-
-      } else if (extensionPosition > (Constants.extensionStage1EncoderValue + tolerance)) {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, -.3);
-
-      } else {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, 0);
-
-      }
-
-    }
-
-    if (Stage == 2) {
-
-      if (extensionPosition < (Constants.extensionStage2EncoderValue - tolerance)) {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, .3);
-
-      } else if (extensionPosition > (Constants.extensionStage2EncoderValue + tolerance)) {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, -.3);
-
-      } else {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, 0);
-
-      }
-
-    }
-
-    if (Stage == 3) {
-
-      if (extensionPosition < (Constants.extensionStage3EncoderValue - tolerance)) {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, .3);
-
-      } else if (extensionPosition > (Constants.extensionStage3EncoderValue + tolerance)) {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, -.3);
-
-      } else {
-
-        angMotor.set(TalonFXControlMode.PercentOutput, 0);
-
-      }
-
-    }
+    
 
   }
 
