@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
  
-import com.revrobotics.AlternateEncoderType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
@@ -22,14 +21,16 @@ public class Claw extends SubsystemBase {
   
   CANSparkMax clawMotor = null;
   CANSparkMax rotateClawMotor = null;
-  SparkMaxAbsoluteEncoder rotateEncoder;
+  DutyCycleEncoder rotationEncoder;
+  DutyCycleEncoder grabEncoder;
  
   public Claw() {
  
     clawMotor = new CANSparkMax(Constants.clawMotorPort, MotorType.kBrushless);
     rotateClawMotor = new CANSparkMax(Constants.rotateClawMotorPort, MotorType.kBrushless);
  
-    rotateEncoder = rotateClawMotor.getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
+    rotationEncoder = new DutyCycleEncoder(Constants.clawRotationEncoderDIO);
+    grabEncoder = new DutyCycleEncoder(Constants.clawGrabEncoderDIO);
 
     clawMotor.setIdleMode(IdleMode.kBrake);
     rotateClawMotor.setIdleMode(IdleMode.kBrake);
@@ -39,10 +40,8 @@ public class Claw extends SubsystemBase {
   @Override
   public void periodic() {
  
-    SmartDashboard.putNumber("Rotation Encoder Maximum", Constants.maxRotationEncoderValue);
-    SmartDashboard.putNumber("Rotation Encoder Minimum", Constants.minRotationEncoderValue);
-
-    SmartDashboard.putNumber("Rotation Encoder Position", rotateEncoder.getPosition());
+    SmartDashboard.putNumber("Claw Rotation", rotationEncoder.getAbsolutePosition());
+    SmartDashboard.putNumber("Claw Grab", grabEncoder.getAbsolutePosition());
 
   }
 

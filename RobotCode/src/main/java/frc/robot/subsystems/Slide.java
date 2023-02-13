@@ -67,11 +67,9 @@ public class Slide extends SubsystemBase {
   public void periodic() {
 
     angle = (angleEncoder.getAbsolutePosition() - .3903) * 384.6153;
- 
-    SmartDashboard.putNumber("Angle Encoder Maximum", Constants.maxAngleEncoderValue);
-    SmartDashboard.putNumber("Angle Encoder Minimum", Constants.minAngleEncoderValue);
-    SmartDashboard.putNumber("Angle Encoder Reading 1", angle);
-    SmartDashboard.putNumber("Extension Encoder Reading 1", extEncoder.getAbsolutePosition());
+  
+    SmartDashboard.putNumber("Angle", angle);
+    SmartDashboard.putNumber("Extension", extEncoder.getAbsolutePosition());
     SmartDashboard.putNumber("Custom Angle", 0);
  
   }

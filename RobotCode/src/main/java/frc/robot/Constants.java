@@ -64,12 +64,17 @@ public final class Constants {
     public static final double rearLeftEncoderOffset = 128.759765625;
     public static final double rearRightEncoderOffset = 76.201171875;
  
+    public static final int angleEncoderDIO = 0;
     public static final double maxAngleEncoderValue = 20;
     public static final double minAngleEncoderValue = -15;
 
+    public static final int clawRotationEncoderDIO = 1;
     public static final double maxRotationEncoderValue = 999999999;
     public static final double minRotationEncoderValue = -999999999;
 
+    public static final int clawGrabEncoderDIO = 2;
+
+    public static final int extensionEncoderDIO = 9;
     public static final double extensionStage1EncoderValue = 0;
     public static final double extensionStage2EncoderValue = 1000;
     public static final double extensionStage3EncoderValue = 2000;
