@@ -29,7 +29,7 @@ public class SlideWithXbox extends CommandBase {
  
   double targetAngle = 0;
 
-  AngleState currentAngleState = AngleState.AUTOMATIC_CONTROL;
+  AngleState currentAngleState = AngleState.MANUAL_CONTROL;
 
   public SlideWithXbox(XboxController xb1, XboxController xb2, Slide sl) {
   
@@ -67,7 +67,7 @@ public class SlideWithXbox extends CommandBase {
 
     } else {
 
-      currentAngleState = AngleState.AUTOMATIC_CONTROL;
+      //currentAngleState = AngleState.AUTOMATIC_CONTROL;
 
     }
 
