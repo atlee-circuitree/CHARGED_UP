@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveWithXbox;
 import frc.robot.commands.AutoCommands.AutoBalance;
 import frc.robot.commands.AutoCommands.PathFollower;
+import frc.robot.commands.ClawCommands.GrabClawToAngle;
 import frc.robot.commands.ClawCommands.RotateClaw;
+import frc.robot.commands.ClawCommands.RotateClawToAngle;
 import frc.robot.commands.ClawCommands.RunClaw;
 import frc.robot.commands.MiscCommands.PlayAudio;
 import frc.robot.commands.MiscCommands.RecalibrateModules;
@@ -51,6 +53,14 @@ public class RobotContainer {
   }
   private Command GenerateRotateClawCommand(double PercentSpeed) {
     Command runClaw = new RotateClaw(claw, PercentSpeed);
+    return runClaw;
+  }
+  private Command GenerateRotateToAngleClawCommand(double PercentSpeed, double TargetAngle) {
+    Command runClaw = new RotateClawToAngle(claw, PercentSpeed, TargetAngle);
+    return runClaw;
+  }
+  private Command GenerateRotateToAngleGrabClawCommand(double PercentSpeed, double TargetAngle) {
+    Command runClaw = new GrabClawToAngle(claw, PercentSpeed, TargetAngle);
     return runClaw;
   }
   private final RecalibrateModules recalibrateModules;
@@ -129,6 +139,8 @@ public class RobotContainer {
     JoystickButton driver1RB = new JoystickButton(xbox1, XboxController.Button.kRightBumper.value);
     JoystickButton driver1LS = new JoystickButton(xbox1, XboxController.Button.kLeftStick.value);
     JoystickButton driver1RS = new JoystickButton(xbox1, XboxController.Button.kRightStick.value);
+    JoystickButton driver1Start = new JoystickButton(xbox1, XboxController.Button.kStart.value);
+    JoystickButton driver1Back = new JoystickButton(xbox1, XboxController.Button.kBack.value);
 
     JoystickButton driver2A = new JoystickButton(xbox2, XboxController.Button.kA.value);
     JoystickButton driver2B = new JoystickButton(xbox2, XboxController.Button.kB.value);
@@ -141,10 +153,12 @@ public class RobotContainer {
 
     driver1A.whileTrue(GenerateClawCommand(-.3));
     driver1B.whileTrue(GenerateClawCommand(.3));
-    driver1LB.whileTrue(GenerateRotateClawCommand(-.3));
-    driver1RB.whileTrue(GenerateRotateClawCommand(.3));
+    driver1LB.onTrue(GenerateRotateToAngleClawCommand(.35, 0));
+    driver1RB.onTrue(GenerateRotateToAngleClawCommand(.35, 85));
+    driver1Start.onTrue(GenerateRotateToAngleGrabClawCommand(.4, 20));
+    driver1Back.onTrue(GenerateRotateToAngleGrabClawCommand(.4, 70));
 
-    driver1X.whileTrue(new PlayAudio(audio, 0, 2));
+    //driver1X.whileTrue(new PlayAudio(audio, 0, 2));
 
   }
 

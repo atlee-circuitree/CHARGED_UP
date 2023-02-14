@@ -53,8 +53,8 @@ public final class Constants {
     public static final int angMotorPort = 15;
     public static final int angleEncoderChannel = 15;
 
-    public static final int clawMotorPort = 6;
-    public static final int rotateClawMotorPort = 5;
+    public static final int clawMotorPort = 10;
+    public static final int rotateClawMotorPort = 21;
     public static final int rotationEncoderChannel = 5;
 
     
@@ -65,14 +65,17 @@ public final class Constants {
     public static final double rearRightEncoderOffset = 76.201171875;
  
     public static final int angleEncoderDIO = 0;
-    public static final double maxAngleEncoderValue = 20;
-    public static final double minAngleEncoderValue = -15;
+    public static final double angleOffset = -8;
+    public static final double maxAngleEncoderValue = 25;
+    public static final double minAngleEncoderValue = -23;
 
     public static final int clawRotationEncoderDIO = 1;
-    public static final double maxRotationEncoderValue = 999999999;
-    public static final double minRotationEncoderValue = -999999999;
+    public static final double maxRotationEncoderValue = 95;
+    public static final double minRotationEncoderValue = -95;
 
     public static final int clawGrabEncoderDIO = 2;
+    public static final double maxGrabEncoderValue = 90;
+    public static final double minGrabEncoderValue = 0;
 
     public static final int extensionEncoderDIO = 9;
     public static final double extensionStage1EncoderValue = 0;
