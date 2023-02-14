@@ -155,8 +155,8 @@ public class RobotContainer {
     driver1B.whileTrue(GenerateClawCommand(.3));
     driver1LB.onTrue(GenerateRotateToAngleClawCommand(.35, 0));
     driver1RB.onTrue(GenerateRotateToAngleClawCommand(.35, 85));
-    driver1Start.onTrue(GenerateRotateToAngleGrabClawCommand(.4, 20));
-    driver1Back.onTrue(GenerateRotateToAngleGrabClawCommand(.4, 70));
+    driver1Start.onTrue(GenerateRotateToAngleGrabClawCommand(.2, 20));
+    driver1Back.onTrue(GenerateRotateToAngleGrabClawCommand(.2, 70));
 
     //driver1X.whileTrue(new PlayAudio(audio, 0, 2));
 

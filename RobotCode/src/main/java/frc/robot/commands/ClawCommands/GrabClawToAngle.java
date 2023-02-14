@@ -46,7 +46,7 @@ public class GrabClawToAngle extends CommandBase {
   @Override
   public boolean isFinished() {
     
-    if (claw.getGrabRotation() < targetAngle + .5 && claw.getGrabRotation() > targetAngle - .5) {
+    if (claw.getGrabRotation() < targetAngle + 1 && claw.getGrabRotation() > targetAngle - 1) {
 
       return true;
 

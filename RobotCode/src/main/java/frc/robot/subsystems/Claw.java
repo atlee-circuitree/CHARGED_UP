@@ -102,11 +102,11 @@ public class Claw extends SubsystemBase {
 
   public void grabToAngle(double angle, double speed) {
 
-    if (claw > angle + .25) {
+    if (claw > angle + 1) {
  
      clawMotor.set(-speed);
  
-    } else if (claw < angle - .25) {
+    } else if (claw < angle - 1) {
  
      clawMotor.set(speed);
  
