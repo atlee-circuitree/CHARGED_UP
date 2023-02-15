@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveWithXbox;
 import frc.robot.commands.AutoCommands.AutoBalance;
 import frc.robot.commands.AutoCommands.PathFollower;
+import frc.robot.commands.ClawCommands.ClawWithXbox;
 import frc.robot.commands.ClawCommands.GrabClawToAngle;
 import frc.robot.commands.ClawCommands.RotateClaw;
 import frc.robot.commands.ClawCommands.RotateClawToAngle;
@@ -19,6 +20,7 @@ import frc.robot.commands.ClawCommands.RunClaw;
 import frc.robot.commands.MiscCommands.PlayAudio;
 import frc.robot.commands.MiscCommands.RecalibrateModules;
 import frc.robot.commands.MiscCommands.TestPathFollower;
+import frc.robot.commands.SlideCommands.ResetExtensionEncoder;
 import frc.robot.commands.SlideCommands.SlideWithXbox;
 import frc.robot.subsystems.Audio;
 import frc.robot.subsystems.Claw;
@@ -46,7 +48,9 @@ public class RobotContainer {
 
   private DriveWithXbox driveWithXbox;
   private SlideWithXbox slideWithXbox;
+  private ClawWithXbox clawWithXbox;
   private final AutoBalance autoBalance;
+  private final ResetExtensionEncoder resetExtensionEncoder;
   private Command GenerateClawCommand(double PercentSpeed) {
     Command runClaw = new RunClaw(claw, PercentSpeed);
     return runClaw;
@@ -93,6 +97,8 @@ public class RobotContainer {
     limelight = new Limelight();
 
     limelight.EnableLED();
+
+    resetExtensionEncoder = new ResetExtensionEncoder(slide);
  
     autoBalance = new AutoBalance(drivetrain, xbox1);
 
@@ -103,12 +109,15 @@ public class RobotContainer {
     //Teleop commands
     driveWithXbox = new DriveWithXbox(drivetrain, xbox1, xbox2, false);
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
+    clawWithXbox = new ClawWithXbox(claw, xbox1, xbox2);
  
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
+    clawWithXbox.addRequirements(claw);
     autoBalance.addRequirements(drivetrain);
     drivetrain.setDefaultCommand(driveWithXbox);
     slide.setDefaultCommand(slideWithXbox);
+    claw.setDefaultCommand(clawWithXbox);
 
     recalibrateModules = new RecalibrateModules(drivetrain, xbox1);
     //recalibrateModules.addRequirements(drivetrain);
@@ -151,12 +160,10 @@ public class RobotContainer {
     JoystickButton driver2LS = new JoystickButton(xbox2, XboxController.Button.kLeftStick.value);
     JoystickButton driver2RS = new JoystickButton(xbox2, XboxController.Button.kRightStick.value);
 
-    driver1A.whileTrue(GenerateClawCommand(-.3));
-    driver1B.whileTrue(GenerateClawCommand(.3));
-    driver1LB.onTrue(GenerateRotateToAngleClawCommand(.35, 0));
-    driver1RB.onTrue(GenerateRotateToAngleClawCommand(.35, 85));
-    driver1Start.onTrue(GenerateRotateToAngleGrabClawCommand(.2, 20));
-    driver1Back.onTrue(GenerateRotateToAngleGrabClawCommand(.2, 70));
+    //All four face button already used by SlideWitbXbox 
+    driver1LB.onTrue(GenerateRotateToAngleClawCommand(.35, -90));
+    driver1RB.onTrue(GenerateRotateToAngleClawCommand(.35, 90));
+    driver1LS.whileTrue(resetExtensionEncoder);
 
     //driver1X.whileTrue(new PlayAudio(audio, 0, 2));
 

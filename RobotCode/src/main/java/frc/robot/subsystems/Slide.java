@@ -32,9 +32,9 @@ public class Slide extends SubsystemBase {
   DutyCycleEncoder extEncoder;
 
   SimpleMotorFeedforward angleFeed;
- 
-  double angleBore;
+  
   double angle;
+  double extension;
   double tolerance = 100;
   double CurrentStage = 1;
  
@@ -67,10 +67,11 @@ public class Slide extends SubsystemBase {
   public void periodic() {
 
     angle = ((angleEncoder.getAbsolutePosition() - .3903) * 384.6153) - Constants.angleOffset;
-  
+    extension = extEncoder.getDistance();
+   
     SmartDashboard.putNumber("Angle", angle);
     SmartDashboard.putNumber("Extension", extEncoder.getDistance());
-    SmartDashboard.putNumber("Custom Angle", 0);
+    SmartDashboard.getNumber("Custom Angle", 0);
  
   }
 
@@ -112,13 +113,23 @@ public class Slide extends SubsystemBase {
 
   public void extendArmUsingPower(double speed) {
 
-    leftExtMotor.set(ControlMode.PercentOutput, speed);
-    rightExtMotor.set(ControlMode.PercentOutput, speed);
+    if (speed > 0 && extension > Constants.maxExtensionEncoderValue) {
+
+      leftExtMotor.set(ControlMode.PercentOutput, 0);
+      rightExtMotor.set(ControlMode.PercentOutput, 0);
+
+    } else {
+
+      leftExtMotor.set(ControlMode.PercentOutput, speed);
+      rightExtMotor.set(ControlMode.PercentOutput, speed);
+
+    }
 
   }
 
-  public void extendToStage(int Stage) {
-    
+  public void setExtensionOffset() {
+
+    extEncoder.setPositionOffset(extEncoder.getDistance());
 
   }
 

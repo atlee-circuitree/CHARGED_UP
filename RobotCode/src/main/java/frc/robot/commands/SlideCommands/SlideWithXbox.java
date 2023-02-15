@@ -96,31 +96,31 @@ public class SlideWithXbox extends CommandBase {
     if (xbox.getYButtonPressed()) {
 
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
-      targetAngle = 15;
+      targetAngle = Constants.maxAngleEncoderValue;
 
     }
 
-    if (xbox.getXButtonPressed()) {
+    if (xbox.getAButtonPressed()) {
 
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
       targetAngle = -15;
 
     }
 
-    if (xbox.getLeftTriggerAxis() > .5) {
+    if (xbox.getBButtonPressed()) {
+
+      currentAngleState = AngleState.AUTOMATIC_CONTROL;
+      targetAngle = 0;
+
+    }
+
+    if (xbox.getXButtonPressed()) {
 
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
       targetAngle = SmartDashboard.getNumber("Custom Angle", 0);
 
     }
 
-    if (xbox.getRightTriggerAxis() > .5) {
-
-      currentAngleState = AngleState.AUTOMATIC_CONTROL;
-      targetAngle = 0;
-
-    }
- 
     slide.extendArmUsingPower(-xbox.getRightY() / 1);
 
   }

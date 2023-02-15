@@ -78,9 +78,7 @@ public final class Constants {
     public static final double minGrabEncoderValue = 0;
 
     public static final int extensionEncoderDIO = 9;
-    public static final double extensionStage1EncoderValue = 0;
-    public static final double extensionStage2EncoderValue = 1000;
-    public static final double extensionStage3EncoderValue = 2000;
+    public static final int maxExtensionEncoderValue = 4;
 
     public static final double trackwidth = 22.5;
     public static final double wheelbase = 22.5;

@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
- 
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
@@ -23,6 +23,7 @@ public class Claw extends SubsystemBase {
   CANSparkMax rotateClawMotor = null;
   DutyCycleEncoder rotationEncoder;
   DutyCycleEncoder grabEncoder;
+  double targetAngle;
   double rotation;
   double claw;
  
@@ -44,9 +45,12 @@ public class Claw extends SubsystemBase {
  
     rotation = (rotationEncoder.getAbsolutePosition() - .354) / .003033333;
     claw = (grabEncoder.getAbsolutePosition() - .321) / .00242222222;
-
+ 
     SmartDashboard.putNumber("Claw Rotation", rotation);
     SmartDashboard.putNumber("Claw Grab", claw);
+    SmartDashboard.putNumber("Claw Voltage Compensation", clawMotor.getVoltageCompensationNominalVoltage());
+    SmartDashboard.putNumber("Claw Motor Temperture", clawMotor.getMotorTemperature());
+    SmartDashboard.putNumber("Claw Ramp Rate", clawMotor.getClosedLoopRampRate());
 
   }
 

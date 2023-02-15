@@ -4,22 +4,25 @@
 
 package frc.robot.commands.ClawCommands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Claw;
 
-public class RotateClawToAngle extends CommandBase {
- 
+public class ClawWithXbox extends CommandBase {
+  
   Claw claw;
-  double speed;
-  double angle;
-  double targetAngle;
+  XboxController xbox;
 
-  public RotateClawToAngle(Claw cw, double spd, double ang) {
-     
-    claw = cw;
-    speed = spd;
-    angle = ang;
+  XboxController xbox1;
+  XboxController xbox2;
+  
+  public ClawWithXbox(Claw cl, XboxController xb1, XboxController xb2) {
+    
+    claw = cl;
+    xbox1 = xb1;
+    xbox2 = xb2;
+
     addRequirements(claw);
 
   }
@@ -28,15 +31,15 @@ public class RotateClawToAngle extends CommandBase {
   @Override
   public void initialize() {
 
-    if (claw.getRotation() + targetAngle < Constants.maxRotationEncoderValue && claw.getRotation() + angle > Constants.minAngleEncoderValue) {
+    if (Constants.modeSelect.getSelected() == "Player_Two") {
 
-      targetAngle = claw.getRotation() + angle;
-  
-     } else {
-  
-      targetAngle = claw.getRotation();
-  
-     }
+      xbox = xbox1;
+      
+    } else {
+
+      xbox = xbox2;
+
+    }
 
   }
 
@@ -44,7 +47,19 @@ public class RotateClawToAngle extends CommandBase {
   @Override
   public void execute() {
 
-    claw.rotateToAngle(angle, speed);
+    if (xbox.getLeftTriggerAxis() > .5 && xbox.getRightTriggerAxis() < .5) {
+
+      claw.runClaw(-.3);
+
+    } else if (xbox.getLeftTriggerAxis() < .5 && xbox.getRightTriggerAxis() > .5) {
+
+      claw.runClaw(.3);
+
+    } else {
+
+      claw.runClaw(0);
+
+    }
 
   }
 
@@ -52,23 +67,13 @@ public class RotateClawToAngle extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    claw.rotateClaw(0);
+    claw.runClaw(0);
 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    
-    if (claw.getRotation() < targetAngle + .5 && claw.getRotation() > targetAngle - .5) {
-
-      return true;
-
-    } else {
-
-      return false;
-
-    }
-
+    return false;
   }
 }
