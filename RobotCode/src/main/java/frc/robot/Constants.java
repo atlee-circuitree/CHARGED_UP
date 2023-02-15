@@ -67,18 +67,18 @@ public final class Constants {
     public static final int angleEncoderDIO = 0;
     public static final double angleOffset = -8;
     public static final double maxAngleEncoderValue = 25;
-    public static final double minAngleEncoderValue = -18;
+    public static final double minAngleEncoderValue = -24.25;
 
     public static final int clawRotationEncoderDIO = 1;
-    public static final double maxRotationEncoderValue = 95;
-    public static final double minRotationEncoderValue = -95;
+    public static final double maxRotationEncoderValue = 9999;
+    public static final double minRotationEncoderValue = -9999;
 
     public static final int clawGrabEncoderDIO = 2;
-    public static final double maxGrabEncoderValue = 90;
+    public static final double maxGrabEncoderValue = 150;
     public static final double minGrabEncoderValue = 0;
 
     public static final int extensionEncoderDIO = 9;
-    public static final int maxExtensionEncoderValue = 4;
+    public static final int maxExtensionEncoderValue = 99;
 
     public static final double trackwidth = 22.5;
     public static final double wheelbase = 22.5;

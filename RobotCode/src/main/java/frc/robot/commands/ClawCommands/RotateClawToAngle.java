@@ -28,15 +28,15 @@ public class RotateClawToAngle extends CommandBase {
   @Override
   public void initialize() {
 
-    if (claw.getRotation() + targetAngle < Constants.maxRotationEncoderValue && claw.getRotation() + angle > Constants.minAngleEncoderValue) {
+    //if (claw.getRotation() + targetAngle < Constants.maxRotationEncoderValue && claw.getRotation() + angle > Constants.minAngleEncoderValue) {
 
-      targetAngle = claw.getRotation() + angle;
+      //targetAngle = claw.getRotation() + angle;
   
-     } else {
+     //} else {
   
       targetAngle = claw.getRotation();
   
-     }
+     //}
 
   }
 
@@ -44,7 +44,7 @@ public class RotateClawToAngle extends CommandBase {
   @Override
   public void execute() {
 
-    claw.rotateToAngle(angle, speed);
+    //claw.rotateToAngle(angle, speed);
 
   }
 
@@ -52,7 +52,7 @@ public class RotateClawToAngle extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    claw.rotateClaw(0);
+    //claw.rotateClaw(0);
 
   }
 
@@ -60,7 +60,7 @@ public class RotateClawToAngle extends CommandBase {
   @Override
   public boolean isFinished() {
     
-    if (claw.getRotation() < targetAngle + .5 && claw.getRotation() > targetAngle - .5) {
+    if (claw.getRotation() < targetAngle + 1 && claw.getRotation() > targetAngle - 1) {
 
       return true;
 

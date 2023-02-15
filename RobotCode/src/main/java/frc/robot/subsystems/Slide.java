@@ -13,6 +13,7 @@ import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,6 +33,7 @@ public class Slide extends SubsystemBase {
   DutyCycleEncoder extEncoder;
 
   SimpleMotorFeedforward angleFeed;
+  SlewRateLimiter slowSlew;
   
   double angle;
   double extension;
@@ -53,6 +55,8 @@ public class Slide extends SubsystemBase {
     anglePID = new PIDController(.01, 0, .01);
     extensionPID = new PIDController(.01, 0, .01);
     angleFeed = new SimpleMotorFeedforward(.01, .01);
+
+    slowSlew = new SlewRateLimiter(10);
  
     leftExtMotor.setInverted(true);
     rightExtMotor.setInverted(false);
@@ -87,7 +91,7 @@ public class Slide extends SubsystemBase {
   
     } else {
 
-      angMotor.set(ControlMode.PercentOutput, speed);
+      angMotor.set(ControlMode.PercentOutput, slowSlew.calculate(speed));
 
     }
  

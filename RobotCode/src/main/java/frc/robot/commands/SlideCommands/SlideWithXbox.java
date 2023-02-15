@@ -103,7 +103,7 @@ public class SlideWithXbox extends CommandBase {
     if (xbox.getAButtonPressed()) {
 
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
-      targetAngle = Constants.minAngleEncoderValue;
+      targetAngle = Constants.minAngleEncoderValue - .5;
 
     }
 

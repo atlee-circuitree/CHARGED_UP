@@ -161,8 +161,8 @@ public class RobotContainer {
     JoystickButton driver2RS = new JoystickButton(xbox2, XboxController.Button.kRightStick.value);
 
     //All four face button already used by SlideWitbXbox 
-    driver1LB.onTrue(GenerateRotateToAngleClawCommand(.35, -90));
-    driver1RB.onTrue(GenerateRotateToAngleClawCommand(.35, 90));
+    driver1LB.whileTrue(GenerateRotateClawCommand(-.4));
+    driver1RB.whileTrue(GenerateRotateClawCommand(.4));
     driver1LS.whileTrue(resetExtensionEncoder);
 
     //driver1X.whileTrue(new PlayAudio(audio, 0, 2));
