@@ -10,6 +10,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
+import com.revrobotics.Rev2mDistanceSensor;
+import com.revrobotics.Rev2mDistanceSensor.Port;
+import com.revrobotics.Rev2mDistanceSensor.RangeProfile;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -34,6 +37,8 @@ public class Slide extends SubsystemBase {
 
   SimpleMotorFeedforward angleFeed;
   SlewRateLimiter slowSlew;
+
+  Rev2mDistanceSensor distance;
   
   double angle;
   double extension;
@@ -46,6 +51,10 @@ public class Slide extends SubsystemBase {
     rightExtMotor = new TalonFX(Constants.rightExtMotorPort);
     angMotor = new TalonFX(Constants.angMotorPort);
 
+    distance = new Rev2mDistanceSensor(Port.kMXP);
+    distance.setEnabled(true);
+    distance.setRangeProfile(RangeProfile.kDefault);
+ 
     rightExtMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
     rightExtMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
 
@@ -72,10 +81,13 @@ public class Slide extends SubsystemBase {
 
     angle = ((angleEncoder.getAbsolutePosition() - .3903) * 384.6153) - Constants.angleOffset;
     extension = extEncoder.getDistance();
+    distance.setAutomaticMode(true);
    
     SmartDashboard.putNumber("Angle", angle);
     SmartDashboard.putNumber("Extension", extEncoder.getDistance());
     SmartDashboard.getNumber("Custom Angle", 0);
+    SmartDashboard.putNumber("Distance", distance.getRange());
+    SmartDashboard.putNumber("Distance", distance.getRange());
  
   }
 

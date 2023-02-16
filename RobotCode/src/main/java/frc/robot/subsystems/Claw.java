@@ -36,14 +36,14 @@ public class Claw extends SubsystemBase {
     grabEncoder = new DutyCycleEncoder(Constants.clawGrabEncoderDIO);
 
     clawMotor.setIdleMode(IdleMode.kBrake);
-    rotateClawMotor.setIdleMode(IdleMode.kBrake);
+    rotateClawMotor.setIdleMode(IdleMode.kCoast);
  
   }
 
   @Override
   public void periodic() {
  
-    rotation = (rotationEncoder.getAbsolutePosition() - .354) / .003033333;
+    rotation = ((rotationEncoder.getAbsolutePosition() - .354) / .003033333) + 76;
     claw = (grabEncoder.getAbsolutePosition() - .321) / .00242222222;
  
     SmartDashboard.putNumber("Claw Rotation", rotation);
@@ -77,16 +77,21 @@ public class Claw extends SubsystemBase {
     if (speed > 0 && rotation > Constants.maxRotationEncoderValue) {
 
       rotateClawMotor.set(0);
+      System.out.println("Max Limit Hit");
 
     } else if (speed < 0 && rotation < Constants.minRotationEncoderValue) {
 
       rotateClawMotor.set(0);
+      System.out.println("Min Limit Hit");
   
     } else {
 
       rotateClawMotor.set(speed);
+      System.out.println("Speed : " + speed);
 
     }
+
+rotateClawMotor.set(speed);
 
   }
 
