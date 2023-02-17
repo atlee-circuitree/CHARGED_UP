@@ -33,7 +33,6 @@ public class DriveWithXbox extends CommandBase {
   private XboxController xbox1;
   private XboxController xbox2;
 
-  private RuntimeDetector TEST;
   public boolean isTesting;
   private boolean fieldOrientation = true;
 
