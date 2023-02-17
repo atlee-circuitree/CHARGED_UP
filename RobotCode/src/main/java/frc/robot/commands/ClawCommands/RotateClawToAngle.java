@@ -15,11 +15,10 @@ public class RotateClawToAngle extends CommandBase {
   double angle;
   double targetAngle;
 
-  public RotateClawToAngle(Claw cw, double spd, double ang) {
+  public RotateClawToAngle(Claw cw, double spd) {
      
     claw = cw;
     speed = spd;
-    angle = ang;
     addRequirements(claw);
 
   }
@@ -28,16 +27,7 @@ public class RotateClawToAngle extends CommandBase {
   @Override
   public void initialize() {
 
-    //if (claw.getRotation() + targetAngle < Constants.maxRotationEncoderValue && claw.getRotation() + angle > Constants.minAngleEncoderValue) {
-
-      //targetAngle = claw.getRotation() + angle;
-  
-     //} else {
-  
-      targetAngle = claw.getRotation();
-  
-     //}
-
+ 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -52,7 +42,7 @@ public class RotateClawToAngle extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    //claw.rotateClaw(0);
+    claw.rotateClaw(0);
 
   }
 

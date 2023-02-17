@@ -26,6 +26,15 @@ public class Claw extends SubsystemBase {
   double targetAngle;
   double rotation;
   double claw;
+  enum clawPosition {
+
+  LEFT,
+  RIGHT,
+  CENTER
+
+  }
+  clawPosition currentPosition = clawPosition.LEFT;
+  clawPosition targetPosition = clawPosition.LEFT;
  
   public Claw() {
  
@@ -45,6 +54,43 @@ public class Claw extends SubsystemBase {
  
     rotation = ((rotationEncoder.getAbsolutePosition() - .354) / .003033333) + 76;
     claw = (grabEncoder.getAbsolutePosition() - .321) / .00242222222;
+
+    if (rotation < 241 && rotation > 225) {
+
+    currentPosition = clawPosition.LEFT;
+
+    } else if (rotation > 85 && rotation < 100) {
+
+    currentPosition = clawPosition.RIGHT;
+
+    } else if (rotation < 5 && rotation > -5) {
+
+    currentPosition = clawPosition.CENTER;
+
+    }
+
+    if (targetPosition != currentPosition && targetPosition == clawPosition.LEFT) {
+
+      clawMotor.set(.3);
+
+    } else if (targetPosition != currentPosition && targetPosition == clawPosition.RIGHT) {
+
+      clawMotor.set(-.3);
+
+    } else if (targetPosition != currentPosition && targetPosition == clawPosition.CENTER && targetPosition == clawPosition.LEFT) {
+
+      clawMotor.set(.3);
+
+    } else if (targetPosition != currentPosition && targetPosition == clawPosition.CENTER && targetPosition == clawPosition.RIGHT) {
+
+      clawMotor.set(-.3);
+
+    } else {
+
+      clawMotor.set(0);
+
+    }
+
  
     SmartDashboard.putNumber("Claw Rotation", rotation);
     SmartDashboard.putNumber("Claw Grab", claw);
@@ -74,14 +120,14 @@ public class Claw extends SubsystemBase {
 
   public void rotateClaw(double speed) {
  
-    if (speed > 0 && rotation > Constants.maxRotationEncoderValue) {
+    if (speed < 0 && rotation > Constants.maxRotationEncoderValue) {
 
-      rotateClawMotor.set(0);
+      rotateClawMotor.set(speed);
       System.out.println("Max Limit Hit");
 
-    } else if (speed < 0 && rotation < Constants.minRotationEncoderValue) {
+    } else if (speed > 0 && rotation < Constants.minRotationEncoderValue) {
 
-      rotateClawMotor.set(0);
+      rotateClawMotor.set(speed);
       System.out.println("Min Limit Hit");
   
     } else {
@@ -91,21 +137,13 @@ public class Claw extends SubsystemBase {
 
     }
 
-rotateClawMotor.set(speed);
+   //rotateClawMotor.set(speed);
 
   }
 
-  public void rotateToAngle(double angle, double speed) {
+  public void rotateToPosition(clawPosition position, double speed) {
 
-   if (rotation > angle + .25) {
-
-    rotateClawMotor.set(-speed);
-
-   } else if (rotation < angle - .25) {
-
-    rotateClawMotor.set(speed);
-
-   }
+    targetPosition = position;
 
   }
 
