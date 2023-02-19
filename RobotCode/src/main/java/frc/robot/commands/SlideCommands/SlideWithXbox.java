@@ -66,14 +66,14 @@ public class SlideWithXbox extends CommandBase {
 
       currentAngleState = AngleState.MANUAL_CONTROL;
 
-    } 
+    }
 
     if (currentAngleState == AngleState.MANUAL_CONTROL) {
 
       slide.changeAngleUsingPower(-xbox.getLeftY() / 1);
       targetAngle = slide.getAngle();
 
-    }
+  }
 
     if (currentAngleState == AngleState.AUTOMATIC_CONTROL) {
 
@@ -103,7 +103,7 @@ public class SlideWithXbox extends CommandBase {
     if (xbox.getAButtonPressed()) {
 
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
-      targetAngle = Constants.minAngleEncoderValue - .5;
+      targetAngle = Constants.minAngleEncoderValue; //- .5;
 
     }
 

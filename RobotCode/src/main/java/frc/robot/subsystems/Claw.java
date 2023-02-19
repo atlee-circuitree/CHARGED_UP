@@ -51,10 +51,10 @@ public class Claw extends SubsystemBase {
 
   @Override
   public void periodic() {
- 
-    rotation = ((rotationEncoder.getAbsolutePosition() - .354) / .003033333) + 76;
+    //rotation = ((rotationEncoder.getAbsolutePosition() - .354) / .003033333) + 76;
+    rotation = rotationEncoder.getAbsolutePosition();
     claw = (grabEncoder.getAbsolutePosition() - .321) / .00242222222;
-
+    /* 
     if (rotation < 241 && rotation > 225) {
 
     currentPosition = clawPosition.LEFT;
@@ -88,12 +88,15 @@ public class Claw extends SubsystemBase {
     } else {
 
       clawMotor.set(0);
-
+`
+    
     }
 
- 
+    */
     SmartDashboard.putNumber("Claw Rotation", rotation);
+    SmartDashboard.putNumber("Claw Rotation Encoder Abs Position", rotationEncoder.getAbsolutePosition());
     SmartDashboard.putNumber("Claw Grab", claw);
+    SmartDashboard.putNumber("Claw Grab Encoder Abs Pos", grabEncoder.getAbsolutePosition());
     SmartDashboard.putNumber("Claw Voltage Compensation", clawMotor.getVoltageCompensationNominalVoltage());
     SmartDashboard.putNumber("Claw Motor Temperture", clawMotor.getMotorTemperature());
     SmartDashboard.putNumber("Claw Ramp Rate", clawMotor.getClosedLoopRampRate());
@@ -120,25 +123,22 @@ public class Claw extends SubsystemBase {
 
   public void rotateClaw(double speed) {
  
-    if (speed < 0 && rotation > Constants.maxRotationEncoderValue) {
+    if (speed > 0 && rotation < Constants.maxClockwiseRotationEncoderValue) {
 
-      rotateClawMotor.set(speed);
-      System.out.println("Max Limit Hit");
+      rotateClawMotor.set(speed);   //turn Clockwise
 
-    } else if (speed > 0 && rotation < Constants.minRotationEncoderValue) {
+    } 
+    else if (speed < 0 && rotation > Constants.maxCounterClockwiseRotationEncoderValue) {
 
-      rotateClawMotor.set(speed);
-      System.out.println("Min Limit Hit");
+      rotateClawMotor.set(speed);   // turn Counter Clockwise
   
-    } else {
+    } 
+    else {
 
-      rotateClawMotor.set(speed);
-      System.out.println("Speed : " + speed);
+      rotateClawMotor.set(0);
 
-    }
-
-   //rotateClawMotor.set(speed);
-
+    }  
+    
   }
 
   public void rotateToPosition(clawPosition position, double speed) {

@@ -128,19 +128,28 @@ public class Slide extends SubsystemBase {
   }
 
   public void extendArmUsingPower(double speed) {
-
-    if (speed > 0 && extension > Constants.maxExtensionEncoderValue) {
-
-      leftExtMotor.set(ControlMode.PercentOutput, 0);
-      rightExtMotor.set(ControlMode.PercentOutput, 0);
-
-    } else {
+     
+    if (speed > 0 && (distance.getRange() <= Constants.maxExtensionDistanceValue && distance.getRange() != -1)) {
 
       leftExtMotor.set(ControlMode.PercentOutput, speed);
       rightExtMotor.set(ControlMode.PercentOutput, speed);
 
-    }
+    } 
+    else if(speed < 0 && (distance.getRange() >= Constants.minExtensionDistanceValue || distance.getRange() == -1)){
 
+      leftExtMotor.set(ControlMode.PercentOutput, speed);
+      rightExtMotor.set(ControlMode.PercentOutput, speed);
+        
+    }
+    else {
+
+      leftExtMotor.set(ControlMode.PercentOutput, 0);
+      rightExtMotor.set(ControlMode.PercentOutput, 0);
+
+    }
+    
+    //leftExtMotor.set(ControlMode.PercentOutput, speed);
+    //rightExtMotor.set(ControlMode.PercentOutput, speed);
   }
 
   public void setExtensionOffset() {

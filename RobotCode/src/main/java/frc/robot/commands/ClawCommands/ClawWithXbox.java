@@ -46,7 +46,7 @@ public class ClawWithXbox extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    /* 
     if (xbox.getLeftTriggerAxis() > .5 && xbox.getRightTriggerAxis() < .5) {
 
       claw.runClaw(-.3);
@@ -60,7 +60,7 @@ public class ClawWithXbox extends CommandBase {
       claw.runClaw(0);
 
     }
-
+    */
   }
 
   // Called once the command ends or is interrupted.

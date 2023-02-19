@@ -130,9 +130,9 @@ public class PathFollower extends CommandBase {
     
 
     //Modify target values for field orientation (temp used to save calculations before original forward and strafe values are modified)
-    //double temp = forward * Math.cos(-drivetrain.getNavXOutputRadians()) + strafe * Math.sin(-drivetrain.getNavXOutputRadians()); 
-    //strafe = -forward * Math.sin(-drivetrain.getNavXOutputRadians()) + strafe * Math.cos(-drivetrain.getNavXOutputRadians()); 
-    //forward = temp;
+    double temp = forward * Math.cos(-drivetrain.getNavXOutputRadians()) + strafe * Math.sin(-drivetrain.getNavXOutputRadians()); 
+    strafe = -forward * Math.sin(-drivetrain.getNavXOutputRadians()) + strafe * Math.cos(-drivetrain.getNavXOutputRadians()); 
+    forward = temp;
 
     //Alphabet vars
     double A = strafe - (rotation * (Constants.wheelbase/Constants.drivetrainRadius));

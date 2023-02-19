@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -30,6 +32,7 @@ import frc.robot.subsystems.Slide;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -60,7 +63,7 @@ public class RobotContainer {
     return runClaw;
   }
   private Command GenerateRotateToAngleClawCommand(double PercentSpeed, double TargetAngle) {
-    Command runClaw = new RotateClawToAngle(claw, PercentSpeed, TargetAngle);
+    Command runClaw = new RotateClawToAngle(claw, PercentSpeed);
     return runClaw;
   }
   private Command GenerateRotateToAngleGrabClawCommand(double PercentSpeed, double TargetAngle) {
@@ -160,10 +163,70 @@ public class RobotContainer {
     JoystickButton driver2LS = new JoystickButton(xbox2, XboxController.Button.kLeftStick.value);
     JoystickButton driver2RS = new JoystickButton(xbox2, XboxController.Button.kRightStick.value);
 
-    //All four face button already used by SlideWitbXbox 
+    //Trigger Setup
+    BooleanSupplier driver1LTSupplier = new BooleanSupplier() {
+
+      @Override
+      public boolean getAsBoolean() {
+        if(xbox1.getLeftTriggerAxis() > 0.2){
+          return true;
+        }
+        else{
+          return false;
+        }
+      }
+    };
+    Trigger driver1LT = new Trigger(driver1LTSupplier);
+
+    BooleanSupplier driver1RTSupplier = new BooleanSupplier() {
+
+      @Override
+      public boolean getAsBoolean() {
+        if(xbox1.getRightTriggerAxis() > 0.2){
+          return true;
+        }
+        else{
+          return false;
+        }
+      }
+    };
+    Trigger driver1RT = new Trigger(driver1RTSupplier);
+
+    BooleanSupplier driver2LTSupplier = new BooleanSupplier() {
+
+      @Override
+      public boolean getAsBoolean() {
+        if(xbox2.getLeftTriggerAxis() > 0.2){
+          return true;
+        }
+        else{
+          return false;
+        }
+      }
+    };
+    Trigger driver2LT = new Trigger(driver2LTSupplier);
+
+    BooleanSupplier driver2RTSupplier = new BooleanSupplier() {
+
+      @Override
+      public boolean getAsBoolean() {
+        if(xbox2.getRightTriggerAxis() > 0.2){
+          return true;
+        }
+        else{
+          return false;
+        }
+      }
+    };
+    Trigger driver2RT = new Trigger(driver2RTSupplier);
+
+    //All four face button already used by SlideWithXbox 
     driver1LB.whileTrue(GenerateRotateClawCommand(-.4));
     driver1RB.whileTrue(GenerateRotateClawCommand(.4));
     driver1LS.whileTrue(resetExtensionEncoder);
+
+    driver1LT.whileTrue(GenerateClawCommand(-0.3));
+    driver1RT.whileTrue(GenerateClawCommand(0.3));
 
     //driver1X.whileTrue(new PlayAudio(audio, 0, 2));
 
