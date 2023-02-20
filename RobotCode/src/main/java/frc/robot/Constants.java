@@ -56,8 +56,14 @@ public final class Constants {
     public static final int clawMotorPort = 25;
     public static final int rotateClawMotorPort = 21;
     public static final int rotationEncoderChannel = 5;
+    public static enum clawPosition {
 
-    
+        LEFT,
+        RIGHT,
+        CENTER,
+        NULL
+      
+     }
     //Encoder Values
     public static final double frontLeftEncoderOffset = 286.259765625;
     public static final double frontRightEncoderOffset = 250.224609375;
