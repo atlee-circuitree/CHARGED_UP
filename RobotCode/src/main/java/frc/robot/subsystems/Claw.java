@@ -26,15 +26,9 @@ public class Claw extends SubsystemBase {
   double targetAngle;
   double rotation;
   double claw;
-  enum clawPosition {
 
-  LEFT,
-  RIGHT,
-  CENTER
-
-  }
-  clawPosition currentPosition = clawPosition.LEFT;
-  clawPosition targetPosition = clawPosition.LEFT;
+  Constants.clawPosition currentPosition = Constants.clawPosition.LEFT;
+  Constants.clawPosition targetPosition = Constants.clawPosition.LEFT;
  
   public Claw() {
  
@@ -54,45 +48,22 @@ public class Claw extends SubsystemBase {
     //rotation = ((rotationEncoder.getAbsolutePosition() - .354) / .003033333) + 76;
     rotation = rotationEncoder.getAbsolutePosition();
     claw = (grabEncoder.getAbsolutePosition() - .321) / .00242222222;
-    /* 
+     
     if (rotation < 241 && rotation > 225) {
 
-    currentPosition = clawPosition.LEFT;
+    currentPosition = Constants.clawPosition.LEFT;
 
     } else if (rotation > 85 && rotation < 100) {
 
-    currentPosition = clawPosition.RIGHT;
+    currentPosition = Constants.clawPosition.RIGHT;
 
     } else if (rotation < 5 && rotation > -5) {
 
-    currentPosition = clawPosition.CENTER;
+    currentPosition = Constants.clawPosition.CENTER;
 
     }
 
-    if (targetPosition != currentPosition && targetPosition == clawPosition.LEFT) {
 
-      clawMotor.set(.3);
-
-    } else if (targetPosition != currentPosition && targetPosition == clawPosition.RIGHT) {
-
-      clawMotor.set(-.3);
-
-    } else if (targetPosition != currentPosition && targetPosition == clawPosition.CENTER && targetPosition == clawPosition.LEFT) {
-
-      clawMotor.set(.3);
-
-    } else if (targetPosition != currentPosition && targetPosition == clawPosition.CENTER && targetPosition == clawPosition.RIGHT) {
-
-      clawMotor.set(-.3);
-
-    } else {
-
-      clawMotor.set(0);
-`
-    
-    }
-
-    */
     SmartDashboard.putNumber("Claw Rotation", rotation);
     SmartDashboard.putNumber("Claw Rotation Encoder Abs Position", rotationEncoder.getAbsolutePosition());
     SmartDashboard.putNumber("Claw Grab", claw);
@@ -141,7 +112,7 @@ public class Claw extends SubsystemBase {
     
   }
 
-  public void rotateToPosition(clawPosition position, double speed) {
+  public void rotateToPosition(Constants.clawPosition position, double speed) {
 
     targetPosition = position;
 
@@ -164,6 +135,12 @@ public class Claw extends SubsystemBase {
   public double getRotation() {
 
     return rotation;
+
+  }
+
+  public Constants.clawPosition getPosition() {
+
+    return currentPosition;
 
   }
 

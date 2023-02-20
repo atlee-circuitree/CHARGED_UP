@@ -15,7 +15,6 @@ import frc.robot.commands.DriveWithXbox;
 import frc.robot.commands.AutoCommands.AutoBalance;
 import frc.robot.commands.AutoCommands.PathFollower;
 import frc.robot.commands.ClawCommands.ClawWithXbox;
-import frc.robot.commands.ClawCommands.GrabClawToAngle;
 import frc.robot.commands.ClawCommands.RotateClaw;
 import frc.robot.commands.ClawCommands.RotateClawToAngle;
 import frc.robot.commands.ClawCommands.RunClaw;
@@ -62,14 +61,7 @@ public class RobotContainer {
     Command runClaw = new RotateClaw(claw, PercentSpeed);
     return runClaw;
   }
-  private Command GenerateRotateToAngleClawCommand(double PercentSpeed, double TargetAngle) {
-    Command runClaw = new RotateClawToAngle(claw, PercentSpeed);
-    return runClaw;
-  }
-  private Command GenerateRotateToAngleGrabClawCommand(double PercentSpeed, double TargetAngle) {
-    Command runClaw = new GrabClawToAngle(claw, PercentSpeed, TargetAngle);
-    return runClaw;
-  }
+
   private final RecalibrateModules recalibrateModules;
 
   //private final PathGenerator pathGenerator;
@@ -221,15 +213,8 @@ public class RobotContainer {
     Trigger driver2RT = new Trigger(driver2RTSupplier);
 
     //All four face button already used by SlideWithXbox 
-    driver1LB.whileTrue(GenerateRotateClawCommand(-.4));
-    driver1RB.whileTrue(GenerateRotateClawCommand(.4));
     driver1LS.whileTrue(resetExtensionEncoder);
-
-    driver1LT.whileTrue(GenerateClawCommand(-0.3));
-    driver1RT.whileTrue(GenerateClawCommand(0.3));
-
-    //driver1X.whileTrue(new PlayAudio(audio, 0, 2));
-
+ 
   }
 
   /**
