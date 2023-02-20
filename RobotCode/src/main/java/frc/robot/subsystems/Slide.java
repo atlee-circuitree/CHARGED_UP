@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
@@ -19,6 +20,7 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -44,6 +46,17 @@ public class Slide extends SubsystemBase {
   double extension;
   double tolerance = 100;
   double CurrentStage = 1;
+
+  //Stuff for MotionMagic (a better velocity PID control) for the arm 
+  /*int kMeasuredPosHorizontal = 0; //Position measured when arm is horizontal (Find encoder position first)
+  double kTicksPerDegree = 4096 / 360; //Sensor is 1:1 with arm rotation
+  double currentPos = angMotor.getSelectedSensorPosition();
+  double degrees = (currentPos - kMeasuredPosHorizontal) / kTicksPerDegree;
+  double radians = java.lang.Math.toRadians(degrees);
+  double cosineScalar = java.lang.Math.cos(radians);
+  double maxGravityFF = 0;
+  double forward = 
+  double target_sensorUnits = forward * Constants.kSensorUnitsPerRotation * Constants.kRotationsToTravel;*/
  
   public Slide() {
 
@@ -126,6 +139,12 @@ public class Slide extends SubsystemBase {
     angMotor.set(ControlMode.Current, angleFeed.calculate(speed));
  
   }
+
+  /*public void changeAngleUsingVelocity(double targetPos, double speed) {
+ 
+    angMotor.set(ControlMode.MotionMagic, targetPos, DemandType.ArbitraryFeedForward, maxGravityFF * cosineScalar);
+ 
+  }*/
 
   public void extendArmUsingPower(double speed) {
      

@@ -66,8 +66,8 @@ public final class Constants {
  
     public static final int angleEncoderDIO = 0;
     public static final double angleOffset = -8;
-    public static final double maxAngleEncoderValue = 29;
-    public static final double minAngleEncoderValue = -24.25;
+    public static final double maxAngleEncoderValue = 32;
+    public static final double minAngleEncoderValue = -19.8;
 
     public static final int clawRotationEncoderDIO = 1;
     //public static final double maxRotationEncoderValue = 0.886;
@@ -84,7 +84,7 @@ public final class Constants {
     public static final int extensionEncoderDIO = 9;
     public static final int maxExtensionEncoderValue = 99;
 
-    public static final double maxExtensionDistanceValue = 40;
+    public static final double maxExtensionDistanceValue = 41;
     public static final double minExtensionDistanceValue = 2;
 
     public static final double trackwidth = 22.5;
@@ -95,6 +95,11 @@ public final class Constants {
 
     public static final int xboxControllerPort = 0;
 
+    //Phoenix's Falcon FX Motor Sensor Units Per Rotation
+    public final static int kSensorUnitsPerRotation = 4096;
+
+    //Number of rotations to drive when performing Distance Closed Loop
+    public final static double kRotationsToTravel = 6;
 
     //Drive PIDs
     public static final double rotPID_P = 1;
