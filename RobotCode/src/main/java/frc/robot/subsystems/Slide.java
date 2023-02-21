@@ -116,7 +116,7 @@ public class Slide extends SubsystemBase {
   
     } else {
 
-      angMotor.set(ControlMode.PercentOutput, slowSlew.calculate(speed));
+      angMotor.set(ControlMode.PercentOutput, slowSlew.calculate(anglePID.calculate(speed)));
 
     }
  
