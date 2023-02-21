@@ -74,6 +74,8 @@ public final class Constants {
     public static final double angleOffset = -8;
     public static final double maxAngleEncoderValue = 26;
     public static final double minAngleEncoderValue = -19.6;
+    //public static final double maxAngleEncoderValue = 9999;
+    //public static final double minAngleEncoderValue = -9999;
 
     public static final int clawRotationEncoderDIO = 1;
     //public static final double maxRotationEncoderValue = 0.886;

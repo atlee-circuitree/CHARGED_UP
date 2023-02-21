@@ -56,11 +56,11 @@ public class ClawWithXbox extends CommandBase {
 
     if (xbox.getLeftBumper()) {
 
-      claw.rotateClaw(-.3);
+      claw.rotateClaw(-.4);
 
     } else if (xbox.getRightBumper()) {
 
-      claw.rotateClaw(.3);
+      claw.rotateClaw(.4);
      
     } else {
 
@@ -70,11 +70,11 @@ public class ClawWithXbox extends CommandBase {
 
     if (xbox.getLeftTriggerAxis() > .5) {
 
-      claw.runClaw(-.35);
+      claw.runClaw(-.7);
 
     } else if (xbox.getRightTriggerAxis() > .5) {
 
-      claw.runClaw(.35);
+      claw.runClaw(.7);
 
     } else {
 

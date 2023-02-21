@@ -81,13 +81,11 @@ public class Claw extends SubsystemBase {
  
     if (speed < 0 && rotation < Constants.maxClockwiseRotationEncoderValue) {
 
-      System.out.println("Hit Max Limit");
       rotateClawMotor.set(0);   //turn Clockwise
 
     } 
     else if (speed > 0 && rotation > Constants.maxCounterClockwiseRotationEncoderValue) {
-
-      System.out.println("Hit Min Limit");
+ 
       rotateClawMotor.set(0);   // turn Counter Clockwise
   
     } 
