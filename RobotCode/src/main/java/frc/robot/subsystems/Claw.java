@@ -48,21 +48,6 @@ public class Claw extends SubsystemBase {
     //rotation = ((rotationEncoder.getAbsolutePosition() - .354) / .003033333) + 76;
     rotation = rotationEncoder.getAbsolutePosition();
     claw = (grabEncoder.getAbsolutePosition() - .321) / .00242222222;
-     
-    if (rotation < 241 && rotation > 225) {
-
-    currentPosition = Constants.clawPosition.LEFT;
-
-    } else if (rotation > 85 && rotation < 100) {
-
-    currentPosition = Constants.clawPosition.RIGHT;
-
-    } else if (rotation < 5 && rotation > -5) {
-
-    currentPosition = Constants.clawPosition.CENTER;
-
-    }
-
 
     SmartDashboard.putNumber("Claw Rotation", rotation);
     SmartDashboard.putNumber("Claw Rotation Encoder Abs Position", rotationEncoder.getAbsolutePosition());
@@ -94,19 +79,21 @@ public class Claw extends SubsystemBase {
 
   public void rotateClaw(double speed) {
  
-    if (speed > 0 && rotation < Constants.maxClockwiseRotationEncoderValue) {
+    if (speed < 0 && rotation < Constants.maxClockwiseRotationEncoderValue) {
 
-      rotateClawMotor.set(speed);   //turn Clockwise
+      System.out.println("Hit Max Limit");
+      rotateClawMotor.set(0);   //turn Clockwise
 
     } 
-    else if (speed < 0 && rotation > Constants.maxCounterClockwiseRotationEncoderValue) {
+    else if (speed > 0 && rotation > Constants.maxCounterClockwiseRotationEncoderValue) {
 
-      rotateClawMotor.set(speed);   // turn Counter Clockwise
+      System.out.println("Hit Min Limit");
+      rotateClawMotor.set(0);   // turn Counter Clockwise
   
     } 
     else {
 
-      rotateClawMotor.set(0);
+      rotateClawMotor.set(speed);
 
     }  
     

@@ -52,68 +52,34 @@ public class ClawWithXbox extends CommandBase {
   @Override
   public void execute() {
  
-    if (xbox.getLeftTriggerAxis() > .5 && xbox.getRightTriggerAxis() < .5) {
+    System.out.println(claw.getRotation());
 
-      claw.runClaw(-.3);
+    if (xbox.getLeftBumper()) {
 
-    } else if (xbox.getLeftTriggerAxis() < .5 && xbox.getRightTriggerAxis() > .5) {
+      claw.rotateClaw(-.3);
 
-      claw.runClaw(.3);
+    } else if (xbox.getRightBumper()) {
+
+      claw.rotateClaw(.3);
+     
+    } else {
+
+      claw.rotateClaw(0);
+
+    }
+
+    if (xbox.getLeftTriggerAxis() > .5) {
+
+      claw.runClaw(-.35);
+
+    } else if (xbox.getRightTriggerAxis() > .5) {
+
+      claw.runClaw(.35);
 
     } else {
 
       claw.runClaw(0);
 
-    }
-
-    if (xbox.getLeftBumperPressed()) {
-
-      if (claw.getPosition() == Constants.clawPosition.RIGHT) {
-
-        targetPosition = Constants.clawPosition.CENTER;
-
-      } else {
-
-        targetPosition = Constants.clawPosition.LEFT;
-
-      }
-
-    }
-
-    if (xbox.getRightBumperPressed()) {
-
-      if (claw.getPosition() == Constants.clawPosition.LEFT) {
-
-        targetPosition = Constants.clawPosition.CENTER;
-
-      } else {
-
-        targetPosition = Constants.clawPosition.RIGHT;
-
-      }
-
-    }
-
-    if (targetPosition != claw.getPosition() && targetPosition == Constants.clawPosition.LEFT) {
-
-      claw.rotateClaw(.3);
-
-    } else if (targetPosition != claw.getPosition() && targetPosition == Constants.clawPosition.RIGHT) {
-
-      claw.rotateClaw(-.3);
-
-    } else if (targetPosition != claw.getPosition() && targetPosition == Constants.clawPosition.CENTER && claw.getPosition() == Constants.clawPosition.LEFT) {
-
-      claw.rotateClaw(.3);
-
-    } else if (targetPosition != claw.getPosition() && targetPosition == Constants.clawPosition.CENTER && targetPosition == Constants.clawPosition.RIGHT) {
-
-      claw.rotateClaw(-.3);
-
-    } else {
-
-      claw.rotateClaw(0);
-    
     }
  
   }
