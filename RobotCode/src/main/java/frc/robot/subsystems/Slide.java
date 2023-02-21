@@ -100,7 +100,6 @@ public class Slide extends SubsystemBase {
     SmartDashboard.putNumber("Extension", extEncoder.getDistance());
     SmartDashboard.getNumber("Custom Angle", 0);
     SmartDashboard.putNumber("Distance", distance.getRange());
-    SmartDashboard.putNumber("Distance", distance.getRange());
  
   }
 
@@ -148,27 +147,30 @@ public class Slide extends SubsystemBase {
 
   public void extendArmUsingPower(double speed) {
      
-    if (speed > 0 && (distance.getRange() <= Constants.maxExtensionDistanceValue && distance.getRange() != -1)) {
-
-      leftExtMotor.set(ControlMode.PercentOutput, speed);
-      rightExtMotor.set(ControlMode.PercentOutput, speed);
-
-    } 
-    else if(speed < 0 && (distance.getRange() >= Constants.minExtensionDistanceValue || distance.getRange() == -1)){
-
-      leftExtMotor.set(ControlMode.PercentOutput, speed);
-      rightExtMotor.set(ControlMode.PercentOutput, speed);
-        
-    }
-    else {
+    if (speed > 0 && extEncoder.getDistance() > 8.5) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
 
+    } else if(speed < 0 && extEncoder.getDistance() < .1) {
+
+      leftExtMotor.set(ControlMode.PercentOutput, 0);
+      rightExtMotor.set(ControlMode.PercentOutput, 0);
+        
+    } else {
+
+      leftExtMotor.set(ControlMode.PercentOutput, speed);
+      rightExtMotor.set(ControlMode.PercentOutput, speed);
+
     }
     
-    //leftExtMotor.set(ControlMode.PercentOutput, speed);
-    //rightExtMotor.set(ControlMode.PercentOutput, speed);
+  }
+
+  public void extendArmUsingPowerNoLimit(double speed) {
+     
+    leftExtMotor.set(ControlMode.PercentOutput, speed);
+    rightExtMotor.set(ControlMode.PercentOutput, speed);
+ 
   }
 
   public void setExtensionOffset() {
