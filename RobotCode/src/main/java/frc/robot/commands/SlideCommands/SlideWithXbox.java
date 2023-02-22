@@ -85,13 +85,13 @@ public class SlideWithXbox extends CommandBase {
 
     if (currentAngleState == AngleState.MANUAL_CONTROL) {
 
-      slide.changeAngleUsingPower(-xbox.getLeftY() / 1);
+      slide.changeAngleUsingPower(xbox.getLeftY() / 1);
    
     }
 
     if (currentExtensionState == ExtensionState.MANUAL_CONTROL) {
 
-      if (xbox.getRightStickButtonPressed()) {
+      if (xbox.getRightStickButton()) {
 
         slide.extendArmUsingPowerNoLimit(-xbox.getRightY() / 1);
   
@@ -107,11 +107,11 @@ public class SlideWithXbox extends CommandBase {
 
       if (slide.getAngle() < targetAngle - .5) {
 
-        slide.changeAngleUsingPower(.35);
+        slide.changeAngleUsingPower(-.35);
 
       } else if (slide.getAngle() > targetAngle + .5) {
 
-        slide.changeAngleUsingPower(-.35);
+        slide.changeAngleUsingPower(.35);
 
       } else {
 
@@ -122,18 +122,18 @@ public class SlideWithXbox extends CommandBase {
     }
 
     if (currentExtensionState == ExtensionState.AUTOMATIC_CONTROL) {
+    
+      if (slide.getExtension() < targetExtension - .25) {
 
-      if (slide.getExtension() < targetExtension - .2) {
+        slide.extendArmUsingPower(.45);
 
-        slide.changeAngleUsingPower(-.35);
+      } else if (slide.getExtension() > targetExtension + .25) {
 
-      } else if (slide.getExtension() > targetExtension + .2) {
-
-        slide.changeAngleUsingPower(.35);
+        slide.extendArmUsingPower(-.45);
 
       } else {
 
-        slide.changeAngleUsingPower(0);
+        slide.extendArmUsingPower(0);
 
       }
 
@@ -144,7 +144,7 @@ public class SlideWithXbox extends CommandBase {
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
       currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
       targetAngle = Constants.maxAngleEncoderValue;
-      targetExtension = 8;
+      targetExtension = 8.3;
 
     }
 
@@ -153,7 +153,7 @@ public class SlideWithXbox extends CommandBase {
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
       currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
       targetAngle = Constants.minAngleEncoderValue; //- .5;
-      targetExtension = .75;
+      targetExtension = .1;
 
     }
 

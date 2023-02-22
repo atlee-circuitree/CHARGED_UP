@@ -105,11 +105,11 @@ public class Slide extends SubsystemBase {
 
   public void changeAngleUsingPower(double speed) {
  
-    if (speed > 0 && angle > Constants.maxAngleEncoderValue) {
+    if (speed < 0 && angle > Constants.maxAngleEncoderValue) {
 
       angMotor.set(ControlMode.PercentOutput, 0);
 
-    } else if (speed < 0 && angle < Constants.minAngleEncoderValue) {
+    } else if (speed > 0 && angle < Constants.minAngleEncoderValue) {
 
       angMotor.set(ControlMode.PercentOutput, 0);
   
@@ -182,6 +182,12 @@ public class Slide extends SubsystemBase {
   public void setExtensionOffset() {
 
     extEncoder.setPositionOffset(extEncoder.getDistance());
+
+  }
+
+  public void resetExtensionEncoder() {
+
+    extEncoder.reset();
 
   }
 
