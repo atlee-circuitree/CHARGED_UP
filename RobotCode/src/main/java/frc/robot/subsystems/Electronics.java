@@ -26,6 +26,7 @@ public class Electronics extends SubsystemBase {
      
     powerDistribution.clearStickyFaults();
     pneumaticHub.clearStickyFaults();
+    powerDistribution.setSwitchableChannel(true);
 
   }
 }

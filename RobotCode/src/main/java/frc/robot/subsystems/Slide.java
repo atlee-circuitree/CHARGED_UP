@@ -46,17 +46,6 @@ public class Slide extends SubsystemBase {
   double extension;
   double tolerance = 100;
   double CurrentStage = 1;
-
-  //Stuff for MotionMagic (a better velocity PID control) for the arm 
-  /*int kMeasuredPosHorizontal = 0; //Position measured when arm is horizontal (Find encoder position first)
-  double kTicksPerDegree = 4096 / 360; //Sensor is 1:1 with arm rotation
-  double currentPos = angMotor.getSelectedSensorPosition();
-  double degrees = (currentPos - kMeasuredPosHorizontal) / kTicksPerDegree;
-  double radians = java.lang.Math.toRadians(degrees);
-  double cosineScalar = java.lang.Math.cos(radians);
-  double maxGravityFF = 0;
-  double forward = 
-  double target_sensorUnits = forward * Constants.kSensorUnitsPerRotation * Constants.kRotationsToTravel;*/
  
   public Slide() {
 
@@ -73,8 +62,8 @@ public class Slide extends SubsystemBase {
 
     angleEncoder = new DutyCycleEncoder(0);
     extEncoder = new DutyCycleEncoder(9);
-
-    anglePID = new PIDController(.01, 0, .01);
+ 
+    anglePID = new PIDController(.01, 0, 0);
     extensionPID = new PIDController(.01, 0, .01);
     angleFeed = new SimpleMotorFeedforward(.01, .01);
 
@@ -141,7 +130,7 @@ public class Slide extends SubsystemBase {
 
   public void changeAngleUsingVoltage(double speed) {
  
-    angMotor.set(ControlMode.Current, angleFeed.calculate(speed));
+    angMotor.set(ControlMode.Current, anglePID.calculate(speed));
  
   }
 

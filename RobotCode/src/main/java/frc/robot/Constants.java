@@ -72,7 +72,7 @@ public final class Constants {
  
     public static final int angleEncoderDIO = 0;
     public static final double angleOffset = -8;
-    public static final double maxAngleEncoderValue = 30;
+    public static final double maxAngleEncoderValue = 33;
     public static final double minAngleEncoderValue = -19.6;
     //public static final double maxAngleEncoderValue = 9999;
     //public static final double minAngleEncoderValue = -9999;
@@ -92,7 +92,7 @@ public final class Constants {
     public static final int extensionEncoderDIO = 9;
  
     public static final double maxExtensionEncoderValue = 8.5;
-    public static final double minExtensionEncoderValue = .1;
+    public static final double minExtensionEncoderValue = .3;
 
     public static final double trackwidth = 22.5;
     public static final double wheelbase = 22.5;

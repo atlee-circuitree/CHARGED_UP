@@ -68,11 +68,11 @@ public class ClawWithXbox extends CommandBase {
 
     if (xbox.getLeftTriggerAxis() > .5) {
 
-      claw.runClaw(-.7);
+      claw.runClaw(-.35);
 
     } else if (xbox.getRightTriggerAxis() > .5) {
 
-      claw.runClaw(.7);
+      claw.runClaw(.35);
 
     } else {
 

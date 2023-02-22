@@ -107,11 +107,11 @@ public class SlideWithXbox extends CommandBase {
 
       if (slide.getAngle() < targetAngle - .5) {
 
-        slide.changeAngleUsingPower(-.35);
+        slide.changeAngleUsingPower(-.55);
 
       } else if (slide.getAngle() > targetAngle + .5) {
 
-        slide.changeAngleUsingPower(.35);
+        slide.changeAngleUsingPower(.55);
 
       } else {
 
@@ -125,11 +125,11 @@ public class SlideWithXbox extends CommandBase {
     
       if (slide.getExtension() < targetExtension - .25) {
 
-        slide.extendArmUsingPower(.45);
+        slide.extendArmUsingPower(.65);
 
       } else if (slide.getExtension() > targetExtension + .25) {
 
-        slide.extendArmUsingPower(-.45);
+        slide.extendArmUsingPower(-.65);
 
       } else {
 
@@ -161,8 +161,8 @@ public class SlideWithXbox extends CommandBase {
 
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
       currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
-      targetAngle = 0;
-      targetExtension = 4;
+      targetAngle = 26;
+      targetExtension = 6.5;
 
     }
 
