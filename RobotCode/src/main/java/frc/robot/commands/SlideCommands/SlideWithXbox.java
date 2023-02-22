@@ -25,10 +25,19 @@ public class SlideWithXbox extends CommandBase {
     MANUAL_CONTROL
 
   }
+
+  enum ExtensionState {
+
+    AUTOMATIC_CONTROL,
+    MANUAL_CONTROL
+
+  }
  
   double targetAngle = 0;
+  double targetExtension = 0;
 
   AngleState currentAngleState = AngleState.MANUAL_CONTROL;
+  ExtensionState currentExtensionState = ExtensionState.MANUAL_CONTROL;
 
   public SlideWithXbox(XboxController xb1, XboxController xb2, Slide sl) {
   
@@ -68,9 +77,29 @@ public class SlideWithXbox extends CommandBase {
 
     }
 
+    if (xbox.getRightY() > .2 || xbox.getRightY() < -.2) {
+
+      currentExtensionState = ExtensionState.MANUAL_CONTROL;
+
+    }
+
     if (currentAngleState == AngleState.MANUAL_CONTROL) {
 
       slide.changeAngleUsingPower(-xbox.getLeftY() / 1);
+   
+    }
+
+    if (currentExtensionState == ExtensionState.MANUAL_CONTROL) {
+
+      if (xbox.getRightStickButtonPressed()) {
+
+        slide.extendArmUsingPowerNoLimit(-xbox.getRightY() / 1);
+  
+      } else {
+  
+        slide.extendArmUsingPower(-xbox.getRightY() / 1);
+  
+      }
    
     }
 
@@ -92,44 +121,58 @@ public class SlideWithXbox extends CommandBase {
 
     }
 
+    if (currentExtensionState == ExtensionState.AUTOMATIC_CONTROL) {
+
+      if (slide.getExtension() < targetExtension - .2) {
+
+        slide.changeAngleUsingPower(-.35);
+
+      } else if (slide.getExtension() > targetExtension + .2) {
+
+        slide.changeAngleUsingPower(.35);
+
+      } else {
+
+        slide.changeAngleUsingPower(0);
+
+      }
+
+    }
+
     if (xbox.getYButtonPressed()) {
 
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
+      currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
       targetAngle = Constants.maxAngleEncoderValue;
+      targetExtension = 8;
 
     }
 
     if (xbox.getAButtonPressed()) {
 
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
+      currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
       targetAngle = Constants.minAngleEncoderValue; //- .5;
+      targetExtension = .75;
 
     }
 
     if (xbox.getBButtonPressed()) {
 
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
+      currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
       targetAngle = 0;
+      targetExtension = 4;
 
     }
 
     if (xbox.getXButtonPressed()) {
 
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
+      currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
       targetAngle = SmartDashboard.getNumber("Custom Angle", 0);
 
     }
-
-    if (xbox.getRightStickButtonPressed()) {
-
-      slide.extendArmUsingPowerNoLimit(-xbox.getRightY() / 1);
-
-    } else {
-
-      slide.extendArmUsingPower(-xbox.getRightY() / 1);
-
-    }
-  
 
   }
 

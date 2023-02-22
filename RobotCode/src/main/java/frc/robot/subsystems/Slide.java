@@ -127,6 +127,12 @@ public class Slide extends SubsystemBase {
 
   }
 
+  public double getExtension() {
+
+    return extEncoder.getDistance();
+
+  }
+
   public void setZeroAngle() {
 
     Preferences.initDouble(Constants.angleZeroKey, angleEncoder.getAbsolutePosition());
@@ -147,12 +153,12 @@ public class Slide extends SubsystemBase {
 
   public void extendArmUsingPower(double speed) {
      
-    if (speed > 0 && extEncoder.getDistance() > 8.5) {
+    if (speed > 0 && extEncoder.getDistance() > Constants.maxExtensionEncoderValue) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
 
-    } else if(speed < 0 && extEncoder.getDistance() < .1) {
+    } else if(speed < 0 && extEncoder.getDistance() < Constants.minExtensionEncoderValue) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
