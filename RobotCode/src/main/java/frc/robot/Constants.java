@@ -86,8 +86,10 @@ public final class Constants {
     public static final double maxClockwiseRotationEncoderValue = .471;
 
     public static final int clawGrabEncoderDIO = 2;
+    //public static final double maxGrabEncoderValue = 80;
+    //public static final double minGrabEncoderValue = -47;
     public static final double maxGrabEncoderValue = 80;
-    public static final double minGrabEncoderValue = -47;
+    public static final double minGrabEncoderValue = -75;
 
     public static final int extensionEncoderDIO = 9;
  

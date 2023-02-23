@@ -94,7 +94,7 @@ public class RobotContainer {
     pathEQ = new PathEQ(Constants.autoCoordinates, true);
 
     //Teleop commands
-    driveWithXbox = new DriveWithXbox(drivetrain, xbox1, xbox2, false);
+    driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
     clawWithXbox = new ClawWithXbox(claw, xbox1, xbox2);
  
@@ -207,10 +207,10 @@ public class RobotContainer {
     Trigger driver2RT = new Trigger(driver2RTSupplier);
 
     //All four face button already used by SlideWithXbox 
-    driver2LB.whileTrue(new RotateClaw(claw, -.4));
-    driver2RB.whileTrue(new RotateClaw(claw, .4));
-    driver2LT.whileTrue(new RunClaw(claw, -.4));
-    driver2RT.whileTrue(new RunClaw(claw, .4));
+    driver2LB.whileTrue(new RotateClaw(claw, -.13));
+    driver2RB.whileTrue(new RotateClaw(claw, .13));
+    driver2LT.whileTrue(new RunClaw(claw, -.55));
+    driver2RT.whileTrue(new RunClaw(claw, .55));
     driver2Start.onTrue(new RunClawUntilClamp(claw, .5));
     driver2Back.onTrue(new RunClawUntilClamp(claw, -.5));
  

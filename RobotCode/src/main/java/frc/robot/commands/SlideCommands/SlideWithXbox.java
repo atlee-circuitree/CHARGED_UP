@@ -71,13 +71,13 @@ public class SlideWithXbox extends CommandBase {
   @Override
   public void execute() {
  
-    if (xbox.getLeftY() > .2 || xbox.getLeftY() < -.2) {
+    if (xbox.getLeftY() > .2 || xbox.getLeftY() < -.1) {
 
       currentAngleState = AngleState.MANUAL_CONTROL;
 
     }
 
-    if (xbox.getRightY() > .2 || xbox.getRightY() < -.2) {
+    if (xbox.getRightY() > .2 || xbox.getRightY() < -.1) {
 
       currentExtensionState = ExtensionState.MANUAL_CONTROL;
 
@@ -85,7 +85,7 @@ public class SlideWithXbox extends CommandBase {
 
     if (currentAngleState == AngleState.MANUAL_CONTROL) {
 
-      slide.changeAngleUsingPower(xbox.getLeftY() / 1);
+      slide.changeAngleUsingPower(xbox.getLeftY() / .5);
    
     }
 
@@ -94,6 +94,7 @@ public class SlideWithXbox extends CommandBase {
       if (xbox.getRightStickButton()) {
 
         slide.extendArmUsingPowerNoLimit(-xbox.getRightY() / 1);
+        slide.resetExtensionEncoder();
   
       } else {
   
@@ -107,11 +108,11 @@ public class SlideWithXbox extends CommandBase {
 
       if (slide.getAngle() < targetAngle - .5) {
 
-        slide.changeAngleUsingPower(-Constants.smoothUsingError(slide.getAngle(), 70, targetAngle, .15, .65));
+        slide.changeAngleUsingPower(-1);
 
       } else if (slide.getAngle() > targetAngle + .5) {
 
-        slide.changeAngleUsingPower(Constants.smoothUsingError(slide.getAngle(), 70, targetAngle, .15, .65));
+        slide.changeAngleUsingPower(1);
 
       } else {
 

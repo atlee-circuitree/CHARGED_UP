@@ -16,6 +16,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Audio;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Drivetrain.Motors;
 import frc.robot.subsystems.Drivetrain.SwerveModule;
 
@@ -24,6 +25,7 @@ import java.lang.Math;
 public class DriveWithXbox extends CommandBase {
 
   private final Drivetrain drivetrain;
+  private final Limelight limelight;
   private SlewRateLimiter slewRateLimiterX = new SlewRateLimiter(0.8);
   private SlewRateLimiter slewRateLimiterY = new SlewRateLimiter(0.8);
   private SlewRateLimiter slewRateLimiterZ = new SlewRateLimiter(0.2);
@@ -42,9 +44,10 @@ public class DriveWithXbox extends CommandBase {
 
   public static String driveWithXboxDashboard;
  
-  public DriveWithXbox(Drivetrain dt, XboxController xb1, XboxController xb2, boolean testing) {
+  public DriveWithXbox(Drivetrain dt, Limelight lt, XboxController xb1, XboxController xb2, boolean testing) {
   
     drivetrain = dt;
+    limelight = lt;
     xbox1 = xb1;
     xbox2 = xb2;
     isTesting = testing;
@@ -193,8 +196,14 @@ public class DriveWithXbox extends CommandBase {
     SmartDashboard.putNumber("FR Wheel Encoder", drivetrain.getDriveEncoder(SwerveModule.FRONT_RIGHT));
     SmartDashboard.putNumber("FR Wheel Encoder Meters", drivetrain.getDriveEncoderMeters(SwerveModule.FRONT_RIGHT));
 
-    
-
+    /* 
+    SmartDashboard.putNumber("Limelight botpose ID: 0", limelight.BotPose()[0]);
+    SmartDashboard.putNumber("Limelight botpose ID: 1", limelight.BotPose()[1]);
+    SmartDashboard.putNumber("Limelight botpose ID: 2", limelight.BotPose()[2]);
+    SmartDashboard.putNumber("Limelight botpose ID: 3", limelight.BotPose()[3]);
+    SmartDashboard.putNumber("Limelight botpose ID: 4", limelight.BotPose()[4]);
+    SmartDashboard.putNumber("Limelight botpose ID: 5", limelight.BotPose()[5]);
+    */
 
     //Reset gyro button
     if(xbox.getBackButtonPressed()){

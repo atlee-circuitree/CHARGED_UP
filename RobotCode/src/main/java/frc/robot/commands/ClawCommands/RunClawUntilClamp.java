@@ -5,6 +5,7 @@
 package frc.robot.commands.ClawCommands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Claw;
 
@@ -30,6 +31,8 @@ public class RunClawUntilClamp extends CommandBase {
   @Override
   public void initialize() {
 
+    StartTimer = new Timer();
+
     StartTimer.start();
 
   }
@@ -37,12 +40,8 @@ public class RunClawUntilClamp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    lastPosition = currentPosition;
 
-    currentPosition = claw.getGrabRotation();
-
-    velocity = Math.abs(currentPosition - lastPosition);
+    SmartDashboard.putNumber("Claw Velocity", velocity);
 
     claw.runClaw(speed);
 
@@ -60,7 +59,7 @@ public class RunClawUntilClamp extends CommandBase {
   @Override
   public boolean isFinished() {
     
-    if (velocity > .05 || StartTimer.get() < .3) {
+    if (velocity > .05 || StartTimer.get() < 1) {
 
       return false;
 

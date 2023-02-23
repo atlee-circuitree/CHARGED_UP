@@ -28,6 +28,10 @@ public class Limelight extends SubsystemBase {
   boolean b_tv = false;
   double dbl_tx, dbl_tv, dbl_ty, dbl_ta, dbl_ts, dbl_thor, dbl_tvert, dbl_tshort, dbl_tlong;
 
+  //AprilTag specific values
+  double[] dbl_botpose;
+  double[] dbl_campose;
+
   public boolean HasValidTarget() {
     return b_tv;
   }
@@ -64,6 +68,15 @@ public class Limelight extends SubsystemBase {
     return dbl_tvert;
   }
 
+  //AprilTag specific values
+  public double[] BotPose(){
+    return dbl_botpose;
+  }
+  
+  public double[] CamPose(){
+    return dbl_campose;
+  }
+
   public void ReadNetworkTables() {
 
     double dbl_tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
@@ -80,6 +93,10 @@ public class Limelight extends SubsystemBase {
     dbl_tlong = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tlong").getDouble(0);
     dbl_thor = NetworkTableInstance.getDefault().getTable("limelight").getEntry("thor").getDouble(0);
     dbl_tvert = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tvert").getDouble(0);
+
+    //AprilTag specific calls
+    dbl_botpose = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
+    dbl_campose = NetworkTableInstance.getDefault().getTable("limelight").getEntry("campose").getDoubleArray(new double[6]);
   }
 
   public Limelight() {

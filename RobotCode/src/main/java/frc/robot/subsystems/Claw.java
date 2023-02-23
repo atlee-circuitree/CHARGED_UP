@@ -23,6 +23,10 @@ public class Claw extends SubsystemBase {
   CANSparkMax rotateClawMotor = null;
   DutyCycleEncoder rotationEncoder;
   DutyCycleEncoder grabEncoder;
+  double currentGrabPosition;
+  double lastGrabPosition;
+  double velocity;
+  double timeStuck;
   double targetAngle;
   double rotation;
   double claw;
@@ -39,7 +43,7 @@ public class Claw extends SubsystemBase {
     grabEncoder = new DutyCycleEncoder(Constants.clawGrabEncoderDIO);
 
     clawMotor.setIdleMode(IdleMode.kBrake);
-    rotateClawMotor.setIdleMode(IdleMode.kCoast);
+    rotateClawMotor.setIdleMode(IdleMode.kBrake);
  
   }
 
@@ -47,8 +51,26 @@ public class Claw extends SubsystemBase {
   public void periodic() {
     //rotation = ((rotationEncoder.getAbsolutePosition() - .354) / .003033333) + 76;
     rotation = rotationEncoder.getAbsolutePosition();
+
     claw = (grabEncoder.getAbsolutePosition() - .321) / .00242222222;
 
+    lastGrabPosition = currentGrabPosition;
+
+    currentGrabPosition = claw;
+
+    velocity = Math.abs(currentGrabPosition - lastGrabPosition);
+
+    if (velocity > .1 && velocity < 3) {
+
+    timeStuck++;
+
+    } else {
+
+    timeStuck = 0;
+
+    }
+
+    SmartDashboard.putNumber("Claw Velocity", velocity);
     SmartDashboard.putNumber("Claw Rotation", rotation);
     SmartDashboard.putNumber("Claw Rotation Encoder Abs Position", rotationEncoder.getAbsolutePosition());
     SmartDashboard.putNumber("Claw Grab", claw);
@@ -65,10 +87,6 @@ public class Claw extends SubsystemBase {
 
       clawMotor.set(0);
 
-    } else if (speed < 0 && claw < Constants.minGrabEncoderValue) {
-
-      clawMotor.set(0);
-  
     } else {
 
       clawMotor.set(speed);
