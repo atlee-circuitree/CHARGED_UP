@@ -151,5 +151,25 @@ public final class Constants {
     // Constraint for the motion profilied robot angle controller
     public static final TrapezoidProfile.Constraints thetaControllerConstraints =
         new TrapezoidProfile.Constraints(Math.PI, Math.PI);
+
+    public static double smoothUsingError(double Encoder, double Range, double SetPoint, double MinSpeed, double MaxSpeed) {
+
+        double error = (Math.abs(Encoder - SetPoint) / Range);
+
+        if (error < MinSpeed) {
+
+            error = MinSpeed;
+
+        }
+        
+        if (error > MaxSpeed) {
+
+            error = MaxSpeed;
+
+        }
+
+        return error;
+
+    }
  
 }

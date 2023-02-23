@@ -107,11 +107,11 @@ public class SlideWithXbox extends CommandBase {
 
       if (slide.getAngle() < targetAngle - .5) {
 
-        slide.changeAngleUsingPower(-.55);
+        slide.changeAngleUsingPower(-Constants.smoothUsingError(slide.getAngle(), 70, targetAngle, .15, .65));
 
       } else if (slide.getAngle() > targetAngle + .5) {
 
-        slide.changeAngleUsingPower(.55);
+        slide.changeAngleUsingPower(Constants.smoothUsingError(slide.getAngle(), 70, targetAngle, .15, .65));
 
       } else {
 
