@@ -16,6 +16,7 @@ import frc.robot.commands.AutoCommands.PathFollower;
 import frc.robot.commands.ClawCommands.ClawWithXbox;
 import frc.robot.commands.ClawCommands.RotateClaw;
 import frc.robot.commands.ClawCommands.RunClaw;
+import frc.robot.commands.ClawCommands.RunClawUntilClamp;
 import frc.robot.commands.DriveCommands.DriveWithXbox;
 import frc.robot.commands.MiscCommands.PlayAudio;
 import frc.robot.commands.MiscCommands.RecalibrateModules;
@@ -145,6 +146,8 @@ public class RobotContainer {
     JoystickButton driver2RB = new JoystickButton(xbox2, XboxController.Button.kRightBumper.value);
     JoystickButton driver2LS = new JoystickButton(xbox2, XboxController.Button.kLeftStick.value);
     JoystickButton driver2RS = new JoystickButton(xbox2, XboxController.Button.kRightStick.value);
+    JoystickButton driver2Start = new JoystickButton(xbox2, XboxController.Button.kStart.value);
+    JoystickButton driver2Back = new JoystickButton(xbox2, XboxController.Button.kBack.value);
 
     //Trigger Setup
     BooleanSupplier driver1LTSupplier = new BooleanSupplier() {
@@ -208,6 +211,8 @@ public class RobotContainer {
     driver2RB.whileTrue(new RotateClaw(claw, .4));
     driver2LT.whileTrue(new RunClaw(claw, -.4));
     driver2RT.whileTrue(new RunClaw(claw, .4));
+    driver2Start.onTrue(new RunClawUntilClamp(claw, .5));
+    driver2Back.onTrue(new RunClawUntilClamp(claw, -.5));
  
   }
 
