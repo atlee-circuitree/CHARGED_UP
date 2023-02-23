@@ -52,15 +52,7 @@ public class RobotContainer {
   private ClawWithXbox clawWithXbox;
   private final AutoBalance autoBalance;
   private final ResetExtensionEncoder resetExtensionEncoder;
-  private Command GenerateClawCommand(double PercentSpeed) {
-    Command runClaw = new RunClaw(claw, PercentSpeed);
-    return runClaw;
-  }
-  private Command GenerateRotateClawCommand(double PercentSpeed) {
-    Command runClaw = new RotateClaw(claw, PercentSpeed);
-    return runClaw;
-  }
-
+ 
   private final RecalibrateModules recalibrateModules;
 
   //private final PathGenerator pathGenerator;
@@ -111,7 +103,7 @@ public class RobotContainer {
     autoBalance.addRequirements(drivetrain);
     drivetrain.setDefaultCommand(driveWithXbox);
     slide.setDefaultCommand(slideWithXbox);
-    claw.setDefaultCommand(clawWithXbox);
+    //claw.setDefaultCommand(clawWithXbox);
 
     recalibrateModules = new RecalibrateModules(drivetrain, xbox1);
     //recalibrateModules.addRequirements(drivetrain);
@@ -212,7 +204,10 @@ public class RobotContainer {
     Trigger driver2RT = new Trigger(driver2RTSupplier);
 
     //All four face button already used by SlideWithXbox 
-    driver1LS.whileTrue(resetExtensionEncoder);
+    driver2LB.whileTrue(new RotateClaw(claw, -.4));
+    driver2RB.whileTrue(new RotateClaw(claw, .4));
+    driver2LT.whileTrue(new RunClaw(claw, -.4));
+    driver2RT.whileTrue(new RunClaw(claw, .4));
  
   }
 

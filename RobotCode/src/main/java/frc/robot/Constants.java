@@ -132,14 +132,6 @@ public final class Constants {
 
     //Instansiated in this order:
     //FrontLeft, FrontRight, RearLeft, RearRight
-    /*
-    public static final SwerveDriveKinematics driveKinematics =
-        new SwerveDriveKinematics(
-            new Translation2d(wheelbase / 2, -trackwidth / 2),
-            new Translation2d(wheelbase / 2, trackwidth / 2),
-            new Translation2d(-wheelbase / 2, -trackwidth / 2),
-            new Translation2d(-wheelbase / 2, trackwidth / 2));
-    */
     public static final SwerveDriveKinematics driveKinematics =
         new SwerveDriveKinematics(
             new Translation2d(-trackwidth / 2, wheelbase / 2),
