@@ -196,14 +196,12 @@ public class DriveWithXbox extends CommandBase {
     SmartDashboard.putNumber("FR Wheel Encoder", drivetrain.getDriveEncoder(SwerveModule.FRONT_RIGHT));
     SmartDashboard.putNumber("FR Wheel Encoder Meters", drivetrain.getDriveEncoderMeters(SwerveModule.FRONT_RIGHT));
 
-    /* 
     SmartDashboard.putNumber("Limelight botpose ID: 0", limelight.BotPose()[0]);
     SmartDashboard.putNumber("Limelight botpose ID: 1", limelight.BotPose()[1]);
     SmartDashboard.putNumber("Limelight botpose ID: 2", limelight.BotPose()[2]);
     SmartDashboard.putNumber("Limelight botpose ID: 3", limelight.BotPose()[3]);
     SmartDashboard.putNumber("Limelight botpose ID: 4", limelight.BotPose()[4]);
     SmartDashboard.putNumber("Limelight botpose ID: 5", limelight.BotPose()[5]);
-    */
 
     //Reset gyro button
     if(xbox.getBackButtonPressed()){

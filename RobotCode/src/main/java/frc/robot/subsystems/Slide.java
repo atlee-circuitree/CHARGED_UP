@@ -102,6 +102,10 @@ public class Slide extends SubsystemBase {
 
       angMotor.set(ControlMode.PercentOutput, 0);
   
+    } else if (distance.getRange() < .5 && distance.getRange() != -1) {
+
+      angMotor.set(ControlMode.PercentOutput, 0);
+
     } else {
 
       angMotor.set(ControlMode.PercentOutput, speed);
