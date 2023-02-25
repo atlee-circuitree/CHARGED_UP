@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoCommands.AngleAndExtendInAuto;
 import frc.robot.commands.AutoCommands.AutoBalance;
 import frc.robot.commands.AutoCommands.PathFollower;
-import frc.robot.commands.ClawCommands.ClawWithXbox;
 import frc.robot.commands.ClawCommands.RotateClaw;
 import frc.robot.commands.ClawCommands.RunClaw;
 import frc.robot.commands.ClawCommands.RunClawUntilClamp;
@@ -51,7 +50,6 @@ public class RobotContainer {
 
   private DriveWithXbox driveWithXbox;
   private SlideWithXbox slideWithXbox;
-  private ClawWithXbox clawWithXbox;
   private final AutoBalance autoBalance;
   private final ResetExtensionEncoder resetExtensionEncoder;
  
@@ -97,11 +95,9 @@ public class RobotContainer {
     //Teleop commands
     driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
-    clawWithXbox = new ClawWithXbox(claw, xbox1, xbox2);
  
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
-    clawWithXbox.addRequirements(claw);
     autoBalance.addRequirements(drivetrain);
     drivetrain.setDefaultCommand(driveWithXbox);
     slide.setDefaultCommand(slideWithXbox);
