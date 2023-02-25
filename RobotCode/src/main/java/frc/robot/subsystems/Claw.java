@@ -30,9 +30,6 @@ public class Claw extends SubsystemBase {
   double targetAngle;
   double rotation;
   double claw;
-
-  Constants.clawPosition currentPosition = Constants.clawPosition.LEFT;
-  Constants.clawPosition targetPosition = Constants.clawPosition.LEFT;
  
   public Claw() {
  
@@ -49,27 +46,7 @@ public class Claw extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //rotation = ((rotationEncoder.getAbsolutePosition() - .354) / .003033333) + 76;
-    rotation = rotationEncoder.getAbsolutePosition();
-
-    claw = (grabEncoder.getAbsolutePosition() - .321) / .00242222222;
-
-    lastGrabPosition = currentGrabPosition;
-
-    currentGrabPosition = claw;
-
-    velocity = Math.abs(currentGrabPosition - lastGrabPosition);
-
-    if (velocity > .1 && velocity < 3) {
-
-    timeStuck++;
-
-    } else {
-
-    timeStuck = 0;
-
-    }
-
+ 
     SmartDashboard.putNumber("Claw Velocity", velocity);
     SmartDashboard.putNumber("Claw Rotation", rotation);
     SmartDashboard.putNumber("Claw Rotation Encoder Abs Position", rotationEncoder.getAbsolutePosition());
@@ -84,6 +61,10 @@ public class Claw extends SubsystemBase {
   public void runClaw(double speed) {
  
     if (speed > 0 && claw > Constants.maxGrabEncoderValue) {
+
+      clawMotor.set(0);
+
+    } else if (speed < 0 && claw < Constants.minGrabEncoderValue) {
 
       clawMotor.set(0);
 
@@ -114,13 +95,7 @@ public class Claw extends SubsystemBase {
     }  
     
   }
-
-  public void rotateToPosition(Constants.clawPosition position, double speed) {
-
-    targetPosition = position;
-
-  }
-
+ 
   public void grabToAngle(double angle, double speed) {
 
     if (claw > angle + 1) {
@@ -138,12 +113,6 @@ public class Claw extends SubsystemBase {
   public double getRotation() {
 
     return rotation;
-
-  }
-
-  public Constants.clawPosition getPosition() {
-
-    return currentPosition;
 
   }
 
