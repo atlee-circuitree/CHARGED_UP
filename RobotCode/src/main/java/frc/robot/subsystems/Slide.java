@@ -37,6 +37,9 @@ public class Slide extends SubsystemBase {
   DutyCycleEncoder angleEncoder;
   DutyCycleEncoder extEncoder;
 
+  double extOffset = 0;
+  boolean runOnce = false;
+
   SimpleMotorFeedforward angleFeed;
   SlewRateLimiter slowSlew;
 
@@ -85,8 +88,15 @@ public class Slide extends SubsystemBase {
     extension = extEncoder.getDistance();
     distance.setAutomaticMode(true);
    
+    if(distance.getRange() != -1 && distance.getRange() <= 5 && runOnce == false){
+      extOffset = distance.getRange() - extEncoder.getDistance();
+      runOnce = true;
+    }
+
     SmartDashboard.putNumber("Angle", angle);
     SmartDashboard.putNumber("Extension", extEncoder.getDistance());
+    SmartDashboard.putNumber("Extension Inches", getExtensionEncoderInches());
+    SmartDashboard.putBoolean("Extension Calibrated", runOnce);
     SmartDashboard.getNumber("Custom Angle", 0);
     SmartDashboard.putNumber("Distance", distance.getRange());
  
@@ -94,11 +104,11 @@ public class Slide extends SubsystemBase {
 
   public void changeAngleUsingPower(double speed) {
  
-    if (speed < 0 && angle > Constants.maxAngleEncoderValue) {
+    if (speed > 0 && angle > Constants.maxAngleEncoderValue) {
 
       angMotor.set(ControlMode.PercentOutput, 0);
 
-    } else if (speed > 0 && angle < Constants.minAngleEncoderValue) {
+    } else if (speed < 0 && angle < Constants.minAngleEncoderValue) {
 
       angMotor.set(ControlMode.PercentOutput, 0);
   
@@ -146,12 +156,12 @@ public class Slide extends SubsystemBase {
 
   public void extendArmUsingPower(double speed) {
      
-    if (speed > 0 && extEncoder.getDistance() > Constants.maxExtensionEncoderValue) {
+    if (speed > 0 && getExtensionEncoderInches() > Constants.maxExtensionInchValue) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
 
-    } else if(speed < 0 && extEncoder.getDistance() < Constants.minExtensionEncoderValue) {
+    } else if(speed < 0 && getExtensionEncoderInches() < Constants.minExtensionInchValue) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
@@ -182,6 +192,15 @@ public class Slide extends SubsystemBase {
 
     extEncoder.reset();
 
+  }
+
+  //Extension Inches stuff
+
+  public double getExtensionEncoderInches(){
+    
+    double encoderInches = extEncoder.getDistance() * 1.5 * Math.PI;
+
+    return encoderInches + extOffset;
   }
 
 }

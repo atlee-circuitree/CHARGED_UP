@@ -82,9 +82,9 @@ public final class Constants {
     //public static final double maxRotationEncoderValue = 0.886;
     //public static final double minRotationEncoderValue = 0.348;
 
-    public static final double maxCounterClockwiseRotationEncoderValue = .973;
+    public static final double maxCounterClockwiseRotationEncoderValue = 0.742;
     public static final double middleRotationEncoderValue = .732; //when claw is horizontal
-    public static final double maxClockwiseRotationEncoderValue = .471;
+    public static final double maxClockwiseRotationEncoderValue = 0.225;
 
     public static final int clawGrabEncoderDIO = 2;
     //public static final double maxGrabEncoderValue = 80;
@@ -94,8 +94,8 @@ public final class Constants {
 
     public static final int extensionEncoderDIO = 9;
  
-    public static final double maxExtensionEncoderValue = 8.5;
-    public static final double minExtensionEncoderValue = .3;
+    public static final double maxExtensionInchValue = 44;
+    public static final double minExtensionInchValue = 4;
 
     public static final double trackwidth = 22.5;
     public static final double wheelbase = 22.5;

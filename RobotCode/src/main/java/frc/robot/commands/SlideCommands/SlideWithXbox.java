@@ -53,6 +53,9 @@ public class SlideWithXbox extends CommandBase {
   @Override
   public void initialize() {
     
+    currentAngleState = AngleState.MANUAL_CONTROL;
+    currentExtensionState = ExtensionState.MANUAL_CONTROL;
+
     if (Constants.modeSelect.getSelected() == "Player_Two") {
 
       xbox = xbox1;
@@ -85,7 +88,7 @@ public class SlideWithXbox extends CommandBase {
 
     if (currentAngleState == AngleState.MANUAL_CONTROL) {
 
-      slide.changeAngleUsingPower(xbox.getLeftY() / .5);
+      slide.changeAngleUsingPower(-xbox.getLeftY() / .5);
    
     }
 

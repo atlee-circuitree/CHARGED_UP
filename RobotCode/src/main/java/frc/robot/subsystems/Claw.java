@@ -47,14 +47,13 @@ public class Claw extends SubsystemBase {
   @Override
   public void periodic() {
  
+    rotation = rotationEncoder.getAbsolutePosition();
+
     SmartDashboard.putNumber("Claw Velocity", velocity);
     SmartDashboard.putNumber("Claw Rotation", rotation);
     SmartDashboard.putNumber("Claw Rotation Encoder Abs Position", rotationEncoder.getAbsolutePosition());
     SmartDashboard.putNumber("Claw Grab", claw);
     SmartDashboard.putNumber("Claw Grab Encoder Abs Pos", grabEncoder.getAbsolutePosition());
-    SmartDashboard.putNumber("Claw Voltage Compensation", clawMotor.getVoltageCompensationNominalVoltage());
-    SmartDashboard.putNumber("Claw Motor Temperture", clawMotor.getMotorTemperature());
-    SmartDashboard.putNumber("Claw Ramp Rate", clawMotor.getClosedLoopRampRate());
 
   }
 
