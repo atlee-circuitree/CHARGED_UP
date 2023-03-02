@@ -192,14 +192,16 @@ public class Limelight extends SubsystemBase {
     ReadNetworkTables();
     limelightDashboard = "Limelight Horizontal/" + dbl_tx + ";";
     limelightDashboard = limelightDashboard + "Limelight Vertical/" + dbl_ty + ";";
-    limelightDashboard = limelightDashboard + "Theoretical Distance To Target/" + getDistanceToTarget() + ";";
+    limelightDashboard = limelightDashboard + "Theoretical Distance To Target/" + getDistanceToTarget(false) + ";";
     
-    SmartDashboard.putNumber("Limelight Distance", getDistanceToTarget());
+    SmartDashboard.putNumber("Limelight Distance From Top", getDistanceToTarget(false));
+
+    SmartDashboard.putNumber("Limelight Distance From Medium", getDistanceToTarget(true));
 
   }
 
 
-  public double getDistanceToTarget(){
+  public double getDistanceToTarget(boolean isMedium){
 
     double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
   
@@ -212,7 +214,11 @@ public class Limelight extends SubsystemBase {
     double limelightHeightInches = 26.0;
 
     //distance from the target to the floor
-    double goalHeightInches = 100.0;
+    double goalHeightInches = 34.0;
+
+    if (isMedium = false) {
+    goalHeightInches = 43.0;
+    }
 
     double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
     double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
