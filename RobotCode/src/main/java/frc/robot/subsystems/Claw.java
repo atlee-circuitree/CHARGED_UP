@@ -59,11 +59,11 @@ public class Claw extends SubsystemBase {
 
   public void runClaw(double speed) {
  
-    if (speed > 0 && claw > Constants.maxGrabEncoderValue) {
+    if (speed > 0 && grabEncoder.getAbsolutePosition() > Constants.maxGrabEncoderValue) {
 
       clawMotor.set(0);
 
-    } else if (speed < 0 && claw < Constants.minGrabEncoderValue) {
+    } else if (speed < 0 && grabEncoder.getAbsolutePosition() < Constants.minGrabEncoderValue) {
 
       clawMotor.set(0);
 

@@ -68,8 +68,8 @@ public final class Constants {
     //Encoder Values
     public static final double frontLeftEncoderOffset = 286.259765625;
     public static final double frontRightEncoderOffset = 250.224609375;
-    //public static final double rearLeftEncoderOffset = 128.759765625;
-    public static final double rearLeftEncoderOffset = 89.38476;
+    public static final double rearLeftEncoderOffset = 128.759765625;
+    //public static final double rearLeftEncoderOffset = 89.38476;
     public static final double rearRightEncoderOffset = 76.201171875;
  
     public static final int angleEncoderDIO = 0;
@@ -90,8 +90,8 @@ public final class Constants {
     public static final int clawGrabEncoderDIO = 2;
     //public static final double maxGrabEncoderValue = 80;
     //public static final double minGrabEncoderValue = -47;
-    public static final double maxGrabEncoderValue = 80;
-    public static final double minGrabEncoderValue = -75;
+    public static final double maxGrabEncoderValue = .7;
+    public static final double minGrabEncoderValue = .45;
 
     public static final int extensionEncoderDIO = 9;
  

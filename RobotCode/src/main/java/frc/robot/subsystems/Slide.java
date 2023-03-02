@@ -158,12 +158,12 @@ public class Slide extends SubsystemBase {
 
     /* 
      
-    if (speed > 0 && getExtensionEncoderInches() > Constants.maxExtensionInchValue) {
+    if (speed > 0 && getExtensionEncoderInches() > 40) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
 
-    } else if(speed < 0 && getExtensionEncoderInches() < Constants.minExtensionInchValue) {
+    } else if(speed < 0 && getExtensionEncoderInches() < 0) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
