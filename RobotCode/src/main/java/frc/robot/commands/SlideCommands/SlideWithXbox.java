@@ -94,7 +94,7 @@ public class SlideWithXbox extends CommandBase {
 
     if (currentExtensionState == ExtensionState.MANUAL_CONTROL) {
 
-      if (xbox.getRightStickButton()) {
+      if (xbox.getStartButton()) {
 
         slide.extendArmUsingPowerNoLimit(-xbox.getRightY() / 1);
         slide.resetExtensionEncoder();

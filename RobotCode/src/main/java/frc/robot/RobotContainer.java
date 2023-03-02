@@ -210,18 +210,14 @@ public class RobotContainer {
     driver1RB.whileTrue(new RotateClaw(claw, .13));
     driver1LT.whileTrue(new RunClaw(claw, -.55));
     driver1RT.whileTrue(new RunClaw(claw, .55));
-    driver1Start.onTrue(new RunClawUntilClamp(claw, .5));
-    driver1Back.onTrue(new RunClawUntilClamp(claw, -.5));
-
+ 
     } else {
 
     driver2LB.whileTrue(new RotateClaw(claw, -.13));
     driver2RB.whileTrue(new RotateClaw(claw, .13));
     driver2LT.whileTrue(new RunClaw(claw, -.55));
     driver2RT.whileTrue(new RunClaw(claw, .55));
-    driver2Start.onTrue(new RunClawUntilClamp(claw, .5));
-    driver2Back.onTrue(new RunClawUntilClamp(claw, -.5));
-
+ 
     }
  
   }
