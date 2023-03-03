@@ -47,6 +47,7 @@ public class Slide extends SubsystemBase {
   
   double angle;
   double extension;
+  double setExtensionOffset;
   double tolerance = 100;
   double CurrentStage = 1;
  
@@ -78,7 +79,13 @@ public class Slide extends SubsystemBase {
     leftExtMotor.setNeutralMode(NeutralMode.Brake);
     rightExtMotor.setNeutralMode(NeutralMode.Brake);
     angMotor.setNeutralMode(NeutralMode.Brake);
- 
+
+    //Configure Extension Offset
+    
+    //Inital Position
+    //Offset
+    extOffset = extEncoder.getAbsolutePosition();
+
   }
 
   @Override
@@ -95,10 +102,10 @@ public class Slide extends SubsystemBase {
 
     SmartDashboard.putNumber("Angle", angle);
     SmartDashboard.putNumber("Extension", extEncoder.getDistance());
-    SmartDashboard.putNumber("Extension Inches", getExtensionEncoderInches());
+    SmartDashboard.putNumber("Extension Absolute", extEncoder.getAbsolutePosition());
+    SmartDashboard.putNumber("Extension Offset", extOffset);
     SmartDashboard.putBoolean("Extension Calibrated", runOnce);
     SmartDashboard.getNumber("Custom Angle", 0);
-    SmartDashboard.putNumber("Distance", distance.getRange());
  
   }
 
@@ -158,15 +165,17 @@ public class Slide extends SubsystemBase {
 
     /* 
      
-    if (speed > 0 && getExtensionEncoderInches() > 40) {
+    if (speed > 0 && getExtensionEncoderInches() > Constants.maxExtensionValue - extOffset) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
+      System.out.print("Max Limit Hit");
 
-    } else if(speed < 0 && getExtensionEncoderInches() < 0) {
+    } else if(speed < 0 && getExtensionEncoderInches() < Constants.minExtensionValue) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
+      System.out.print("Min Limit Hit");
         
     } else {
 
@@ -199,6 +208,8 @@ public class Slide extends SubsystemBase {
 
     extEncoder.reset();
 
+    extOffset = (extEncoder.getAbsolutePosition() - 1);
+
   }
 
   //Extension Inches stuff
@@ -208,6 +219,7 @@ public class Slide extends SubsystemBase {
     double encoderInches = extEncoder.getDistance() * 1.5 * Math.PI;
 
     return encoderInches + extOffset;
+
   }
 
 }
