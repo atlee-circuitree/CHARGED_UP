@@ -163,7 +163,7 @@ public class Slide extends SubsystemBase {
 
   public void extendArmUsingPower(double speed) {
      
-    if (speed > 0 && getExtensionEncoderInches() > Constants.maxExtensionValue + extOffset) {
+    if (speed > 0 && getExtensionEncoderInches() > Constants.maxExtensionValue - extOffset) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
@@ -201,6 +201,8 @@ public class Slide extends SubsystemBase {
 
     extEncoder.reset();
 
+    extOffset = (extEncoder.getAbsolutePosition() - 1);
+
   }
 
   //Extension Inches stuff
@@ -210,7 +212,7 @@ public class Slide extends SubsystemBase {
     double encoderInches = extEncoder.getDistance() * 1.5 * Math.PI;
 
     return encoderInches + extOffset;
-  }
 
+  }
 
 }

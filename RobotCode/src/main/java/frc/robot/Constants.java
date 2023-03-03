@@ -95,8 +95,8 @@ public final class Constants {
 
     public static final int extensionEncoderDIO = 9;
  
-    public static final double maxExtensionValue = 8;
-    public static final double minExtensionValue = .5;
+    public static final double maxExtensionValue = 43;
+    public static final double minExtensionValue = 1;
 
     public static final double trackwidth = 22.5;
     public static final double wheelbase = 22.5;
@@ -167,5 +167,6 @@ public final class Constants {
         return error;
 
     }
+
  
 }
