@@ -163,8 +163,6 @@ public class Slide extends SubsystemBase {
 
   public void extendArmUsingPower(double speed) {
 
-    /* 
-     
     if (speed > 0 && getExtensionEncoderInches() > Constants.maxExtensionValue - extOffset) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
@@ -184,10 +182,8 @@ public class Slide extends SubsystemBase {
 
     }
 
-    */
-
-    leftExtMotor.set(ControlMode.PercentOutput, speed);
-    rightExtMotor.set(ControlMode.PercentOutput, speed);
+    //leftExtMotor.set(ControlMode.PercentOutput, speed);
+    //rightExtMotor.set(ControlMode.PercentOutput, speed);
     
   }
 
