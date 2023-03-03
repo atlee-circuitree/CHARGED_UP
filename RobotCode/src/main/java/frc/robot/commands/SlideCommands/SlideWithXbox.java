@@ -77,13 +77,13 @@ public class SlideWithXbox extends CommandBase {
   @Override
   public void execute() {
  
-    if (xbox.getLeftY() > .2 || xbox.getLeftY() < -.1) {
+    if (xbox.getLeftY() > .4 || xbox.getLeftY() < -.1) {
 
       currentAngleState = AngleState.MANUAL_CONTROL;
 
     }
 
-    if (xbox.getRightY() > .2 || xbox.getRightY() < -.1) {
+    if (xbox.getRightY() > .4 || xbox.getRightY() < -.1) {
 
       currentExtensionState = ExtensionState.MANUAL_CONTROL;
 
@@ -116,11 +116,11 @@ public class SlideWithXbox extends CommandBase {
 
         if (slide.getAngle() > targetAngle - 10 || slide.getAngle() < targetAngle + 10) {
 
-          slide.changeAngleUsingPower(-.6);
+          slide.changeAngleUsingPower(.6);
 
         } else {
 
-          slide.changeAngleUsingPower(-1);
+          slide.changeAngleUsingPower(1);
 
         }
 
@@ -128,11 +128,11 @@ public class SlideWithXbox extends CommandBase {
 
         if (slide.getAngle() > targetAngle - 10 || slide.getAngle() < targetAngle + 10) {
 
-          slide.changeAngleUsingPower(.6);
+          slide.changeAngleUsingPower(-.6);
 
         } else {
 
-          slide.changeAngleUsingPower(1);
+          slide.changeAngleUsingPower(-1);
 
         }
 
@@ -166,8 +166,8 @@ public class SlideWithXbox extends CommandBase {
 
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
       currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
-      targetAngle = Constants.maxAngleEncoderValue;
-      targetExtension = 38;
+      targetAngle = Constants.maxAngleEncoderValue - 4;
+      targetExtension = 44;
 
     }
 
@@ -175,8 +175,8 @@ public class SlideWithXbox extends CommandBase {
 
       currentAngleState = AngleState.AUTOMATIC_CONTROL;
       currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
-      targetAngle = Constants.minAngleEncoderValue + 2; //- .5;
-      targetExtension = 4;
+      targetAngle = Constants.minAngleEncoderValue + 1; //- .5;
+      targetExtension = .5;
 
     }
 

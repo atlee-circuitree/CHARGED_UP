@@ -103,6 +103,7 @@ public class Slide extends SubsystemBase {
     SmartDashboard.putNumber("Angle", angle);
     SmartDashboard.putNumber("Extension", extEncoder.getDistance());
     SmartDashboard.putNumber("Extension Absolute", extEncoder.getAbsolutePosition());
+    SmartDashboard.putNumber("Extension Inches", getExtensionEncoderInches());
     SmartDashboard.putNumber("Extension Offset", extOffset);
     SmartDashboard.putBoolean("Extension Calibrated", runOnce);
     SmartDashboard.getNumber("Custom Angle", 0);

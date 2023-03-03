@@ -95,7 +95,7 @@ public final class Constants {
 
     public static final int extensionEncoderDIO = 9;
  
-    public static final double maxExtensionValue = 43;
+    public static final double maxExtensionValue = 44.5;
     public static final double minExtensionValue = 1;
 
     public static final double trackwidth = 22.5;
