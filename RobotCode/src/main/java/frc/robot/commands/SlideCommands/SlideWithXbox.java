@@ -67,6 +67,9 @@ public class SlideWithXbox extends CommandBase {
     }
 
     targetAngle = slide.getAngle();
+
+    currentAngleState = AngleState.MANUAL_CONTROL;
+    currentExtensionState = ExtensionState.MANUAL_CONTROL;
  
   }
 
