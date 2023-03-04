@@ -53,9 +53,6 @@ public class SlideWithXbox extends CommandBase {
   @Override
   public void initialize() {
     
-    currentAngleState = AngleState.MANUAL_CONTROL;
-    currentExtensionState = ExtensionState.MANUAL_CONTROL;
-
     if (Constants.modeSelect.getSelected() == "Player_Two") {
 
       xbox = xbox1;
@@ -76,6 +73,8 @@ public class SlideWithXbox extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    System.out.println(currentAngleState + " - " + currentExtensionState);
  
     if (xbox.getLeftY() > .4 || xbox.getLeftY() < -.1) {
 
