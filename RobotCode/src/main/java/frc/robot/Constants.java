@@ -91,7 +91,7 @@ public final class Constants {
     //public static final double maxGrabEncoderValue = 80;
     //public static final double minGrabEncoderValue = -47;
     public static final double maxGrabEncoderValue = .7;
-    public static final double minGrabEncoderValue = .45;
+    public static final double minGrabEncoderValue = .40;
 
     public static final int extensionEncoderDIO = 9;
  
