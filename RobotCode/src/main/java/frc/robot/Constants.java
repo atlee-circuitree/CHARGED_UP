@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public final class Constants {
 
     //Declare coordinates in the form {u, x, y, angle}
-    public static final double[][] autoCoordinates = {{0, 0,0 ,0}, {1, 0,0.5 ,20}, {2, 0,1 ,40}, {3, 0,1.5 ,60}};
+    public static final double[][] autoCoordinates = {{0, 0,0 ,0}, {1, 0,-0.5 ,0}, {2, 0,-1 ,0}, {3, 0,-1   ,0}};
 
     //Create Mode Select
     public static SendableChooser<String> modeSelect;
@@ -88,14 +88,13 @@ public final class Constants {
     public static final double maxClockwiseRotationEncoderValue = 0.225;
 
     public static final int clawGrabEncoderDIO = 2;
-    //public static final double maxGrabEncoderValue = 80;
-    //public static final double minGrabEncoderValue = -47;
+   
     public static final double maxGrabEncoderValue = .7;
     public static final double minGrabEncoderValue = .40;
 
     public static final int extensionEncoderDIO = 9;
  
-    public static final double maxExtensionValue = 43;
+    public static final double maxExtensionValue = 44.5;
     public static final double minExtensionValue = 1;
 
     public static final double trackwidth = 22.5;

@@ -11,10 +11,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
-import com.revrobotics.Rev2mDistanceSensor;
-import com.revrobotics.Rev2mDistanceSensor.Port;
-import com.revrobotics.Rev2mDistanceSensor.RangeProfile;
-
+ 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -42,9 +39,7 @@ public class Slide extends SubsystemBase {
 
   SimpleMotorFeedforward angleFeed;
   SlewRateLimiter slowSlew;
-
-  Rev2mDistanceSensor distance;
-  
+ 
   double angle;
   double extension;
   double setExtensionOffset;
@@ -56,10 +51,6 @@ public class Slide extends SubsystemBase {
     leftExtMotor = new TalonFX(Constants.leftExtMotorPort);
     rightExtMotor = new TalonFX(Constants.rightExtMotorPort);
     angMotor = new TalonFX(Constants.angMotorPort);
-
-    distance = new Rev2mDistanceSensor(Port.kMXP);
-    distance.setEnabled(true);
-    distance.setRangeProfile(RangeProfile.kDefault);
  
     rightExtMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
     rightExtMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
@@ -93,16 +84,11 @@ public class Slide extends SubsystemBase {
 
     angle = ((angleEncoder.getAbsolutePosition() - .3903) * 384.6153) - Constants.angleOffset;
     extension = extEncoder.getDistance();
-    distance.setAutomaticMode(true);
-   
-    if(distance.getRange() != -1 && distance.getRange() <= 5 && runOnce == false){
-      extOffset = distance.getRange() - extEncoder.getDistance();
-      runOnce = true;
-    }
-
+ 
     SmartDashboard.putNumber("Angle", angle);
     SmartDashboard.putNumber("Extension", extEncoder.getDistance());
     SmartDashboard.putNumber("Extension Absolute", extEncoder.getAbsolutePosition());
+    SmartDashboard.putNumber("Extension Inches", getExtensionEncoderInches());
     SmartDashboard.putNumber("Extension Offset", extOffset);
     SmartDashboard.putBoolean("Extension Calibrated", runOnce);
     SmartDashboard.getNumber("Custom Angle", 0);
@@ -119,10 +105,6 @@ public class Slide extends SubsystemBase {
 
       angMotor.set(ControlMode.PercentOutput, 0);
   
-    } else if (distance.getRange() < .5 && distance.getRange() != -1) {
-
-      angMotor.set(ControlMode.PercentOutput, 0);
-
     } else {
 
       angMotor.set(ControlMode.PercentOutput, speed);
