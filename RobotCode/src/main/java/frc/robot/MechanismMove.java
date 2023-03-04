@@ -4,48 +4,55 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 
 /** Add your docs here. */
 public class MechanismMove {
 
-    private double encTicksOffset;
-    private double absStart;
-    private double encOffset;
-    private double deadBand;
-    private double cir;
-    private DutyCycleEncoder absEncoder;
+    private double m_encoderTicksOffset;
+    private double m_absoluteStart;
+    private double m_encoderOffset;
+    private double m_deadBand = .1;
+    private double m_circumference;
+    private DutyCycleEncoder m_absoluteEncoder;
+    private WPI_TalonFX m_motor;
 
-    public MechanismMove(DutyCycleEncoder absoluteEncoder, double absoluteStart, double circumference) {
+    public MechanismMove(DutyCycleEncoder absoluteEncoder, WPI_TalonFX motor, double absoluteStart, double circumference) {
 
-        absEncoder = absoluteEncoder;
-        absStart = absoluteStart;
-        cir = circumference;
+        m_absoluteEncoder = absoluteEncoder;
+        m_absoluteStart = absoluteStart;
+        m_circumference = circumference;
+        m_motor = motor;
 
-        if (absEncoder.getAbsolutePosition() >= absStart) {
+        if (absoluteEncoder.getAbsolutePosition() >= m_absoluteStart - m_deadBand) {
 
-            encOffset = absStart - absEncoder.getAbsolutePosition();
+            m_encoderOffset = m_absoluteEncoder.getAbsolutePosition() - m_absoluteStart;
 
-        } else {
+        } else  {
 
-            encOffset = absEncoder.getAbsolutePosition() + (1 - absoluteStart);
+            m_encoderOffset = m_absoluteEncoder.getAbsolutePosition() + (1 - m_absoluteStart);
 
         }
 
-        encTicksOffset = encOffset * cir;
+        m_encoderTicksOffset = m_encoderOffset * m_circumference;
+
+        m_motor.setSelectedSensorPosition(m_encoderOffset);
 
     }
 
     
     public double getAbsStart() {
         
-        return absStart;
+        return m_absoluteStart;
         
     }
 
     public void setAbsStart(double absStart) {
         
-        this.absStart = absStart;
+        this.m_absoluteStart = absStart;
         
     }
 
