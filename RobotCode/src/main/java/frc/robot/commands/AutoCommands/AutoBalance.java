@@ -20,11 +20,14 @@ public class AutoBalance extends CommandBase {
 
   private Drivetrain drivetrain = new Drivetrain();
   private XboxController xbox;
-  private double unbalancedAngleForward = 10;
-  private double unbalancedAngleBack = -10;
+  private double pitchTarget = 0;
+  private double yawTarget = 0;
   
-  private double speedForward = .25;
-  private double speedBack = -.25;
+  private double speedStraight = .25;
+  private double speedTurn = .25;
+  private double speedNone = 0;
+
+  private double state = 0;
 
   private String movementDirection = "Level";
 
@@ -47,47 +50,94 @@ public class AutoBalance extends CommandBase {
   @Override
   public void execute() {
 
-  SmartDashboard.putNumber("Robot Angle", drivetrain.getNavXPitchOutput());
-  SmartDashboard.putString("Is robot level", movementDirection);
+    //Telemetry
+    SmartDashboard.putNumber("Robot Straight Speed", speedStraight);
+    SmartDashboard.putNumber("Robot Turn Speed", speedTurn);
+    SmartDashboard.putString("Is robot level", movementDirection);
 
-    //When button is held lock all wheels forward
-    if (xbox.getXButton()){
-      drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 0, 1);
-      drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
-      drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
-      drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
-      
-      //repeat until let go of button
-      while (xbox.getXButtonPressed() == true){
+    //Speed PID calculations
+    speedStraight = Math.abs(drivetrain.getNavXPitchOutput()) * Constants.aBalanceXConstant;
+    speedTurn = Math.abs(drivetrain.getNavXYawOutput()) * Constants.aBalanceXConstant;
+
+     //Speed clamps
+    if (speedStraight < -1) {
+      speedStraight = -1;
+    } else if (speedStraight > 1) {
+      speedStraight = 1;
+    }
+
+    if (speedTurn < -1) {
+      speedTurn = -1;
+    } else if (speedTurn > 1) {
+      speedTurn = 1;
+    }
+
+    //AutoBalance Movement
+    if (xbox.getXButton()) {
+
+      //Rotates robot until heading is perpendicular with ramp
+      if (state == 0) {
+       
+        //When NavX thinks yaw is less than 2, turns right.
+        if (drivetrain.getNavXYawOutput() < yawTarget - 2) {
+        //Sets wheel angle to turn position
+        drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 45, 1);
+        drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 135, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_LEFT, 315, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 225, 1);
         
-        speedBack = drivetrain.getNavXPitchOutput() * Constants.aBalanceValue;
-        speedForward = drivetrain.getNavXPitchOutput() * Constants.aBalanceValue;
+        drivetrain.driveAllModules(speedTurn);
+        movementDirection = "Turning Right";
 
-        if (speedBack < -1)
-          speedBack = -1;
+       //When NavX thinks yaw is greater than 2, turns left.
+       } else if (drivetrain.getNavXYawOutput() > yawTarget + 2) {
 
-        if (speedForward > 1)
-        speedForward = 1;
+        //Sets wheel angle to turn position
+        drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 45, 1);
+        drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 135, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_LEFT, 315, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 225, 1);
         
-        if (drivetrain.getNavXPitchOutput() > unbalancedAngleForward){
-          //When navx thinks unbalanced forward, drive motors back
-          //drivetrain.driveAllModules(speedBack);
-          movementDirection = "Tilted Forward";
+        drivetrain.driveAllModules(-speedTurn);
+        movementDirection = "Turning Left";
 
-        } else  if (drivetrain.getNavXPitchOutput() < unbalancedAngleBack){
-          //When navx thinks unbalanced backwards, drive motors forward
-          //drivetrain.driveAllModules(speedForward);
-          movementDirection = "Tilted Backwards";
-   
-        } else {
+       } else {
 
-          movementDirection = "Level";
+        drivetrain.driveAllModules(speedNone);
+        state = 1;
+        
+       }
+      }
 
-        }
+       if (state == 1) {
+        //Sets wheel angle to forward position
+        drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 0, 1);
+        drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
+
+        //When NavX thinks tilted back, drive motors forward
+         if (drivetrain.getNavXPitchOutput() > pitchTarget + 5) {
+        
+          drivetrain.driveAllModules(speedStraight);
+          movementDirection = "Moving Forwards";
+       
+        //When NavX thinks tilted forward, drive motors backwards
+       } else if (drivetrain.getNavXPitchOutput() < pitchTarget - 5) {
+
+          drivetrain.driveAllModules(-speedStraight);
+          movementDirection = "Moving Backwards";
   
-        }
+       } else {
+
+          drivetrain.driveAllModules(speedNone);
+          movementDirection = "Level";    
+          state = 0;
+    
       }
     }
+  }
+}
   
   // Called once the command ends or is interrupted.
   @Override
@@ -98,6 +148,10 @@ public class AutoBalance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (xbox.getXButton() == false) {
+        return true;
+    } else {
+      return false;
+    }
   }
 }
