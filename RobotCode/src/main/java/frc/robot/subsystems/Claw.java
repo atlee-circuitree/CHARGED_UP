@@ -94,6 +94,10 @@ public class Claw extends SubsystemBase {
     }  
     
   }
+
+  public void rotateClawNoLimit(double speed) {
+    clawMotor.set(speed);
+  }
  
   public void grabToAngle(double angle, double speed) {
 
