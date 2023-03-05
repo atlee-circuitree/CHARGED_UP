@@ -57,7 +57,7 @@ public class AutoBalance extends CommandBase {
 
     //Speed PID calculations
     speedStraight = Math.abs(drivetrain.getNavXPitchOutput()) * Constants.aBalanceXConstant;
-    speedTurn = Math.abs(drivetrain.getNavXYawOutput()) * Constants.aBalanceXConstant;
+    speedTurn = Math.abs(drivetrain.getNavXYawOutput()) * Constants.aBalanceTurnConstant;
 
      //Speed clamps
     if (speedStraight < -1) {
