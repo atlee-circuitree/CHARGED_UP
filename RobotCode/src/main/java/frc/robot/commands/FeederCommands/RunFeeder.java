@@ -2,21 +2,22 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.ClawCommands;
+package frc.robot.commands.FeederCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Feeder;
 
-public class RotateClaw extends CommandBase {
- 
-  Claw claw;
+public class RunFeeder extends CommandBase {
+
+  Feeder feeder;
   double speed;
 
-  public RotateClaw(Claw cw, double Speed) {
-     
-    claw = cw;
+  /** Creates a new Feeder. */
+  public RunFeeder(Feeder fdr, double Speed) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    feeder = fdr;
     speed = Speed;
-    addRequirements(claw);
+    addRequirements(feeder);
 
   }
 
@@ -28,7 +29,7 @@ public class RotateClaw extends CommandBase {
   @Override
   public void execute() {
 
-    claw.rotateClaw(speed);
+    feeder.runFeeder(speed);
 
   }
 
@@ -36,7 +37,7 @@ public class RotateClaw extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    claw.rotateClaw(0);
+    feeder.runFeeder(0);
 
   }
 

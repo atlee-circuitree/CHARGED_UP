@@ -14,18 +14,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoCommands.AngleAndExtendInAuto;
 import frc.robot.commands.AutoCommands.AutoBalance;
 import frc.robot.commands.AutoCommands.PathFollower;
-import frc.robot.commands.ClawCommands.RotateClaw;
-import frc.robot.commands.ClawCommands.RunClaw;
-import frc.robot.commands.ClawCommands.RunClawUntilClamp;
+//import frc.robot.commands.ClawCommands.RotateClaw;
+//import frc.robot.commands.ClawCommands.RunClaw;
+//import frc.robot.commands.ClawCommands.RunClawUntilClamp;
 import frc.robot.commands.DriveCommands.DriveWithXbox;
+import frc.robot.commands.FeederCommands.RunFeeder;
 import frc.robot.commands.MiscCommands.PlayAudio;
 import frc.robot.commands.MiscCommands.RecalibrateModules;
 import frc.robot.commands.MiscCommands.TestPathFollower;
 import frc.robot.commands.SlideCommands.ResetExtensionEncoder;
 import frc.robot.commands.SlideCommands.SlideWithXbox;
 import frc.robot.subsystems.Audio;
-import frc.robot.subsystems.Claw;
+//import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Slide;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -45,7 +47,8 @@ public class RobotContainer {
   private final Drivetrain drivetrain;
   private final Audio audio;
   private final Slide slide;
-  private final Claw claw;
+ // private final Claw claw;
+  private final Feeder feeder;
   private final Limelight limelight;
 
   private DriveWithXbox driveWithXbox;
@@ -77,7 +80,8 @@ public class RobotContainer {
 
     // Configure the button bindings
     drivetrain = new Drivetrain();
-    claw = new Claw();
+    //claw = new Claw();
+    feeder = new Feeder();
     slide = new Slide();
     audio = new Audio();
     limelight = new Limelight();
@@ -145,6 +149,9 @@ public class RobotContainer {
     JoystickButton driver2Start = new JoystickButton(xbox2, XboxController.Button.kStart.value);
     JoystickButton driver2Back = new JoystickButton(xbox2, XboxController.Button.kBack.value);
 
+    driver2LB.whileTrue(new RunFeeder(feeder, SmartDashboard.getNumber("Speed", -.25)));
+    driver2RB.whileTrue(new RunFeeder(feeder, SmartDashboard.getNumber("Speed", .25)));
+
     //Trigger Setup
     BooleanSupplier driver1LTSupplier = new BooleanSupplier() {
 
@@ -204,10 +211,17 @@ public class RobotContainer {
 
     //All four face button already used by SlideWithXbox
 
+<<<<<<< HEAD
     driver2LB.whileTrue(new RotateClaw(claw, 1));
     driver2RB.whileTrue(new RotateClaw(claw, -1));
     driver2LT.whileTrue(new RunClaw(claw, .55));
     driver2RT.whileTrue(new RunClaw(claw, -.55));
+=======
+    /*driver2LB.whileTrue(new RotateClaw(claw, 1));
+    driver2RB.whileTrue(new RotateClaw(claw, -1));
+    driver2LT.whileTrue(new RunClaw(claw, .55));
+    driver2RT.whileTrue(new RunClaw(claw, -.55));*/
+>>>>>>> Viassna-2
  
   }
 
@@ -219,7 +233,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     //return pathFollower;
     //return testPathFollower;
-    return new AngleAndExtendInAuto(slide, claw, 20, 4);
+    return new AngleAndExtendInAuto(slide, feeder, 20, 4); //Removed claw to test feeder
 
   }
   
