@@ -33,8 +33,8 @@ public class SlideWithXbox extends CommandBase {
 
   }
  
-  double targetAngle = 0;
-  double targetExtension = 0;
+  double targetAngle;
+  double targetExtension;
 
   AngleState currentAngleState = AngleState.MANUAL_CONTROL;
   ExtensionState currentExtensionState = ExtensionState.MANUAL_CONTROL;
@@ -188,15 +188,7 @@ public class SlideWithXbox extends CommandBase {
       targetExtension = 20;
 
     }
-
-    if (xbox.getXButtonPressed()) {
-
-      currentAngleState = AngleState.AUTOMATIC_CONTROL;
-      currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
-      targetAngle = SmartDashboard.getNumber("Custom Angle", 0);
-
-    }
-
+ 
   }
 
   // Called once the command ends or is interrupted.

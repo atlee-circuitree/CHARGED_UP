@@ -36,16 +36,8 @@ public class AngleAndExtendInAuto extends CommandBase {
   public void execute() {
 
     if (slide.getAngle() < targetAngle - .5) {
-
-      if (slide.getAngle() > 30) {
-
-        slide.changeAngleUsingPower(-1);
-
-      } else {
-
-        slide.changeAngleUsingPower(-.6);
-
-      }
+ 
+      slide.changeAngleUsingPower(-1);
 
     } else if (slide.getAngle() > targetAngle + .5) {
 

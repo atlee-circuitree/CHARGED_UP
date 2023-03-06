@@ -18,6 +18,8 @@ import frc.robot.commands.AutoCommands.PathFollower;
 //import frc.robot.commands.ClawCommands.RunClaw;
 //import frc.robot.commands.ClawCommands.RunClawUntilClamp;
 import frc.robot.commands.DriveCommands.DriveWithXbox;
+import frc.robot.commands.FeederCommands.GoToFeederPosition;
+import frc.robot.commands.FeederCommands.RotateFeeder;
 import frc.robot.commands.FeederCommands.RunFeeder;
 import frc.robot.commands.MiscCommands.PlayAudio;
 import frc.robot.commands.MiscCommands.RecalibrateModules;
@@ -149,9 +151,6 @@ public class RobotContainer {
     JoystickButton driver2Start = new JoystickButton(xbox2, XboxController.Button.kStart.value);
     JoystickButton driver2Back = new JoystickButton(xbox2, XboxController.Button.kBack.value);
 
-    driver2LB.whileTrue(new RunFeeder(feeder, SmartDashboard.getNumber("Speed", -.25)));
-    driver2RB.whileTrue(new RunFeeder(feeder, SmartDashboard.getNumber("Speed", .25)));
-
     //Trigger Setup
     BooleanSupplier driver1LTSupplier = new BooleanSupplier() {
 
@@ -211,18 +210,13 @@ public class RobotContainer {
 
     //All four face button already used by SlideWithXbox
 
-<<<<<<< HEAD
-    driver2LB.whileTrue(new RotateClaw(claw, 1));
-    driver2RB.whileTrue(new RotateClaw(claw, -1));
-    driver2LT.whileTrue(new RunClaw(claw, .55));
-    driver2RT.whileTrue(new RunClaw(claw, -.55));
-=======
-    /*driver2LB.whileTrue(new RotateClaw(claw, 1));
-    driver2RB.whileTrue(new RotateClaw(claw, -1));
-    driver2LT.whileTrue(new RunClaw(claw, .55));
-    driver2RT.whileTrue(new RunClaw(claw, -.55));*/
->>>>>>> Viassna-2
- 
+    driver2X.whileTrue(new RunFeeder(feeder, SmartDashboard.getNumber("Speed", -1)));
+    driver2LB.whileTrue(new RunFeeder(feeder, SmartDashboard.getNumber("Speed", .25)));
+    driver2RB.whileTrue(new RunFeeder(feeder, SmartDashboard.getNumber("Speed", .5)));
+
+    driver2RT.onTrue(new GoToFeederPosition(feeder, -.20));
+    driver2LT.onTrue(new GoToFeederPosition(feeder, .20));
+
   }
 
   /**
@@ -233,8 +227,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     //return pathFollower;
     //return testPathFollower;
-    return new AngleAndExtendInAuto(slide, feeder, 20, 4); //Removed claw to test feeder
-
+    //return new AngleAndExtendInAuto(slide, feeder, 20, 4); //Removed claw to test feeder
+    return null;
   }
   
 }

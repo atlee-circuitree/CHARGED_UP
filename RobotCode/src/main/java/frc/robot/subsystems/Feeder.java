@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -16,17 +17,19 @@ public class Feeder extends SubsystemBase {
 
   CANSparkMax leftFeederMotor;
   CANSparkMax rightFeederMotor;
-  DutyCycleEncoder leftFeederEncoder;
-  DutyCycleEncoder rightFeederEncoder;
+  CANSparkMax rotationFeederMotor;
+  DutyCycleEncoder feederEncoder;
 
   /** Creates a new Feeder. */
   public Feeder() {
     
     leftFeederMotor = new CANSparkMax(Constants.leftFeederMotorPort, MotorType.kBrushless);
     rightFeederMotor = new CANSparkMax(Constants.rightFeederMotorPort, MotorType.kBrushless);
+    rotationFeederMotor = new CANSparkMax(Constants.rotationFeederMotorPort, MotorType.kBrushless);
 
-    leftFeederEncoder = new DutyCycleEncoder(Constants.leftFeederMotorEncoderDIO);
-    rightFeederEncoder = new DutyCycleEncoder(Constants.rightFeederMotorEncoderDIO);
+    rotationFeederMotor.setIdleMode(IdleMode.kBrake);
+
+    feederEncoder = new DutyCycleEncoder(Constants.feederRotationEncoderDIO);
 
   }
 
@@ -36,12 +39,42 @@ public class Feeder extends SubsystemBase {
 
     SmartDashboard.putNumber("Left Feeder Motor Speed", leftFeederMotor.get());
     SmartDashboard.putNumber("Right Feeder Motor Speed", rightFeederMotor.get());
+    SmartDashboard.putNumber("Feeder Absolute Encoder", feederEncoder.getAbsolutePosition());
 
   }
 
   public void runFeeder(double speed) {
     leftFeederMotor.set(-speed);
     rightFeederMotor.set(speed);
+  }
+
+  public void rotateFeeder(double speed) {
+
+    /*
+    if (speed > 0 && feederEncoder.getAbsolutePosition() > .1 && feederEncoder.getAbsolutePosition() < .5) {
+
+      rotationFeederMotor.set(0);
+
+    } else if (speed < 0 && feederEncoder.getAbsolutePosition() < .8 && feederEncoder.getAbsolutePosition() > .5) {
+
+      rotationFeederMotor.set(0);
+
+    } else {
+
+      rotationFeederMotor.set(speed);
+
+    }
+    */
+
+    rotationFeederMotor.set(speed);
+   
+
+  }
+
+  public double absoluteClawPosition() {
+
+    return feederEncoder.getAbsolutePosition();
+
   }
 
 }

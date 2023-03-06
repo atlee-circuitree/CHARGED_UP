@@ -4,47 +4,65 @@
 
 package frc.robot.commands.FeederCommands;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Feeder;
 
-public class RunFeeder extends CommandBase {
-
+public class GoToFeederPosition extends CommandBase {
+ 
   Feeder feeder;
   double speed;
+  double tolerance = .04;
+ 
+  public GoToFeederPosition(Feeder Feeder, double Speed) {
 
-  /** Creates a new Feeder. */
-  public RunFeeder(Feeder fdr, double Speed) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    feeder = fdr;
+    feeder = Feeder;
     speed = Speed;
+  
     addRequirements(feeder);
-
+ 
   }
-
-  // Called when the command is initially scheduled.
+ 
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+   
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    feeder.runFeeder(speed);
-
+ 
+    feeder.rotateFeeder(speed);
+ 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
 
-    feeder.runFeeder(0);
+    feeder.rotateFeeder(0);
 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    
+    if (feeder.absoluteClawPosition() < .81 + tolerance && feeder.absoluteClawPosition() > .81 - tolerance && speed < 0) {
+
+      System.out.println("Cone Position Met");
+      return true;
+
+    } else if (feeder.absoluteClawPosition() < .2 + tolerance && feeder.absoluteClawPosition() > .2 - tolerance && speed > 0) {
+
+      System.out.println("Cube Position Met");
+      return true;
+
+    } else {
+      
+      return false;
+
+    }
+
   }
 }

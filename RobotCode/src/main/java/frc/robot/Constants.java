@@ -57,6 +57,7 @@ public final class Constants {
   //  public static final int rotateClawMotorPort = 21;
     public static final int leftFeederMotorPort = 25;
     public static final int rightFeederMotorPort = 21;
+    public static final int rotationFeederMotorPort = 26;
     public static final int rotationEncoderChannel = 5;
     public enum GrabPosition {
 
@@ -75,15 +76,12 @@ public final class Constants {
     public static final double rearRightEncoderOffset = 76.201171875;
 
     public static final int angleEncoderDIO = 0;
-    public static final int clawRotationEncoderDIO = 1;
-    public static final int clawGrabEncoderDIO = 2;
-    public static final int leftFeederMotorEncoderDIO = 1;
-    public static final int rightFeederMotorEncoderDIO = 2;
+    public static final int feederRotationEncoderDIO = 1;
     public static final int extensionEncoderDIO = 9;
  
-    public static final double angleOffset = -8;
-    public static final double maxAngleEncoderValue = 33;
-    public static final double minAngleEncoderValue = -19.6;
+    public static final double angleOffset = -11.5;
+    public static final double maxAngleEncoderValue = 31.2;
+    public static final double minAngleEncoderValue = -11.3;
     //public static final double maxAngleEncoderValue = 9999;
     //public static final double minAngleEncoderValue = -9999;
 
@@ -93,19 +91,9 @@ public final class Constants {
     public static final double maxCounterClockwiseRotationEncoderValue = 0.742;
     public static final double middleRotationEncoderValue = .732; //when claw is horizontal
     public static final double maxClockwiseRotationEncoderValue = 0.225;
-<<<<<<< HEAD
-
-    public static final int clawGrabEncoderDIO = 2;
    
     public static final double maxGrabEncoderValue = .7;
     public static final double minGrabEncoderValue = .40;
-
-    public static final int extensionEncoderDIO = 9;
-=======
-   
-    public static final double maxGrabEncoderValue = .7;
-    public static final double minGrabEncoderValue = .40;
->>>>>>> Viassna-2
  
     public static final double maxExtensionValue = 44.5;
     public static final double minExtensionValue = 1;
