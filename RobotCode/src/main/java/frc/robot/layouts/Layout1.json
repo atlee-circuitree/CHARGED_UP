@@ -11,10 +11,10 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "0,0": {
+          "5,0": {
             "size": [
-              14,
-              8
+              8,
+              6
             ],
             "content": {
               "_type": "Camera Stream",
@@ -32,93 +32,41 @@
               "imageHeight": -1
             }
           },
-          "14,0": {
+          "13,2": {
             "size": [
-              5,
-              1
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Select Mode",
-              "_title": "SmartDashboard/Select Mode",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "14,7": {
-            "size": [
-              5,
+              3,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Custom Angle",
-              "_title": "SmartDashboard/Custom Angle",
+              "_source0": "network_table:///SmartDashboard/Z Error",
+              "_title": "/SmartDashboard/Z Error",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "14,1": {
+          "13,3": {
             "size": [
-              5,
+              3,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Angle",
-              "_title": "SmartDashboard/Angle",
+              "_source0": "network_table:///SmartDashboard/Rotation",
+              "_title": "/SmartDashboard/Rotation",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "14,2": {
+          "13,4": {
             "size": [
-              5,
+              3,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Claw Grab",
-              "_title": "SmartDashboard/Claw Grab",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "14,3": {
-            "size": [
-              5,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Claw Rotation",
-              "_title": "SmartDashboard/Claw Rotation",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "14,4": {
-            "size": [
-              5,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Extension",
-              "_title": "SmartDashboard/Extension",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "14,5": {
-            "size": [
-              5,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Distance",
-              "_title": "/SmartDashboard/Distance",
+              "_source0": "network_table:///SmartDashboard/Actual Current Z",
+              "_title": "/SmartDashboard/Actual Current Z",
               "_glyph": 148,
               "_showGlyph": false
             }

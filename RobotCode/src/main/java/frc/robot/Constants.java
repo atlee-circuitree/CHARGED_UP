@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public final class Constants {
 
     //Declare coordinates in the form {u, x, y, angle}
-    public static final double[][] autoCoordinates = {{0, 0,0 ,0}, {1, 0,-0.5 ,0}, {2, 0,-1 ,0}, {3, 0,-1   ,0}};
+    public static final double[][] autoCoordinates = {{0, 5.6,0 ,0, 0.2}, {1, 5.6,-0.75 ,0, 0.25}, {2, 4.5,-1.5 ,90, 0.1}};
 
     //Create Mode Select
     public static SendableChooser<String> modeSelect;
@@ -98,6 +98,8 @@ public final class Constants {
     public static final double maxExtensionValue = 48.5;
     public static final double minExtensionValue = 0;
 
+    public static final double limelightSingleTargetPoseLengthCutoff = 1.9;
+
     public static final double trackwidth = 22.5;
     public static final double wheelbase = 22.5;
 
@@ -119,17 +121,15 @@ public final class Constants {
     public static final double rotPIDMinValue = 0.07;
 
     //Auto PIDs
-    public static final double xControllerP = 7;
+    public static final double xControllerP = 8;
     public static final double xControllerI = 2;
     public static final double xControllerD = 0;
 
-    public static final double yControllerP = 7;
+    public static final double yControllerP = 8;
     public static final double yControllerI = 2;
     public static final double yControllerD = 0;
 
-    public static final double zControllerP = 0.5;
-    public static final double zControllerI = 0;
-    public static final double zControllerD = 0;
+    public static final double zControllerProportion = 10;
 
     public static final double aBalanceXConstant = .01;
     public static final double aBalanceTurnConstant = .01;
@@ -148,6 +148,8 @@ public final class Constants {
     // Constraint for the motion profilied robot angle controller
     public static final TrapezoidProfile.Constraints thetaControllerConstraints =
         new TrapezoidProfile.Constraints(Math.PI, Math.PI);
+
+    
 
     public static double smoothUsingError(double Encoder, double Range, double SetPoint, double MinSpeed, double MaxSpeed) {
 

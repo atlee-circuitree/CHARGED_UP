@@ -404,6 +404,34 @@ public class PathEQ {
 
     }
 
+    
+    public double solvePointTolerance(double uValue){
+
+        //Default value of 0.15 in case anyhting goes wrong
+        double tolerance = 0.15;
+
+        //If u too big, return final heading
+        if(uValue >= Constants.autoCoordinates[Constants.autoCoordinates.length-1][0]){
+            tolerance = Constants.autoCoordinates[Constants.autoCoordinates.length-1][4];
+        }
+        //If u too small, return first heading
+        else if(uValue <= Constants.autoCoordinates[0][0]){
+            tolerance = Constants.autoCoordinates[0][4];
+        }
+        //Otherwise, cycle through each coordinate to find which ones uValue falls between
+        else{
+            for(int i = 0; i < Constants.autoCoordinates.length; i++){
+                if(uValue <= Constants.autoCoordinates[i][0]){
+                    tolerance = Constants.autoCoordinates[i-1][4];
+                }
+            }
+        }
+
+
+        return tolerance;
+
+    }
+
 
     /**
      * @param point1 Pass in as {X1,Y1}

@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.PathEQ;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Drivetrain.Motors;
 import frc.robot.subsystems.Drivetrain.SwerveModule;
 
@@ -29,10 +30,10 @@ import java.lang.Math;
 public class PathFollower extends CommandBase {
 
   private final Drivetrain drivetrain;
+  private final Limelight limelight;
   
   private PIDController xPID = new PIDController(Constants.xControllerP, Constants.xControllerI, Constants.xControllerD);
   private PIDController yPID = new PIDController(Constants.yControllerP, Constants.yControllerI, Constants.yControllerD);
-  private PIDController zPID = new PIDController(Constants.zControllerP, Constants.zControllerI, Constants.zControllerD);
 
   private ProfiledPIDController placeholderPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(1, 1));
 
@@ -44,7 +45,6 @@ public class PathFollower extends CommandBase {
   private double uIncrement;
 
   private double speedMod;
-  private double pTolerance;
   private double aTolerance;
 
   private double forward;
@@ -53,16 +53,13 @@ public class PathFollower extends CommandBase {
 
   private boolean isFinished = false;
  
-  public PathFollower(Drivetrain dt, PathEQ pathEquation, double speed, double pointTolerance, double angleTolerance) {
+  public PathFollower(Drivetrain dt, Limelight lt, PathEQ pathEquation, double speed, double angleTolerance) {
     
+    limelight = lt;
     drivetrain = dt;
     pathEQ = pathEquation;
     speedMod = speed;
-    pTolerance = pointTolerance;
     aTolerance = angleTolerance;
-
-    zPID.enableContinuousInput(-180, 180);
-    driveController.setTolerance(new Pose2d(pointTolerance, pointTolerance, new Rotation2d(angleTolerance)));
 
     addRequirements(drivetrain);
 
@@ -76,6 +73,9 @@ public class PathFollower extends CommandBase {
 
     isFinished = false;
 
+    //Reset odometry to the limelight pose
+    drivetrain.resetOdometryToLimelight();
+
   }
 
   @Override
@@ -83,11 +83,15 @@ public class PathFollower extends CommandBase {
 
     //Auto calculations
     
-  
+    //Update the x/y tolerance levels
+    driveController.setTolerance(
+      new Pose2d(pathEQ.solvePointTolerance(targetUValue), pathEQ.solvePointTolerance(targetUValue), new Rotation2d(aTolerance)));
+
+
     //Rotation values are just placeholders bc we don't want the HolonomicDriveController to know that we are rotating
     //We deal with the rotation separately since it is waaaay easier
     //However, because of this, if you want to know the current robot Z, DO NOT USE CURRENTPOS IT WILL JUST RETURN ZERO
-    //Use drivertain.getOdometryZ() instead
+    //Use drivetrain.getOdometryZ() instead
     Pose2d currentPos = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(),
     new Rotation2d(0));
 
@@ -95,14 +99,24 @@ public class PathFollower extends CommandBase {
       new Rotation2d(0));
 
 
-    //zPID.setSetpoint(targetPos.getRotation().getDegrees());
-    zPID.setSetpoint(pathEQ.solveAngle(targetUValue));
-
     ChassisSpeeds chassisSpeeds = driveController.calculate(currentPos, targetPos, 1, new Rotation2d(0));
 
-    forward = chassisSpeeds.vyMetersPerSecond;
-    strafe = chassisSpeeds.vxMetersPerSecond;
-    rotation = (pathEQ.solveAngle(targetUValue) - drivetrain.getOdometryZ())/10;
+    //forward = chassisSpeeds.vyMetersPerSecond;
+    //strafe = chassisSpeeds.vxMetersPerSecond;
+    forward = chassisSpeeds.vxMetersPerSecond;
+    strafe = chassisSpeeds.vyMetersPerSecond;
+
+    double error = pathEQ.solveAngle(targetUValue) - drivetrain.getOdometryZ();
+
+    if(error > 180){
+      error = (error - 360);
+    }
+    else if(error < -180){
+      error = error + 360;
+    }
+   
+    rotation = error/Constants.zControllerProportion;
+    
 
     //Normalize calculated vx and vy velocities
     if(Math.abs(forward) > 1 && Math.abs(forward) >= Math.abs(strafe)){
@@ -110,12 +124,14 @@ public class PathFollower extends CommandBase {
       strafe = strafe/Math.abs(forward);
     }
     else if(Math.abs(strafe) > 1 && Math.abs(strafe) > Math.abs(forward)){
-      forward = forward/Math.abs(strafe);
       strafe = strafe/Math.abs(strafe);
+      forward = forward/Math.abs(strafe);
     }
 
     //Invert fwd so it goes the correct direction
     forward = -forward;
+    //Invert str so it strafes in the correct direction
+    strafe = -strafe;
     //Invert rot so it rotates in the correct direction
     //rotation = -rotation;
 
@@ -221,6 +237,8 @@ public class PathFollower extends CommandBase {
     SmartDashboard.putNumber("Current Y", currentPos.getY());
     SmartDashboard.putNumber("Fake Current Z", currentPos.getRotation().getDegrees());
     SmartDashboard.putNumber("Actual Current Z", drivetrain.getOdometryZ());
+    SmartDashboard.putNumber("Current point tolerance", pathEQ.solvePointTolerance(targetUValue));
+    SmartDashboard.putNumber("Z Error", error);
 
     SmartDashboard.putNumber("Target X", targetPos.getX());
     SmartDashboard.putNumber("Target Y", targetPos.getY());

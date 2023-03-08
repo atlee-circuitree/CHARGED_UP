@@ -115,7 +115,7 @@ public class RobotContainer {
     
     //pathGenerator = new PathGenerator();
 
-    pathFollower = new PathFollower(drivetrain, pathEQ, 0.2, 0.2, 5);
+    pathFollower = new PathFollower(drivetrain, limelight, pathEQ, 0.2, 5);
     //testPathFollower = new TestPathFollower(drivetrain, pathEQ, 0.1, 0.05);
 
     configureButtonBindings();
@@ -228,7 +228,7 @@ public class RobotContainer {
     //return pathFollower;
     //return testPathFollower;
     //return new AngleAndExtendInAuto(slide, feeder, 20, 4); //Removed claw to test feeder
-    return null;
+    return pathFollower;
   }
   
 }
