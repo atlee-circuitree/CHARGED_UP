@@ -19,6 +19,7 @@ import frc.robot.commands.AutoCommands.PathFollower;
 //import frc.robot.commands.ClawCommands.RunClawUntilClamp;
 import frc.robot.commands.DriveCommands.DriveWithXbox;
 import frc.robot.commands.FeederCommands.GoToFeederPosition;
+import frc.robot.commands.FeederCommands.IntakeFeeder;
 import frc.robot.commands.FeederCommands.RotateFeeder;
 import frc.robot.commands.FeederCommands.RunFeeder;
 import frc.robot.commands.MiscCommands.PlayAudio;
@@ -210,12 +211,10 @@ public class RobotContainer {
 
     //All four face button already used by SlideWithXbox
 
-    driver2X.whileTrue(new RunFeeder(feeder, SmartDashboard.getNumber("Speed", -1)));
-    driver2LB.whileTrue(new RunFeeder(feeder, SmartDashboard.getNumber("Speed", .25)));
-    driver2RB.whileTrue(new RunFeeder(feeder, SmartDashboard.getNumber("Speed", .5)));
+    driver2RB.whileTrue(new RunFeeder(feeder, -1));
 
-    driver2RT.onTrue(new GoToFeederPosition(feeder, -.20));
-    driver2LT.onTrue(new GoToFeederPosition(feeder, .20));
+    driver2RT.onTrue(new IntakeFeeder(feeder));
+    driver2LT.onTrue(new GoToFeederPosition(feeder, .2));
 
   }
 

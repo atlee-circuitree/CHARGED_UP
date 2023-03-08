@@ -10,14 +10,14 @@ import frc.robot.subsystems.Feeder;
 public class GoToFeederPosition extends CommandBase {
  
   Feeder feeder;
-  double speed;
+  double speed = .2;
   double tolerance = .04;
  
   public GoToFeederPosition(Feeder Feeder, double Speed) {
 
     feeder = Feeder;
-    speed = Speed;
-  
+    Speed = speed;
+ 
     addRequirements(feeder);
  
   }
@@ -25,6 +25,15 @@ public class GoToFeederPosition extends CommandBase {
   @Override
   public void initialize() {
 
+    if (feeder.absoluteClawPosition() < .6) {
+
+      speed = -speed;
+
+    } else {
+
+      speed = speed;
+
+    }
    
   }
 
