@@ -95,8 +95,8 @@ public final class Constants {
     public static final double maxGrabEncoderValue = .7;
     public static final double minGrabEncoderValue = .40;
  
-    public static final double maxExtensionValue = 44.5;
-    public static final double minExtensionValue = 1;
+    public static final double maxExtensionValue = 48.5;
+    public static final double minExtensionValue = 0;
 
     public static final double trackwidth = 22.5;
     public static final double wheelbase = 22.5;

@@ -10,31 +10,21 @@ import frc.robot.subsystems.Feeder;
 public class GoToFeederPosition extends CommandBase {
  
   Feeder feeder;
-  double speed = .2;
+  double speed;
   double tolerance = .04;
  
   public GoToFeederPosition(Feeder Feeder, double Speed) {
 
     feeder = Feeder;
-    Speed = speed;
- 
+    speed = Speed;
+  
     addRequirements(feeder);
  
   }
  
   @Override
   public void initialize() {
-
-    if (feeder.absoluteClawPosition() < .6) {
-
-      speed = -speed;
-
-    } else {
-
-      speed = speed;
-
-    }
-   
+ 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
