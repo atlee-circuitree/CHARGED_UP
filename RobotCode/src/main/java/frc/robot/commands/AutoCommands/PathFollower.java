@@ -120,12 +120,12 @@ public class PathFollower extends CommandBase {
 
     //Normalize calculated vx and vy velocities
     if(Math.abs(forward) > 1 && Math.abs(forward) >= Math.abs(strafe)){
-      forward = forward/Math.abs(forward);
       strafe = strafe/Math.abs(forward);
+      forward = forward/Math.abs(forward);
     }
     else if(Math.abs(strafe) > 1 && Math.abs(strafe) > Math.abs(forward)){
-      strafe = strafe/Math.abs(strafe);
       forward = forward/Math.abs(strafe);
+      strafe = strafe/Math.abs(strafe);
     }
 
     //Invert fwd so it goes the correct direction
@@ -199,6 +199,13 @@ public class PathFollower extends CommandBase {
     drivetrain.rotateMotor(Motors.REAR_LEFT_DRV, rearLeftSpeed * speedMod);
     drivetrain.rotateMotor(Motors.REAR_RIGHT_DRV, rearRightSpeed * speedMod);
   
+    //If the target u value is greater than the final u value, the robot has finished moving
+    if(targetUValue > pathEQ.getFinalUValue() + uIncrement){
+      isFinished = true;
+    }
+    else{
+      isFinished = false;
+    }
 
     //If robot at target position, increment the target u value
     if(driveController.atReference()){
@@ -208,10 +215,6 @@ public class PathFollower extends CommandBase {
         targetUValue = targetUValue + uIncrement;
 
       }
-    }
-    //If the target u value is greater than the final u value, the robot has finished moving
-    if(targetUValue > pathEQ.getFinalUValue()){
-      isFinished = true;
     }
 
 
@@ -238,6 +241,17 @@ public class PathFollower extends CommandBase {
     SmartDashboard.putNumber("Fake Current Z", currentPos.getRotation().getDegrees());
     SmartDashboard.putNumber("Actual Current Z", drivetrain.getOdometryZ());
     SmartDashboard.putNumber("Current point tolerance", pathEQ.solvePointTolerance(targetUValue));
+
+    SmartDashboard.putNumber("Tolerance U=0", pathEQ.solvePointTolerance(0));
+    SmartDashboard.putNumber("Tolerance U=0.5", pathEQ.solvePointTolerance(0.5));
+    SmartDashboard.putNumber("Tolerance U=1", pathEQ.solvePointTolerance(1));
+    SmartDashboard.putNumber("Tolerance U=1.5", pathEQ.solvePointTolerance(1.5));
+    SmartDashboard.putNumber("Tolerance U=2", pathEQ.solvePointTolerance(2));
+    SmartDashboard.putNumber("Tolerance U=2.5", pathEQ.solvePointTolerance(2.5));
+    SmartDashboard.putNumber("Tolerance U=3", pathEQ.solvePointTolerance(3));
+    SmartDashboard.putNumber("Tolerance U=3.5", pathEQ.solvePointTolerance(3.5));
+
+
     SmartDashboard.putNumber("Z Error", error);
 
     SmartDashboard.putNumber("Target X", targetPos.getX());

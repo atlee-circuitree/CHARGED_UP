@@ -115,7 +115,7 @@ public class RobotContainer {
     
     //pathGenerator = new PathGenerator();
 
-    pathFollower = new PathFollower(drivetrain, limelight, pathEQ, 0.2, 5);
+    pathFollower = new PathFollower(drivetrain, limelight, pathEQ, 0.3, 5);
     //testPathFollower = new TestPathFollower(drivetrain, pathEQ, 0.1, 0.05);
 
     configureButtonBindings();

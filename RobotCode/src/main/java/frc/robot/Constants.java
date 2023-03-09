@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public final class Constants {
 
     //Declare coordinates in the form {u, x, y, angle}
-    public static final double[][] autoCoordinates = {{0, 5.6,0 ,0, 0.2}, {1, 5.6,-0.75 ,0, 0.25}, {2, 4.5,-1.5 ,90, 0.1}};
+    public static final double[][] autoCoordinates = {{0, 6,-1.3 ,0, 0.2}, {1, 5.5,-1.3 ,0, 0.2}, {2, 5,-1.3 ,0, 0.05}};
 
     //Create Mode Select
     public static SendableChooser<String> modeSelect;

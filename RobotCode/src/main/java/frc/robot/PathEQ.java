@@ -420,9 +420,10 @@ public class PathEQ {
         }
         //Otherwise, cycle through each coordinate to find which ones uValue falls between
         else{
-            for(int i = 0; i < Constants.autoCoordinates.length; i++){
+            for(int i = 1; i < Constants.autoCoordinates.length; i++){
                 if(uValue <= Constants.autoCoordinates[i][0]){
                     tolerance = Constants.autoCoordinates[i-1][4];
+                    break;
                 }
             }
         }
