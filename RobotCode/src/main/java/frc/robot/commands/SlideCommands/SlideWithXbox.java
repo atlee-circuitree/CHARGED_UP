@@ -155,7 +155,7 @@ public class SlideWithXbox extends CommandBase {
 
       } else if (slide.getExtensionEncoderInches() > targetExtension + 1) {
 
-        slide.extendArmUsingPower(-.65);
+        slide.extendArmUsingPower(-1);
 
       } else {
 
@@ -191,25 +191,16 @@ public class SlideWithXbox extends CommandBase {
     }
 
     if (primaryXbox.getAButtonPressed()) {
-
-      targetAngle = Constants.minAngleEncoderValue;
-
-      if (slide.getAngle() > targetAngle - .5 && slide.getAngle() < targetAngle + .5) {
-
-        currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
-        targetExtension = 3;
-
-      } else if (slide.getExtension() > 10) {
+ 
+      if (slide.getExtension() > 1 ) {
 
         currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
         targetExtension = 1;
 
       } else {
 
-        currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
-        targetExtension = 3;
         currentAngleState = AngleState.AUTOMATIC_CONTROL;
-        targetAngle = Constants.minAngleEncoderValue; //- .5;
+        targetAngle = Constants.minAngleEncoderValue;
 
       }
 
