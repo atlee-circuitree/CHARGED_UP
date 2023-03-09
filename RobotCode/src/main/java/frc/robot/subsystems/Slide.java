@@ -125,6 +125,20 @@ public class Slide extends SubsystemBase {
 
   }
 
+  public boolean WithinTolerence(double value, double targetValue, double tolerance) {
+
+    if (value > targetValue - tolerance && value < targetValue + tolerance) {
+
+      return true;
+
+    } else {
+
+      return false;
+
+    }
+
+  }
+
   public void setZeroAngle() {
 
     Preferences.initDouble(Constants.angleZeroKey, angleEncoder.getAbsolutePosition());
