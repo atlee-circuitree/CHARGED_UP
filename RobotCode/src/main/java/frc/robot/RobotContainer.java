@@ -215,11 +215,11 @@ public class RobotContainer {
     driver2LB.onTrue(new GoToFeederPosition(feeder, -.2));
     driver2RB.onTrue(new GoToFeederPosition(feeder, .2));
 
-    driver1LT.whileTrue(new IntakeFeeder(feeder));
-    driver1RT.whileTrue(new RunFeeder(feeder, -1));
+    driver1RT.whileTrue(new IntakeFeeder(feeder));
+    driver1LT.whileTrue(new RunFeeder(feeder, -1));
 
-    driver2LT.whileTrue(new IntakeFeeder(feeder));
-    driver2RT.whileTrue(new RunFeeder(feeder, -1));
+    //driver2RT.whileTrue(new IntakeFeeder(feeder));
+    //driver2LT.whileTrue(new RunFeeder(feeder, -1));
 
   }
 
