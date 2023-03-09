@@ -12,7 +12,8 @@ import frc.robot.subsystems.Slide;
 
 public class SlideWithXbox extends CommandBase {
 
-  XboxController xbox;
+  XboxController primaryXbox;
+  XboxController secondaryXbox;
 
   XboxController xbox1;
   XboxController xbox2;
@@ -58,11 +59,13 @@ public class SlideWithXbox extends CommandBase {
 
     if (Constants.modeSelect.getSelected() == "Player_Two") {
 
-      xbox = xbox1;
+      primaryXbox = xbox2;
+      secondaryXbox = xbox1;
       
     } else {
 
-      xbox = xbox2;
+      primaryXbox = xbox1;
+      secondaryXbox = xbox2;
 
     }
 
@@ -77,13 +80,13 @@ public class SlideWithXbox extends CommandBase {
   @Override
   public void execute() {
  
-    if (xbox.getLeftY() > .4 || xbox.getLeftY() < -.1) {
+    if (primaryXbox.getLeftY() > .4 || primaryXbox.getLeftY() < -.1) {
 
       currentAngleState = AngleState.MANUAL_CONTROL;
 
     }
 
-    if (xbox.getRightY() > .4 || xbox.getRightY() < -.1) {
+    if (primaryXbox.getRightY() > .4 || primaryXbox.getRightY() < -.1) {
 
       currentExtensionState = ExtensionState.MANUAL_CONTROL;
 
@@ -91,20 +94,20 @@ public class SlideWithXbox extends CommandBase {
 
     if (currentAngleState == AngleState.MANUAL_CONTROL) {
 
-      slide.changeAngleUsingPower(-xbox.getLeftY() / .5);
+      slide.changeAngleUsingPower(-secondaryXbox.getLeftY());
    
     }
 
     if (currentExtensionState == ExtensionState.MANUAL_CONTROL) {
 
-      if (xbox.getStartButton()) {
+      if (secondaryXbox.getStartButton()) {
 
-        slide.extendArmUsingPowerNoLimit(-xbox.getRightY() / 1);
+        slide.extendArmUsingPowerNoLimit(-secondaryXbox.getRightY() / 1);
         slide.resetExtensionEncoder();
   
       } else {
   
-        slide.extendArmUsingPower(-xbox.getRightY() / 1);
+        slide.extendArmUsingPower(-secondaryXbox.getRightY() / 1);
   
       }
    
@@ -116,7 +119,7 @@ public class SlideWithXbox extends CommandBase {
 
         if (slide.getAngle() > targetAngle - 10 || slide.getAngle() < targetAngle + 10) {
 
-          slide.changeAngleUsingPower(.6);
+          slide.changeAngleUsingPower(1);
 
         } else {
 
@@ -128,7 +131,7 @@ public class SlideWithXbox extends CommandBase {
 
         if (slide.getAngle() > targetAngle - 10 || slide.getAngle() < targetAngle + 10) {
 
-          slide.changeAngleUsingPower(-.6);
+          slide.changeAngleUsingPower(-1);
 
         } else {
 
@@ -162,30 +165,83 @@ public class SlideWithXbox extends CommandBase {
 
     }
 
-    if (xbox.getYButtonPressed()) {
+    if (primaryXbox.getYButtonPressed()) {
 
-      currentAngleState = AngleState.AUTOMATIC_CONTROL;
-      currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
-      targetAngle = Constants.maxAngleEncoderValue - 4;
-      targetExtension = 44;
+      targetAngle = Constants.maxAngleEncoderValue - 1;
+ 
+      if (slide.getAngle() > targetAngle - .5 && slide.getAngle() < targetAngle + .5) {
+
+        currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
+        targetExtension = Constants.maxExtensionValue;
+
+      } else if (slide.getExtension() > 10) {
+
+        currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
+        targetExtension = 1;
+
+      } else {
+
+        currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
+        targetExtension = 3;
+        currentAngleState = AngleState.AUTOMATIC_CONTROL;
+        targetAngle = Constants.maxAngleEncoderValue - 1;
+
+      }
+     
+    }
+
+    if (primaryXbox.getAButtonPressed()) {
+
+      targetAngle = Constants.minAngleEncoderValue;
+
+      if (slide.getAngle() > targetAngle - .5 && slide.getAngle() < targetAngle + .5) {
+
+        currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
+        targetExtension = 3;
+
+      } else if (slide.getExtension() > 10) {
+
+        currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
+        targetExtension = 1;
+
+      } else {
+
+        currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
+        targetExtension = 3;
+        currentAngleState = AngleState.AUTOMATIC_CONTROL;
+        targetAngle = Constants.minAngleEncoderValue; //- .5;
+
+      }
 
     }
 
-    if (xbox.getAButtonPressed()) {
+    if (primaryXbox.getBButtonPressed()) {
 
-      currentAngleState = AngleState.AUTOMATIC_CONTROL;
-      currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
-      targetAngle = Constants.minAngleEncoderValue + 1; //- .5;
-      targetExtension = .5;
+      targetAngle = 30;
+ 
+      if (slide.getAngle() > targetAngle - .5 && slide.getAngle() < targetAngle + .5) {
+
+        currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
+        targetExtension = 25;
+
+      } else if (slide.getExtension() > 10) {
+
+        currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
+        targetExtension = 1;
+
+      } else {
+
+        currentAngleState = AngleState.AUTOMATIC_CONTROL;
+        targetAngle = 30;
+
+      }
 
     }
 
-    if (xbox.getBButtonPressed()) {
+    if (primaryXbox.getXButtonPressed()) {
 
-      currentAngleState = AngleState.AUTOMATIC_CONTROL;
-      currentExtensionState = ExtensionState.AUTOMATIC_CONTROL;
-      targetAngle = 26;
-      targetExtension = 20;
+      currentAngleState = AngleState.MANUAL_CONTROL;
+      currentExtensionState = ExtensionState.MANUAL_CONTROL;
 
     }
  
@@ -197,6 +253,9 @@ public class SlideWithXbox extends CommandBase {
 
     slide.changeAngleUsingPower(0);
     slide.extendArmUsingPower(0);
+    currentAngleState = AngleState.MANUAL_CONTROL;
+    currentExtensionState = ExtensionState.MANUAL_CONTROL;
+
 
   }
 

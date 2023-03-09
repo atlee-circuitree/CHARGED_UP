@@ -97,7 +97,8 @@ public class RobotContainer {
 
     playAudio = new PlayAudio(audio, 0, 0);
 
-    pathEQ = new PathEQ(Constants.autoCoordinates, true);
+    //pathEQ = new PathEQ(Constants.autoCoordinates, true);
+    pathEQ = new PathEQ(Constants.testCoords, true);
 
     //Teleop commands
     driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
@@ -213,6 +214,9 @@ public class RobotContainer {
 
     driver2LB.onTrue(new GoToFeederPosition(feeder, -.2));
     driver2RB.onTrue(new GoToFeederPosition(feeder, .2));
+
+    driver1LT.whileTrue(new IntakeFeeder(feeder));
+    driver1RT.whileTrue(new RunFeeder(feeder, -1));
 
     driver2LT.whileTrue(new IntakeFeeder(feeder));
     driver2RT.whileTrue(new RunFeeder(feeder, -1));

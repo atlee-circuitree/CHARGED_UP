@@ -24,6 +24,7 @@ public final class Constants {
 
     //Declare coordinates in the form {u, x, y, angle}
     public static final double[][] autoCoordinates = {{0, 6,-1.3 ,0, 0.2}, {1, 5.5,-1.3 ,0, 0.2}, {2, 5,-1.3 ,0, 0.05}};
+    public static final double[][] testCoords = {{0, 5.435, -1.2, 0, .2}, {1, 4.435, -1.2, 0, .05}};
 
     //Create Mode Select
     public static SendableChooser<String> modeSelect;
@@ -81,7 +82,7 @@ public final class Constants {
  
     public static final double angleOffset = -11.5;
     public static final double maxAngleEncoderValue = 31.2;
-    public static final double minAngleEncoderValue = -17.3;
+    public static final double minAngleEncoderValue = -15;
     //public static final double maxAngleEncoderValue = 9999;
     //public static final double minAngleEncoderValue = -9999;
 
@@ -95,7 +96,7 @@ public final class Constants {
     public static final double maxGrabEncoderValue = .7;
     public static final double minGrabEncoderValue = .40;
  
-    public static final double maxExtensionValue = 48.5;
+    public static final double maxExtensionValue = 49.5;
     public static final double minExtensionValue = 0;
 
     public static final double limelightSingleTargetPoseLengthCutoff = 1.9;
