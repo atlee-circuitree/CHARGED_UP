@@ -26,6 +26,7 @@ import frc.robot.commands.MiscCommands.PlayAudio;
 import frc.robot.commands.MiscCommands.RecalibrateModules;
 import frc.robot.commands.MiscCommands.TestPathFollower;
 import frc.robot.commands.SlideCommands.GoToAngleAndExtension;
+import frc.robot.commands.SlideCommands.KillArm;
 import frc.robot.commands.SlideCommands.ResetExtensionEncoder;
 import frc.robot.commands.SlideCommands.SlideWithXbox;
 import frc.robot.subsystems.Audio;
@@ -36,6 +37,7 @@ import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Slide;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -62,7 +64,8 @@ public class RobotContainer {
  
   private final RecalibrateModules recalibrateModules;
 
-  private final GoToAngleAndExtension TopPosition;
+  private GoToAngleAndExtension TopPosition;
+  private GoToAngleAndExtension MiddlePosition;
 
   //private final PathGenerator pathGenerator;
   private final PathFollower pathFollower;
@@ -70,7 +73,7 @@ public class RobotContainer {
   private final PathEQ pathEQ; 
 
   private final PlayAudio playAudio;
-
+ 
   public XboxController xbox1 = new XboxController(0);
   public XboxController xbox2 = new XboxController(1);
 
@@ -108,7 +111,7 @@ public class RobotContainer {
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
 
     TopPosition = new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue - 1, 1);
- 
+    MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1);
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
     autoBalance.addRequirements(drivetrain);
@@ -118,7 +121,7 @@ public class RobotContainer {
     recalibrateModules = new RecalibrateModules(drivetrain, xbox1);
     //recalibrateModules.addRequirements(drivetrain);
     //drivetrain.setDefaultCommand(recalibrateModules);
-    
+ 
     //pathGenerator = new PathGenerator();
 
     pathFollower = new PathFollower(drivetrain, limelight, pathEQ, 0.3, 5);
@@ -218,8 +221,9 @@ public class RobotContainer {
     //All four face button already used by SlideWithXbox
 
     driver1Y.onTrue(TopPosition);
-    driver1B.onTrue(new GoToAngleAndExtension(slide, 20, 20, 1));
+    driver1B.onTrue(MiddlePosition);
     driver1A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue + 1, 1));
+    driver1X.whileTrue(new KillArm(slide));
 
     driver2LB.onTrue(new GoToFeederPosition(feeder, -.2));
     driver2RB.onTrue(new GoToFeederPosition(feeder, .2));

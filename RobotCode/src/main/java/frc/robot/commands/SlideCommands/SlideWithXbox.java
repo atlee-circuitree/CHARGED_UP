@@ -57,6 +57,8 @@ public class SlideWithXbox extends CommandBase {
   @Override
   public void execute() {
 
+    SmartDashboard.putData(slide);
+
     if (secondaryXbox.getStartButton()) {
 
       slide.changeAngleUsingPowerNoLimit(-secondaryXbox.getLeftY());

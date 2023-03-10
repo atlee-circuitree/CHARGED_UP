@@ -13,7 +13,7 @@ public class GoToAngleAndExtension extends CommandBase {
   double targetAngle;
   double targetExtension;
   double tolerance;
-  double endWhenFinished = 0;
+  double stage = 1;
  
   public GoToAngleAndExtension(Slide sl, double TargetAngle, double TargetExtension, double Tolerance) {
  
@@ -29,71 +29,74 @@ public class GoToAngleAndExtension extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
- 
-    if (slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance) == true && slide.getExtension() > 8) {
- 
-      System.out.print("Extended, retracting");
-      endWhenFinished = 1;
-      targetAngle = slide.getAngle();
-      targetExtension = 0;
-
-    } else if (slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance) == false && slide.getExtension() < 2) {
- 
-      System.out.print("Retracting, moving to angle");
-      endWhenFinished = 2;
-      // targetAngle stays the same
-      targetExtension = slide.getExtensionEncoderInches();
-
-    } else if (slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance) == true) {
-
-      System.out.print("At angle, extending");
-      endWhenFinished = 1;
-      targetAngle = slide.getAngle();
-      // targetExtension stays the same
-
-    }
-
+  
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
  
-    if (slide.getExtensionEncoderInches() < targetExtension - tolerance) {
+    System.out.print("runnign");
 
-      slide.extendArmUsingPower(.65);
+    // Retract Back
+    if (stage == 1) {
 
-    } else if (slide.getExtensionEncoderInches() > targetExtension + tolerance) {
+      if (slide.getExtensionEncoderInches() < 0 - tolerance) {
 
-      slide.extendArmUsingPower(-1);
-
-    } else {
-
-      if (endWhenFinished == 1) {
-
-        end(true);
-
+        slide.extendArmUsingPower(.65);
+  
+      } else if (slide.getExtensionEncoderInches() > 0 + tolerance) {
+  
+        slide.extendArmUsingPower(-1);
+  
+      } else {
+  
+        slide.extendArmUsingPower(0);
+        stage = 2;
+  
       }
-      slide.extendArmUsingPower(0);
 
-    }
- 
-    if (slide.getAngle() < targetAngle - tolerance) {
+    // Go to angle
+    } else if (stage == 2) {
+
+      if (slide.getAngle() < targetAngle - tolerance) {
         
-      slide.changeAngleUsingPower(1);
+        slide.changeAngleUsingPower(1);
+   
+      } else if (slide.getAngle() > targetAngle + tolerance) {
+  
+        slide.changeAngleUsingPower(-1);
+  
+      } else {
  
-    } else if (slide.getAngle() > targetAngle + tolerance) {
-
-      slide.changeAngleUsingPower(-1);
-
-    } else {
-
-      if (endWhenFinished == 2) {
-
-        end(true);
-
+        slide.changeAngleUsingPower(0);
+        stage = 3;
+  
       }
+
+    } else if (stage == 3) {
+
+      if (slide.getExtensionEncoderInches() < targetExtension - tolerance) {
+
+        slide.extendArmUsingPower(.65);
+  
+      } else if (slide.getExtensionEncoderInches() > targetExtension + tolerance) {
+  
+        slide.extendArmUsingPower(-1);
+  
+      } else {
+  
+        slide.extendArmUsingPower(0);
+        end(true);
+        stage = 4;
+  
+      }
+
+    } else if (stage == 4) {
+
       slide.changeAngleUsingPower(0);
+      slide.extendArmUsingPower(0);
+      end(false);
 
     }
  
@@ -112,7 +115,15 @@ public class GoToAngleAndExtension extends CommandBase {
   @Override
   public boolean isFinished() {
  
-    return false;
+    if (stage == 4) {
+
+      return true;
+
+    } else {
+
+      return false;
+
+    }
 
   }
 
