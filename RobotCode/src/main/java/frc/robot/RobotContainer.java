@@ -25,6 +25,7 @@ import frc.robot.commands.FeederCommands.RunFeeder;
 import frc.robot.commands.MiscCommands.PlayAudio;
 import frc.robot.commands.MiscCommands.RecalibrateModules;
 import frc.robot.commands.MiscCommands.TestPathFollower;
+import frc.robot.commands.SlideCommands.GoToAngleAndExtension;
 import frc.robot.commands.SlideCommands.ResetExtensionEncoder;
 import frc.robot.commands.SlideCommands.SlideWithXbox;
 import frc.robot.subsystems.Audio;
@@ -232,7 +233,7 @@ public class RobotContainer {
     //return pathFollower;
     //return testPathFollower;
     //return new AngleAndExtendInAuto(slide, feeder, 20, 4); //Removed claw to test feeder
-    return pathFollower;
+    return new GoToAngleAndExtension(slide, 30, 40, 1);
   }
   
 }
