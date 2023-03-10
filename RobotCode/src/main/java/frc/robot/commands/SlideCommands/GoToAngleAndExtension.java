@@ -13,6 +13,7 @@ public class GoToAngleAndExtension extends CommandBase {
   double targetAngle;
   double targetExtension;
   double tolerance;
+  double endWhenFinished = 0;
  
   public GoToAngleAndExtension(Slide sl, double TargetAngle, double TargetExtension, double Tolerance) {
  
@@ -29,19 +30,26 @@ public class GoToAngleAndExtension extends CommandBase {
   @Override
   public void initialize() {
  
-    if (slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance) == false && slide.getExtension() > 2) {
-
+    if (slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance) == true && slide.getExtension() > 8) {
+ 
+      System.out.print("Extended, retracting");
+      endWhenFinished = 1;
       targetAngle = slide.getAngle();
-      targetExtension = 1;
+      targetExtension = 0;
 
     } else if (slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance) == false && slide.getExtension() < 2) {
  
+      System.out.print("Retracting, moving to angle");
+      endWhenFinished = 2;
       // targetAngle stays the same
       targetExtension = slide.getExtensionEncoderInches();
 
     } else if (slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance) == true) {
 
-      // All values stay the same
+      System.out.print("At angle, extending");
+      endWhenFinished = 1;
+      targetAngle = slide.getAngle();
+      // targetExtension stays the same
 
     }
 
@@ -61,6 +69,11 @@ public class GoToAngleAndExtension extends CommandBase {
 
     } else {
 
+      if (endWhenFinished == 1) {
+
+        end(true);
+
+      }
       slide.extendArmUsingPower(0);
 
     }
@@ -75,6 +88,11 @@ public class GoToAngleAndExtension extends CommandBase {
 
     } else {
 
+      if (endWhenFinished == 2) {
+
+        end(true);
+
+      }
       slide.changeAngleUsingPower(0);
 
     }
@@ -93,16 +111,8 @@ public class GoToAngleAndExtension extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-    if (slide.WithinTolerence(slide.getExtension(), targetExtension, tolerance) == true && slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance) == true) {
-
-      return true;
-
-    } else {
-
-      return false;
-
-    }
+ 
+    return false;
 
   }
 

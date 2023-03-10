@@ -62,6 +62,8 @@ public class RobotContainer {
  
   private final RecalibrateModules recalibrateModules;
 
+  private final GoToAngleAndExtension TopPosition;
+
   //private final PathGenerator pathGenerator;
   private final PathFollower pathFollower;
   //private final TestPathFollower testPathFollower;
@@ -104,6 +106,8 @@ public class RobotContainer {
     //Teleop commands
     driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
+
+    TopPosition = new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue - 1, 1);
  
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
@@ -213,14 +217,15 @@ public class RobotContainer {
 
     //All four face button already used by SlideWithXbox
 
+    driver1Y.onTrue(TopPosition);
+    driver1B.onTrue(new GoToAngleAndExtension(slide, 20, 20, 1));
+    driver1A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue + 1, 1));
+
     driver2LB.onTrue(new GoToFeederPosition(feeder, -.2));
     driver2RB.onTrue(new GoToFeederPosition(feeder, .2));
 
     driver1RT.whileTrue(new IntakeFeeder(feeder));
     driver1LT.whileTrue(new RunFeeder(feeder, -1));
-
-    //driver2RT.whileTrue(new IntakeFeeder(feeder));
-    //driver2LT.whileTrue(new RunFeeder(feeder, -1));
 
   }
 
@@ -232,7 +237,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     //return pathFollower;
     //return testPathFollower;
-    //return new AngleAndExtendInAuto(slide, feeder, 20, 4); //Removed claw to test feeder
+    //return new AngleAndExtendInAuto(slide, feeder, 20, 4);
     return new GoToAngleAndExtension(slide, 30, 40, 1);
   }
   

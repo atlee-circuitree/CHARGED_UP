@@ -56,8 +56,16 @@ public class SlideWithXbox extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
- 
-    slide.changeAngleUsingPower(-secondaryXbox.getLeftY());
+
+    if (secondaryXbox.getStartButton()) {
+
+      slide.changeAngleUsingPowerNoLimit(-secondaryXbox.getLeftY());
+  
+    } else {
+  
+      slide.changeAngleUsingPower(-secondaryXbox.getLeftY());
+  
+    }
  
     if (secondaryXbox.getStartButton()) {
 

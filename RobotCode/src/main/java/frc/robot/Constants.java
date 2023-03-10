@@ -82,7 +82,7 @@ public final class Constants {
  
     public static final double angleOffset = -11.5;
     public static final double maxAngleEncoderValue = 31.2;
-    public static final double minAngleEncoderValue = -15.5;
+    public static final double minAngleEncoderValue = -13.5;
     //public static final double maxAngleEncoderValue = 9999;
     //public static final double minAngleEncoderValue = -9999;
 

@@ -113,6 +113,12 @@ public class Slide extends SubsystemBase {
  
   }
 
+  public void changeAngleUsingPowerNoLimit(double speed) {
+ 
+    angMotor.set(ControlMode.PercentOutput, speed);
+ 
+  }
+
   public double getAngle() {
 
     return angle;
@@ -150,12 +156,6 @@ public class Slide extends SubsystemBase {
     angMotor.set(ControlMode.Current, anglePID.calculate(speed));
  
   }
-
-  /*public void changeAngleUsingVelocity(double targetPos, double speed) {
- 
-    angMotor.set(ControlMode.MotionMagic, targetPos, DemandType.ArbitraryFeedForward, maxGravityFF * cosineScalar);
- 
-  }*/
 
   public void extendArmUsingPower(double speed) {
 
