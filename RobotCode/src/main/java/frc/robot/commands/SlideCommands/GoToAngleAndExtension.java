@@ -29,6 +29,8 @@ public class GoToAngleAndExtension extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
+    stage = 1;
   
   }
 
