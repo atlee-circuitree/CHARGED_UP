@@ -110,7 +110,7 @@ public class RobotContainer {
     driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
 
-    TopPosition = new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue - 1, 1);
+    TopPosition = new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1);
     MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1);
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
@@ -239,10 +239,10 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    //return pathFollower;
+    return pathFollower;
     //return testPathFollower;
     //return new AngleAndExtendInAuto(slide, feeder, 20, 4);
-    return new GoToAngleAndExtension(slide, 30, 40, 1);
+    //return new GoToAngleAndExtension(slide, 30, 40, 1);
   }
   
 }

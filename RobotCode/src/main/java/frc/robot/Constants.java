@@ -22,9 +22,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
  */
 public final class Constants {
 
-    //Declare coordinates in the form {u, x, y, angle}
+    //Declare coordinates in the form {u, x, y, angle, tolerance}
     public static final double[][] autoCoordinates = {{0, 6,-1.3 ,0, 0.2}, {1, 5.5,-1.3 ,0, 0.2}, {2, 5,-1.3 ,0, 0.05}};
-    public static final double[][] testCoords = {{0, 5.435, -1.2, 0, .2}, {1, 4.435, -1.2, 0, .05}};
+   // public static final double[][] testCoords = {{0, 6.49, -1, 0, .2}, {1, 2.55, -1, 0, .2}, {2, 4.40, -1 ,0, .1}};
+   public static final double[][] testCoords = {{0, 4.55, -.8, 0, .2}, {1, 3.55, -.8, 0, .2}, {2, 2.85, -.8, 0, .2}};
 
     //Create Mode Select
     public static SendableChooser<String> modeSelect;
@@ -123,11 +124,11 @@ public final class Constants {
 
     //Auto PIDs
     public static final double xControllerP = 8;
-    public static final double xControllerI = 2;
+    public static final double xControllerI = .65;
     public static final double xControllerD = 0;
 
     public static final double yControllerP = 8;
-    public static final double yControllerI = 2;
+    public static final double yControllerI = .65;
     public static final double yControllerD = 0;
 
     public static final double zControllerProportion = 10;
