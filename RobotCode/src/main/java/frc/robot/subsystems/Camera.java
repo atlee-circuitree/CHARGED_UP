@@ -8,25 +8,26 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.VideoSource;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class CameraSubsystem extends SubsystemBase {
+public class Camera extends SubsystemBase {
   /** Creates a new CameraSubsystem. */
-  
-  VideoSource usbCamera;
-
-  public CameraSubsystem() {
+ 
+  public Camera() {
     //usbCamera.setResolution(200, 100);
-    //CameraServer.startAutomaticCapture(usbCamera);
-    CameraServer.startAutomaticCapture("Rear Camera", 0);
+  
+    CameraServer.startAutomaticCapture();
+ 
+    //CameraServer.putVideo("Rear Camera", 640 , 480);
+     
   }
 
-  public void initRearCamera(){
+  public void initRearCamera() {
+
     CameraServer.startAutomaticCapture("Rear Camera", 0);
+    
   }
 
   @Override
   public void periodic() {
- 
-    CameraServer.startAutomaticCapture();
  
   }
 }

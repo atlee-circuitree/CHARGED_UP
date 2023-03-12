@@ -33,6 +33,7 @@ import frc.robot.commands.SlideCommands.KillArm;
 import frc.robot.commands.SlideCommands.ResetExtensionEncoder;
 import frc.robot.commands.SlideCommands.SlideWithXbox;
 import frc.robot.subsystems.Audio;
+import frc.robot.subsystems.Camera;
 //import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
@@ -59,6 +60,7 @@ public class RobotContainer {
  // private final Claw claw;
   private final Feeder feeder;
   private final Limelight limelight;
+  private final Camera camera;
 
   private DriveWithXbox driveWithXbox;
   private SlideWithXbox slideWithXbox;
@@ -99,11 +101,11 @@ public class RobotContainer {
 
     // Configure the button bindings
     drivetrain = new Drivetrain();
-    //claw = new Claw();
     feeder = new Feeder();
     slide = new Slide();
     audio = new Audio();
     limelight = new Limelight();
+    camera = new Camera();
 
     limelight.EnableLED();
 
