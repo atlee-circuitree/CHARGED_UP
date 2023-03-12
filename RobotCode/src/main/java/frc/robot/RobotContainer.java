@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoCommands.AngleAndExtendInAuto;
 import frc.robot.commands.AutoCommands.AutoBalance;
+import frc.robot.commands.AutoCommands.DriveBackwardsToDistance;
 import frc.robot.commands.AutoCommands.PathFollower;
 //import frc.robot.commands.ClawCommands.RotateClaw;
 //import frc.robot.commands.ClawCommands.RunClaw;
@@ -72,6 +73,8 @@ public class RobotContainer {
   //private final TestPathFollower testPathFollower;
   private final PathEQ pathEQ; 
 
+  private final DriveBackwardsToDistance GoPastStartingLine;
+
   private final PlayAudio playAudio;
  
   public XboxController xbox1 = new XboxController(0);
@@ -105,6 +108,8 @@ public class RobotContainer {
 
     //pathEQ = new PathEQ(Constants.autoCoordinates, true);
     pathEQ = new PathEQ(Constants.testCoords, true);
+
+    GoPastStartingLine = new DriveBackwardsToDistance(drivetrain, limelight, 3, .2);
 
     //Teleop commands
     driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
@@ -239,7 +244,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return pathFollower;
+    return GoPastStartingLine;
+    //return pathFollower;
     //return testPathFollower;
     //return new AngleAndExtendInAuto(slide, feeder, 20, 4);
     //return new GoToAngleAndExtension(slide, 30, 40, 1);
