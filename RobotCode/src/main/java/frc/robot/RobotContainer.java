@@ -80,7 +80,7 @@ public class RobotContainer {
 
   private final DriveBackwardsToDistance GoPastStartingLine;
 
-  private SequentialCommandGroup ScoreOpeningCone;
+  private SequentialCommandGroup ScoreOpeningCube;
 
   private final CenterToDistance CenterToCubeNode;
 
@@ -130,12 +130,16 @@ public class RobotContainer {
     TopPositionAuto = new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1);
     MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1);
 
-    ScoreOpeningCone = new SequentialCommandGroup(
+    ScoreOpeningCube = new SequentialCommandGroup(
+    new RunFeeder(feeder, .2).withTimeout(.5),
+    //new GoToFeederPosition(feeder, .2),
     TopPositionAuto, 
     new RunFeeder(feeder, -.2).withTimeout(1),
     new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1),
-    new DriveBackwardsToDistance(drivetrain, limelight, 3, .2),
-    new DriveForwardsToDistance(drivetrain, limelight, 5, .2));
+    new DriveBackwardsToDistance(drivetrain, limelight, -4, .2),
+    new DriveForwardsToDistance(drivetrain, limelight, -2, .2));
+    //new DriveForwardsToDistance(drivetrain, limelight, -4, .2),
+    //new DriveBackwardsToDistance(drivetrain, limelight, -2, .2));
 
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
@@ -264,7 +268,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return GoPastStartingLine;
+    return ScoreOpeningCube;
     //return pathFollower;
     //return testPathFollower;
     //return new AngleAndExtendInAuto(slide, feeder, 20, 4);

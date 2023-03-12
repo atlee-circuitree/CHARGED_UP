@@ -42,7 +42,9 @@ public class Feeder extends SubsystemBase {
     SmartDashboard.putNumber("Feeder Absolute Encoder", feederEncoder.getAbsolutePosition());
 
   }
-
+  
+  //Postive equals intake 
+  //Negative equals outtake
   public void runFeeder(double speed) {
     leftFeederMotor.set(-speed);
     rightFeederMotor.set(speed);

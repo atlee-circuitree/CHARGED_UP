@@ -52,7 +52,7 @@ public class GoToFeederPosition extends CommandBase {
       System.out.println("Cone Position Met");
       return true;
 
-    } else if (feeder.absoluteClawPosition() < .2 + tolerance && feeder.absoluteClawPosition() > .2 - tolerance && speed > 0) {
+    } else if (feeder.absoluteClawPosition() < .15 + tolerance && feeder.absoluteClawPosition() > .15 - tolerance && speed > 0) {
 
       System.out.println("Cube Position Met");
       return true;
