@@ -10,21 +10,23 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Drivetrain.SwerveModule;
 
-public class DriveBackwardsToDistance extends CommandBase {
+public class CenterToDistance extends CommandBase {
   
   Drivetrain drivetrain;
   Limelight limelight;
   double targetDistance;
   double speed;
+  double tolerance;
   double stage = 1;
   Timer rotateTimer;
 
-  public DriveBackwardsToDistance(Drivetrain dt, Limelight lm, double TargetDistance, double Speed) {
+  public CenterToDistance(Drivetrain dt, Limelight lm, double TargetDistance, double Speed, double Tolerance) {
     
     drivetrain = dt;
     limelight = lm;
     targetDistance = TargetDistance;
     speed = Speed;
+    tolerance = Tolerance;
 
     addRequirements(drivetrain, limelight);
 
@@ -52,10 +54,10 @@ public class DriveBackwardsToDistance extends CommandBase {
 
       System.out.println("Stage 1");
 
-      drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 0, 1);
-      drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
-      drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
-      drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
+      drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 90, 1);
+      drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 90, 1);
+      drivetrain.rotateModule(SwerveModule.REAR_LEFT, 90, 1);
+      drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 90, 1);
 
       if (rotateTimer.get() >= 1) {
 
@@ -67,12 +69,25 @@ public class DriveBackwardsToDistance extends CommandBase {
 
     if (stage == 2) {
 
-      drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 0, 1);
-      drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
-      drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
-      drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
+      drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 90, 1);
+      drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 90, 1);
+      drivetrain.rotateModule(SwerveModule.REAR_LEFT, 90, 1);
+      drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 90, 1);
 
-      drivetrain.driveAllModules(speed);
+      if (drivetrain.getOdometryY() > targetDistance + tolerance) {
+
+        drivetrain.driveAllModules(-speed);
+
+      } else if (drivetrain.getOdometryY() > targetDistance - tolerance) {
+
+        drivetrain.driveAllModules(speed);
+
+      } else {
+
+        drivetrain.driveAllModules(0);
+        end(false);
+
+      }
 
     }
 
@@ -91,15 +106,7 @@ public class DriveBackwardsToDistance extends CommandBase {
   @Override
   public boolean isFinished() {
 
-    if (drivetrain.getOdometryX() <= targetDistance && drivetrain.getOdometryX() != 0) {
-
-      return true;
-
-    } else {
-
-      return false;
-
-    }
-
+    return false;
+   
   }
 }

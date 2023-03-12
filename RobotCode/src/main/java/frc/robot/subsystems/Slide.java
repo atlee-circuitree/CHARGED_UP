@@ -200,7 +200,7 @@ public class Slide extends SubsystemBase {
 
     extEncoder.reset();
 
-    extOffset = (extEncoder.getAbsolutePosition() - 1);
+    //extOffset = (extEncoder.getAbsolutePosition() - 1);
 
   }
 

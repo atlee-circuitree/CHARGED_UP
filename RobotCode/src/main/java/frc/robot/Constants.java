@@ -83,8 +83,8 @@ public final class Constants {
     public static final int extensionEncoderDIO = 9;
  
     public static final double angleOffset = -11.5;
-    public static final double maxAngleEncoderValue = 31.2;
-    public static final double minAngleEncoderValue = -13.5;
+    public static final double maxAngleEncoderValue = 36.2;
+    public static final double minAngleEncoderValue = -14.0;
     //public static final double maxAngleEncoderValue = 9999;
     //public static final double minAngleEncoderValue = -9999;
 
@@ -98,7 +98,7 @@ public final class Constants {
     public static final double maxGrabEncoderValue = .7;
     public static final double minGrabEncoderValue = .40;
  
-    public static final double maxExtensionValue = 49.5;
+    public static final double maxExtensionValue = 52;
     public static final double minExtensionValue = 0;
 
     public static final double limelightSingleTargetPoseLengthCutoff = 1.9;

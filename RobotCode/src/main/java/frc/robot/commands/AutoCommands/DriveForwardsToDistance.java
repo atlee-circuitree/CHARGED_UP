@@ -4,6 +4,7 @@
 
 package frc.robot.commands.AutoCommands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Limelight;
@@ -15,6 +16,8 @@ public class DriveForwardsToDistance extends CommandBase {
   Limelight limelight;
   double targetDistance;
   double speed;
+  double stage = 1;
+  Timer rotateTimer;
 
   public DriveForwardsToDistance(Drivetrain dt, Limelight lm, double TargetDistance, double Speed) {
     
@@ -31,12 +34,11 @@ public class DriveForwardsToDistance extends CommandBase {
   @Override
   public void initialize() {
 
+    rotateTimer = new Timer();
     drivetrain.resetOdometryToLimelight();
-
-    drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 0, 1);
-    drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
-    drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
-    drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
+    rotateTimer.reset();
+    rotateTimer.start();
+    stage = 1;
 
   }
 
@@ -44,7 +46,35 @@ public class DriveForwardsToDistance extends CommandBase {
   @Override
   public void execute() {
 
-    drivetrain.driveAllModules(speed);
+    System.out.println("In Loop");
+ 
+    if (stage == 1) {
+
+      System.out.println("Stage 1");
+
+      drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 0, 1);
+      drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
+      drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
+      drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
+
+      if (rotateTimer.get() >= 1) {
+
+        stage = 2;
+
+      }
+ 
+    }
+
+    if (stage == 2) {
+
+      drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 0, 1);
+      drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
+      drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
+      drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
+
+      drivetrain.driveAllModules(-speed);
+
+    }
 
   }
 
@@ -52,6 +82,7 @@ public class DriveForwardsToDistance extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
+    stage = 1;
     drivetrain.driveAllModules(0);
 
   }
@@ -60,7 +91,7 @@ public class DriveForwardsToDistance extends CommandBase {
   @Override
   public boolean isFinished() {
 
-    if (limelight.getDistanceToAprilTag() <= targetDistance) {
+    if (drivetrain.getOdometryX() >= targetDistance && drivetrain.getOdometryX() != 0) {
 
       return true;
 
