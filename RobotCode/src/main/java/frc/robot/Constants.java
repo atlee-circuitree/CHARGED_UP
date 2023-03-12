@@ -72,11 +72,10 @@ public final class Constants {
     }
 
     //Encoder Values
-    public static final double frontLeftEncoderOffset = 286.259765625;
+    public static final double frontLeftEncoderOffset = 282;
     public static final double frontRightEncoderOffset = 250.224609375;
     public static final double rearLeftEncoderOffset = 128.759765625;
-    //public static final double rearLeftEncoderOffset = 89.38476;
-    public static final double rearRightEncoderOffset = 76.201171875;
+    public static final double rearRightEncoderOffset = 75.201171875;
 
     public static final int angleEncoderDIO = 0;
     public static final int feederRotationEncoderDIO = 1;

@@ -91,7 +91,7 @@ public class DriveForwardsToDistance extends CommandBase {
   @Override
   public boolean isFinished() {
 
-    if (drivetrain.getOdometryX() >= targetDistance && drivetrain.getOdometryX() != 0) {
+    if (drivetrain.getOdometryX() >= targetDistance) {
 
       return true;
 

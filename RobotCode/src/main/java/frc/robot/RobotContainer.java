@@ -132,14 +132,11 @@ public class RobotContainer {
 
     ScoreOpeningCube = new SequentialCommandGroup(
     new RunFeeder(feeder, .2).withTimeout(.5),
-    //new GoToFeederPosition(feeder, .2),
     TopPositionAuto, 
     new RunFeeder(feeder, -.2).withTimeout(1),
     new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1),
-    new DriveBackwardsToDistance(drivetrain, limelight, -4, .2),
-    new DriveForwardsToDistance(drivetrain, limelight, -2, .2));
-    //new DriveForwardsToDistance(drivetrain, limelight, -4, .2),
-    //new DriveBackwardsToDistance(drivetrain, limelight, -2, .2));
+    new DriveBackwardsToDistance(drivetrain, limelight, 2.9, .5),
+    new DriveForwardsToDistance(drivetrain, limelight, 4.45, .2));
 
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
@@ -249,10 +246,10 @@ public class RobotContainer {
 
     //All four face button already used by SlideWithXbox
 
-    driver1Y.onTrue(TopPosition);
-    driver1B.onTrue(MiddlePosition);
-    driver1A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue + 1, 1));
-    driver1X.whileTrue(new KillArm(slide));
+    driver2Y.onTrue(TopPosition);
+    driver2B.onTrue(MiddlePosition);
+    driver2A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue + 1, 1));
+    driver2X.whileTrue(new KillArm(slide));
 
     driver2LB.onTrue(new GoToFeederPosition(feeder, -.2));
     driver2RB.onTrue(new GoToFeederPosition(feeder, .2));

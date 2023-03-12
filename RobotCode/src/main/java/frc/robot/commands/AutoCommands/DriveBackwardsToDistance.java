@@ -82,16 +82,16 @@ public class DriveBackwardsToDistance extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    stage = 1;
-    drivetrain.driveAllModules(0);
-
+      stage = 1;
+      drivetrain.driveAllModules(0);
+      
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
 
-    if (drivetrain.getOdometryX() <= targetDistance && drivetrain.getOdometryX() != 0) {
+    if (drivetrain.getOdometryX() <= targetDistance) {
 
       return true;
 
