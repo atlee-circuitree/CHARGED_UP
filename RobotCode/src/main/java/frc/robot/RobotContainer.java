@@ -15,6 +15,7 @@ import frc.robot.commands.AutoCommands.AngleAndExtendInAuto;
 import frc.robot.commands.AutoCommands.AutoBalance;
 import frc.robot.commands.AutoCommands.CenterToDistance;
 import frc.robot.commands.AutoCommands.DriveBackwardsToDistance;
+import frc.robot.commands.AutoCommands.DriveForwardsToDistance;
 import frc.robot.commands.AutoCommands.PathFollower;
 //import frc.robot.commands.ClawCommands.RotateClaw;
 //import frc.robot.commands.ClawCommands.RunClaw;
@@ -127,7 +128,12 @@ public class RobotContainer {
     TopPositionAuto = new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1);
     MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1);
 
-    ScoreOpeningCone = new SequentialCommandGroup(TopPositionAuto, new GoToFeederPosition(feeder, -.2), new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1));
+    ScoreOpeningCone = new SequentialCommandGroup(
+    TopPositionAuto, 
+    new RunFeeder(feeder, -.2).withTimeout(1),
+    new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1),
+    new DriveBackwardsToDistance(drivetrain, limelight, 3, .2),
+    new DriveForwardsToDistance(drivetrain, limelight, 5, .2));
 
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
