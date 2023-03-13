@@ -13,14 +13,17 @@ public class GoToAngleAndExtension extends CommandBase {
   double targetAngle;
   double targetExtension;
   double tolerance;
-  double stage = 1;
+  boolean doubleTap;
+  double stage;
+  double endStage;
  
-  public GoToAngleAndExtension(Slide sl, double TargetAngle, double TargetExtension, double Tolerance) {
+  public GoToAngleAndExtension(Slide sl, double TargetAngle, double TargetExtension, double Tolerance, boolean DoubleTap) {
  
     slide = sl;
     targetAngle = TargetAngle;
     targetExtension = TargetExtension;
     tolerance = Tolerance;
+    doubleTap = DoubleTap;
 
     addRequirements(slide);
     
@@ -30,7 +33,32 @@ public class GoToAngleAndExtension extends CommandBase {
   @Override
   public void initialize() {
 
-    stage = 1;
+    if (doubleTap = true) {
+
+      if (slide.getAngle() < targetAngle - tolerance && slide.getExtensionEncoderInches() > 0 + tolerance && slide.getExtensionEncoderInches() > 8) {
+
+        stage = 1;
+        endStage = 2;
+
+      } else if (slide.getAngle() < targetAngle - tolerance && slide.getExtensionEncoderInches() > 0 + tolerance && slide.getExtensionEncoderInches() < 10) {
+
+        stage = 3;
+        endStage = 4;
+
+      } else {
+
+        stage = 2;
+        endStage = 3;
+
+      }
+
+    } else {
+
+      stage = 1;
+      endStage = 4;
+
+    }
+
   
   }
 
