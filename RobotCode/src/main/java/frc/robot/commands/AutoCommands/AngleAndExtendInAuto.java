@@ -5,21 +5,22 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Claw;
+//import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Slide;
 
 public class AngleAndExtendInAuto extends CommandBase {
  
   Slide slide;
-  Claw claw;
+  Feeder feeder;
 
   double targetAngle;
   double targetExtension;
 
-  public AngleAndExtendInAuto(Slide sl, Claw cl, double TargetAngle, double TargetExtension) {
+  public AngleAndExtendInAuto(Slide sl, Feeder cl, double TargetAngle, double TargetExtension) {
  
     slide = sl;
-    claw = cl;
+    feeder = cl;
 
     targetAngle = TargetAngle;
     targetExtension = TargetExtension;
@@ -35,16 +36,8 @@ public class AngleAndExtendInAuto extends CommandBase {
   public void execute() {
 
     if (slide.getAngle() < targetAngle - .5) {
-
-      if (slide.getAngle() > 30) {
-
-        slide.changeAngleUsingPower(-1);
-
-      } else {
-
-        slide.changeAngleUsingPower(-.6);
-
-      }
+ 
+      slide.changeAngleUsingPower(-1);
 
     } else if (slide.getAngle() > targetAngle + .5) {
 

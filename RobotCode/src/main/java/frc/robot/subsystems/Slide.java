@@ -11,10 +11,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
-import com.revrobotics.Rev2mDistanceSensor;
-import com.revrobotics.Rev2mDistanceSensor.Port;
-import com.revrobotics.Rev2mDistanceSensor.RangeProfile;
-
+ 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -42,11 +39,10 @@ public class Slide extends SubsystemBase {
 
   SimpleMotorFeedforward angleFeed;
   SlewRateLimiter slowSlew;
-
-  Rev2mDistanceSensor distance;
-  
+ 
   double angle;
   double extension;
+  double setExtensionOffset;
   double tolerance = 100;
   double CurrentStage = 1;
  
@@ -55,10 +51,6 @@ public class Slide extends SubsystemBase {
     leftExtMotor = new TalonFX(Constants.leftExtMotorPort);
     rightExtMotor = new TalonFX(Constants.rightExtMotorPort);
     angMotor = new TalonFX(Constants.angMotorPort);
-
-    distance = new Rev2mDistanceSensor(Port.kMXP);
-    distance.setEnabled(true);
-    distance.setRangeProfile(RangeProfile.kDefault);
  
     rightExtMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
     rightExtMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
@@ -78,7 +70,13 @@ public class Slide extends SubsystemBase {
     leftExtMotor.setNeutralMode(NeutralMode.Brake);
     rightExtMotor.setNeutralMode(NeutralMode.Brake);
     angMotor.setNeutralMode(NeutralMode.Brake);
- 
+
+    //Configure Extension Offset
+    
+    //Inital Position
+    //Offset
+    extOffset = extEncoder.getAbsolutePosition();
+
   }
 
   @Override
@@ -86,19 +84,14 @@ public class Slide extends SubsystemBase {
 
     angle = ((angleEncoder.getAbsolutePosition() - .3903) * 384.6153) - Constants.angleOffset;
     extension = extEncoder.getDistance();
-    distance.setAutomaticMode(true);
-   
-    if(distance.getRange() != -1 && distance.getRange() <= 5 && runOnce == false){
-      extOffset = distance.getRange() - extEncoder.getDistance();
-      runOnce = true;
-    }
-
+ 
     SmartDashboard.putNumber("Angle", angle);
     SmartDashboard.putNumber("Extension", extEncoder.getDistance());
+    SmartDashboard.putNumber("Extension Absolute", extEncoder.getAbsolutePosition());
     SmartDashboard.putNumber("Extension Inches", getExtensionEncoderInches());
+    SmartDashboard.putNumber("Extension Offset", extOffset);
     SmartDashboard.putBoolean("Extension Calibrated", runOnce);
     SmartDashboard.getNumber("Custom Angle", 0);
-    SmartDashboard.putNumber("Distance", distance.getRange());
  
   }
 
@@ -112,15 +105,17 @@ public class Slide extends SubsystemBase {
 
       angMotor.set(ControlMode.PercentOutput, 0);
   
-    } else if (distance.getRange() < .5 && distance.getRange() != -1) {
-
-      angMotor.set(ControlMode.PercentOutput, 0);
-
     } else {
 
       angMotor.set(ControlMode.PercentOutput, speed);
 
     }
+ 
+  }
+
+  public void changeAngleUsingPowerNoLimit(double speed) {
+ 
+    angMotor.set(ControlMode.PercentOutput, speed);
  
   }
 
@@ -136,6 +131,20 @@ public class Slide extends SubsystemBase {
 
   }
 
+  public boolean WithinTolerence(double value, double targetValue, double tolerance) {
+
+    if (value > targetValue - tolerance && value < targetValue + tolerance) {
+
+      return true;
+
+    } else {
+
+      return false;
+
+    }
+
+  }
+
   public void setZeroAngle() {
 
     Preferences.initDouble(Constants.angleZeroKey, angleEncoder.getAbsolutePosition());
@@ -148,25 +157,19 @@ public class Slide extends SubsystemBase {
  
   }
 
-  /*public void changeAngleUsingVelocity(double targetPos, double speed) {
- 
-    angMotor.set(ControlMode.MotionMagic, targetPos, DemandType.ArbitraryFeedForward, maxGravityFF * cosineScalar);
- 
-  }*/
-
   public void extendArmUsingPower(double speed) {
 
-    /* 
-     
-    if (speed > 0 && getExtensionEncoderInches() > Constants.maxExtensionInchValue) {
+    if (speed > 0 && getExtensionEncoderInches() > Constants.maxExtensionValue - extOffset) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
+      System.out.print("Max Limit Hit");
 
-    } else if(speed < 0 && getExtensionEncoderInches() < Constants.minExtensionInchValue) {
+    } else if(speed < 0 && getExtensionEncoderInches() < Constants.minExtensionValue) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
+      System.out.print("Min Limit Hit");
         
     } else {
 
@@ -175,10 +178,8 @@ public class Slide extends SubsystemBase {
 
     }
 
-    */
-
-    leftExtMotor.set(ControlMode.PercentOutput, speed);
-    rightExtMotor.set(ControlMode.PercentOutput, speed);
+    //leftExtMotor.set(ControlMode.PercentOutput, speed);
+    //rightExtMotor.set(ControlMode.PercentOutput, speed);
     
   }
 
@@ -199,6 +200,8 @@ public class Slide extends SubsystemBase {
 
     extEncoder.reset();
 
+    //extOffset = (extEncoder.getAbsolutePosition() - 1);
+
   }
 
   //Extension Inches stuff
@@ -208,6 +211,7 @@ public class Slide extends SubsystemBase {
     double encoderInches = extEncoder.getDistance() * 1.5 * Math.PI;
 
     return encoderInches + extOffset;
+
   }
 
 }

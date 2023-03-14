@@ -98,12 +98,20 @@ public class DriveWithXbox extends CommandBase {
 
     //Define robot target vector variables (X,Y,Z respectively)
     //A Button = TURBO MODE
-    //if(xbox.getXButton()){
-    if(xbox.getRightStickButton()){
+    if(xbox.getXButton()){
+    //if(xbox.getStartButton()){
       forward = xbox.getLeftY();
       strafe = xbox.getLeftX();
       rotation = xbox.getRightX();
     }
+
+    if(xbox.getAButton()){
+      //if(xbox.getStartButton()){
+        forward = xbox.getLeftY() * 0.8;
+        strafe = xbox.getLeftX() * 0.8;
+        rotation = xbox.getRightX() * 0.8;
+    }
+
     else{
       forward = xbox.getLeftY() * 0.5;
       strafe = xbox.getLeftX() * 0.5;
@@ -195,6 +203,12 @@ public class DriveWithXbox extends CommandBase {
 
     SmartDashboard.putNumber("FR Wheel Encoder", drivetrain.getDriveEncoder(SwerveModule.FRONT_RIGHT));
     SmartDashboard.putNumber("FR Wheel Encoder Meters", drivetrain.getDriveEncoderMeters(SwerveModule.FRONT_RIGHT));
+    
+    SmartDashboard.putNumber("Front Right Rotation Encoder", drivetrain.getAbsoluteRotEncoderValue(SwerveModule.FRONT_RIGHT));
+    SmartDashboard.putNumber("Front Left Rotation Encoder", drivetrain.getAbsoluteRotEncoderValue(SwerveModule.FRONT_LEFT));
+    SmartDashboard.putNumber("Rear Right Rotation Encoder", drivetrain.getAbsoluteRotEncoderValue(SwerveModule.REAR_RIGHT));
+    SmartDashboard.putNumber("Rear Left Rotation Encoder", drivetrain.getAbsoluteRotEncoderValue(SwerveModule.REAR_LEFT));
+
 
     SmartDashboard.putNumber("Limelight Botpose TX", limelight.BotPose()[0]);
     SmartDashboard.putNumber("Limelight Botpose TY", limelight.BotPose()[1]);

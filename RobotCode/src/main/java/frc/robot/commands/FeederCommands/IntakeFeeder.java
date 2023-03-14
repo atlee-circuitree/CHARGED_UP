@@ -2,33 +2,46 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.ClawCommands;
+package frc.robot.commands.FeederCommands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Feeder;
 
-public class RotateClaw extends CommandBase {
- 
-  Claw claw;
+public class IntakeFeeder extends CommandBase {
+
+  Feeder feeder;
   double speed;
 
-  public RotateClaw(Claw cw, double Speed) {
-     
-    claw = cw;
-    speed = Speed;
-    addRequirements(claw);
+  /** Creates a new Feeder. */
+  public IntakeFeeder(Feeder fdr) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    feeder = fdr;
+    addRequirements(feeder);
 
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+    if (feeder.absoluteClawPosition() < .5) {
+
+      speed = .25;
+
+    } else {
+
+      speed = .5;
+
+    }
+
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    claw.rotateClaw(speed);
+    feeder.runFeeder(speed);
 
   }
 
@@ -36,7 +49,7 @@ public class RotateClaw extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    claw.rotateClaw(0);
+    feeder.runFeeder(0);
 
   }
 

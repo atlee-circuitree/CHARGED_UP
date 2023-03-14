@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 //Limelight Values
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,6 +33,7 @@ public class Limelight extends SubsystemBase {
   //AprilTag specific values
   double[] dbl_botpose;
   double[] dbl_campose;
+  double dbl_tid;
 
   public boolean HasValidTarget() {
     return b_tv;
@@ -77,6 +80,30 @@ public class Limelight extends SubsystemBase {
     return dbl_campose;
   }
 
+  public double TagID(){
+    return dbl_tid;
+  }
+
+
+  public boolean SeesAprilTag(){
+    if(dbl_tid == -1){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+  public boolean SeesMultipleTags(){
+    if(dbl_ta <= 1.2){
+      return false;
+    } 
+    else{
+      return true;
+    }
+  }
+
+
   public void ReadNetworkTables() {
 
     double dbl_tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
@@ -97,8 +124,10 @@ public class Limelight extends SubsystemBase {
     //AprilTag specific calls
     dbl_botpose = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
     dbl_campose = NetworkTableInstance.getDefault().getTable("limelight").getEntry("campose").getDoubleArray(new double[6]);
-  }
+    dbl_tid = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDouble(0);
 
+
+  }
   public Limelight() {
   
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //Set LEDs to current pipeline setting
@@ -192,39 +221,78 @@ public class Limelight extends SubsystemBase {
     ReadNetworkTables();
     limelightDashboard = "Limelight Horizontal/" + dbl_tx + ";";
     limelightDashboard = limelightDashboard + "Limelight Vertical/" + dbl_ty + ";";
-    limelightDashboard = limelightDashboard + "Theoretical Distance To Target/" + getDistanceToTarget(false) + ";";
-    
-    SmartDashboard.putNumber("Limelight Distance From Top", getDistanceToTarget(false));
-
-    SmartDashboard.putNumber("Limelight Distance From Medium", getDistanceToTarget(true));
+    limelightDashboard = limelightDashboard + "Theoretical Distance To Target/" + getDistanceToTarget() + ";";
+    SmartDashboard.putNumber("Limelight Distance", getDistanceToTarget());
 
   }
 
 
-  public double getDistanceToTarget(boolean isMedium){
+  public double getDistanceToTarget(){
 
     double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
   
     double targetOffsetAngle_Vertical = ty;
 
     //how many degrees back is your limelight rotated from perfectly vertical?
-    double limelightMountAngleDegrees = 29;//was30
+    double limelightMountAngleDegrees = -30;//was30
 
     //distance from the center of the Limelight lens to the floor
-    double limelightHeightInches = 26.0;
+    double limelightHeightInches = 48.0;
 
     //distance from the target to the floor
-    double goalHeightInches = 34.0;
-
-    if (isMedium = false) {
-    goalHeightInches = 43.0;
-    }
+    double goalHeightInches = 14.625;
 
     double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
     double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
 
     //calculate distance
     double distanceFromLimelightToGoalInches = (goalHeightInches - limelightHeightInches)/Math.tan(angleToGoalRadians);
+    double distanceFromLimelighttoGoalMeters = distanceFromLimelightToGoalInches / 39.37;
+    //return in meters
+    if (HasValidTarget() == false) {
+
+      return 0;
+
+    } else {
+
+      return distanceFromLimelighttoGoalMeters;
+
+    }
+
+  }
+
+
+  public double getDistanceToAprilTag(){
+
+    double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+  
+    double targetOffsetAngle_Vertical = ty;
+
+    //how many degrees back is your limelight rotated from perfectly vertical?
+    double limelightMountAngleDegrees = -30;//was30
+
+    //distance from the center of the Limelight lens to the floor
+    double limelightHeightInches = 48.0;
+
+    //distance from the low tags to the floor
+    double lowTagHeightInches = 14.625;
+
+    //distanve form the high tags to the floor
+    double highTagHeightInches = 24.38;
+
+    double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
+    double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+
+    //calculate distance
+    double distanceFromLimelightToGoalInches = -1;
+
+    if(TagID() == 4 || TagID() == 5){
+      distanceFromLimelightToGoalInches = (highTagHeightInches - limelightHeightInches)/Math.tan(angleToGoalRadians);
+    }
+    else{
+      distanceFromLimelightToGoalInches = (lowTagHeightInches - limelightHeightInches)/Math.tan(angleToGoalRadians);
+    }
+    
     double distanceFromLimelighttoGoalMeters = distanceFromLimelightToGoalInches / 39.37;
     //return in meters
     if (HasValidTarget() == false) {

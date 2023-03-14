@@ -377,21 +377,21 @@ public class PathEQ {
         double endpoints[][] = new double[2][2];
 
         //If u too big, return final heading
-        if(uValue >= Constants.autoCoordinates[Constants.autoCoordinates.length-1][0]){
-            targetTheta = Constants.autoCoordinates[Constants.autoCoordinates.length-1][3];
+        if(uValue >= coords[coords.length-1][0]){
+            targetTheta = coords[coords.length-1][3];
         }
         //If u too small, return first heading
-        else if(uValue <= Constants.autoCoordinates[0][0]){
-            targetTheta = Constants.autoCoordinates[0][3];
+        else if(uValue <= coords[0][0]){
+            targetTheta = coords[0][3];
         }
         //Otherwise, cycle through each coordinate to find which ones uValue falls between
         else{
-            for(int i = 0; i < Constants.autoCoordinates.length; i++){
-                if(uValue <= Constants.autoCoordinates[i][0]){
-                    endpoints[0][0] = Constants.autoCoordinates[i-1][0];
-                    endpoints[0][1] = Constants.autoCoordinates[i-1][3];
-                    endpoints[1][0] = Constants.autoCoordinates[i][0];
-                    endpoints[1][1] = Constants.autoCoordinates[i][3];
+            for(int i = 0; i < coords.length; i++){
+                if(uValue <= coords[i][0]){
+                    endpoints[0][0] = coords[i-1][0];
+                    endpoints[0][1] = coords[i-1][3];
+                    endpoints[1][0] = coords[i][0];
+                    endpoints[1][1] = coords[i][3];
                     break;
                 }
             }
@@ -401,6 +401,35 @@ public class PathEQ {
         }
 
         return targetTheta;
+
+    }
+
+    
+    public double solvePointTolerance(double uValue){
+
+        //Default value of 0.15 in case anyhting goes wrong
+        double tolerance = 0.15;
+
+        //If u too big, return final heading
+        if(uValue >= coords[coords.length-1][0]){
+            tolerance = coords[coords.length-1][4];
+        }
+        //If u too small, return first heading
+        else if(uValue <= coords[0][0]){
+            tolerance = coords[0][4];
+        }
+        //Otherwise, cycle through each coordinate to find which ones uValue falls between
+        else{
+            for(int i = 1; i < coords.length; i++){
+                if(uValue <= coords[i][0]){
+                    tolerance = coords[i-1][4];
+                    break;
+                }
+            }
+        }
+
+
+        return tolerance;
 
     }
 

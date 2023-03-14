@@ -22,11 +22,39 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
  */
 public final class Constants {
 
-    //Declare coordinates in the form {u, x, y, angle}
-    public static final double[][] autoCoordinates = {{0, 0,0 ,0}, {1, 0,0.5 ,20}, {2, 0,1 ,40}, {3, 0,1.5 ,60}};
+    public final static class BlueAutoCoordsTag6 {
+    public static final double[] blueStartingPosition = {0, 6.495, 0.920, 0, 0.2};
+    public static final double[] moveToNorthConeWaypoint = {1, 2.750, 1.041, 0, 0.2};
+    public static final double[] rotate180_1 = {2, 2.750, 1.041, 180, 0.2};
+    public static final double[] PickUpConePosition_4 = {3, 1.250, 1.041, 180, 0.2};
+    public static final double[] rotate180_2 = {4, 1.250, 1.041, 0, 0.2};
+    public static final double[] moveToConeWayPoint = {5, 2.750, 1.041, 0, 0.2};
+    public static final double[] moveToScoreWayPoint = {6, 6.000, 1.041, 0, 0.2};
+    public static final double[] moveToScoringPosition_3 = {7, 6.495, 1.428,0, 0.2};
+    public static final double[] moveToScoreWayPoint_2 = {8, 6.000, 1.041, 0, 0.2};
+    public static final double[] moveToNorthConeWayPoint = {9, 2.750, 1.041, 0, 0.2};
+    public static final double[] rotate180_3 = {10, 2.750, 1.041, 180, 0.2};
+    public static final double[] moveToFinalConeWayPoint = {11, 2.000, -0.191, 180, 0.2};
+    public static final double[] moveToPickupCone_3 = {12, 6.000, -0.191, 180, 0.2};
+    }
+
+    //Declare coordinates in the form {u, x, y, angle, tolerance}
+    public static final double[][] autoCoordinates = {{0, 4,2 ,0, 0.2}, {1, 4.5,2 ,-90, 0.2}, {2, 5,2 ,180, 0.05}};
+    
+    //public static final double[][] testCoords = {{0, -6.445, 0.92, 0, .2}, {1, -2.214, 1.041, 0, .1}};
+    public static final double[][] testCoords = {{0, 4.445, 1.92, 0, .025}, {1, 4.445, 1.92, 0, .025}};
+
+    //Blue Auto
+    public static final double[][] blueAuto = {{0, 6.495, 0.92, 0, 0.2}, {1, 2.750, 1.041, 0, 0.2}};
+    public static final double[][] blueAutoTEST = {{0, 6.495, 0.92, 0, 0.2}, {1, 2.750, 1.041, 0, 0.2}};
+
+    //Blue Auto
+    public static final double[][] redAuto = {{0, 6.495, 0.92, 0, 0.2}, {1, 6.495, 0.92, 0, 0.2}};
+    public static final double[][] redAutoTEST = {{0, 6.495, 0.92, 0, 0.2}, {1, 2.750, 1.041, 0, 0.2}};
 
     //Create Mode Select
     public static SendableChooser<String> modeSelect;
+    public static SendableChooser<String> autoSelect;
 
     //Offsets and Zeroing
     public static String angleZeroKey = "AngleZero";
@@ -53,8 +81,11 @@ public final class Constants {
     public static final int angMotorPort = 15;
     public static final int angleEncoderChannel = 15;
 
-    public static final int clawMotorPort = 25;
-    public static final int rotateClawMotorPort = 21;
+   // public static final int clawMotorPort = 25;
+  //  public static final int rotateClawMotorPort = 21;
+    public static final int leftFeederMotorPort = 25;
+    public static final int rightFeederMotorPort = 21;
+    public static final int rotationFeederMotorPort = 26;
     public static final int rotationEncoderChannel = 5;
     public enum GrabPosition {
 
@@ -66,37 +97,35 @@ public final class Constants {
     }
 
     //Encoder Values
-    public static final double frontLeftEncoderOffset = 286.259765625;
-    public static final double frontRightEncoderOffset = 250.224609375;
-    //public static final double rearLeftEncoderOffset = 128.759765625;
-    public static final double rearLeftEncoderOffset = 89.38476;
-    public static final double rearRightEncoderOffset = 76.201171875;
- 
+    public static final double frontLeftEncoderOffset = 284.58984375;
+    public static final double frontRightEncoderOffset = 254.267578125;
+    public static final double rearLeftEncoderOffset = 127.353515625;
+    public static final double rearRightEncoderOffset = 72.509765625;
+
     public static final int angleEncoderDIO = 0;
-    public static final double angleOffset = -8;
-    public static final double maxAngleEncoderValue = 33;
-    public static final double minAngleEncoderValue = -19.6;
+    public static final int feederRotationEncoderDIO = 1;
+    public static final int extensionEncoderDIO = 9;
+ 
+    public static final double angleOffset = -11.5;
+    public static final double maxAngleEncoderValue = 36.2;
+    public static final double minAngleEncoderValue = -14.0;
     //public static final double maxAngleEncoderValue = 9999;
     //public static final double minAngleEncoderValue = -9999;
 
-    public static final int clawRotationEncoderDIO = 1;
     //public static final double maxRotationEncoderValue = 0.886;
     //public static final double minRotationEncoderValue = 0.348;
 
     public static final double maxCounterClockwiseRotationEncoderValue = 0.742;
     public static final double middleRotationEncoderValue = .732; //when claw is horizontal
     public static final double maxClockwiseRotationEncoderValue = 0.225;
-
-    public static final int clawGrabEncoderDIO = 2;
-    //public static final double maxGrabEncoderValue = 80;
-    //public static final double minGrabEncoderValue = -47;
-    public static final double maxGrabEncoderValue = 80;
-    public static final double minGrabEncoderValue = -75;
-
-    public static final int extensionEncoderDIO = 9;
+   
+    public static final double maxGrabEncoderValue = .7;
+    public static final double minGrabEncoderValue = .40;
  
-    public static final double maxExtensionInchValue = 44;
-    public static final double minExtensionInchValue = 4;
+    public static final double maxExtensionValue = 52;
+    public static final double minExtensionValue = 0;
+
+    public static final double limelightSingleTargetPoseLengthCutoff = 1.9;
 
     public static final double trackwidth = 22.5;
     public static final double wheelbase = 22.5;
@@ -119,19 +148,18 @@ public final class Constants {
     public static final double rotPIDMinValue = 0.07;
 
     //Auto PIDs
-    public static final double xControllerP = 7;
+    public static final double xControllerP = 8;
     public static final double xControllerI = 2;
     public static final double xControllerD = 0;
 
-    public static final double yControllerP = 7;
+    public static final double yControllerP = 8;
     public static final double yControllerI = 2;
     public static final double yControllerD = 0;
 
-    public static final double zControllerP = 0.5;
-    public static final double zControllerI = 0;
-    public static final double zControllerD = 0;
+    public static final double zControllerProportion = 10;
 
-    public static final double aBalanceValue = .25;
+    public static final double aBalanceXConstant = .01;
+    public static final double aBalanceTurnConstant = .01;
 
 
     //Instansiated in this order:
@@ -147,6 +175,8 @@ public final class Constants {
     // Constraint for the motion profilied robot angle controller
     public static final TrapezoidProfile.Constraints thetaControllerConstraints =
         new TrapezoidProfile.Constraints(Math.PI, Math.PI);
+
+    
 
     public static double smoothUsingError(double Encoder, double Range, double SetPoint, double MinSpeed, double MaxSpeed) {
 

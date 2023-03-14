@@ -2,23 +2,23 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.ClawCommands;
+package frc.robot.commands.FeederCommands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Feeder;
 
-public class GrabClawToAngle extends CommandBase {
- 
-  Claw claw;
+public class RotateFeeder extends CommandBase {
+
+  Feeder feeder;
   double speed;
-  double targetAngle;
 
-  public GrabClawToAngle(Claw cw, double spd, double ang) {
-     
-    claw = cw;
-    speed = spd;
-    targetAngle = ang;
-    addRequirements(claw);
+  /** Creates a new Feeder. */
+  public RotateFeeder(Feeder fdr, double Speed) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    feeder = fdr;
+    speed = Speed;
+    addRequirements(feeder);
 
   }
 
@@ -30,7 +30,7 @@ public class GrabClawToAngle extends CommandBase {
   @Override
   public void execute() {
 
-    claw.grabToAngle(targetAngle, speed);
+    feeder.rotateFeeder(speed);
 
   }
 
@@ -38,23 +38,13 @@ public class GrabClawToAngle extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    claw.runClaw(0);
+    feeder.rotateFeeder(0);
 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    
-    if (claw.getGrabRotation() < targetAngle + 1 && claw.getGrabRotation() > targetAngle - 1) {
-
-      return true;
-
-    } else {
-
-      return false;
-
-    }
-
+    return false;
   }
 }

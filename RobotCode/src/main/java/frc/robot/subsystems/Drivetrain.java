@@ -14,6 +14,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.text.DecimalFormat;
@@ -59,6 +60,8 @@ public class Drivetrain extends SubsystemBase {
   OldDometry odometry;
   
   DecimalFormat odometryRounder = new DecimalFormat("##.##");
+
+  Limelight limelight;
   
 
   public static String drivetrainDashboard;
@@ -140,6 +143,8 @@ public class Drivetrain extends SubsystemBase {
     navx.reset(); 
     
     odometry = new OldDometry(Constants.driveKinematics, navx.getRotation2d());
+
+    limelight = new Limelight();
   }
 
   @Override
@@ -159,6 +164,8 @@ public class Drivetrain extends SubsystemBase {
     
     new SwerveModuleState(positionChangePer100msToMetersPerSecond(rearRightDrvMotor.getSelectedSensorVelocity()), 
     Rotation2d.fromDegrees(getRotEncoderValue(SwerveModule.REAR_RIGHT))));
+
+    //resetOdometryToLimelight();
 
   }
 
@@ -491,6 +498,10 @@ public class Drivetrain extends SubsystemBase {
   public double getNavXPitchOutput(){
     return navx.getPitch();
   }
+
+  public double getNavXYawOutput(){
+    return navx.getYaw();
+  }
   
   public double getNavXRollOutputRadians(){
     return Math.toRadians(navx.getRoll());
@@ -546,18 +557,35 @@ public double getRawOdometryZ(){
   return odometry.getPoseMeters().getRotation().getDegrees();
 }
 
-//getOdometryX() is actually rounded .getY, and getOdometryY is actually rounded/inverted .getX 
+//all odometry values rounded/inverted
 public double getOdometryX(){
-  return Double.valueOf(odometryRounder.format(odometry.getPoseMeters().getY()));
+  return -Double.valueOf(odometryRounder.format(odometry.getPoseMeters().getX()));
 }
 public double getOdometryY(){
-  return -Double.valueOf(odometryRounder.format(odometry.getPoseMeters().getX()));
+  return -Double.valueOf(odometryRounder.format(odometry.getPoseMeters().getY()));
 }
 public double getOdometryZ(){
   return -Double.valueOf(odometryRounder.format(odometry.getPoseMeters().getRotation().getDegrees()));
 }
 
+public void resetOdometryToLimelight(){
 
+  if(limelight.SeesMultipleTags() || (limelight.SeesAprilTag() && limelight.getDistanceToAprilTag() <= Constants.limelightSingleTargetPoseLengthCutoff)){
+    try{  
+      odometry.resetPosition(new Pose2d(-limelight.BotPose()[0], -limelight.BotPose()[1], new Rotation2d(-getNavXOutputRadians())),
+       new Rotation2d(-getNavXOutputRadians()));
+
+      SmartDashboard.putBoolean("Running off of limelight pose", true);
+    }
+    catch(Exception e){
+      System.out.println("Haha good luck");
+    }
+  }
+  else{
+    SmartDashboard.putBoolean("Running off of limelight pose", false);
+  }
+
+}
 
 public void resetOdometry(Pose2d pose2d) {
   odometry.resetPosition(pose2d, navx.getRotation2d());
