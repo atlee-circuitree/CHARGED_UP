@@ -74,25 +74,26 @@ public class RobotContainer {
   private GoToAngleAndExtension TopPositionAuto;
   private GoToAngleAndExtension MiddlePosition;
 
-  //private final PathGenerator pathGenerator;
+  // Add Options
   private final PathFollower pathFollowerRedSide;
   private final PathFollower pathFollowerRedSideTEST;
   private final PathFollower pathFollowerBlueSide;
   private final PathFollower pathFollowerBlueSideTEST;
-  //private final TestPathFollower testPathFollower;
+  private final PathFollower pathFollowerRedBalance;
   private final PathEQ pathEQRedSide; 
   private final PathEQ pathEQBlueSide; 
   private final PathEQ pathEQRedSideTEST; 
-  private final PathEQ pathEQBlueSideTEST; 
-
-  private final DriveBackwardsToDistance GoPastStartingLine;
-
-  private SequentialCommandGroup ScoreOpeningCube;
-  
+  private final PathEQ pathEQBlueSideTEST;
+  private final PathEQ pathEQRedBalence;
   private SequentialCommandGroup RedAuto;
   private SequentialCommandGroup TestRedAuto;
   private SequentialCommandGroup BlueAuto;
   private SequentialCommandGroup TestBlueAuto;
+  private SequentialCommandGroup RedBalance;
+
+  private final DriveBackwardsToDistance GoPastStartingLine;
+
+  private SequentialCommandGroup ScoreOpeningCube;
 
   private final CenterToDistance CenterToCubeNode;
 
@@ -113,6 +114,7 @@ public class RobotContainer {
     Constants.autoSelect.addOption("Blue Side", "Blue Side");
     Constants.autoSelect.addOption("TEST Red Side", "TEST Red Side");
     Constants.autoSelect.addOption("TEST Blue Side", "TEST Blue Side");
+    Constants.autoSelect.addOption("Red Side Balance", "Red Side Balance");
 
     SmartDashboard.putData("Select Mode", Constants.modeSelect);
     SmartDashboard.putData("Select Auto", Constants.autoSelect);
@@ -133,10 +135,6 @@ public class RobotContainer {
 
     playAudio = new PlayAudio(audio, 0, 0);
  
-    pathEQRedSide = new PathEQ(Constants.redAuto, true);
-    pathEQRedSideTEST = new PathEQ(Constants.redAutoTEST, true);
-    pathEQBlueSide = new PathEQ(Constants.redAuto, true);
-    pathEQBlueSideTEST = new PathEQ(Constants.redAuto, true);
     //pathEQ = new PathEQ(Constants.testCoords, true);
 
     GoPastStartingLine = new DriveBackwardsToDistance(drivetrain, limelight, 3, .2);
@@ -172,17 +170,22 @@ public class RobotContainer {
  
     //pathGenerator = new PathGenerator();
 
+    // Auto Options Part 2
+    pathEQRedSide = new PathEQ(Constants.redAuto, true);
+    pathEQRedSideTEST = new PathEQ(Constants.redAutoTEST, true);
+    pathEQBlueSide = new PathEQ(Constants.redAuto, true);
+    pathEQBlueSideTEST = new PathEQ(Constants.redAuto, true);
+    pathEQRedBalence = new PathEQ(Constants.redBalance, true);
     pathFollowerRedSide = new PathFollower(drivetrain, limelight, pathEQRedSide, 0.3, 5);
     pathFollowerRedSideTEST = new PathFollower(drivetrain, limelight, pathEQRedSideTEST, 0.3, 5);
     pathFollowerBlueSide = new PathFollower(drivetrain, limelight, pathEQBlueSide, 0.3, 5);
     pathFollowerBlueSideTEST = new PathFollower(drivetrain, limelight, pathEQBlueSideTEST, 0.3, 5);
-    //testPathFollower = new TestPathFollower(drivetrain, pathEQ, 0.1, 0.05);
-
+    pathFollowerRedBalance = new PathFollower(drivetrain, limelight, pathEQRedBalence, 0.3, 5);
     RedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollowerRedSide);
-    TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollowerRedSideTEST);
+    TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), pathFollowerRedSideTEST, new AutoBalance(drivetrain, xbox1));
     BlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollowerBlueSide);
-    TestBlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollowerBlueSideTEST);
-
+    TestBlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.8, 0).withTimeout(.1), pathFollowerBlueSideTEST);
+    RedBalance = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), pathFollowerRedBalance, new AutoBalance(drivetrain, xbox1));
     configureButtonBindings();
 
   }
@@ -314,9 +317,13 @@ public class RobotContainer {
 
       return TestBlueAuto;
 
+    } else if (Constants.autoSelect.getSelected() == "Red Side Balance") {
+
+      return RedBalance;
+
     } else {
 
-      return RedAuto;
+      return null;
 
     }
     
