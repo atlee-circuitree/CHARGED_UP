@@ -242,14 +242,12 @@ public class PathFollower extends CommandBase {
     SmartDashboard.putNumber("Actual Current Z", drivetrain.getOdometryZ());
     SmartDashboard.putNumber("Current point tolerance", pathEQ.solvePointTolerance(targetUValue));
 
-    SmartDashboard.putNumber("Tolerance U=0", pathEQ.solvePointTolerance(0));
-    SmartDashboard.putNumber("Tolerance U=0.5", pathEQ.solvePointTolerance(0.5));
-    SmartDashboard.putNumber("Tolerance U=1", pathEQ.solvePointTolerance(1));
-    SmartDashboard.putNumber("Tolerance U=1.5", pathEQ.solvePointTolerance(1.5));
-    SmartDashboard.putNumber("Tolerance U=2", pathEQ.solvePointTolerance(2));
-    SmartDashboard.putNumber("Tolerance U=2.5", pathEQ.solvePointTolerance(2.5));
-    SmartDashboard.putNumber("Tolerance U=3", pathEQ.solvePointTolerance(3));
-    SmartDashboard.putNumber("Tolerance U=3.5", pathEQ.solvePointTolerance(3.5));
+    SmartDashboard.putNumber("solveAngle(0)", pathEQ.solveAngle(0));
+    SmartDashboard.putNumber("solveAngle(0.5)", pathEQ.solveAngle(0.5));
+    SmartDashboard.putNumber("solveAngle(1)", pathEQ.solveAngle(1));
+    SmartDashboard.putNumber("solveAngle(1.5)", pathEQ.solveAngle(1.5));
+    SmartDashboard.putNumber("solveAngle(2)", pathEQ.solveAngle(2));
+    SmartDashboard.putNumber("solveAngle(2.5)", pathEQ.solveAngle(2.5));
 
 
     SmartDashboard.putNumber("Z Error", error);

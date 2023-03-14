@@ -122,8 +122,8 @@ public class RobotContainer {
 
     playAudio = new PlayAudio(audio, 0, 0);
 
-    //pathEQ = new PathEQ(Constants.autoCoordinates, true);
-    pathEQ = new PathEQ(Constants.testCoords, true);
+    pathEQ = new PathEQ(Constants.blueAuto, true);
+    //pathEQ = new PathEQ(Constants.testCoords, true);
 
     GoPastStartingLine = new DriveBackwardsToDistance(drivetrain, limelight, 3, .2);
 
@@ -161,7 +161,7 @@ public class RobotContainer {
     pathFollower = new PathFollower(drivetrain, limelight, pathEQ, 0.3, 5);
     //testPathFollower = new TestPathFollower(drivetrain, pathEQ, 0.1, 0.05);
 
-    RedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.445, -.92, 0).withTimeout(.1), pathFollower);
+    RedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollower);
 
     configureButtonBindings();
 
@@ -275,7 +275,9 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    //return pathFollower;
     //return ScoreOpeningCube;
+     
     if (Constants.autoSelect.getSelected() == "Red Side") {
 
       return RedAuto;
@@ -289,6 +291,7 @@ public class RobotContainer {
       return RedAuto;
 
     }
+    
     //return testPathFollower;
     //return new AngleAndExtendInAuto(slide, feeder, 20, 4);
     //return new GoToAngleAndExtension(slide, 30, 40, 1);
