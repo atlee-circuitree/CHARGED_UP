@@ -36,7 +36,7 @@ public class GoToAngleAndExtension extends CommandBase {
 
     if (doubleTap = true) {
 
-      if (slide.getExtensionEncoderInches() > 5) {
+      if (slide.getExtensionEncoderInches() > 2) {
 
         // Retract arm
         stage = 1;

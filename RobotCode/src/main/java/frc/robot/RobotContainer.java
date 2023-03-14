@@ -278,7 +278,7 @@ public class RobotContainer {
 
     driver2Y.onTrue(TopPosition);
     driver2B.onTrue(MiddlePosition);
-    driver2A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue + 1, 1, true));
+    driver2A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue + 1, 1, false));
     driver2X.whileTrue(new KillArm(slide));
 
     driver2LB.onTrue(new GoToFeederPosition(feeder, -.2));
