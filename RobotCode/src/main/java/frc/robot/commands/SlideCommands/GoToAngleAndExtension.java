@@ -36,20 +36,23 @@ public class GoToAngleAndExtension extends CommandBase {
 
     if (doubleTap = true) {
 
-      if (slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance) == true && slide.getExtensionEncoderInches() > 8) {
+      if (slide.getExtensionEncoderInches() > 5) {
 
+        // Retract arm
         stage = 1;
         endStage = 2;
 
-      } else if (slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance) == true && slide.getExtensionEncoderInches() < 8) {
+      } else if (slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance) == false) {
 
-        stage = 3;
-        endStage = 4;
+        // Go to angle
+        stage = 2;
+        endStage = 3;
 
       } else {
 
-        stage = 2;
-        endStage = 3;
+        // Go to extension
+        stage = 3;
+        endStage = 4;
 
       }
 
