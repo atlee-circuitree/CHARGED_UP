@@ -4,6 +4,7 @@
 
 package frc.robot.commands.SlideCommands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Slide;
 
@@ -13,14 +14,17 @@ public class GoToAngleAndExtension extends CommandBase {
   double targetAngle;
   double targetExtension;
   double tolerance;
-  double stage = 1;
+  boolean doubleTap;
+  double stage;
+  double endStage;
  
-  public GoToAngleAndExtension(Slide sl, double TargetAngle, double TargetExtension, double Tolerance) {
+  public GoToAngleAndExtension(Slide sl, double TargetAngle, double TargetExtension, double Tolerance, boolean DoubleTap) {
  
     slide = sl;
     targetAngle = TargetAngle;
     targetExtension = TargetExtension;
     tolerance = Tolerance;
+    doubleTap = DoubleTap;
 
     addRequirements(slide);
     
@@ -30,7 +34,32 @@ public class GoToAngleAndExtension extends CommandBase {
   @Override
   public void initialize() {
 
-    stage = 1;
+    if (doubleTap = true) {
+
+      if (slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance) == true && slide.getExtensionEncoderInches() > 8) {
+
+        stage = 1;
+        endStage = 2;
+
+      } else if (slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance) == true && slide.getExtensionEncoderInches() < 8) {
+
+        stage = 3;
+        endStage = 4;
+
+      } else {
+
+        stage = 2;
+        endStage = 3;
+
+      }
+
+    } else {
+
+      stage = 1;
+      endStage = 4;
+
+    }
+
   
   }
 
@@ -38,11 +67,14 @@ public class GoToAngleAndExtension extends CommandBase {
   @Override
   public void execute() {
  
-    System.out.print("runnign");
+    SmartDashboard.putNumber("Current Stage", stage);
+    SmartDashboard.putNumber("Target Stage", endStage);
+    System.out.println(slide.WithinTolerence(slide.getAngle(), targetAngle, tolerance));
 
     // Retract Back
     if (stage == 1) {
 
+      System.out.println("Stage 1 Running");
       if (slide.getExtensionEncoderInches() < 0 - tolerance) {
 
         slide.extendArmUsingPower(.65);
@@ -53,6 +85,7 @@ public class GoToAngleAndExtension extends CommandBase {
   
       } else {
   
+        System.out.println("Stage 2 Finished");
         slide.extendArmUsingPower(0);
         stage = 2;
   
@@ -61,6 +94,7 @@ public class GoToAngleAndExtension extends CommandBase {
     // Go to angle
     } else if (stage == 2) {
 
+      System.out.println("Stage 2 Running");
       if (slide.getAngle() < targetAngle - tolerance) {
         
         slide.changeAngleUsingPower(1);
@@ -71,6 +105,7 @@ public class GoToAngleAndExtension extends CommandBase {
   
       } else {
  
+        System.out.println("Stage 2 Finished");
         slide.changeAngleUsingPower(0);
         stage = 3;
   
@@ -78,6 +113,7 @@ public class GoToAngleAndExtension extends CommandBase {
 
     } else if (stage == 3) {
 
+      System.out.println("Stage 3 Running");
       if (slide.getExtensionEncoderInches() < targetExtension - tolerance) {
 
         slide.extendArmUsingPower(.65);
@@ -88,8 +124,8 @@ public class GoToAngleAndExtension extends CommandBase {
   
       } else {
   
+        System.out.println("Stage 3 Finished");
         slide.extendArmUsingPower(0);
-        end(true);
         stage = 4;
   
       }
@@ -117,7 +153,7 @@ public class GoToAngleAndExtension extends CommandBase {
   @Override
   public boolean isFinished() {
  
-    if (stage == 4) {
+    if (stage >= endStage) {
 
       return true;
 

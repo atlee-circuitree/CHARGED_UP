@@ -133,9 +133,9 @@ public class RobotContainer {
     driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
 
-    TopPosition = new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1);
-    TopPositionAuto = new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1);
-    MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1);
+    TopPosition = new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, true);
+    TopPositionAuto = new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false);
+    MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1, true);
 
     ScoreOpeningCube = new SequentialCommandGroup(
     //new RunFeeder(feeder, .2).withTimeout(.5),
@@ -258,7 +258,7 @@ public class RobotContainer {
 
     driver2Y.onTrue(TopPosition);
     driver2B.onTrue(MiddlePosition);
-    driver2A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue + 1, 1));
+    driver2A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue + 1, 1, true));
     driver2X.whileTrue(new KillArm(slide));
 
     driver2LB.onTrue(new GoToFeederPosition(feeder, -.2));
