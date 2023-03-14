@@ -62,11 +62,11 @@ public final class Constants {
 
     //Blue Auto
     public static final double[][] blueAuto = {{0, 6.495, 0.92, 0, 0.2}, {1, 2.750, 1.041, 0, 0.2}};
+    public static final double[][] blueAutoTEST = {{0, 6.495, 0.92, 0, 0.2}, {1, 2.750, 1.041, 0, 0.2}};
 
     //Blue Auto
     public static final double[][] redAuto = {{0, 6.495, 0.92, 0, 0.2}, {1, 6.495, 0.92, 0, 0.2}};
-
-    
+    public static final double[][] redAutoTEST = {{0, 6.495, 0.92, 0, 0.2}, {1, 2.750, 1.041, 0, 0.2}};
 
     //Create Mode Select
     public static SendableChooser<String> modeSelect;
@@ -213,6 +213,5 @@ public final class Constants {
         return error;
 
     }
-
  
 }

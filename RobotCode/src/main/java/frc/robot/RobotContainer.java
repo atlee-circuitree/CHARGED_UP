@@ -75,15 +75,24 @@ public class RobotContainer {
   private GoToAngleAndExtension MiddlePosition;
 
   //private final PathGenerator pathGenerator;
-  private final PathFollower pathFollower;
+  private final PathFollower pathFollowerRedSide;
+  private final PathFollower pathFollowerRedSideTEST;
+  private final PathFollower pathFollowerBlueSide;
+  private final PathFollower pathFollowerBlueSideTEST;
   //private final TestPathFollower testPathFollower;
-  private final PathEQ pathEQ; 
+  private final PathEQ pathEQRedSide; 
+  private final PathEQ pathEQBlueSide; 
+  private final PathEQ pathEQRedSideTEST; 
+  private final PathEQ pathEQBlueSideTEST; 
 
   private final DriveBackwardsToDistance GoPastStartingLine;
 
   private SequentialCommandGroup ScoreOpeningCube;
   
   private SequentialCommandGroup RedAuto;
+  private SequentialCommandGroup TestRedAuto;
+  private SequentialCommandGroup BlueAuto;
+  private SequentialCommandGroup TestBlueAuto;
 
   private final CenterToDistance CenterToCubeNode;
 
@@ -97,11 +106,13 @@ public class RobotContainer {
 
     Constants.modeSelect = new SendableChooser<>();
     Constants.autoSelect = new SendableChooser<>();
- 
+
     Constants.modeSelect.setDefaultOption("Competition", "Competition");
     Constants.modeSelect.addOption("Player_Two", "Player_Two");
     Constants.autoSelect.setDefaultOption("Red Side", "Red Side");
     Constants.autoSelect.addOption("Blue Side", "Blue Side");
+    Constants.autoSelect.addOption("TEST Red Side", "TEST Red Side");
+    Constants.autoSelect.addOption("TEST Blue Side", "TEST Blue Side");
 
     SmartDashboard.putData("Select Mode", Constants.modeSelect);
     SmartDashboard.putData("Select Auto", Constants.autoSelect);
@@ -121,8 +132,11 @@ public class RobotContainer {
     autoBalance = new AutoBalance(drivetrain, xbox1);
 
     playAudio = new PlayAudio(audio, 0, 0);
-
-    pathEQ = new PathEQ(Constants.blueAuto, true);
+ 
+    pathEQRedSide = new PathEQ(Constants.redAuto, true);
+    pathEQRedSideTEST = new PathEQ(Constants.redAutoTEST, true);
+    pathEQBlueSide = new PathEQ(Constants.redAuto, true);
+    pathEQBlueSideTEST = new PathEQ(Constants.redAuto, true);
     //pathEQ = new PathEQ(Constants.testCoords, true);
 
     GoPastStartingLine = new DriveBackwardsToDistance(drivetrain, limelight, 3, .2);
@@ -158,10 +172,16 @@ public class RobotContainer {
  
     //pathGenerator = new PathGenerator();
 
-    pathFollower = new PathFollower(drivetrain, limelight, pathEQ, 0.3, 5);
+    pathFollowerRedSide = new PathFollower(drivetrain, limelight, pathEQRedSide, 0.3, 5);
+    pathFollowerRedSideTEST = new PathFollower(drivetrain, limelight, pathEQRedSideTEST, 0.3, 5);
+    pathFollowerBlueSide = new PathFollower(drivetrain, limelight, pathEQBlueSide, 0.3, 5);
+    pathFollowerBlueSideTEST = new PathFollower(drivetrain, limelight, pathEQBlueSideTEST, 0.3, 5);
     //testPathFollower = new TestPathFollower(drivetrain, pathEQ, 0.1, 0.05);
 
-    RedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollower);
+    RedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollowerRedSide);
+    TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollowerRedSideTEST);
+    BlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollowerBlueSide);
+    TestBlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollowerBlueSideTEST);
 
     configureButtonBindings();
 
@@ -284,7 +304,15 @@ public class RobotContainer {
 
     } else if (Constants.autoSelect.getSelected() == "Blue Side") {
 
-      return RedAuto;
+      return BlueAuto;
+
+    } else if (Constants.autoSelect.getSelected() == "TEST Red Side") {
+
+      return TestRedAuto;
+
+    } else if (Constants.autoSelect.getSelected() == "TEST Blue Side") {
+
+      return TestBlueAuto;
 
     } else {
 
