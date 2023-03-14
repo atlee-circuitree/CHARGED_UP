@@ -24,12 +24,13 @@ public final class Constants {
 
     //Declare coordinates in the form {u, x, y, angle, tolerance}
     public static final double[][] autoCoordinates = {{0, 6,-1.3 ,0, 0.2}, {1, 5.5,-1.3 ,0, 0.2}, {2, 5,-1.3 ,0, 0.05}};
-   // public static final double[][] testCoords = {{0, 6.49, -1, 0, .2}, {1, 2.55, -1, 0, .2}, {2, 4.40, -1 ,0, .1}};
-   //public static final double[][] testCoords = {{0, 4.55, -.8, 0, .2}, {1, 3.55, -.8, 0, .2}, {2, 2.65, -.8, 0, .05}};
-   public static final double[][] testCoords = {{0, 6, -.8, 0, .2}, {1, 4, -.8, 0, .2}, {2, 2.8, -.8, 0, .1}};
+    
+    //public static final double[][] testCoords = {{0, -6.445, 0.92, 0, .2}, {1, -2.214, 1.041, 0, .1}};
+    public static final double[][] testCoords = {{0, 4.445, 1.92, 1.42, .025}, {1, 4.445, 1.92, 1.42, .025}};
 
     //Create Mode Select
     public static SendableChooser<String> modeSelect;
+    public static SendableChooser<String> autoSelect;
 
     //Offsets and Zeroing
     public static String angleZeroKey = "AngleZero";
@@ -72,10 +73,10 @@ public final class Constants {
     }
 
     //Encoder Values
-    public static final double frontLeftEncoderOffset = 282;
-    public static final double frontRightEncoderOffset = 250.224609375;
-    public static final double rearLeftEncoderOffset = 128.759765625;
-    public static final double rearRightEncoderOffset = 75.201171875;
+    public static final double frontLeftEncoderOffset = 284.58984375;
+    public static final double frontRightEncoderOffset = 254.267578125;
+    public static final double rearLeftEncoderOffset = 127.353515625;
+    public static final double rearRightEncoderOffset = 72.509765625;
 
     public static final int angleEncoderDIO = 0;
     public static final int feederRotationEncoderDIO = 1;

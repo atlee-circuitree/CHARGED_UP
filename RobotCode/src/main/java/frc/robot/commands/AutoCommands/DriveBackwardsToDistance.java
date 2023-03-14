@@ -4,6 +4,8 @@
 
 package frc.robot.commands.AutoCommands;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
@@ -18,6 +20,8 @@ public class DriveBackwardsToDistance extends CommandBase {
   double speed;
   double stage = 1;
   Timer rotateTimer;
+  Pose2d startingPose;
+  Rotation2d startingRotation;
 
   public DriveBackwardsToDistance(Drivetrain dt, Limelight lm, double TargetDistance, double Speed) {
     
@@ -34,8 +38,11 @@ public class DriveBackwardsToDistance extends CommandBase {
   @Override
   public void initialize() {
 
+    //startingRotation = new Rotation2d(0);
+    //startingPose = new Pose2d(6.3, -1.1, startingRotation);
     rotateTimer = new Timer();
     drivetrain.resetOdometryToLimelight();
+    //drivetrain.resetOdometry(startingPose);
     rotateTimer.reset();
     rotateTimer.start();
     stage = 1;

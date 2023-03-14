@@ -196,10 +196,10 @@ public class DriveWithXbox extends CommandBase {
     SmartDashboard.putNumber("FR Wheel Encoder", drivetrain.getDriveEncoder(SwerveModule.FRONT_RIGHT));
     SmartDashboard.putNumber("FR Wheel Encoder Meters", drivetrain.getDriveEncoderMeters(SwerveModule.FRONT_RIGHT));
     
-    SmartDashboard.putNumber("Front Right Rotation Encoder", drivetrain.getRotEncoderValue(SwerveModule.FRONT_RIGHT));
-    SmartDashboard.putNumber("Front Left Rotation Encoder", drivetrain.getRotEncoderValue(SwerveModule.FRONT_LEFT));
-    SmartDashboard.putNumber("Rear Right Rotation Encoder", drivetrain.getRotEncoderValue(SwerveModule.REAR_RIGHT));
-    SmartDashboard.putNumber("Rear Left Rotation Encoder", drivetrain.getRotEncoderValue(SwerveModule.REAR_LEFT));
+    SmartDashboard.putNumber("Front Right Rotation Encoder", drivetrain.getAbsoluteRotEncoderValue(SwerveModule.FRONT_RIGHT));
+    SmartDashboard.putNumber("Front Left Rotation Encoder", drivetrain.getAbsoluteRotEncoderValue(SwerveModule.FRONT_LEFT));
+    SmartDashboard.putNumber("Rear Right Rotation Encoder", drivetrain.getAbsoluteRotEncoderValue(SwerveModule.REAR_RIGHT));
+    SmartDashboard.putNumber("Rear Left Rotation Encoder", drivetrain.getAbsoluteRotEncoderValue(SwerveModule.REAR_LEFT));
 
 
     SmartDashboard.putNumber("Limelight Botpose TX", limelight.BotPose()[0]);

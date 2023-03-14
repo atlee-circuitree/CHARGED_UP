@@ -17,6 +17,7 @@ import frc.robot.commands.AutoCommands.CenterToDistance;
 import frc.robot.commands.AutoCommands.DriveBackwardsToDistance;
 import frc.robot.commands.AutoCommands.DriveForwardsToDistance;
 import frc.robot.commands.AutoCommands.PathFollower;
+import frc.robot.commands.AutoCommands.ResetPose;
 //import frc.robot.commands.ClawCommands.RotateClaw;
 //import frc.robot.commands.ClawCommands.RunClaw;
 //import frc.robot.commands.ClawCommands.RunClawUntilClamp;
@@ -81,6 +82,8 @@ public class RobotContainer {
   private final DriveBackwardsToDistance GoPastStartingLine;
 
   private SequentialCommandGroup ScoreOpeningCube;
+  
+  private SequentialCommandGroup RedAuto;
 
   private final CenterToDistance CenterToCubeNode;
 
@@ -93,11 +96,15 @@ public class RobotContainer {
   public RobotContainer() {
 
     Constants.modeSelect = new SendableChooser<>();
+    Constants.autoSelect = new SendableChooser<>();
  
     Constants.modeSelect.setDefaultOption("Competition", "Competition");
     Constants.modeSelect.addOption("Player_Two", "Player_Two");
+    Constants.autoSelect.setDefaultOption("Red Side", "Red Side");
+    Constants.autoSelect.addOption("Blue Side", "Blue Side");
 
     SmartDashboard.putData("Select Mode", Constants.modeSelect);
+    SmartDashboard.putData("Select Auto", Constants.autoSelect);
 
     // Configure the button bindings
     drivetrain = new Drivetrain();
@@ -131,12 +138,13 @@ public class RobotContainer {
     MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1);
 
     ScoreOpeningCube = new SequentialCommandGroup(
-    new RunFeeder(feeder, .2).withTimeout(.5),
-    TopPositionAuto, 
-    new RunFeeder(feeder, -.2).withTimeout(1),
-    new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1),
-    new DriveBackwardsToDistance(drivetrain, limelight, 2.9, .5),
-    new DriveForwardsToDistance(drivetrain, limelight, 4.45, .2));
+    //new RunFeeder(feeder, .2).withTimeout(.5),
+    //TopPositionAuto, 
+    //new RunFeeder(feeder, -.2).withTimeout(1),
+    //new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1),
+    //new DriveBackwardsToDistance(drivetrain, limelight, 2.9, .2),
+    new DriveBackwardsToDistance(drivetrain, limelight, 4.5, .2),
+    new DriveForwardsToDistance(drivetrain, limelight, 5.5, .2));
 
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
@@ -152,6 +160,8 @@ public class RobotContainer {
 
     pathFollower = new PathFollower(drivetrain, limelight, pathEQ, 0.3, 5);
     //testPathFollower = new TestPathFollower(drivetrain, pathEQ, 0.1, 0.05);
+
+    RedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.445, -.92, 0).withTimeout(.1), pathFollower);
 
     configureButtonBindings();
 
@@ -265,8 +275,20 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return ScoreOpeningCube;
-    //return pathFollower;
+    //return ScoreOpeningCube;
+    if (Constants.autoSelect.getSelected() == "Red Side") {
+
+      return RedAuto;
+
+    } else if (Constants.autoSelect.getSelected() == "Blue Side") {
+
+      return RedAuto;
+
+    } else {
+
+      return RedAuto;
+
+    }
     //return testPathFollower;
     //return new AngleAndExtendInAuto(slide, feeder, 20, 4);
     //return new GoToAngleAndExtension(slide, 30, 40, 1);

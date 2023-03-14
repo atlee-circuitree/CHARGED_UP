@@ -11,7 +11,7 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "5,0": {
+          "8,0": {
             "size": [
               8,
               6
@@ -32,7 +32,7 @@
               "imageHeight": -1
             }
           },
-          "13,2": {
+          "16,0": {
             "size": [
               3,
               1
@@ -45,7 +45,7 @@
               "_showGlyph": false
             }
           },
-          "13,3": {
+          "16,1": {
             "size": [
               3,
               1
@@ -58,7 +58,7 @@
               "_showGlyph": false
             }
           },
-          "13,4": {
+          "16,2": {
             "size": [
               3,
               1
@@ -69,6 +69,34 @@
               "_title": "/SmartDashboard/Actual Current Z",
               "_glyph": 148,
               "_showGlyph": false
+            }
+          },
+          "16,3": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/getOdometryX()",
+              "_title": "/SmartDashboard/getOdometryX()",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "16,5": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Running off of limelight pose",
+              "_title": "/SmartDashboard/Running off of limelight pose",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
             }
           }
         }

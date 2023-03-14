@@ -74,7 +74,7 @@ public class PathFollower extends CommandBase {
     isFinished = false;
 
     //Reset odometry to the limelight pose
-    drivetrain.resetOdometryToLimelight();
+    //drivetrain.resetOdometryToLimelight();
 
   }
 

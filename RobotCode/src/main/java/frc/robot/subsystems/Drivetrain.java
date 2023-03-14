@@ -164,7 +164,7 @@ public class Drivetrain extends SubsystemBase {
     new SwerveModuleState(positionChangePer100msToMetersPerSecond(rearRightDrvMotor.getSelectedSensorVelocity()), 
     Rotation2d.fromDegrees(getRotEncoderValue(SwerveModule.REAR_RIGHT))));
 
-    resetOdometryToLimelight();
+    //resetOdometryToLimelight();
 
   }
 
@@ -583,6 +583,7 @@ public void resetOdometryToLimelight(){
   else{
     SmartDashboard.putBoolean("Running off of limelight pose", false);
   }
+
 }
 
 public void resetOdometry(Pose2d pose2d) {
