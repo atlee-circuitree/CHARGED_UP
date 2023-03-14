@@ -104,6 +104,14 @@ public class DriveWithXbox extends CommandBase {
       strafe = xbox.getLeftX();
       rotation = xbox.getRightX();
     }
+
+    if(xbox.getAButton()){
+      //if(xbox.getStartButton()){
+        forward = xbox.getLeftY() * 0.8;
+        strafe = xbox.getLeftX() * 0.8;
+        rotation = xbox.getRightX() * 0.8;
+    }
+
     else{
       forward = xbox.getLeftY() * 0.5;
       strafe = xbox.getLeftX() * 0.5;
