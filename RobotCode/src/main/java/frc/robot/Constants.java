@@ -23,7 +23,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public final class Constants {
 
     public final static class BlueAutoCoordsTag6 {
-    public static final double[] blueStartingPosition = {0, 6.495, 0.920, 0, 0.2};
+    public static final double[] blueStartingPosition = {0, -6.495, 0.920, 0, 0.2};
+    public static final double[] moveToNorthConeWaypoint = {1, -2.750, 1.041, 0, 0.2};
+    public static final double[] rotate180_1 = {2, -2.750, 1.041, 180, 0.2};
+    public static final double[] PickUpConePosition_4 = {3, -1.250, 1.041, 180, 0.2};
+    public static final double[] rotate180_2 = {4, -1.250, 1.041, 0, 0.2};
+    public static final double[] moveToConeWayPoint = {5, -2.750, 1.041, 0, 0.2};
+    public static final double[] moveToScoreWayPoint = {6, -6.000, 1.041, 0, 0.2};
+    public static final double[] moveToScoringPosition_3 = {7, -6.495, 1.428,0, 0.2};
+    public static final double[] moveToScoreWayPoint_2 = {8, -6.000, 1.041, 0, 0.2};
+    public static final double[] moveToNorthConeWayPoint = {9, -2.750, 1.041, 0, 0.2};
+    public static final double[] rotate180_3 = {10, -2.750, 1.041, 180, 0.2};
+    public static final double[] moveToFinalConeWayPoint = {11, -2.000, -0.191, 180, 0.2};
+    public static final double[] moveToPickupCone_3 = {12, -6.000, -0.191, 180, 0.2};
+    }
+
+    public final static class RedAutoCoordsTag3 {
+    public static final double[] RedStartingPosition = {0, 6.495, 0.920, 0, 0.2};
     public static final double[] moveToNorthConeWaypoint = {1, 2.750, 1.041, 0, 0.2};
     public static final double[] rotate180_1 = {2, 2.750, 1.041, 180, 0.2};
     public static final double[] PickUpConePosition_4 = {3, 1.250, 1.041, 180, 0.2};
