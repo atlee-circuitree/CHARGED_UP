@@ -173,6 +173,7 @@ public class RobotContainer {
 
     // Auto Options
     PathFollower RedAutoPath = GeneratePath(Constants.redAuto);
+    PathFollower Cone4AutoPath = GeneratePath(Constants.cone4PickUp);
     PathFollower BlueAutoPath = GeneratePath(Constants.blueAuto);
     PathFollower RedAutoTestPath = GeneratePath(Constants.scoringWpToConeWp);
     PathFollower BlueAutoTest = GeneratePath(Constants.redAuto);
@@ -180,7 +181,11 @@ public class RobotContainer {
     PathFollower RedAutoBalancePath = GeneratePath(Constants.redBalance);
    
     RedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.920, 0).withTimeout(.1), RedAutoPath);
-    TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.07, 0).withTimeout(.1), RedAutoTestPath);   
+   
+    //TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.07, 0).withTimeout(.1), RedAutoTestPath);   
+    TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -2.75, -1.041, 0).withTimeout(.1), Cone4AutoPath);   
+
+   
     BlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.920, 0).withTimeout(.1), BlueAutoPath);
     TestBlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), BlueAutoTest);
     RedBalance = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), RedAutoBalancePath, new AutoBalance(drivetrain, xbox1, 5, 5));
