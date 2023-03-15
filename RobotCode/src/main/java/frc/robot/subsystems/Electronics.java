@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
@@ -13,11 +14,12 @@ public class Electronics extends SubsystemBase {
  
   PowerDistribution powerDistribution;
   PneumaticHub pneumaticHub;
+  static DriverStation driverStation;
 
   public Electronics() {
-
-  powerDistribution = new PowerDistribution(0, ModuleType.kRev);
-  pneumaticHub = new PneumaticHub(0);
+ 
+    powerDistribution = new PowerDistribution(0, ModuleType.kRev);
+    pneumaticHub = new PneumaticHub(0);
 
   }
 
@@ -29,4 +31,5 @@ public class Electronics extends SubsystemBase {
     powerDistribution.setSwitchableChannel(true);
 
   }
+
 }

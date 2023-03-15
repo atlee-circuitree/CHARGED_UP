@@ -7,8 +7,10 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.subsystems.Limelight;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -20,22 +22,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
  * It is advised to statically import this class (or one of its inner classes)
  * wherever the constants are needed, to reduce verbosity.
  */
+ 
 public final class Constants {
 
-    public final static class BlueAutoCoordsTag6 {
-    public static final double[] blueStartingPosition_1 = {0, 6.495, 0.920, 0, 0.2};
-    public static final double[] moveToNorthConeWaypoint = {1, 2.750, 1.041, 0, 0.2};
-    public static final double[] rotate180_1 = {2, 2.750, 1.041, 180, 0.2};
-    public static final double[] PickUpConePosition_4 = {3, 1.250, 1.041, 180, 0.2};
-    public static final double[] rotate180_2 = {4, 1.250, 1.041, 0, 0.2};
-    public static final double[] moveToConeWayPoint = {5, 2.750, 1.041, 0, 0.2};
-    public static final double[] moveToScoreWayPoint = {6, 6.000, 1.041, 0, 0.2};
-    public static final double[] moveToScoringPosition_3 = {7, 6.495, 1.428,0, 0.2};
-    public static final double[] moveToScoreWayPoint_2 = {8, 6.000, 1.041, 0, 0.2};
-    public static final double[] moveToNorthConeWayPoint = {9, 2.750, 1.041, 0, 0.2};
-    public static final double[] rotate180_3 = {10, 2.750, 1.041, 180, 0.2};
-    public static final double[] moveToFinalConeWayPoint = {11, 2.000, -0.191, 180, 0.2};
-    public static final double[] moveToPickupCone_3 = {12, 6.000, -0.191, 180, 0.2};
+    public static double side = 1;
+
+    public DriverStation drive;
+
+    public final class BlueAutoCoordsTag6 {
+    public double[] blueStartingPosition_1 = {6.495 * side, 0.920, 0};
+    public double[] moveToNorthConeWaypoint = {2.750, 1.041, 0};
+    public double[] rotate180_1 = {2.750, 1.041, 180};
+    public double[] PickUpConePosition_4 = {1.250, 1.041, 180};
+    public double[] rotate180_2 = {1.250, 1.041, 0};
+    public double[] moveToConeWayPoint = {2.750, 1.041, 0};
+    public double[] moveToScoreWayPoint = {6.000, 1.041, 0};
+    public double[] moveToScoringPosition_3 = {6.495, 1.428, 0};
+    public double[] moveToScoreWayPoint_2 = {6.000, 1.041, 0};
+    public double[] moveToNorthConeWayPoint = {2.750, 1.041, 0};
+    public double[] rotate180_3 = {2.750, 1.041, 180};
+    public double[] moveToFinalConeWayPoint = {2.000, -0.191, 180};
+    public double[] moveToPickupCone_3 = {6.000, -0.191, 180, 0.2};
     }
   
     public final static class BlueAutoCoordsTag8{
@@ -59,10 +66,10 @@ public final class Constants {
     }
 
     public final static class RedAutoCoordsTag2{
-        public static final double[] redStartingPosition_2 = {0, 6.495, -0.8, 0, 0.2};
+    public static final double[] redStartingPosition_2 = {0, 6.495, -0.8, 0, 0.2};
     public static final double[] moveToScoringWayPoint = {1, 6.000, -0.8, 0, 0.2};
-   // public static final double[] moveToPlatformWayPoint_1 = {2, 4.400, -0.8, 0, 0.2};
-   public static final double[] moveToPlatformWayPoint_1 = {2, 3.700, -0.8, 0, 0.2};
+    // public static final double[] moveToPlatformWayPoint_1 = {2, 4.400, -0.8, 0, 0.2};
+    public static final double[] moveToPlatformWayPoint_1 = {2, 3.700, -0.8, 0, 0.2};
     public static final double[] moveToMiddleConeWayPoint = {3, 1.900, -0.8, 0, 0.2};
     public static final double[] moveToPlatformWayPoint_2 = {4, 3.700, -0.8, 0, 0.2};
     }
@@ -83,8 +90,6 @@ public final class Constants {
     public static final double[] moveToPickupCone_3 = {12, -6.000, -0.191, 180, 0.2};
     }
 
-    
-
     //Declare coordinates in the form {u, x, y, angle, tolerance}
     public static final double[][] autoCoordinates = {{0, 4,2 ,0, 0.2}, {1, 4.5,2 ,-90, 0.2}, {2, 5,2 ,180, 0.05}};
     
@@ -93,12 +98,15 @@ public final class Constants {
 
     //Blue Auto
     public static final double[][] blueAuto = {{0, 6.495, 0.92, 0, 0.2}, {1, 2.750, 1.041, 0, 0.2}};
-    public static final double[][] blueAutoTEST = {BlueAutoCoordsTag7.blueStartingPosition_2, BlueAutoCoordsTag7.moveToScoringWayPoint, BlueAutoCoordsTag7.moveToPlatformWayPoint_1, BlueAutoCoordsTag7.moveToMiddleConeWayPoint, BlueAutoCoordsTag7.moveToPlatformWayPoint_2};
-
+    //public static final double[][] blueAutoTEST = {BlueAutoCoordsTag7.blueStartingPosition_2, BlueAutoCoordsTag7.moveToScoringWayPoint, BlueAutoCoordsTag7.moveToPlatformWayPoint_1, BlueAutoCoordsTag7.moveToMiddleConeWayPoint, BlueAutoCoordsTag7.moveToPlatformWayPoint_2};
+ 
     //Red Auto
     public static final double[][] redAuto = {{0, 6.495, 0.92, 0, 0.2}, {1, 6.495, 0.92, 0, 0.2}};
     public static final double[][] redAutoTEST = {RedAutoCoordsTag2.redStartingPosition_2, RedAutoCoordsTag2.moveToScoringWayPoint,RedAutoCoordsTag2.moveToPlatformWayPoint_1,RedAutoCoordsTag2.moveToMiddleConeWayPoint,RedAutoCoordsTag2.moveToPlatformWayPoint_2};
     public static final double[][] redBalance = {RedAutoCoordsTag2.moveToScoringWayPoint,RedAutoCoordsTag2.moveToPlatformWayPoint_1};
+    public double[][] scoringWpToConeWp = {{0, RedAutoCoordsTag3.moveToScoreWayPoint[0] * side, RedAutoCoordsTag3.moveToScoreWayPoint[1], 0, 0.2},
+    {1,RedAutoCoordsTag3.moveToNorthConeWayPoint[0] * side,RedAutoCoordsTag3.moveToNorthConeWayPoint[1], 0, 0.2}};
+    
 
     //Create Mode Select
     public static SendableChooser<String> modeSelect;
@@ -247,3 +255,4 @@ public final class Constants {
     }
  
 }
+ 

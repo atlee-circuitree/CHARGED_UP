@@ -9,8 +9,7 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-
+import frc.robot.Constants;
 import edu.wpi.first.networktables.NetworkTableInstance;
 //Limelight Values
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -103,6 +102,19 @@ public class Limelight extends SubsystemBase {
     }
   }
 
+  public boolean IsRedUsingAprilTags() {
+
+    if (TagID() == 1 || TagID() == 2 || TagID() == 3 || TagID() == 4 ) {
+
+      return true;
+
+    } else {
+
+      return false;
+
+    }
+
+  }
 
   public void ReadNetworkTables() {
 
@@ -223,6 +235,16 @@ public class Limelight extends SubsystemBase {
     limelightDashboard = limelightDashboard + "Limelight Vertical/" + dbl_ty + ";";
     limelightDashboard = limelightDashboard + "Theoretical Distance To Target/" + getDistanceToTarget() + ";";
     SmartDashboard.putNumber("Limelight Distance", getDistanceToTarget());
+
+    if (IsRedUsingAprilTags() == true) {
+
+      Constants.side = 1;
+
+    } else {
+
+      Constants.side = -1;
+
+    }
 
   }
 
