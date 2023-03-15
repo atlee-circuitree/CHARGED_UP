@@ -90,7 +90,7 @@ public class RobotContainer {
     PathEQ path;
     PathFollower pathFollower;
     path = new PathEQ(Cords, true);
-    pathFollower = new PathFollower(drivetrain, limelight, path, 0, 0);
+    pathFollower = new PathFollower(drivetrain, limelight, path, .3, 5);
 
     return pathFollower;
 
@@ -173,16 +173,16 @@ public class RobotContainer {
 
     // Auto Options
     PathFollower RedAutoPath = GeneratePath(Constants.redAuto);
-    PathFollower BlueAutoPath = GeneratePath(Constants.redAuto);
-    PathFollower RedAutoTestPath = GeneratePath(Constants.redAuto);
+    PathFollower BlueAutoPath = GeneratePath(Constants.blueAuto);
+    PathFollower RedAutoTestPath = GeneratePath(Constants.scoringWpToConeWp);
     PathFollower BlueAutoTest = GeneratePath(Constants.redAuto);
     PathFollower BlueAutoBalancePath = GeneratePath(Constants.redAuto);
-    PathFollower RedAutoBalancePath = GeneratePath(Constants.redAuto);
+    PathFollower RedAutoBalancePath = GeneratePath(Constants.redBalance);
    
-    RedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), RedAutoPath);
-    TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), RedAutoTestPath);   
-    BlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), BlueAutoPath);
-    TestBlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.8, 0).withTimeout(.1), BlueAutoTest);
+    RedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.920, 0).withTimeout(.1), RedAutoPath);
+    TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.07, 0).withTimeout(.1), RedAutoTestPath);   
+    BlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.920, 0).withTimeout(.1), BlueAutoPath);
+    TestBlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), BlueAutoTest);
     RedBalance = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), RedAutoBalancePath, new AutoBalance(drivetrain, xbox1, 5, 5));
     configureButtonBindings();
 
