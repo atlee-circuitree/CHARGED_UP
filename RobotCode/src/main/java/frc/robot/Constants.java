@@ -39,7 +39,7 @@ public final class Constants {
     }
 
     //Declare coordinates in the form {u, x, y, angle, tolerance}
-    public static final double[][] autoCoordinates = {{0, 4,2 ,0, 0.2}, {1, 4.5,2 ,-90, 0.2}, {2, 5,2 ,180, 0.05}};
+    public static final double[][] autoCoordinates = {{0, 6,0.5 ,0, 0.2}, {1, 5, 0.5 ,90, 0.2}, {2, 4,0.5 ,180, 0.05}};
     
     //public static final double[][] testCoords = {{0, -6.445, 0.92, 0, .2}, {1, -2.214, 1.041, 0, .1}};
     public static final double[][] testCoords = {{0, 4.445, 1.92, 0, .025}, {1, 4.445, 1.92, 0, .025}};

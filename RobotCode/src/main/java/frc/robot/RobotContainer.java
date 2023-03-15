@@ -75,11 +75,15 @@ public class RobotContainer {
   private GoToAngleAndExtension MiddlePosition;
 
   //private final PathGenerator pathGenerator;
+  private final PathFollower pathFollower;
+
   private final PathFollower pathFollowerRedSide;
   private final PathFollower pathFollowerRedSideTEST;
   private final PathFollower pathFollowerBlueSide;
   private final PathFollower pathFollowerBlueSideTEST;
   //private final TestPathFollower testPathFollower;
+  private final PathEQ pathEQ;
+
   private final PathEQ pathEQRedSide; 
   private final PathEQ pathEQBlueSide; 
   private final PathEQ pathEQRedSideTEST; 
@@ -132,6 +136,8 @@ public class RobotContainer {
     autoBalance = new AutoBalance(drivetrain, xbox1);
 
     playAudio = new PlayAudio(audio, 0, 0);
+
+    pathEQ = new PathEQ(Constants.autoCoordinates, false);
  
     pathEQRedSide = new PathEQ(Constants.redAuto, true);
     pathEQRedSideTEST = new PathEQ(Constants.redAutoTEST, true);
@@ -171,6 +177,8 @@ public class RobotContainer {
     //drivetrain.setDefaultCommand(recalibrateModules);
  
     //pathGenerator = new PathGenerator();
+
+    pathFollower = new PathFollower(drivetrain, limelight, pathEQ, 0.3, 5);
 
     pathFollowerRedSide = new PathFollower(drivetrain, limelight, pathEQRedSide, 0.3, 5);
     pathFollowerRedSideTEST = new PathFollower(drivetrain, limelight, pathEQRedSideTEST, 0.3, 5);
@@ -295,9 +303,9 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    //return pathFollower;
+    return pathFollower;
     //return ScoreOpeningCube;
-     
+    /* 
     if (Constants.autoSelect.getSelected() == "Red Side") {
 
       return RedAuto;
@@ -319,7 +327,7 @@ public class RobotContainer {
       return RedAuto;
 
     }
-    
+    */
     //return testPathFollower;
     //return new AngleAndExtendInAuto(slide, feeder, 20, 4);
     //return new GoToAngleAndExtension(slide, 30, 40, 1);

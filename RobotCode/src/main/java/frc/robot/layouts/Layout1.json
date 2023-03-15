@@ -11,10 +11,10 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "8,0": {
+          "5,0": {
             "size": [
-              8,
-              6
+              6,
+              4
             ],
             "content": {
               "_type": "Camera Stream",
@@ -32,49 +32,10 @@
               "imageHeight": -1
             }
           },
-          "16,0": {
+          "12,1": {
             "size": [
-              3,
+              2,
               1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Z Error",
-              "_title": "/SmartDashboard/Z Error",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "16,1": {
-            "size": [
-              3,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Rotation",
-              "_title": "/SmartDashboard/Rotation",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "16,2": {
-            "size": [
-              3,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Actual Current Z",
-              "_title": "/SmartDashboard/Actual Current Z",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "16,3": {
-            "size": [
-              3,
-              2
             ],
             "content": {
               "_type": "Text View",
@@ -84,19 +45,69 @@
               "_showGlyph": false
             }
           },
-          "16,5": {
+          "14,1": {
             "size": [
-              3,
+              2,
               1
             ],
             "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Running off of limelight pose",
-              "_title": "/SmartDashboard/Running off of limelight pose",
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/getOdometryY()",
+              "_title": "/SmartDashboard/getOdometryY()",
               "_glyph": 148,
-              "_showGlyph": false,
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "_showGlyph": false
+            }
+          },
+          "16,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/getOdometryZ()",
+              "_title": "/SmartDashboard/getOdometryZ()",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "12,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Limelight Distance",
+              "_title": "/SmartDashboard/Limelight Distance",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "14,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Limelight Botpose TX",
+              "_title": "/SmartDashboard/Limelight Botpose TX",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "12,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Limelight Botpose TY",
+              "_title": "/SmartDashboard/Limelight Botpose TY",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           }
         }
