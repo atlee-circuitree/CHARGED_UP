@@ -73,24 +73,7 @@ public class RobotContainer {
   private GoToAngleAndExtension TopPosition;
   private GoToAngleAndExtension TopPositionAuto;
   private GoToAngleAndExtension MiddlePosition;
-
-  // Add Options
-  private final PathFollower pathFollowerRedSide;
-  private final PathFollower pathFollowerRedSideTEST;
-  private final PathFollower pathFollowerBlueSide;
-  private final PathFollower pathFollowerBlueSideTEST;
-  private final PathFollower pathFollowerRedBalance;
-  private final PathEQ pathEQRedSide; 
-  private final PathEQ pathEQBlueSide; 
-  private final PathEQ pathEQRedSideTEST; 
-  private final PathEQ pathEQBlueSideTEST;
-  private final PathEQ pathEQRedBalence;
-  private SequentialCommandGroup RedAuto;
-  private SequentialCommandGroup TestRedAuto;
-  private SequentialCommandGroup BlueAuto;
-  private SequentialCommandGroup TestBlueAuto;
-  private SequentialCommandGroup RedBalance;
-
+ 
   private final DriveBackwardsToDistance GoPastStartingLine;
 
   private SequentialCommandGroup ScoreOpeningCube;
@@ -102,6 +85,24 @@ public class RobotContainer {
   public XboxController xbox1 = new XboxController(0);
   public XboxController xbox2 = new XboxController(1);
 
+  PathFollower GeneratePath(double[][] Cords) {
+
+    PathEQ path;
+    PathFollower pathFollower;
+    path = new PathEQ(Cords, true);
+    pathFollower = new PathFollower(drivetrain, limelight, path, 0, 0);
+
+    return pathFollower;
+
+  }
+
+  //Command Groups
+  SequentialCommandGroup RedAuto;
+  SequentialCommandGroup BlueAuto;
+  SequentialCommandGroup TestRedAuto;
+  SequentialCommandGroup TestBlueAuto;
+  SequentialCommandGroup RedBalance;
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -140,11 +141,11 @@ public class RobotContainer {
     GoPastStartingLine = new DriveBackwardsToDistance(drivetrain, limelight, 3, .2);
 
     CenterToCubeNode = new CenterToDistance(drivetrain, limelight, 3, .1, .5);
-
+ 
     //Teleop commands
     driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
-
+ 
     TopPosition = new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, true);
     TopPositionAuto = new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false);
     MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1, true);
@@ -170,22 +171,19 @@ public class RobotContainer {
  
     //pathGenerator = new PathGenerator();
 
-    // Auto Options Part 2
-    pathEQRedSide = new PathEQ(Constants.redAuto, true);
-    pathEQRedSideTEST = new PathEQ(Constants.redAutoTEST, true);
-    pathEQBlueSide = new PathEQ(Constants.redAuto, true);
-    pathEQBlueSideTEST = new PathEQ(Constants.redAuto, true);
-    pathEQRedBalence = new PathEQ(Constants.redBalance, true);
-    pathFollowerRedSide = new PathFollower(drivetrain, limelight, pathEQRedSide, 0.3, 5);
-    pathFollowerRedSideTEST = new PathFollower(drivetrain, limelight, pathEQRedSideTEST, 0.3, 5);
-    pathFollowerBlueSide = new PathFollower(drivetrain, limelight, pathEQBlueSide, 0.3, 5);
-    pathFollowerBlueSideTEST = new PathFollower(drivetrain, limelight, pathEQBlueSideTEST, 0.3, 5);
-    pathFollowerRedBalance = new PathFollower(drivetrain, limelight, pathEQRedBalence, 0.3, 5);
-    RedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollowerRedSide);
-    TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), pathFollowerRedSideTEST);   
-    BlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollowerBlueSide);
-    TestBlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.8, 0).withTimeout(.1), pathFollowerBlueSideTEST);
-    RedBalance = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), pathFollowerRedBalance, new AutoBalance(drivetrain, xbox1, 5, 5));
+    // Auto Options
+    PathFollower RedAutoPath = GeneratePath(Constants.redAuto);
+    PathFollower BlueAutoPath = GeneratePath(Constants.redAuto);
+    PathFollower RedAutoTestPath = GeneratePath(Constants.redAuto);
+    PathFollower BlueAutoTest = GeneratePath(Constants.redAuto);
+    PathFollower BlueAutoBalancePath = GeneratePath(Constants.redAuto);
+    PathFollower RedAutoBalancePath = GeneratePath(Constants.redAuto);
+   
+    RedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), RedAutoPath);
+    TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), RedAutoTestPath);   
+    BlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), BlueAutoPath);
+    TestBlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.8, 0).withTimeout(.1), BlueAutoTest);
+    RedBalance = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), RedAutoBalancePath, new AutoBalance(drivetrain, xbox1, 5, 5));
     configureButtonBindings();
 
   }
