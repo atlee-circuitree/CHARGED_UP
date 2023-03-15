@@ -182,7 +182,7 @@ public class RobotContainer {
     pathFollowerBlueSideTEST = new PathFollower(drivetrain, limelight, pathEQBlueSideTEST, 0.3, 5);
     pathFollowerRedBalance = new PathFollower(drivetrain, limelight, pathEQRedBalence, 0.3, 5);
     RedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollowerRedSide);
-    TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), pathFollowerRedSideTEST, new AutoBalance(drivetrain, xbox1, 5, 5));
+    TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), pathFollowerRedSideTEST);   
     BlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.920, 0).withTimeout(.1), pathFollowerBlueSide);
     TestBlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.8, 0).withTimeout(.1), pathFollowerBlueSideTEST);
     RedBalance = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), pathFollowerRedBalance, new AutoBalance(drivetrain, xbox1, 5, 5));

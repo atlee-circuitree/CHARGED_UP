@@ -63,8 +63,8 @@ public final class Constants {
     public static final double[] moveToScoringWayPoint = {1, 6.000, -0.8, 0, 0.2};
    // public static final double[] moveToPlatformWayPoint_1 = {2, 4.400, -0.8, 0, 0.2};
    public static final double[] moveToPlatformWayPoint_1 = {2, 3.700, -0.8, 0, 0.2};
-    public static final double[] moveToMiddleConeWayPoint = {3, 2.750, -0.8, 0, 0.2};
-    public static final double[] moveToPlatformWayPoint_2 = {4, 4.400, -0.8, 0, 0.2};
+    public static final double[] moveToMiddleConeWayPoint = {3, 1.900, -0.8, 0, 0.2};
+    public static final double[] moveToPlatformWayPoint_2 = {4, 3.700, -0.8, 0, 0.2};
     }
 
     public final static class RedAutoCoordsTag3 {
@@ -97,7 +97,7 @@ public final class Constants {
 
     //Red Auto
     public static final double[][] redAuto = {{0, 6.495, 0.92, 0, 0.2}, {1, 6.495, 0.92, 0, 0.2}};
-    public static final double[][] redAutoTEST = {RedAutoCoordsTag2.redStartingPosition_2, RedAutoCoordsTag2.moveToScoringWayPoint,RedAutoCoordsTag2.moveToPlatformWayPoint_1};
+    public static final double[][] redAutoTEST = {RedAutoCoordsTag2.redStartingPosition_2, RedAutoCoordsTag2.moveToScoringWayPoint,RedAutoCoordsTag2.moveToPlatformWayPoint_1,RedAutoCoordsTag2.moveToMiddleConeWayPoint,RedAutoCoordsTag2.moveToPlatformWayPoint_2};
     public static final double[][] redBalance = {RedAutoCoordsTag2.moveToScoringWayPoint,RedAutoCoordsTag2.moveToPlatformWayPoint_1};
 
     //Create Mode Select
@@ -206,8 +206,8 @@ public final class Constants {
 
     public static final double zControllerProportion = 10;
 
-    public static final double aBalanceXConstant = .01;
-    public static final double aBalanceTurnConstant = .01;
+    public static final double aBalanceXConstant = .2;
+    public static final double aBalanceTurnConstant = .2;
 
 
     //Instansiated in this order:
