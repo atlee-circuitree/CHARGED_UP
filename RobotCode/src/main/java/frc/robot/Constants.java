@@ -58,29 +58,90 @@ public final class Constants {
     public static final double[] moveToPlatformWayPoint_2 = {4, -4.400, -0.8, 0, 0.2};
     }
 
+    public final static class RedAutoCoordsTag1{
+    public static final double[] redStartingPosition_1 = {0, 6.495, -2.500, 0, 0.2};
+    public static final double[] moveToSouthConeWayPoint_1 = {1, 2.750, -1.041, 0, 0.2};
+    public static final double[] rotate180 = {2, 2.750, -1.041, 0, 0.2};
+    public static final double[] cone4PickUpStart = {3, 1.750, 1.000, 180, 0.2};
+    public static final double[] cone4PickUpEnd = {4, 1.250, 1.041, 180, 0.2};
+    public static final double[] cone3PickUpStart = {5, 1.750, -0.200, 180, 0.2};
+    public static final double[] cone3PickUpEnd = {6, 1.250, -0.200, 180, 0.2};
+    public static final double[] cone2PickUpStart = {7, 1.750, -1.400, 180, 0.2};
+    public static final double[] cone2PickUpEnd = {8, 1.250, -1.400, 180, 0.2};
+    public static final double[] cone1PickUpStart = {9, 1.750, -2.630, 180, 0.2};
+    public static final double[] cone1PickUpEnd = {10, 1.250, -2.630, 180, 0.2};
+    public static final double[] rotate180_1 = {11, 1.250, -2.630, 0, 0.2};
+    public static final double[] rotate180_2 = {12, 1.250, -1.400, 0, 0.2};
+    public static final double[] rotate180_3 = {13, 1.250, -0.200, 180, 0.2};
+    public static final double[] rotate180_4 = {14, 1.250, 1.041, 180, 0.2};
+    public static final double[] moveToSouthConeWayPoint_2 = {15, 2.750, -1.041, 0, 0.2};
+    public static final double[] moveToScoreWayPoint = {16, 6.000, -1.041, 0, 0.2};
+    public static final double[] moveToScoringPosition_3 = {17, 6.495, -3.000,0, 0.2};
+    public static final double[] moveToScoreWayPoint_2 = {18, 6.000, -1.041, 0, 0.2};
+    public static final double[] moveToSouthConeWayPoint_3 = {19, 2.750, -1.041, 0, 0.2};
+    public static final double[] rotate180_5 = {20, 2.750, 1.041, 180, 0.2};
+    public static final double[] moveToFinalConeWayPoint = {21, 2.000, -0.191, 180, 0.2};
+    public static final double[] moveToPickupCone_1 = {22, 1.750, -2.630, 180, 0.2};
+    public static final double[] moveToPickupCone_2 = {23, 1.750, -1.400, 180, 0.2};
+    public static final double[] moveToPickupCone_3 = {24, 1.750, -0.200, 180, 0.2};
+    public static final double[] moveToPickupCone_4 = {25, 1.750, 1.000, 180, 0.2};
+    }
+
     public final static class RedAutoCoordsTag2{
         public static final double[] redStartingPosition_2 = {0, 6.495, -0.8, 0, 0.2};
-    public static final double[] moveToScoringWayPoint = {1, 6.000, -0.8, 0, 0.2};
+        public static final double[] moveToScoringWayPoint_1 = {1, 6.000, -0.8, 0, 0.2};
    // public static final double[] moveToPlatformWayPoint_1 = {2, 4.400, -0.8, 0, 0.2};
-   public static final double[] moveToPlatformWayPoint_1 = {2, 3.700, -0.8, 0, 0.2};
-    public static final double[] moveToMiddleConeWayPoint = {3, 1.900, -0.8, 0, 0.2};
+    public static final double[] moveToPlatformWayPoint_1 = {2, 3.700, -0.8, 0, 0.2};
+    public static final double[] moveToMiddleConeWayPoint_1 = {3, 1.900, -0.8, 0, 0.2};
+    public static final double[] rotate180 = {2, 1.900, -0.8, 180, 0.2};
+    public static final double[] cone4PickUpStart = {3, 1.750, 1.000, 180, 0.2};
+    public static final double[] cone4PickUpEnd = {4, 1.250, 1.041, 180, 0.2};
+    public static final double[] cone3PickUpStart = {5, 1.750, -0.200, 180, 0.2};
+    public static final double[] cone3PickUpEnd = {6, 1.250, -0.200, 180, 0.2};
+    public static final double[] cone2PickUpStart = {7, 1.750, -1.400, 180, 0.2};
+    public static final double[] cone2PickUpEnd = {8, 1.250, -1.400, 180, 0.2};
+    public static final double[] cone1PickUpStart = {9, 1.750, -2.630, 180, 0.2};
+    public static final double[] cone1PickUpEnd = {10, 1.250, -2.630, 180, 0.2};
+    public static final double[] rotate180_1 = {11, 1.250, -2.630, 0, 0.2};
+    public static final double[] rotate180_2 = {12, 1.250, -1.400, 0, 0.2};
+    public static final double[] rotate180_3 = {13, 1.250, -0.200, 180, 0.2};
+    public static final double[] rotate180_4 = {14, 1.250, 1.041, 180, 0.2};
     public static final double[] moveToPlatformWayPoint_2 = {4, 3.700, -0.8, 0, 0.2};
+    public static final double[] moveToScoringWayPoint_2 = {1, 6.000, -0.8, 0, 0.2};
+    public static final double[] moveToScoringposition = {0, 6.495, -0.8, 0, 0.2};
+    public static final double[] moveToScoringWayPoint_3 = {18, 6.000, -0.8, 0, 0.2};
+    public static final double[] moveToPlatformWayPoint_3 = {2, 3.700, -0.8, 0, 0.2};
+    public static final double[] moveToMiddleConeWayPoint_2 = {3, 1.900, -0.8, 0, 0.2};
+    public static final double[] rotate180_5 = {20, 2.750, -8, 180, 0.2};
+    public static final double[] moveToMiddleConeWayPoint_3 = {21, 2.000, -0.8, 180, 0.2};
+    public static final double[] moveToPickupCone_1 = {22, 1.750, -2.630, 180, 0.2};
+    public static final double[] moveToPickupCone_2 = {23, 1.750, -1.400, 180, 0.2};
+    public static final double[] moveToPickupCone_3 = {24, 1.750, -0.200, 180, 0.2};
+    public static final double[] moveToPickupCone_4 = {25, 1.750, 1.000, 180, 0.2};
     }
 
     public final static class RedAutoCoordsTag3 {
-    public static final double[] redStartingPosition = {0, -6.495, 0.920, 0, 0.2};
-    public static final double[] moveToNorthConeWaypoint = {1, -2.750, 1.041, 0, 0.2};
-    public static final double[] rotate180_1 = {2, -2.750, 1.041, 180, 0.2};
-    public static final double[] PickUpConePosition_4 = {3, -1.250, 1.041, 180, 0.2};
-    public static final double[] rotate180_2 = {4, -1.250, 1.041, 0, 0.2};
-    public static final double[] moveToConeWayPoint = {5, -2.750, 1.041, 0, 0.2};
-    public static final double[] moveToScoreWayPoint = {6, -6.000, 1.041, 0, 0.2};
-    public static final double[] moveToScoringPosition_3 = {7, -6.495, 1.428,0, 0.2};
-    public static final double[] moveToScoreWayPoint_2 = {8, -6.000, 1.041, 0, 0.2};
-    public static final double[] moveToNorthConeWayPoint = {9, -2.750, 1.041, 0, 0.2};
-    public static final double[] rotate180_3 = {10, -2.750, 1.041, 180, 0.2};
-    public static final double[] moveToFinalConeWayPoint = {11, -2.000, -0.191, 180, 0.2};
-    public static final double[] moveToPickupCone_3 = {12, -6.000, -0.191, 180, 0.2};
+    public static final double[] redStartingPosition = {0, 6.495, 0.920, 0, 0.2};
+    public static final double[] moveToNorthConeWaypoint_1 = {1, 2.750, 1.041, 0, 0.2};
+    public static final double[] rotate180_1 = {2, 2.750, 1.041, 180, 0.2};
+    public static final double[] cone4PickUpStart = {3, 1.750, 1.000, 180, 0.2};
+    public static final double[] cone4PickUpEnd = {4, 1.250, 1.041, 180, 0.2};
+    public static final double[] cone3PickUpStart = {5, 1.750, -0.200,180, 0.2};
+    public static final double[] cone3PickUpEnd = {6, 1.250, -0.200, 180, 0.2};
+    public static final double[] cone2PickUpStart = {7, 1.750, -1.400,180, 0.2};
+    public static final double[] cone2PickUpEnd = {8, 1.250, -1.400, 180, 0.2};
+    public static final double[] cone1PickUpStart = {9, 1.750, -2.630,180, 0.2};
+    public static final double[] cone1PickUpEnd = {10, 1.250, -2.630, 180, 0.2};
+    public static final double[] rotate180_2 = {11, 1.250, 1.041, 0, 0.2};
+    public static final double[] moveToConeWayPoint = {12, 2.750, 1.041, 0, 0.2};
+    public static final double[] moveToScoreWayPoint = {13, 6.000, 1.041, 0, 0.2};
+    public static final double[] moveToScoringPosition_3 = {14, 6.495, 1.428,0, 0.2};
+    public static final double[] moveToScoreWayPoint_2 = {15, 6.000, 1.041, 0, 0.2};
+    public static final double[] moveToNorthConeWayPoint_2 = {16, 2.750, 1.041, 0, 0.2};
+    public static final double[] rotate180_3 = {17, 2.750, 1.041, 180, 0.2};
+    public static final double[] moveToFinalConeWayPoint = {18, 2.000, -0.191, 180, 0.2};
+    public static final double[] moveToPickupCone_3 = {19, 6.000, -0.191, 180, 0.2};
+    
     }
 
     
@@ -97,9 +158,10 @@ public final class Constants {
 
     //Red Auto
     public static final double[][] redAuto = {{0, 6.495, 0.92, 0, 0.2}, {1, 6.495, 0.92, 0, 0.2}};
-    public static final double[][] redAutoTEST = {RedAutoCoordsTag2.redStartingPosition_2, RedAutoCoordsTag2.moveToScoringWayPoint,RedAutoCoordsTag2.moveToPlatformWayPoint_1,RedAutoCoordsTag2.moveToMiddleConeWayPoint,RedAutoCoordsTag2.moveToPlatformWayPoint_2};
-    public static final double[][] redBalance = {RedAutoCoordsTag2.moveToScoringWayPoint,RedAutoCoordsTag2.moveToPlatformWayPoint_1};
-
+    public static final double[][] redAutoTEST = {RedAutoCoordsTag2.redStartingPosition_2, RedAutoCoordsTag2.moveToScoringWayPoint_1,RedAutoCoordsTag2.moveToPlatformWayPoint_1,RedAutoCoordsTag2.moveToMiddleConeWayPoint,RedAutoCoordsTag2.moveToPlatformWayPoint_2};
+    public static final double[][] redBalance = {RedAutoCoordsTag2.moveToScoringWayPoint_1,RedAutoCoordsTag2.moveToPlatformWayPoint_1};
+    public static final double[][] redScoreWpToConeWp = {RedAutoCoordsTag3.moveToScoreWayPoint,RedAutoCoordsTag2.moveToMiddleConeWayPoint_1};
+    public static final double[][] redConeWpToCone4PickUpStart = {RedAutoCoordsTag3.moveToNorthConeWaypoint_1, RedAutoCoordsTag3.cone4PickUpStart};
     //Create Mode Select
     public static SendableChooser<String> modeSelect;
     public static SendableChooser<String> autoSelect;
