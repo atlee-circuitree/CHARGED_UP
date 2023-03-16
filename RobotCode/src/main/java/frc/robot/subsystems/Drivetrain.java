@@ -145,6 +145,8 @@ public class Drivetrain extends SubsystemBase {
     odometry = new OldDometry(Constants.driveKinematics, navx.getRotation2d());
 
     limelight = new Limelight();
+
+    resetOdometryToLimelight();
   }
 
   @Override
@@ -165,7 +167,7 @@ public class Drivetrain extends SubsystemBase {
     new SwerveModuleState(positionChangePer100msToMetersPerSecond(rearRightDrvMotor.getSelectedSensorVelocity()), 
     Rotation2d.fromDegrees(getRotEncoderValue(SwerveModule.REAR_RIGHT))));
 
-    //resetOdometryToLimelight();
+    resetOdometryToLimelight();
 
   }
 

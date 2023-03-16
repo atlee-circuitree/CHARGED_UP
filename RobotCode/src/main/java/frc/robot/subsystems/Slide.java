@@ -70,7 +70,8 @@ public class Slide extends SubsystemBase {
     leftExtMotor.setNeutralMode(NeutralMode.Brake);
     rightExtMotor.setNeutralMode(NeutralMode.Brake);
     angMotor.setNeutralMode(NeutralMode.Brake);
-
+    
+    resetExtensionEncoder();
     //Configure Extension Offset
     
     //Inital Position

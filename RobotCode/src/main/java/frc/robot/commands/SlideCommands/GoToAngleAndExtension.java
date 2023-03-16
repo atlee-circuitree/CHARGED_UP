@@ -34,7 +34,7 @@ public class GoToAngleAndExtension extends CommandBase {
   @Override
   public void initialize() {
 
-    if (doubleTap = true) {
+    if (doubleTap == true) {
 
       if (slide.getExtensionEncoderInches() > 2) {
 
@@ -80,11 +80,11 @@ public class GoToAngleAndExtension extends CommandBase {
       System.out.println("Stage 1 Running");
       if (slide.getExtensionEncoderInches() < 0 - tolerance) {
 
-        slide.extendArmUsingPower(.65);
+        slide.extendArmUsingPower(0.65);
   
       } else if (slide.getExtensionEncoderInches() > 0 + tolerance) {
   
-        slide.extendArmUsingPower(-1);
+        slide.extendArmUsingPower(-0.65);
   
       } else {
   

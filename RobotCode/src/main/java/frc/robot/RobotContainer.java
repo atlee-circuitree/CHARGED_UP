@@ -18,6 +18,7 @@ import frc.robot.commands.AutoCommands.DriveBackwardsToDistance;
 import frc.robot.commands.AutoCommands.DriveForwardsToDistance;
 import frc.robot.commands.AutoCommands.PathFollower;
 import frc.robot.commands.AutoCommands.ResetPose;
+import frc.robot.commands.AutoCommands.ResetPoseToLimelight;
 //import frc.robot.commands.ClawCommands.RotateClaw;
 //import frc.robot.commands.ClawCommands.RunClaw;
 //import frc.robot.commands.ClawCommands.RunClawUntilClamp;
@@ -187,7 +188,15 @@ public class RobotContainer {
    TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.07, 0).withTimeout(.1), scoringWpToConeWp, Cone4AutoPath);   
 
    
-    BlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.920, 0).withTimeout(.1), BlueAutoPath);
+    BlueAuto = new SequentialCommandGroup(
+      new ResetPoseToLimelight(drivetrain, 0).withTimeout(.1),
+      new RunFeeder(feeder, .2).withTimeout(.5),
+      TopPositionAuto, 
+      new RunFeeder(feeder, -.2).withTimeout(1),
+      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false));
+
+
+
     TestBlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), BlueAutoTest);
     RedBalance = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), RedAutoBalancePath, new AutoBalance(drivetrain, xbox1, 5, 5));
     configureButtonBindings();
