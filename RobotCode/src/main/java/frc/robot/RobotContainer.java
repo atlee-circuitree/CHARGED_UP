@@ -245,27 +245,20 @@ public class RobotContainer {
    //TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.07, 0).withTimeout(.1), ScoringWpToConeWpTag3and6, Cone4PickUp);   
    // TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, 2.750, -1.041, 180).withTimeout(.1), Cone4PickUp);   
     TwoConeChargeTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+      new GoToFeederPosition(feeder, .2),
       new RunFeeder(feeder, .2).withTimeout(.5),
-      TopPositionAuto, 
+      new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false),
       new RunFeeder(feeder, -.2).withTimeout(1),
       new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
       GeneratePath(Constants.scoringWpToConeWpTag3and6),
-      new ParallelCommandGroup(new RunFeeder(feeder, .2).withTimeout(1), GeneratePath(Constants.cone4PickUp)),
-      new GoToAngleAndExtension(slide, 0, 0, 1, false),  
+      new GoToFeederPosition(feeder, -.2),
+      new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.cone4PickUp)),
+      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
       GeneratePath(Constants.coneWpToScoringWpTag3and6),  
       GeneratePath(Constants.scoreTag3and6North),
-      //TopPositionAuto, 
       new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false),
       new RunFeeder(feeder, -.2).withTimeout(1),
       new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
-      GeneratePath(Constants.scoringBalanceToBalanceWpTag3and6) 
-    );   
-   
-    TwoConeChargeTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
-      GeneratePath(Constants.scoringWpToConeWpTag3and6), 
-      GeneratePath(Constants.cone4PickUp),  
-      GeneratePath(Constants.coneWpToScoringWpTag3and6),  
-      GeneratePath(Constants.scoreTag3and6North),
       GeneratePath(Constants.scoringBalanceToBalanceWpTag3and6) 
     );   
     TwoConeCollectBalanceTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
@@ -325,14 +318,7 @@ public class RobotContainer {
       GeneratePath(Constants.cone3PickUp),
       GeneratePath(Constants.coneBalanceToBalanceWpTag2and7)
     );   
-    TwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
-      GeneratePath(Constants.scoringWpToConeWpTag1and8), 
-      GeneratePath(Constants.cone1PickUp), 
-      GeneratePath(Constants.coneWpToScoringWpTag1and8), 
-      GeneratePath(Constants.scoreTag1and8South),
-      GeneratePath(Constants.scoringWpToConeWpTag1and8),
-      GeneratePath(Constants.cone2PickUp)
-    ); 
+    
 
 
 
@@ -439,8 +425,8 @@ public class RobotContainer {
     driver2A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue + 1, 1, false));
     driver2X.whileTrue(new KillArm(slide));
 
-    driver2LB.onTrue(new GoToFeederPosition(feeder, -.2));
-    driver2RB.onTrue(new GoToFeederPosition(feeder, .2));
+    driver2LB.onTrue(new GoToFeederPosition(feeder, -.2)); //Close for cone
+    driver2RB.onTrue(new GoToFeederPosition(feeder, .2)); //Open for cube
 
     driver1RT.whileTrue(new IntakeFeeder(feeder));
     driver1LT.whileTrue(new RunFeeder(feeder, -1));
@@ -482,11 +468,11 @@ public class RobotContainer {
 
     } else if (Constants.autoSelect.getSelected() == "TwoConeCollectBalanceTag3and6") {
 
-      return TwoConeChargeTag3and6;
+      return TwoConeCollectBalanceTag3and6;
 
     } else if (Constants.autoSelect.getSelected() == "TwoConeCollectTag3and6") {
 
-      return TwoConeChargeTag3and6;
+      return TwoConeCollectTag3and6;
 
     } else if (Constants.autoSelect.getSelected() == "TwoConeChargeTag1and8") {
 
@@ -494,11 +480,11 @@ public class RobotContainer {
 
     } else if (Constants.autoSelect.getSelected() == "TwoConeCollectBalanceTag1and8") {
 
-      return TwoConeChargeTag1and8;
+      return TwoConeCollectBalanceTag1and8;
 
     } else if (Constants.autoSelect.getSelected() == "TwoConeCollectTag1and8") {
 
-      return TwoConeChargeTag1and8;
+      return TwoConeCollectTag1and8;
 
     } else if (Constants.autoSelect.getSelected() == "TwoConeChargeTag2and7") {
 
@@ -506,11 +492,11 @@ public class RobotContainer {
 
     } else if (Constants.autoSelect.getSelected() == "TwoConeCollectBalanceTag2and7") {
 
-      return TwoConeChargeTag2and7;
+      return TwoConeCollectBalanceTag2and7;
 
     } else if (Constants.autoSelect.getSelected() == "TwoConeCollectTag2and7") {
 
-      return TwoConeChargeTag2and7;
+      return TwoConeCollectTag2and7;
 
     } else {
 
