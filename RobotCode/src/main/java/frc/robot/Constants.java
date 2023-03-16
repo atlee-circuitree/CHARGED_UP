@@ -128,7 +128,7 @@ public final class Constants {
     }
 
     public final static class RedAutoCoordsTag3 {
-      public static final double[] rotate180_1 = {2.750, 1.041, 180};
+      public static final double[] rotate180 = {2.750, 1.041, 180};
     public static final double[] cone4PickUpStart = {1.750, 1.000, 180};
     public static final double[] cone4PickUpEnd = {1.250, 1.041, 180};
     public static final double[] cone3PickUpStart = {1.750, -0.200,180};
@@ -137,7 +137,10 @@ public final class Constants {
     public static final double[] cone2PickUpEnd = {1.250, -1.400, 180};
     public static final double[] cone1PickUpStart = {1.750, -2.630,180};
     public static final double[] cone1PickUpEnd = {1.250, -2.630, 180};
-    public static final double[] rotate180_2 = {1.250, 1.041, 0};
+    public static final double[] rotate180_1 =  {1.250, -2.630, 0, 0.2};
+    public static final double[] rotate180_2 = {1.250, -1.400, 0, 0.2};
+    public static final double[] rotate180_3 = {1.250, -0.200, 180, 0.2};
+    public static final double[] rotate180_4 = {1.250, 1.041, 180, 0.2};
     public static final double[] moveToConeWayPoint = {2.750, 1.041, 0};
     public static final double[] moveToScoreWayPoint = {6.000, 1.041, 0};
     public static final double[] moveToScoringPosition_3 = {6.495, 1.428,0};
@@ -152,8 +155,8 @@ public final class Constants {
     }
 */
     public final static class CoordsCones{
-        public static final double[] cone4PickUpStart = {1.750, 1.000, 180};
-        public static final double[] cone4PickUpEnd = {1.250, 1.041, 180};
+        public static final double[] cone4PickUpStart = {1.750, 1.041, 180};
+        public static final double[] cone4PickUpEnd = {.75, 1.041, 180};
         public static final double[] cone3PickUpStart = {1.750, -0.200,180};
         public static final double[] cone3PickUpEnd = {1.250, -0.200, 180};
         public static final double[] cone2PickUpStart = {1.750, -1.400,180};
@@ -198,41 +201,41 @@ public final class Constants {
     //Auto Trajectories
     public static final double[][] redAuto = {{0, 6.495, 0.92, 0, 0.2}, {1, 6.495, 0.92, 0, 0.2}};
     public static final double[][] redAutoTEST = {
-        {0, CoordsTags2and7.redStartingPosition_2[0], CoordsTags2and7.redStartingPosition_2[1], 0, 0.2}, 
-        {1, CoordsTags2and7.ScoringWayPoint[0], CoordsTags2and7.ScoringWayPoint[1], 0, 0.2},
-        {2, CoordsTags2and7.MidWayPoint[0], CoordsTags2and7.MidWayPoint[1], 0, 0.2},
-        {3, CoordsTags2and7.ConeWayPoint[0], CoordsTags2and7.ConeWayPoint[1], 0, 0.2},
-        {4, CoordsTags2and7.moveToPlatformWayPoint_2[0],  CoordsTags2and7.moveToPlatformWayPoint_2[1], 0, 0.2}
+        {0, CoordsTags2and7.redStartingPosition_2[0] * side, CoordsTags2and7.redStartingPosition_2[1], 0, 0.2}, 
+        {1, CoordsTags2and7.ScoringWayPoint[0] * side, CoordsTags2and7.ScoringWayPoint[1], 0, 0.2},
+        {2, CoordsTags2and7.MidWayPoint[0] * side, CoordsTags2and7.MidWayPoint[1], 0, 0.2},
+        {3, CoordsTags2and7.ConeWayPoint[0] * side, CoordsTags2and7.ConeWayPoint[1], 0, 0.2},
+        {4, CoordsTags2and7.moveToPlatformWayPoint_2[0] * side,  CoordsTags2and7.moveToPlatformWayPoint_2[1], 0, 0.2}
     };
 
     public static final double[][] redBalance = {
         {0, CoordsTags2and7.ScoringWayPoint[0] * side, CoordsTags2and7.ScoringWayPoint[1], 0, 0.2}, 
-        {1, CoordsTags2and7.MidWayPoint[0], CoordsTags2and7.MidWayPoint[1], 0, 0.2 }
+        {1, CoordsTags2and7.MidWayPoint[0] * side, CoordsTags2and7.MidWayPoint[1], 0, 0.2 }
     };
 
     public static double[][] scoringWpToConeWp = {
-        {0, CoordsTags3and6.ScoreWayPoint[0], CoordsTags3and6.ScoreWayPoint[1], 0, 0.2},
-        {1, CoordsTags3and6.ConeWayPoint[0], CoordsTags3and6.ConeWayPoint[1], 0, 0.05}
+        {0, CoordsTags3and6.ScoreWayPoint[0] * side, CoordsTags3and6.ScoreWayPoint[1], 0, 0.2},
+        {1, CoordsTags3and6.ConeWayPoint[0] * side, CoordsTags3and6.ConeWayPoint[1], 0, 0.05}
     };
 
     public static double[][] cone1PickUp = {
-        {0, CoordsCones.cone1PickUpStart[0], CoordsCones.cone1PickUpStart[1], 180, .05},
-        {1, CoordsCones.cone1PickUpEnd[0], CoordsCones.cone1PickUpEnd[1], 180, .05}
+        {0, CoordsCones.cone1PickUpStart[0] * side, CoordsCones.cone1PickUpStart[1], 180, .05},
+        {1, CoordsCones.cone1PickUpEnd[0] * side, CoordsCones.cone1PickUpEnd[1], 180, .05}
     };
     
     public static double[][] cone2PickUp = {
-        {0, CoordsCones.cone2PickUpStart[0], CoordsCones.cone2PickUpStart[1], 180, .05},
-        {1, CoordsCones.cone2PickUpEnd[0], CoordsCones.cone2PickUpEnd[1], 180, .05}
+        {0, CoordsCones.cone2PickUpStart[0] * side, CoordsCones.cone2PickUpStart[1], 180, .05},
+        {1, CoordsCones.cone2PickUpEnd[0] * side, CoordsCones.cone2PickUpEnd[1], 180, .05}
     };
 
 public static double[][] cone3PickUp = {
-        {0, CoordsCones.cone3PickUpStart[0], CoordsCones.cone3PickUpStart[1], 180, .05},
-        {1, CoordsCones.cone3PickUpEnd[0], CoordsCones.cone3PickUpEnd[1], 180, .05}
+        {0, CoordsCones.cone3PickUpStart[0] * side, CoordsCones.cone3PickUpStart[1], 180, .05},
+        {1, CoordsCones.cone3PickUpEnd[0] * side, CoordsCones.cone3PickUpEnd[1], 180, .05}
     };
 
     public static double[][] cone4PickUp = {
-        {0, CoordsCones.cone4PickUpStart[0], CoordsCones.cone4PickUpStart[1], 180, .05},
-        {1, CoordsCones.cone4PickUpEnd[0], CoordsCones.cone4PickUpEnd[1], 180, .05}
+        {0, CoordsCones.cone4PickUpStart[0] * side, CoordsCones.cone4PickUpStart[1], 180, .05},
+        {1, CoordsCones.cone4PickUpEnd[0] * side, CoordsCones.cone4PickUpEnd[1], 180, .05}
     };
     
     //Create Mode Select
