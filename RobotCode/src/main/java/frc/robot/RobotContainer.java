@@ -245,10 +245,19 @@ public class RobotContainer {
    //TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.07, 0).withTimeout(.1), ScoringWpToConeWpTag3and6, Cone4PickUp);   
    // TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, 2.750, -1.041, 180).withTimeout(.1), Cone4PickUp);   
     TwoConeChargeTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
-      GeneratePath(Constants.scoringWpToConeWpTag3and6), 
-      GeneratePath(Constants.cone4PickUp),  
+      new RunFeeder(feeder, .2).withTimeout(.5),
+      TopPositionAuto, 
+      new RunFeeder(feeder, -.2).withTimeout(1),
+      new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.scoringWpToConeWpTag3and6),
+      new ParallelCommandGroup(new RunFeeder(feeder, .2).withTimeout(1), GeneratePath(Constants.cone4PickUp)),
+      new GoToAngleAndExtension(slide, 0, 0, 1, false),  
       GeneratePath(Constants.coneWpToScoringWpTag3and6),  
-      GeneratePath(Constants.scoreTag3and6North), 
+      GeneratePath(Constants.scoreTag3and6North),
+      //TopPositionAuto, 
+      new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false),
+      new RunFeeder(feeder, -.2).withTimeout(1),
+      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
       GeneratePath(Constants.scoringBalanceToBalanceWpTag3and6) 
     );   
    
