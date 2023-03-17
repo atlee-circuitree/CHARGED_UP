@@ -107,6 +107,7 @@ public class RobotContainer {
   SequentialCommandGroup TestBlueAuto;
   SequentialCommandGroup RedBalance;
 
+  SequentialCommandGroup GoToBottom;
   SequentialCommandGroup TwoConeChargeTag1and8;
   SequentialCommandGroup TwoConeCollectTag1and8;
   SequentialCommandGroup TwoConeCollectBalanceTag1and8;
@@ -249,8 +250,8 @@ public class RobotContainer {
       new RunFeeder(feeder, .2).withTimeout(.5),
       new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false),
       new RunFeeder(feeder, -.2).withTimeout(1),
-      new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
-      GeneratePath(Constants.scoringWpToConeWpTag3and6),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.scoringWpToConeWpTag3and6)),
       new GoToFeederPosition(feeder, -.2),
       new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.cone4PickUp)),
       new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
@@ -320,7 +321,7 @@ public class RobotContainer {
     );   
     
 
-
+    GoToBottom = new SequentialCommandGroup(new GoToAngleAndExtension(slide, 0, 0, 0, false));
 
 
 
@@ -422,7 +423,7 @@ public class RobotContainer {
 
     driver2Y.onTrue(TopPosition);
     driver2B.onTrue(MiddlePosition);
-    driver2A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue + 1, 1, false));
+    driver2A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue + 1, 1, true));
     driver2X.whileTrue(new KillArm(slide));
 
     driver2LB.onTrue(new GoToFeederPosition(feeder, -.2)); //Close for cone

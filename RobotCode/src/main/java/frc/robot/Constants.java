@@ -186,7 +186,7 @@ public final class Constants {
         public static final double[] ConeWayPoint = {2.75, -0.8, 0};
         public static final double[] PlatformWayPoint = {4.400, -0.200, 0}; // Raw odemetry stop point 3.7
         public static final double[] ScorePlatformWayPoint = {6.000, -0.8, 0}; 
-        public static final double[] ConePlatformWayPoint = {2.875, -0.8, 0}; //2.75 before 3/16/23
+        public static final double[] ConePlatformWayPoint = {2.875, -0.8, 0}; //Before x = 2.75 3/16/23
     }
 
     public final static class CoordsTags3and6 {
@@ -196,7 +196,7 @@ public final class Constants {
         public static final double[] ScoreWayPoint = {6.000, 1.041, 0};
         public static final double[] MidWayPoint = {4.400, 1.041, 0};
         public static final double[] ConeWayPoint = {2.75, 1.041, 0}; 
-        public static final double[] PlatformWayPoint = {4.400, -0.200, 0}; 
+        public static final double[] PlatformWayPoint = {4.40, -0.200, 0};
         public static final double[] ScorePlatformWayPoint = {6.000, -0.200, 0}; 
         public static final double[] ConePlatformWayPoint = {2.75, -0.200, 0}; 
     }
@@ -407,7 +407,7 @@ public final class Constants {
  
     public static final double angleOffset = -11.5;
     public static final double maxAngleEncoderValue = 36.2;
-    public static final double minAngleEncoderValue = -14.0;
+    public static final double minAngleEncoderValue = -17; //Before -14.0 3/16/23
     //public static final double maxAngleEncoderValue = 9999;
     //public static final double minAngleEncoderValue = -9999;
 
