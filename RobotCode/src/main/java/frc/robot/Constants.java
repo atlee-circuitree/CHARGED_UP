@@ -208,6 +208,8 @@ public final class Constants {
     //public static final double[][] testCoords = {{0, -6.445, 0.92, 0, .2}, {1, -2.214, 1.041, 0, .1}};
     public static final double[][] testCoords = {{0, 4.445, 1.92, 0, .025}, {1, 4.445, 1.92, 0, .025}};
 
+    public static final double[][] JustScoreAndDriveBack = {{0, 0, 0, 0, 0.2}, {1, 3.05, 0, 0, .05}};
+
     //Blue Auto
     public static final double[][] blueAuto = {{0, 6.495, 0.92, 0, 0.2}, {1, 2.750, 1.041, 0, 0.2}};
     //public static final double[][] blueAutoTEST = {BlueAutoCoordsTag7.blueStartingPosition_2, BlueAutoCoordsTag7.moveToScoringWayPoint, BlueAutoCoordsTag7.moveToPlatformWayPoint_1, BlueAutoCoordsTag7.moveToMiddleConeWayPoint, BlueAutoCoordsTag7.moveToPlatformWayPoint_2};
@@ -560,7 +562,7 @@ public static double[][] BlueScoreTag3and6North = {
     public static final double minGrabEncoderValue = .40;
  
     public static final double maxExtensionValue = 52;
-    public static final double minExtensionValue = 0;
+    public static final double minExtensionValue = -2;
 
     public static final double limelightSingleTargetPoseLengthCutoff = 1.9;
 
