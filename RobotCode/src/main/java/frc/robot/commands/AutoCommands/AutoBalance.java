@@ -57,9 +57,11 @@ public class AutoBalance extends CommandBase {
     SmartDashboard.putNumber("Robot Straight Speed", horizontalSpeed);
     SmartDashboard.putNumber("Robot Turn Speed", turnSpeed);
     SmartDashboard.putString("Is robot level", movementDirection);
+    SmartDashboard.putNumber("Roll", drivetrain.getNavXRollOutput());
+
 
     //Speed PID calculations
-    horizontalSpeed = drivetrain.getNavXPitchOutput() * Constants.aBalanceXConstant;
+    horizontalSpeed = drivetrain.getNavXRollOutput() * Constants.aBalanceXConstant;
     turnSpeed = Math.abs(drivetrain.getNavXYawOutput()) * Constants.aBalanceTurnConstant;
 
      //Speed clamps
@@ -118,13 +120,13 @@ public class AutoBalance extends CommandBase {
      drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
 
      //When NavX thinks tilted back, drive motors forward
-     if (drivetrain.getNavXPitchOutput() > pitchTolerance) {
+     if (drivetrain.getNavXRollOutput() > pitchTolerance) {
         
        drivetrain.driveAllModules(horizontalSpeed);
        movementDirection = "Moving Forwards";
        
      //When NavX thinks tilted forward, drive motors backwards
-     } else if (drivetrain.getNavXPitchOutput() < -pitchTolerance) {
+     } else if (drivetrain.getNavXRollOutput() < -pitchTolerance) {
 
        drivetrain.driveAllModules(-horizontalSpeed);
        movementDirection = "Moving Backwards";
@@ -147,11 +149,20 @@ public class AutoBalance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (xbox.getXButton() == false) {
+    /*if (xbox.getXButton() == false) {
      
       return true;
 
     } else if (drivetrain.getNavXPitchOutput() < pitchTolerance && drivetrain.getNavXPitchOutput() > -pitchTolerance) {
+
+      return true;
+      
+    } else {
+
+      return false;
+
+    }*/
+    if (drivetrain.getNavXRollOutput() < pitchTolerance && drivetrain.getNavXRollOutput() > -pitchTolerance) {
 
       return true;
       

@@ -209,6 +209,9 @@ public class DriveWithXbox extends CommandBase {
     SmartDashboard.putNumber("Limelight Botpose TX", limelight.BotPose()[0]);
     SmartDashboard.putNumber("Limelight Botpose TY", limelight.BotPose()[1]);
 
+    SmartDashboard.putNumber("Roll", drivetrain.getNavXRollOutput());
+
+
     //Reset gyro button
     if(xbox.getBackButtonPressed()){
       drivetrain.zeroNavXYaw();
