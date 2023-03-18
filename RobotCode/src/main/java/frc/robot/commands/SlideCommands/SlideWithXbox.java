@@ -61,7 +61,7 @@ public class SlideWithXbox extends CommandBase {
 
     if (secondaryXbox.getStartButton()) {
 
-      slide.changeAngleUsingPowerNoLimit(-secondaryXbox.getLeftY());
+      slide.changeAngleUsingPowerNoLimit(-secondaryXbox.getLeftY() / 2);
   
     } else {
   
@@ -71,7 +71,7 @@ public class SlideWithXbox extends CommandBase {
  
     if (secondaryXbox.getStartButton()) {
 
-      slide.extendArmUsingPowerNoLimit(-secondaryXbox.getRightY() / 1);
+      slide.extendArmUsingPowerNoLimit(-secondaryXbox.getRightY() / 2);
       slide.resetExtensionEncoder();
   
     } else {

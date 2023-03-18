@@ -25,7 +25,8 @@ import frc.robot.subsystems.Limelight;
  
 public final class Constants {
 
-    public static double side = 1;
+    // Red 1, Blue -1
+    public static double side = -1;
 
     public DriverStation drive;
 
@@ -398,8 +399,11 @@ public final class Constants {
     //Encoder Values
     public static final double frontLeftEncoderOffset = 284.58984375;
     public static final double frontRightEncoderOffset = 254.267578125;
-    public static final double rearLeftEncoderOffset = 127.353515625;
-    public static final double rearRightEncoderOffset = 72.509765625;
+    //public static final double rearLeftEncoderOffset = 127.353515625;
+    public static final double rearLeftEncoderOffset = 129.353515625;
+    //public static final double rearRightEncoderOffset = 72.509765625;
+    //public static final double rearRightEncoderOffset = 75.41015625;
+    public static final double rearRightEncoderOffset = 76.41015625;
 
     public static final int angleEncoderDIO = 0;
     public static final int feederRotationEncoderDIO = 1;
@@ -407,7 +411,7 @@ public final class Constants {
  
     public static final double angleOffset = -11.5;
     public static final double maxAngleEncoderValue = 36.2;
-    public static final double minAngleEncoderValue = -14.0;
+    public static final double minAngleEncoderValue = -17.0;
     //public static final double maxAngleEncoderValue = 9999;
     //public static final double minAngleEncoderValue = -9999;
 
