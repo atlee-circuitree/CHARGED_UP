@@ -59,7 +59,7 @@ public class AutoBalance extends CommandBase {
     SmartDashboard.putString("Is robot level", movementDirection);
 
     //Speed PID calculations
-    horizontalSpeed = Math.abs(drivetrain.getNavXPitchOutput()) * Constants.aBalanceXConstant;
+    horizontalSpeed = drivetrain.getNavXPitchOutput() * Constants.aBalanceXConstant;
     turnSpeed = Math.abs(drivetrain.getNavXYawOutput()) * Constants.aBalanceTurnConstant;
 
      //Speed clamps
