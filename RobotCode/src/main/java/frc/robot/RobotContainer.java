@@ -118,22 +118,34 @@ public class RobotContainer {
   SequentialCommandGroup JustScoreAndDriveBack;
 
   SequentialCommandGroup GoToBottom;
+  SequentialCommandGroup RedOneConeLineTag1and8;
   SequentialCommandGroup RedTwoConeChargeTag1and8;
   SequentialCommandGroup RedTwoConeCollectTag1and8;
   SequentialCommandGroup RedTwoConeCollectBalanceTag1and8;
+
+  SequentialCommandGroup RedOneConeLineTag2and7;
+  SequentialCommandGroup RedOneConeBalanceTag2and7;
   SequentialCommandGroup RedTwoConeChargeTag2and7;
   SequentialCommandGroup RedTwoConeCollectTag2and7;
   SequentialCommandGroup RedTwoConeCollectBalanceTag2and7;
+
+  SequentialCommandGroup RedOneConeLineTag3and6;
   SequentialCommandGroup RedTwoConeChargeTag3and6;
   SequentialCommandGroup RedTwoConeCollectTag3and6;
   SequentialCommandGroup RedTwoConeCollectBalanceTag3and6;
   
+  SequentialCommandGroup BlueOneConeLineTag1and8;
   SequentialCommandGroup BlueTwoConeChargeTag1and8;
   SequentialCommandGroup BlueTwoConeCollectTag1and8;
   SequentialCommandGroup BlueTwoConeCollectBalanceTag1and8;
+
+  SequentialCommandGroup BlueOneConeLineTag2and7;
+  SequentialCommandGroup BlueOneConeBalanceTag2and7;
   SequentialCommandGroup BlueTwoConeChargeTag2and7;
   SequentialCommandGroup BlueTwoConeCollectTag2and7;
   SequentialCommandGroup BlueTwoConeCollectBalanceTag2and7;
+
+  SequentialCommandGroup BlueOneConeLineTag3and6;
   SequentialCommandGroup BlueTwoConeChargeTag3and6;
   SequentialCommandGroup BlueTwoConeCollectTag3and6;
   SequentialCommandGroup BlueTwoConeCollectBalanceTag3and6;
@@ -153,15 +165,38 @@ public class RobotContainer {
     Constants.autoSelect.addOption("TEST Red Side", "TEST Red Side");
     Constants.autoSelect.addOption("TEST Blue Side", "TEST Blue Side");
     Constants.autoSelect.addOption("Red Side Balance", "Red Side Balance");
-    Constants.autoSelect.addOption("RedTwoConeChargeTag3and6", "RedTwoConeChargeTag3and6");
-    Constants.autoSelect.addOption("TwoConeCollectBalanceTag3and6", "TwoConeCollectBalanceTag3and6");
-    Constants.autoSelect.addOption("TwoConeCollectTag3and6", "TwoConeCollectTag3and6");
-    Constants.autoSelect.addOption("TwoConeChargeTag1and8", "TwoConeChargeTag1and8");
-    Constants.autoSelect.addOption("TwoConeCollectBalanceTag1and8", "TwoConeCollectBalanceTag1and8");
+
+    Constants.autoSelect.addOption("RedOneConeLineTag1and8", "RedOneConeLineTag1and8");
+    Constants.autoSelect.addOption("RedOneConeLineTag2and7", "RedOneConeLineTag2and7");
+    Constants.autoSelect.addOption("RedOneConeLineTag3and6", "RedOneConeLineTag3and6");
+    Constants.autoSelect.addOption("RedOneConeBalanceTag2and7", "RedOneConeBalanceTag2and7");
+
+    Constants.autoSelect.addOption("BlueOneConeLineTag1and8", "BlueOneConeLineTag1and8");
+    Constants.autoSelect.addOption("BlueOneConeLineTag2and7", "BlueOneConeLineTag2and7");
+    Constants.autoSelect.addOption("BlueOneConeLineTag3and6", "BlueOneConeLineTag3and6");
+    Constants.autoSelect.addOption("BlueOneConeBalanceTag2and7", "BlueOneConeBalanceTag2and7");
+
+
+    Constants.autoSelect.addOption("RedTwoConeChargeTag1and8", "RedTwoConeChargeTag1and8");
+    Constants.autoSelect.addOption("RedTwoConeCollectBalanceTag1and8", "RedTwoConeCollectBalanceTag1and8");
     Constants.autoSelect.addOption("RedTwoConeCollectTag1and8", "RedTwoConeCollectTag1and8");
-    Constants.autoSelect.addOption("TwoConeChargeTag2and7", "TwoConeChargeTag2and7");
-    Constants.autoSelect.addOption("TwoConeCollectBalanceTag2and7", "TwoConeCollectBalanceTag2and7");
-    Constants.autoSelect.addOption("TwoConeCollectTag2and7", "TwoConeCollectTag2and7");
+    Constants.autoSelect.addOption("RedTwoConeChargeTag2and7", "RedTwoConeChargeTag2and7");
+    Constants.autoSelect.addOption("RedTwoConeCollectBalanceTag2and7", "RedTwoConeCollectBalanceTag2and7");
+    Constants.autoSelect.addOption("RedTwoConeCollectTag2and7", "RedTwoConeCollectTag2and7");
+    Constants.autoSelect.addOption("RedTwoConeChargeTag3and6", "RedTwoConeChargeTag3and6");
+    Constants.autoSelect.addOption("RedTwoConeCollectBalanceTag3and6", "RedTwoConeCollectBalanceTag3and6");
+    Constants.autoSelect.addOption("RedTwoConeCollectTag3and6", "RedTwoConeCollectTag3and6");
+
+    Constants.autoSelect.addOption("BlueTwoConeChargeTag1and8", "BlueTwoConeChargeTag1and8");
+    Constants.autoSelect.addOption("BlueTwoConeCollectBalanceTag1and8", "BlueTwoConeCollectBalanceTag1and8");
+    Constants.autoSelect.addOption("BlueTwoConeCollectTag1and8", "BlueTwoConeCollectTag1and8");
+    Constants.autoSelect.addOption("BlueTwoConeChargeTag2and7", "BlueTwoConeChargeTag2and7");
+    Constants.autoSelect.addOption("BlueTwoConeCollectBalanceTag2and7", "BlueTwoConeCollectBalanceTag2and7");
+    Constants.autoSelect.addOption("BlueTwoConeCollectTag2and7", "BlueTwoConeCollectTag2and7");
+    Constants.autoSelect.addOption("BlueTwoConeChargeTag3and6", "BlueTwoConeChargeTag3and6");
+    Constants.autoSelect.addOption("BlueTwoConeCollectBalanceTag3and6", "BlueTwoConeCollectBalanceTag3and6");
+    Constants.autoSelect.addOption("BlueTwoConeCollectTag3and6", "BlueTwoConeCollectTag3and6");
+
     Constants.autoSelect.addOption("JustScoreAndDriveBack", "JustScoreAndDriveBack");
     Constants.autoSelect.addOption("JustScore", "JustScore");
     Constants.autoSelect.addOption("Nothing", "Nothing");
@@ -303,7 +338,32 @@ public class RobotContainer {
       new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
       GeneratePath(Constants.RedScoringBalanceToBalanceWpTag3and6) 
     );  
+
+    RedOneConeLineTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+      GenerateScoreHigh(),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.RedScoringWpToConeWpTag1and8)),
+      new GoToFeederPosition(feeder, -.2)
+    );  
+
+    RedOneConeLineTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+      GenerateScoreHigh(),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.RedScoringWpToConeWpTag2and7)),
+      new GoToFeederPosition(feeder, -.2)
+    );  
     
+    RedOneConeLineTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+      GenerateScoreHigh(),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.RedScoringWpToConeWpTag3and6)),
+      new GoToFeederPosition(feeder, -.2)
+    );  
+
+  
+
+
+
     BlueTwoConeChargeTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.BLUE_SIDE))/2)).withTimeout(.1), 
     GenerateScoreHigh(),
     new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
@@ -407,12 +467,43 @@ public class RobotContainer {
       GeneratePath(Constants.RedCone3PickUp),
       GeneratePath(Constants.RedConeBalanceToBalanceWpTag2and7)
     );   
+
+    RedOneConeBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+    GenerateScoreHigh(),
+    new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+    GeneratePath(Constants.RedScoringWpToConeWpTag2and7)),
+    GeneratePath(Constants.RedConeBalanceToBalanceWpTag2and7)
+  );   
+
+
+
     
 //---------------------------------
 //Blue
 //--------------------------------
 
-BlueTwoConeCollectBalanceTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+    BlueOneConeLineTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+      GenerateScoreHigh(),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.BlueScoringWpToConeWpTag1and8)),
+      new GoToFeederPosition(feeder, -.2)
+    );  
+
+    BlueOneConeLineTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+      GenerateScoreHigh(),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.BlueScoringWpToConeWpTag2and7)),
+      new GoToFeederPosition(feeder, -.2)
+    );  
+    
+    BlueOneConeLineTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+      GenerateScoreHigh(),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.BlueScoringWpToConeWpTag3and6)),
+      new GoToFeederPosition(feeder, -.2)
+    );  
+
+BlueTwoConeCollectBalanceTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
 GenerateScoreHigh(),
 GeneratePath(Constants.BlueScoringWpToConeWpTag3and6),  
 GeneratePath(Constants.BlueCone4PickUp), 
@@ -422,7 +513,7 @@ GeneratePath(Constants.BlueScoringWpToConeWpTag3and6),
 GeneratePath(Constants.BlueCone3PickUp), 
 GeneratePath(Constants.BlueConeBalanceToBalanceWpTag3and6)
 );   
-BlueTwoConeCollectTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+BlueTwoConeCollectTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
 GenerateScoreHigh(), 
 GeneratePath(Constants.BlueScoringWpToConeWpTag3and6), 
 GeneratePath(Constants.BlueCone4PickUp), 
@@ -431,7 +522,7 @@ GeneratePath(Constants.BlueScoreTag3and6North),
 GeneratePath(Constants.BlueScoringWpToConeWpTag3and6),
 GeneratePath(Constants.BlueCone3PickUp)
 );    
-BlueTwoConeChargeTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+BlueTwoConeChargeTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
 GenerateScoreHigh(),
 GeneratePath(Constants.BlueScoringWpToConeWpTag1and8), 
 GeneratePath(Constants.BlueCone1PickUp), 
@@ -439,7 +530,7 @@ GeneratePath(Constants.BlueConeWpToScoringWpTag1and8),
 GeneratePath(Constants.BlueScoreTag1and8South),
 GeneratePath(Constants.BlueScoringBalanceToBalanceWpTag1and8)
 );   
-BlueTwoConeCollectBalanceTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+BlueTwoConeCollectBalanceTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
 GenerateScoreHigh(),
 GeneratePath(Constants.BlueScoringWpToConeWpTag1and8), 
 GeneratePath(Constants.BlueCone1PickUp), 
@@ -449,7 +540,7 @@ GeneratePath(Constants.BlueScoringWpToConeWpTag3and6),
 GeneratePath(Constants.BlueCone2PickUp),
 GeneratePath(Constants.BlueConeBalanceToBalanceWpTag1and8)
 );   
-BlueTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+BlueTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
 GenerateScoreHigh(),
 GeneratePath(Constants.BlueScoringWpToConeWpTag1and8), 
 GeneratePath(Constants.BlueCone1PickUp), 
@@ -458,7 +549,7 @@ GeneratePath(Constants.BlueScoreTag1and8South),
 GeneratePath(Constants.BlueScoringWpToConeWpTag1and8),
 GeneratePath(Constants.BlueCone2PickUp)
 ); 
-BlueTwoConeChargeTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+BlueTwoConeChargeTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
 GenerateScoreHigh(),
 GeneratePath(Constants.BlueScoringWpToConeWpTag2and7), 
 GeneratePath(Constants.BlueCone2PickUp), 
@@ -466,7 +557,7 @@ GeneratePath(Constants.BlueConeWpToScoringWpTag2and7),
 GeneratePath(Constants.BlueScoreTag2and7South), 
 GeneratePath(Constants.BlueScoringBalanceToBalanceWpTag2and7)
 );   
-BlueTwoConeCollectBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+BlueTwoConeCollectBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
 GenerateScoreHigh(),
 GeneratePath(Constants.BlueScoringWpToConeWpTag2and7), 
 GeneratePath(Constants.BlueCone2PickUp), 
@@ -476,6 +567,14 @@ GeneratePath(Constants.BlueScoringWpToConeWpTag2and7),
 GeneratePath(Constants.BlueCone3PickUp),
 GeneratePath(Constants.BlueConeBalanceToBalanceWpTag2and7)
 );   
+
+  BlueOneConeBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+    GenerateScoreHigh(),
+    new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+    GeneratePath(Constants.BlueScoringWpToConeWpTag2and7)),
+    GeneratePath(Constants.BlueConeBalanceToBalanceWpTag2and7)
+  );   
+
 
     GoToBottom = new SequentialCommandGroup(new GoToAngleAndExtension(slide, 0, 0, 0, false));
 
@@ -579,9 +678,10 @@ GeneratePath(Constants.BlueConeBalanceToBalanceWpTag2and7)
 
     driver2Y.onTrue(TopPosition);
     driver2B.onTrue(MiddlePosition);
-    driver2A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 0, 1, false));
+    driver2A.onTrue(new GoToAngleAndExtension(slide, -17, 2.2, 1, false, 2.2));
     driver2X.whileTrue(new KillArm(slide));
 
+    // Negative speed for cone, positive speed for cube
     driver2LB.onTrue(new GoToFeederPosition(feeder, -.2)); //Close for cone
     driver2RB.onTrue(new GoToFeederPosition(feeder, .2)); //Open for cube
 
@@ -619,7 +719,23 @@ GeneratePath(Constants.BlueConeBalanceToBalanceWpTag2and7)
 
       return RedBalance;
 
-    } else if (Constants.autoSelect.getSelected() == "RedTwoConeChargeTag3and6") {
+    } else if (Constants.autoSelect.getSelected() == "RedOneConeLineTag1and8") {
+
+      return RedOneConeLineTag1and8;
+
+    } else if (Constants.autoSelect.getSelected() == "RedOneConeLineTag2and7") {
+
+      return RedOneConeLineTag2and7;
+    
+    } else if (Constants.autoSelect.getSelected() == "RedOneConeLineTag3and6") {
+
+      return RedOneConeLineTag3and6;
+    
+    } else if (Constants.autoSelect.getSelected() == "RedOneConeBalanceTag2and7") {
+
+      return RedOneConeBalanceTag2and7;
+    
+    }  else if (Constants.autoSelect.getSelected() == "RedTwoConeChargeTag3and6") {
 
       return RedTwoConeChargeTag3and6;
 
@@ -655,6 +771,10 @@ GeneratePath(Constants.BlueConeBalanceToBalanceWpTag2and7)
 
       return RedTwoConeCollectTag2and7;
 
+    } else if (Constants.autoSelect.getSelected() == "BlueOneConeBalanceTag2and7") {
+
+      return BlueOneConeBalanceTag2and7;
+    
     } else if (Constants.autoSelect.getSelected() == "BlueTwoConeChargeTag3and6") {
 
       return BlueTwoConeChargeTag3and6;
@@ -691,8 +811,19 @@ GeneratePath(Constants.BlueConeBalanceToBalanceWpTag2and7)
 
       return BlueTwoConeCollectTag2and7;
 
-    }
-    else if (Constants.autoSelect.getSelected() == "JustScoreAndDriveBack") {
+    } else if (Constants.autoSelect.getSelected() == "BlueOneConeLineTag1and8") {
+
+      return BlueOneConeLineTag1and8;
+
+    } else if (Constants.autoSelect.getSelected() == "BlueOneConeLineTag2and7") {
+
+      return BlueOneConeLineTag2and7;
+
+    } else if (Constants.autoSelect.getSelected() == "BlueOneConeLineTag3and6") {
+
+      return BlueOneConeLineTag3and6;
+
+    }  else if (Constants.autoSelect.getSelected() == "JustScoreAndDriveBack") {
 
       return null;
 
@@ -706,8 +837,7 @@ GeneratePath(Constants.BlueConeBalanceToBalanceWpTag2and7)
 
       return null;
 
-    } 
-    else {
+    }  else {
 
       return null;
 

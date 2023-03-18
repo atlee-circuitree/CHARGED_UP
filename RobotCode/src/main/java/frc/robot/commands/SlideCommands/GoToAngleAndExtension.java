@@ -17,7 +17,21 @@ public class GoToAngleAndExtension extends CommandBase {
   boolean doubleTap;
   double stage;
   double endStage;
+  double bottomLimit;
  
+  public GoToAngleAndExtension(Slide sl, double TargetAngle, double TargetExtension, double Tolerance, boolean DoubleTap, double BottomLimit) {
+ 
+    slide = sl;
+    targetAngle = TargetAngle;
+    targetExtension = TargetExtension;
+    tolerance = Tolerance;
+    doubleTap = DoubleTap;
+    bottomLimit = BottomLimit;
+
+    addRequirements(slide);
+    
+  }
+
   public GoToAngleAndExtension(Slide sl, double TargetAngle, double TargetExtension, double Tolerance, boolean DoubleTap) {
  
     slide = sl;
@@ -25,6 +39,7 @@ public class GoToAngleAndExtension extends CommandBase {
     targetExtension = TargetExtension;
     tolerance = Tolerance;
     doubleTap = DoubleTap;
+    bottomLimit = 0;
 
     addRequirements(slide);
     
@@ -78,11 +93,11 @@ public class GoToAngleAndExtension extends CommandBase {
     if (stage == 1) {
 
       System.out.println("Stage 1 Running");
-      if (slide.getExtensionEncoderInches() < 0 - tolerance) {
+      if (slide.getExtensionEncoderInches() < bottomLimit - tolerance) {
 
         slide.extendArmUsingPower(1);
   
-      } else if (slide.getExtensionEncoderInches() > 0 + tolerance) {
+      } else if (slide.getExtensionEncoderInches() > bottomLimit + tolerance) {
   
         slide.extendArmUsingPower(-1);
   
