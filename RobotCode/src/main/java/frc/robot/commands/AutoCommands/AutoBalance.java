@@ -20,8 +20,7 @@ public class AutoBalance extends CommandBase {
 
   private Drivetrain drivetrain = new Drivetrain();
   private XboxController xbox;
-  private double pitchTolerance;
-  private double yawTolerance;
+  private double rollTolerance;
   
   private double horizontalSpeed;
   private double turnSpeed;
@@ -31,11 +30,10 @@ public class AutoBalance extends CommandBase {
   private String movementDirection = "Level";
 
 
-  public AutoBalance(Drivetrain dt, XboxController xboxController, double YawTolerance, double PitchTolerance) {
+  public AutoBalance(Drivetrain dt, XboxController xboxController, double RollTolerance) {
     // Use addRequirements() here to declare subsystem dependencies.
     drivetrain = dt;
-    pitchTolerance = PitchTolerance;
-    yawTolerance = YawTolerance;
+    rollTolerance = RollTolerance;
     xbox = xboxController;
 
     addRequirements(drivetrain);
@@ -58,24 +56,26 @@ public class AutoBalance extends CommandBase {
     SmartDashboard.putNumber("Robot Turn Speed", turnSpeed);
     SmartDashboard.putString("Is robot level", movementDirection);
     SmartDashboard.putNumber("Roll", drivetrain.getNavXRollOutput());
+    
+
 
 
     //Speed PID calculations
-    horizontalSpeed = drivetrain.getNavXRollOutput() * Constants.aBalanceXConstant;
-    turnSpeed = Math.abs(drivetrain.getNavXYawOutput()) * Constants.aBalanceTurnConstant;
+    horizontalSpeed = Math.sin(drivetrain.getNavXRollOutput()) * Constants.aBalanceXConstant;
+    //turnSpeed = Math.abs(drivetrain.getNavXYawOutput()) * Constants.aBalanceTurnConstant;
 
      //Speed clamps
-    if (horizontalSpeed < -1) {
-      horizontalSpeed = -1;
-    } else if (horizontalSpeed > 1) {
-      horizontalSpeed = 1;
+    if (horizontalSpeed < -.27) {
+      horizontalSpeed = -.27;
+    } else if (horizontalSpeed > .27) {
+      horizontalSpeed = .27;
     }
 
-    if (turnSpeed < -1) {
+    /*if (turnSpeed < -1) {
       turnSpeed = -1;
     } else if (turnSpeed > 1) {
       turnSpeed = 1;
-    }
+    }*/
 
     //AutoBalance Movement
     //Rotates robot until heading is perpendicular with ramp
@@ -112,23 +112,16 @@ public class AutoBalance extends CommandBase {
     }
   }*/
 
-   //if (state == 1) {
-     //Sets wheel angle to forward position
-     drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 0, 1);
-     drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
-     drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
-     drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
-
      //When NavX thinks tilted back, drive motors forward
-     if (drivetrain.getNavXRollOutput() > pitchTolerance) {
+     if (drivetrain.getNavXRollOutput() > rollTolerance) {
         
-       drivetrain.driveAllModules(horizontalSpeed);
+       drivetrain.driveAllModules(-horizontalSpeed);
        movementDirection = "Moving Forwards";
        
      //When NavX thinks tilted forward, drive motors backwards
-     } else if (drivetrain.getNavXRollOutput() < -pitchTolerance) {
+     } else if (drivetrain.getNavXRollOutput() < -rollTolerance) {
 
-       drivetrain.driveAllModules(-horizontalSpeed);
+       drivetrain.driveAllModules(horizontalSpeed);
        movementDirection = "Moving Backwards";
   
      } else {
@@ -138,38 +131,40 @@ public class AutoBalance extends CommandBase {
        //state = 0;
     
       }
+
+
+      if (drivetrain.getNavXRollOutput() < rollTolerance && drivetrain.getNavXRollOutput() > -rollTolerance) {
+
+        drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 90, 1);
+        drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 90, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_LEFT, 90, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 90, 1); 
+
+      } else {
+  
+        drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 0, 1);
+        drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
+  
+      }
+
+
     }
+    
   
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
 
+    
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    /*if (xbox.getXButton() == false) {
-     
-      return true;
-
-    } else if (drivetrain.getNavXPitchOutput() < pitchTolerance && drivetrain.getNavXPitchOutput() > -pitchTolerance) {
-
-      return true;
-      
-    } else {
-
+    
       return false;
 
-    }*/
-    if (drivetrain.getNavXRollOutput() < pitchTolerance && drivetrain.getNavXRollOutput() > -pitchTolerance) {
-
-      return true;
-      
-    } else {
-
-      return false;
-
-    }
   }
 }
