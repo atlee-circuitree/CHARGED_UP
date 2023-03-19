@@ -471,9 +471,10 @@ public class RobotContainer {
 
     RedOneConeBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
     GenerateScoreHigh(),
-    new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
-    GeneratePath(Constants.RedScoringWpToConeWpTag2and7)),
-    GeneratePath(Constants.RedConeBalanceToBalanceWpTag2and7)
+    new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)),  
+    //GeneratePath(Constants.RedScoringWpToConeWpTag2and7)),
+    GeneratePath(Constants.RedScoringBalanceToBalanceWpTag2and7),
+    AutoBalance
 
   );   
 
@@ -681,7 +682,7 @@ GeneratePath(Constants.BlueConeBalanceToBalanceWpTag2and7)
 
     driver2Y.onTrue(TopPosition);
     driver2B.onTrue(MiddlePosition);
-    driver2A.onTrue(new GoToAngleAndExtension(slide, -17, 2.2, 1, false, 2.2));
+    //driver2A.onTrue(new GoToAngleAndExtension(slide, -17, 2.2, 1, false, 2.2));
     driver2X.whileTrue(new KillArm(slide));
 
     // Negative speed for cone, positive speed for cube

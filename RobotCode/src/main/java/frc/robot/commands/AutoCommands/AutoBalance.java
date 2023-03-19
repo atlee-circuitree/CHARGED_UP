@@ -61,7 +61,7 @@ public class AutoBalance extends CommandBase {
 
 
     //Speed PID calculations
-    horizontalSpeed = Math.sin(drivetrain.getNavXRollOutput()) * Constants.aBalanceXConstant;
+    horizontalSpeed = Math.sin(Math.toRadians(drivetrain.getNavXRollOutput()) * Constants.aBalanceXConstant);
     //turnSpeed = Math.abs(drivetrain.getNavXYawOutput()) * Constants.aBalanceTurnConstant;
 
      //Speed clamps
@@ -121,7 +121,7 @@ public class AutoBalance extends CommandBase {
      //When NavX thinks tilted forward, drive motors backwards
      } else if (drivetrain.getNavXRollOutput() < -rollTolerance) {
 
-       drivetrain.driveAllModules(horizontalSpeed);
+       drivetrain.driveAllModules(-horizontalSpeed);
        movementDirection = "Moving Backwards";
   
      } else {
@@ -132,7 +132,7 @@ public class AutoBalance extends CommandBase {
     
       }
 
-
+/* 
       if (drivetrain.getNavXRollOutput() < rollTolerance && drivetrain.getNavXRollOutput() > -rollTolerance) {
 
         drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 90, 1);
@@ -149,7 +149,11 @@ public class AutoBalance extends CommandBase {
   
       }
 
-
+*/
+        drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 0, 1);
+        drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
     }
     
   
