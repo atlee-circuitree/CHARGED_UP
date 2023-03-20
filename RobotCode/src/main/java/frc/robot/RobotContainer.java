@@ -379,8 +379,6 @@ public class RobotContainer {
     GenerateScoreHigh(),
     new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
     GeneratePath(Constants.RedScoringWpToConeWpTag1and8))
-    
-    /*
     new GoToFeederPosition(feeder, -.2),
     new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.RedCone1PickUp)),
     new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
@@ -390,8 +388,8 @@ public class RobotContainer {
     new GoToFeederPosition(feeder, .2),
     new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
     //GeneratePath(Constants.RedScoringBalanceToBalanceWpTag1and8) 
-      GeneratePath(Constants.RedScoringWpToConeWpTag1and8),
-      new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.RedCone2PickUp)),
+    GeneratePath(Constants.RedScoringWpToConeWpTag1and8),
+    new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.RedCone2PickUp)),
     new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
     GeneratePath(Constants.RedConeWpToScoringWpTag1and8),  
     GeneratePath(Constants.RedScoreTag1and8North),
