@@ -232,8 +232,8 @@ public class RobotContainer {
     driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
  
-    TopPosition = new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, true);
-    TopPositionAuto = new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false);
+    TopPosition = new GoToAngleAndExtension(slide, 23, Constants.maxExtensionValue, 1, true);
+    TopPositionAuto = new GoToAngleAndExtension(slide, 23, Constants.maxExtensionValue, 1, false);
     MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1, true);
 
     
