@@ -103,7 +103,7 @@ public class RobotContainer {
   SequentialCommandGroup GenerateScoreHigh(){
     return new SequentialCommandGroup(
       new RunFeeder(feeder, .3).withTimeout(.5),
-      new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false),
+      new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
       new RunFeeder(feeder, -.5).withTimeout(1));
   }
 
@@ -232,8 +232,8 @@ public class RobotContainer {
     driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
  
-    TopPosition = new GoToAngleAndExtension(slide, 23, Constants.maxExtensionValue, 1, true);
-    TopPositionAuto = new GoToAngleAndExtension(slide, 23, Constants.maxExtensionValue, 1, false);
+    TopPosition = new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, true);
+    TopPositionAuto = new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false);
     MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1, true);
 
     
@@ -308,7 +308,7 @@ public class RobotContainer {
     JustScore = new SequentialCommandGroup(
       //Add feeder open correct position eventually
       new RunFeeder(feeder, .2).withTimeout(0.5),
-      new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false),
+      new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
       new RunFeeder(feeder, -.3).withTimeout(2),
       new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)
     );
@@ -432,7 +432,7 @@ public class RobotContainer {
       new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
       GeneratePath(Constants.RedConeWpToScoringWpTag3and6),  
       GeneratePath(Constants.RedScoreTag3and6North),
-      new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false),
+      new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
       new GoToFeederPosition(feeder, .2),
       new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
       GeneratePath(Constants.RedScoringBalanceToBalanceWpTag3and6) 
@@ -572,7 +572,7 @@ public class RobotContainer {
     new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
     GeneratePath(Constants.BlueConeWpToScoringWpTag3and6),  
     GeneratePath(Constants.BlueScoreTag3and6North),
-    new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false),
+    new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
     new RunFeeder(feeder, -.2).withTimeout(1),
     new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
     GeneratePath(Constants.BlueScoringBalanceToBalanceWpTag3and6) 
