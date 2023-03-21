@@ -58,7 +58,6 @@ public class RobotContainer {
   private final Drivetrain drivetrain;
   private final Audio audio;
   private final Slide slide;
- // private final Claw claw;
   private final Feeder feeder;
   private final Limelight limelight;
   private final Camera camera;
@@ -90,7 +89,7 @@ public class RobotContainer {
     PathEQ path;
     PathFollower pathFollower;
     path = new PathEQ(Cords, true);
-    pathFollower = new PathFollower(drivetrain, limelight, path, .3, 5);
+    pathFollower = new PathFollower(drivetrain, limelight, path, .4, 5);
 
     return pathFollower;
 
@@ -99,21 +98,21 @@ public class RobotContainer {
   SequentialCommandGroup GenerateScoreHigh(){
     return new SequentialCommandGroup(
       new RunFeeder(feeder, .3).withTimeout(.5),
-      new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
+      new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
       new RunFeeder(feeder, -1).withTimeout(1));
   }
 
   //Command Groups
-  /*SequentialCommandGroup RedAuto;
+  SequentialCommandGroup RedAuto;
   SequentialCommandGroup BlueAuto;
   SequentialCommandGroup TestRedAuto;
   SequentialCommandGroup TestBlueAuto;
-  SequentialCommandGroup RedBalance;*/
+  SequentialCommandGroup RedBalance;
 
   SequentialCommandGroup JustScore;
-  //SequentialCommandGroup JustScoreAndDriveBack;
+  SequentialCommandGroup JustScoreAndDriveBack;
 
-  //SequentialCommandGroup GoToBottom;
+  SequentialCommandGroup GoToBottom;
   SequentialCommandGroup RedOneConeLineTag1and8;
   SequentialCommandGroup RedTwoConeBalanceTag1and8;
   SequentialCommandGroup RedTwoConeCollectTag1and8;
@@ -156,11 +155,11 @@ public class RobotContainer {
 
     Constants.modeSelect.setDefaultOption("Competition", "Competition");
     Constants.modeSelect.addOption("Player_Two", "Player_Two");
-    /*Constants.autoSelect.setDefaultOption("Red Side", "Red Side");
+    Constants.autoSelect.setDefaultOption("Red Side", "Red Side");
     Constants.autoSelect.addOption("Blue Side", "Blue Side");
     Constants.autoSelect.addOption("TEST Red Side", "TEST Red Side");
     Constants.autoSelect.addOption("TEST Blue Side", "TEST Blue Side");
-    Constants.autoSelect.addOption("Red Side Balance", "Red Side Balance");*/
+    Constants.autoSelect.addOption("Red Side Balance", "Red Side Balance");
 
     Constants.autoSelect.addOption("AutoBalance", "AutoBalance");
 
@@ -195,7 +194,7 @@ public class RobotContainer {
     Constants.autoSelect.addOption("BlueTwoConeCollectBalanceTag3and6", "BlueTwoConeCollectBalanceTag3and6");
     Constants.autoSelect.addOption("BlueTwoConeCollectTag3and6", "BlueTwoConeCollectTag3and6");
 
-    //Constants.autoSelect.addOption("JustScoreAndDriveBack", "JustScoreAndDriveBack");
+    Constants.autoSelect.addOption("JustScoreAndDriveBack", "JustScoreAndDriveBack");
     Constants.autoSelect.addOption("JustScore", "JustScore");
     Constants.autoSelect.addOption("Nothing", "Nothing");
 
@@ -233,14 +232,14 @@ public class RobotContainer {
     MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1, true);
 
     
-    /*ScoreOpeningCube = new SequentialCommandGroup(
+    ScoreOpeningCube = new SequentialCommandGroup(
     //new RunFeeder(feeder, .2).withTimeout(.5),
     //TopPositionAuto, 
     //new RunFeeder(feeder, -.2).withTimeout(1),
     //new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1),
     //new DriveBackwardsToDistance(drivetrain, limelight, 2.9, .2),
     new DriveBackwardsToDistance(drivetrain, limelight, 4.5, .2),
-    new DriveForwardsToDistance(drivetrain, limelight, 5.5, .2));*/
+    new DriveForwardsToDistance(drivetrain, limelight, 5.5, .2));
 
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
@@ -298,7 +297,7 @@ public class RobotContainer {
     //TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.07, 0).withTimeout(.1), ScoringWpToConeWpTag3and6, Cone4PickUp);   
     //TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, 2.750, -1.041, 180).withTimeout(.1), Cone4PickUp);  
     
-    /*JustScoreAndDriveBack = new SequentialCommandGroup(
+    JustScoreAndDriveBack = new SequentialCommandGroup(
       //Add feeder open correct position eventually
       //new ResetPose(drivetrain, 0, 0, 0),
       //new RunFeeder(feeder, .2).withTimeout(0.5),
@@ -306,7 +305,7 @@ public class RobotContainer {
       //new RunFeeder(feeder, -.3).withTimeout(2),
       //new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),
       GeneratePath(Constants.JustScoreAndDriveBack)
-    );*/
+    );
 
     JustScore = new SequentialCommandGroup(
       //Add feeder open correct position eventually
@@ -345,7 +344,7 @@ public class RobotContainer {
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
       GeneratePath(Constants.RedScoringWpToConeWpTag2and7)),
-      GeneratePath(Constants.RedScoringBalanceToBalanceWpTag2and7),
+      GeneratePath(Constants.RedConeBalanceToBalanceWpTag2and7),
       AutoBalance
     );   
     
@@ -503,8 +502,8 @@ public class RobotContainer {
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),          
       GeneratePath(Constants.BlueScoringWpToConeWpTag2and7)),
-      GeneratePath(Constants.BlueScoringBalanceToBalanceWpTag2and7),
-      AutoBalance
+      GeneratePath(Constants.BlueScoringBalanceToBalanceWpTag2and7)
+      //AutoBalance
     );  
 
     BlueTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
@@ -712,7 +711,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    /*if (Constants.autoSelect.getSelected() == "Red Side") {
+    if (Constants.autoSelect.getSelected() == "Red Side") {
 
       return RedAuto;
 
@@ -730,9 +729,9 @@ public class RobotContainer {
 
     } else if (Constants.autoSelect.getSelected() == "Red Side Balance") {
 
-      return RedBalance;*/
+      return RedBalance;
 
-    if (Constants.autoSelect.getSelected() == "RedOneConeLineTag1and8") {
+    } else if (Constants.autoSelect.getSelected() == "RedOneConeLineTag1and8") {
 
       return RedOneConeLineTag1and8;
 

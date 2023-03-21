@@ -593,7 +593,7 @@ public static double[][] BlueScoreTag3and6North = {
     public static final double yControllerI = 2;
     public static final double yControllerD = 0;
 
-    public static final double zControllerProportion = 10;
+    public static final double zControllerProportion = 20;
 
     public static final double aBalanceXConstant = .7;
     
