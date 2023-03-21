@@ -22,9 +22,6 @@ import frc.robot.commands.AutoCommands.DriveForwardsToDistance;
 import frc.robot.commands.AutoCommands.PathFollower;
 import frc.robot.commands.AutoCommands.ResetPose;
 import frc.robot.commands.AutoCommands.ResetPoseToLimelight;
-//import frc.robot.commands.ClawCommands.RotateClaw;
-//import frc.robot.commands.ClawCommands.RunClaw;
-//import frc.robot.commands.ClawCommands.RunClawUntilClamp;
 import frc.robot.commands.DriveCommands.DriveWithXbox;
 import frc.robot.commands.FeederCommands.GoToFeederPosition;
 import frc.robot.commands.FeederCommands.IntakeFeeder;
@@ -39,7 +36,6 @@ import frc.robot.commands.SlideCommands.ResetExtensionEncoder;
 import frc.robot.commands.SlideCommands.SlideWithXbox;
 import frc.robot.subsystems.Audio;
 import frc.robot.subsystems.Camera;
-//import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Limelight;
@@ -104,20 +100,20 @@ public class RobotContainer {
     return new SequentialCommandGroup(
       new RunFeeder(feeder, .3).withTimeout(.5),
       new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
-      new RunFeeder(feeder, -.5).withTimeout(1));
+      new RunFeeder(feeder, -1).withTimeout(1));
   }
 
   //Command Groups
-  SequentialCommandGroup RedAuto;
+  /*SequentialCommandGroup RedAuto;
   SequentialCommandGroup BlueAuto;
   SequentialCommandGroup TestRedAuto;
   SequentialCommandGroup TestBlueAuto;
-  SequentialCommandGroup RedBalance;
+  SequentialCommandGroup RedBalance;*/
 
   SequentialCommandGroup JustScore;
-  SequentialCommandGroup JustScoreAndDriveBack;
+  //SequentialCommandGroup JustScoreAndDriveBack;
 
-  SequentialCommandGroup GoToBottom;
+  //SequentialCommandGroup GoToBottom;
   SequentialCommandGroup RedOneConeLineTag1and8;
   SequentialCommandGroup RedTwoConeBalanceTag1and8;
   SequentialCommandGroup RedTwoConeCollectTag1and8;
@@ -160,11 +156,11 @@ public class RobotContainer {
 
     Constants.modeSelect.setDefaultOption("Competition", "Competition");
     Constants.modeSelect.addOption("Player_Two", "Player_Two");
-    Constants.autoSelect.setDefaultOption("Red Side", "Red Side");
+    /*Constants.autoSelect.setDefaultOption("Red Side", "Red Side");
     Constants.autoSelect.addOption("Blue Side", "Blue Side");
     Constants.autoSelect.addOption("TEST Red Side", "TEST Red Side");
     Constants.autoSelect.addOption("TEST Blue Side", "TEST Blue Side");
-    Constants.autoSelect.addOption("Red Side Balance", "Red Side Balance");
+    Constants.autoSelect.addOption("Red Side Balance", "Red Side Balance");*/
 
     Constants.autoSelect.addOption("AutoBalance", "AutoBalance");
 
@@ -199,7 +195,7 @@ public class RobotContainer {
     Constants.autoSelect.addOption("BlueTwoConeCollectBalanceTag3and6", "BlueTwoConeCollectBalanceTag3and6");
     Constants.autoSelect.addOption("BlueTwoConeCollectTag3and6", "BlueTwoConeCollectTag3and6");
 
-    Constants.autoSelect.addOption("JustScoreAndDriveBack", "JustScoreAndDriveBack");
+    //Constants.autoSelect.addOption("JustScoreAndDriveBack", "JustScoreAndDriveBack");
     Constants.autoSelect.addOption("JustScore", "JustScore");
     Constants.autoSelect.addOption("Nothing", "Nothing");
 
@@ -237,14 +233,14 @@ public class RobotContainer {
     MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1, true);
 
     
-    ScoreOpeningCube = new SequentialCommandGroup(
+    /*ScoreOpeningCube = new SequentialCommandGroup(
     //new RunFeeder(feeder, .2).withTimeout(.5),
     //TopPositionAuto, 
     //new RunFeeder(feeder, -.2).withTimeout(1),
     //new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1),
     //new DriveBackwardsToDistance(drivetrain, limelight, 2.9, .2),
     new DriveBackwardsToDistance(drivetrain, limelight, 4.5, .2),
-    new DriveForwardsToDistance(drivetrain, limelight, 5.5, .2));
+    new DriveForwardsToDistance(drivetrain, limelight, 5.5, .2));*/
 
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
@@ -280,8 +276,6 @@ public class RobotContainer {
     PathFollower ConeBalanceToBalanceWpTag2and7 = GeneratePath(Constants.RedConeBalanceToBalanceWpTag2and7);
     PathFollower ScoringBalanceToBalanceWpTag3and6 = GeneratePath(Constants.RedScoringBalanceToBalanceWpTag3and6);
     PathFollower ConeBalanceToBalanceWpTag3and6 = GeneratePath(Constants.RedConeBalanceToBalanceWpTag3and6);
-
-  
   
     PathFollower ScoreTag1and8South = GeneratePath(Constants.RedScoreTag1and8South);
     PathFollower ScoreTag1and8WestEast = GeneratePath(Constants.RedScoreTag1and8WestEast);
@@ -293,7 +287,6 @@ public class RobotContainer {
     PathFollower ScoreTag3and6WestEast = GeneratePath(Constants.RedScoreTag3and6WestEast);
     PathFollower ScoreTag3and6North = GeneratePath(Constants.RedScoreTag3and6North);
     
-    
     PathFollower BlueAutoTest = GeneratePath(Constants.redAuto);
     PathFollower BlueAutoBalancePath = GeneratePath(Constants.redAuto);
     PathFollower RedAutoBalancePath = GeneratePath(Constants.redBalance);
@@ -302,16 +295,8 @@ public class RobotContainer {
    
     //TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.07, 0).withTimeout(.1), RedAutoTestPath);   
     //TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -2.75, -1.041, 0).withTimeout(.1), Cone4PickUp);   
-   //TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.07, 0).withTimeout(.1), ScoringWpToConeWpTag3and6, Cone4PickUp);   
-   // TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, 2.750, -1.041, 180).withTimeout(.1), Cone4PickUp);  
-   
-    JustScore = new SequentialCommandGroup(
-      //Add feeder open correct position eventually
-      new RunFeeder(feeder, .2).withTimeout(0.5),
-      new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
-      new RunFeeder(feeder, -.3).withTimeout(2),
-      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)
-    );
+    //TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, -0.07, 0).withTimeout(.1), ScoringWpToConeWpTag3and6, Cone4PickUp);   
+    //TestRedAuto = new SequentialCommandGroup(new ResetPose(drivetrain, 2.750, -1.041, 180).withTimeout(.1), Cone4PickUp);  
     
     /*JustScoreAndDriveBack = new SequentialCommandGroup(
       //Add feeder open correct position eventually
@@ -323,6 +308,15 @@ public class RobotContainer {
       GeneratePath(Constants.JustScoreAndDriveBack)
     );*/
 
+    JustScore = new SequentialCommandGroup(
+      //Add feeder open correct position eventually
+      new RunFeeder(feeder, .2).withTimeout(0.5),
+      new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
+      new RunFeeder(feeder, -.3).withTimeout(2),
+      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)
+    );
+
+    //Places one cone on high pole and drives pass line
     RedOneConeLineTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
@@ -330,6 +324,7 @@ public class RobotContainer {
       new GoToFeederPosition(feeder, -.5)
     );  
 
+    //Places one cone on high pole and drives pass line
     RedOneConeLineTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
@@ -337,6 +332,7 @@ public class RobotContainer {
       new GoToFeederPosition(feeder, -.5)
     );  
     
+    //Places one cone on high pole and drives pass line
     RedOneConeLineTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
@@ -344,15 +340,65 @@ public class RobotContainer {
       new GoToFeederPosition(feeder, -.5)
     );  
 
-    //Mid Auto crosses line and balances
+    //Places one cone on high pole, drives pass line, and balances
     RedOneConeBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
       GeneratePath(Constants.RedScoringWpToConeWpTag2and7)),
       GeneratePath(Constants.RedScoringBalanceToBalanceWpTag2and7),
       AutoBalance
-    );    
+    );   
     
+    //Places one cone on first high pole, cycles for two cones and places on the rest of the high poles
+    RedTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+      GenerateScoreHigh(),
+
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.RedScoringWpToConeWpTag1and8)),
+      new GoToFeederPosition(feeder, -.2),
+      new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.RedCone1PickUp)),
+      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.RedConeWpToScoringWpTag1and8),  
+      GeneratePath(Constants.RedScoreTag1and8South),
+      new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
+      new GoToFeederPosition(feeder, .2),
+      
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
+      GeneratePath(Constants.RedScoringWpToConeWpTag1and8)),
+      new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.RedCone2PickUp)),
+      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.RedConeWpToScoringWpTag1and8),  
+      GeneratePath(Constants.RedScoreTag1and8North),
+      new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
+      new GoToFeederPosition(feeder, .2),
+      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)
+    ); 
+
+    //Places one cone on first high pole, cycles for two cones and places on the rest of the high poles
+    RedTwoConeCollectTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1),  
+      GenerateScoreHigh(),
+      
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.RedScoringWpToConeWpTag3and6)),
+      new GoToFeederPosition(feeder, -.2),
+      new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.RedCone4PickUp)),
+      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.RedConeWpToScoringWpTag3and6),  
+      GeneratePath(Constants.RedScoreTag3and6South),
+      new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
+      new GoToFeederPosition(feeder, .2),
+      
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
+      GeneratePath(Constants.RedScoringWpToConeWpTag3and6)),
+      new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.RedCone3PickUp)),
+      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.RedConeWpToScoringWpTag3and6),  
+      GeneratePath(Constants.RedScoreTag3and6North),
+      new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
+      new GoToFeederPosition(feeder, .2),
+      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)
+    );  
+ 
     RedTwoConeBalanceTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
@@ -374,32 +420,6 @@ public class RobotContainer {
       GeneratePath(Constants.RedCone2PickUp),
       GeneratePath(Constants.RedConeBalanceToBalanceWpTag1and8)
     );  
-
-    RedTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
-    GenerateScoreHigh(),
-    new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
-    GeneratePath(Constants.RedScoringWpToConeWpTag1and8))
-    
-    /*
-    new GoToFeederPosition(feeder, -.2),
-    new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.RedCone1PickUp)),
-    new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
-    GeneratePath(Constants.RedConeWpToScoringWpTag1and8),  
-    GeneratePath(Constants.RedScoreTag1and8South),
-    new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false),
-    new GoToFeederPosition(feeder, .2),
-    new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
-    //GeneratePath(Constants.RedScoringBalanceToBalanceWpTag1and8) 
-      GeneratePath(Constants.RedScoringWpToConeWpTag1and8),
-      new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.RedCone2PickUp)),
-    new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
-    GeneratePath(Constants.RedConeWpToScoringWpTag1and8),  
-    GeneratePath(Constants.RedScoreTag1and8North),
-    new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false),
-    new GoToFeederPosition(feeder, .2),
-    new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)
-*/
-    ); 
 
     RedTwoConeBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
       GenerateScoreHigh(),
@@ -450,21 +470,11 @@ public class RobotContainer {
       GeneratePath(Constants.RedConeBalanceToBalanceWpTag3and6)
     );   
 
-    RedTwoConeCollectTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
-      GenerateScoreHigh(), 
-      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
-      GeneratePath(Constants.RedScoringWpToConeWpTag3and6)),
-      GeneratePath(Constants.RedCone4PickUp), 
-      GeneratePath(Constants.RedConeWpToScoringWpTag3and6), 
-      GeneratePath(Constants.RedScoreTag3and6North),
-      GeneratePath(Constants.RedScoringWpToConeWpTag3and6),
-      GeneratePath(Constants.RedCone3PickUp)
-    );  
-
 //---------------------------------
 //Blue
 //---------------------------------
 
+    //Places one cone on high pole, drives pass line, and balances
     BlueOneConeLineTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], 180).withTimeout(.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
@@ -472,6 +482,7 @@ public class RobotContainer {
       new GoToFeederPosition(feeder, -.5)
     );  
 
+    //Places one cone on high pole, drives pass line, and balances
     BlueOneConeLineTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
@@ -479,6 +490,7 @@ public class RobotContainer {
       new GoToFeederPosition(feeder, -.5)
     );  
     
+    //Places one cone on high pole, drives pass line, and balances
     BlueOneConeLineTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
@@ -486,35 +498,54 @@ public class RobotContainer {
       new GoToFeederPosition(feeder, -.5)
     );  
 
+    //Places one cone on high pole, drives pass line, and balances
+    BlueOneConeBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
+      GenerateScoreHigh(),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),          
+      GeneratePath(Constants.BlueScoringWpToConeWpTag2and7)),
+      GeneratePath(Constants.BlueScoringBalanceToBalanceWpTag2and7),
+      AutoBalance
+    );  
+
+    BlueTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
+      GenerateScoreHigh(),
+      GeneratePath(Constants.BlueScoringWpToConeWpTag1and8), 
+      GeneratePath(Constants.BlueCone1PickUp), 
+      GeneratePath(Constants.BlueConeWpToScoringWpTag1and8), 
+      GeneratePath(Constants.BlueScoreTag1and8South), 
+      GeneratePath(Constants.BlueScoringWpToConeWpTag1and8),
+      GeneratePath(Constants.BlueCone2PickUp)
+    ); 
+
+    BlueTwoConeCollectTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
+      GenerateScoreHigh(), 
+      GeneratePath(Constants.BlueScoringWpToConeWpTag3and6), 
+      GeneratePath(Constants.BlueCone4PickUp), 
+      GeneratePath(Constants.BlueConeWpToScoringWpTag3and6), 
+      GeneratePath(Constants.BlueScoreTag3and6North),
+      GeneratePath(Constants.BlueScoringWpToConeWpTag3and6),
+      GeneratePath(Constants.BlueCone3PickUp)
+    );    
+
     BlueTwoConeChargeTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
-    GenerateScoreHigh(),
-    GeneratePath(Constants.BlueScoringWpToConeWpTag1and8), 
-    GeneratePath(Constants.BlueCone1PickUp), 
-    GeneratePath(Constants.BlueConeWpToScoringWpTag1and8), 
-    GeneratePath(Constants.BlueScoreTag1and8South),
-    GeneratePath(Constants.BlueScoringBalanceToBalanceWpTag1and8)
+      GenerateScoreHigh(),
+      GeneratePath(Constants.BlueScoringWpToConeWpTag1and8), 
+      GeneratePath(Constants.BlueCone1PickUp), 
+      GeneratePath(Constants.BlueConeWpToScoringWpTag1and8), 
+      GeneratePath(Constants.BlueScoreTag1and8South),
+      GeneratePath(Constants.BlueScoringBalanceToBalanceWpTag1and8)
     ); 
 
     BlueTwoConeCollectBalanceTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
-    GenerateScoreHigh(),
-    GeneratePath(Constants.BlueScoringWpToConeWpTag1and8), 
-    GeneratePath(Constants.BlueCone1PickUp), 
-    GeneratePath(Constants.RedConeWpToScoringWpTag1and8), 
-    GeneratePath(Constants.BlueScoreTag1and8South),
-    GeneratePath(Constants.BlueScoringWpToConeWpTag3and6),
-    GeneratePath(Constants.BlueCone2PickUp),
-    GeneratePath(Constants.BlueConeBalanceToBalanceWpTag1and8)
+      GenerateScoreHigh(),
+      GeneratePath(Constants.BlueScoringWpToConeWpTag1and8), 
+      GeneratePath(Constants.BlueCone1PickUp), 
+      GeneratePath(Constants.RedConeWpToScoringWpTag1and8), 
+      GeneratePath(Constants.BlueScoreTag1and8South),
+      GeneratePath(Constants.BlueScoringWpToConeWpTag3and6),
+      GeneratePath(Constants.BlueCone2PickUp),
+      GeneratePath(Constants.BlueConeBalanceToBalanceWpTag1and8)
     );   
-
-    BlueTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
-    GenerateScoreHigh(),
-    GeneratePath(Constants.BlueScoringWpToConeWpTag1and8), 
-    GeneratePath(Constants.BlueCone1PickUp), 
-    GeneratePath(Constants.BlueConeWpToScoringWpTag1and8), 
-    GeneratePath(Constants.BlueScoreTag1and8South), 
-    GeneratePath(Constants.BlueScoringWpToConeWpTag1and8),
-    GeneratePath(Constants.BlueCone2PickUp)
-    ); 
 
     BlueTwoConeChargeTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
       GenerateScoreHigh(),
@@ -523,13 +554,7 @@ public class RobotContainer {
       GeneratePath(Constants.BlueConeWpToScoringWpTag2and7), 
       GeneratePath(Constants.BlueScoreTag2and7South), 
       GeneratePath(Constants.BlueScoringBalanceToBalanceWpTag2and7)
-    );   
-
-    BlueOneConeBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
-      GenerateScoreHigh(),
-      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),          GeneratePath(Constants.BlueScoringWpToConeWpTag2and7)),
-      GeneratePath(Constants.BlueConeBalanceToBalanceWpTag2and7)
-    );   
+    );
 
     BlueTwoConeCollectBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
       GenerateScoreHigh(),
@@ -540,50 +565,41 @@ public class RobotContainer {
       GeneratePath(Constants.BlueScoringWpToConeWpTag2and7),
       GeneratePath(Constants.BlueCone3PickUp),
       GeneratePath(Constants.BlueConeBalanceToBalanceWpTag2and7)
-    );   
-
-    BlueTwoConeCollectTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
-    GenerateScoreHigh(), 
-    GeneratePath(Constants.BlueScoringWpToConeWpTag3and6), 
-    GeneratePath(Constants.BlueCone4PickUp), 
-    GeneratePath(Constants.BlueConeWpToScoringWpTag3and6), 
-    GeneratePath(Constants.BlueScoreTag3and6North),
-    GeneratePath(Constants.BlueScoringWpToConeWpTag3and6),
-    GeneratePath(Constants.BlueCone3PickUp)
-    );    
+    ); 
 
     BlueTwoConeCollectBalanceTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
-    GenerateScoreHigh(),
-    GeneratePath(Constants.BlueScoringWpToConeWpTag3and6),  
-    GeneratePath(Constants.BlueCone4PickUp), 
-    GeneratePath(Constants.BlueConeWpToScoringWpTag3and6),  
-    GeneratePath(Constants.BlueScoreTag3and6North),  
-    GeneratePath(Constants.BlueScoringWpToConeWpTag3and6), 
-    GeneratePath(Constants.BlueCone3PickUp), 
-    GeneratePath(Constants.BlueConeBalanceToBalanceWpTag3and6)
+      GenerateScoreHigh(),
+      GeneratePath(Constants.BlueScoringWpToConeWpTag3and6),  
+      GeneratePath(Constants.BlueCone4PickUp), 
+      GeneratePath(Constants.BlueConeWpToScoringWpTag3and6),  
+      GeneratePath(Constants.BlueScoreTag3and6North),  
+      GeneratePath(Constants.BlueScoringWpToConeWpTag3and6), 
+      GeneratePath(Constants.BlueCone3PickUp), 
+      GeneratePath(Constants.BlueConeBalanceToBalanceWpTag3and6)
     );   
 
     BlueTwoConeBalanceTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
-    GenerateScoreHigh(),
-    new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
-    GeneratePath(Constants.BlueScoringWpToConeWpTag3and6)),
-    new GoToFeederPosition(feeder, -.2),
-    new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.BlueCone4PickUp)),
-    new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
-    GeneratePath(Constants.BlueConeWpToScoringWpTag3and6),  
-    GeneratePath(Constants.BlueScoreTag3and6North),
-    new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
-    new RunFeeder(feeder, -.2).withTimeout(1),
-    new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
-    GeneratePath(Constants.BlueScoringBalanceToBalanceWpTag3and6) 
-  ); 
+      GenerateScoreHigh(),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.BlueScoringWpToConeWpTag3and6)),
+      new GoToFeederPosition(feeder, -.2),
+      new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.BlueCone4PickUp)),
+      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+      GeneratePath(Constants.BlueConeWpToScoringWpTag3and6),  
+      GeneratePath(Constants.BlueScoreTag3and6North),
+      new GoToAngleAndExtension(slide, 31, Constants.maxExtensionValue, 1, false),
+      new RunFeeder(feeder, -.2).withTimeout(1),
+      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
+      GeneratePath(Constants.BlueScoringBalanceToBalanceWpTag3and6) 
+  );
 
-    GoToBottom = new SequentialCommandGroup(new GoToAngleAndExtension(slide, 0, 0, 0, false));
+    /*GoToBottom = new SequentialCommandGroup(new GoToAngleAndExtension(slide, 0, 0, 0, false));
 
     BlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.920, 0).withTimeout(.1), BlueAutoPath);
     TestBlueAuto = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), BlueAutoTest);
     RedBalance = new SequentialCommandGroup(new ResetPose(drivetrain, -6.495, 0.8, 0).withTimeout(.1), RedAutoBalancePath, new AutoBalance(drivetrain, xbox1, 5));
-    
+    */
+
     configureButtonBindings();
   }
 
@@ -696,10 +712,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    //return pathFollower;
-    //return ScoreOpeningCube;
-     
-    if (Constants.autoSelect.getSelected() == "Red Side") {
+    /*if (Constants.autoSelect.getSelected() == "Red Side") {
 
       return RedAuto;
 
@@ -717,9 +730,9 @@ public class RobotContainer {
 
     } else if (Constants.autoSelect.getSelected() == "Red Side Balance") {
 
-      return RedBalance;
+      return RedBalance;*/
 
-    } else if (Constants.autoSelect.getSelected() == "RedOneConeLineTag1and8") {
+    if (Constants.autoSelect.getSelected() == "RedOneConeLineTag1and8") {
 
       return RedOneConeLineTag1and8;
 
@@ -840,10 +853,5 @@ public class RobotContainer {
       return null;
 
     }
-    
-    //return testPathFollower;
-    //return new AngleAndExtendInAuto(slide, feeder, 20, 4);
-    //return new GoToAngleAndExtension(slide, 30, 40, 1);
   }
-  
 }
