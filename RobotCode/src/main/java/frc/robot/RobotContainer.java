@@ -682,8 +682,8 @@ public class RobotContainer {
     driver2X.whileTrue(new KillArm(slide));
 
     // Negative speed for cone, positive speed for cube
-    driver2LB.onTrue(new GoToFeederPosition(feeder, -.2)); //Close for cone
-    driver2RB.onTrue(new GoToFeederPosition(feeder, .2)); //Open for cube
+    driver2LB.onTrue(new GoToFeederPosition(feeder, -.2)); //Open for cube
+    driver2RB.onTrue(new GoToFeederPosition(feeder, .2)); //Close for cone
 
     driver1RT.whileTrue(new IntakeFeeder(feeder));
     driver1LT.whileTrue(new RunFeeder(feeder, -1));
