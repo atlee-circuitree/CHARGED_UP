@@ -545,9 +545,9 @@ public static double[][] BlueScoreTag3and6North = {
     public static final int feederRotationEncoderDIO = 1;
     public static final int extensionEncoderDIO = 9;
  
-    public static final double angleOffset = -11.5;
-    public static final double maxAngleEncoderValue = 36.2;
-    public static final double minAngleEncoderValue = -17; //Before -14.0 3/16/23
+    public static final double angleOffset = -4.5; //Before -11.5
+    public static final double maxAngleEncoderValue = 23; //Before 36.2 3/21/23 1:05 PM
+    public static final double minAngleEncoderValue = -21; //Before -17.0 3/21/23 1:05 PM
     //public static final double maxAngleEncoderValue = 9999;
     //public static final double minAngleEncoderValue = -9999;
 
@@ -562,7 +562,7 @@ public static double[][] BlueScoreTag3and6North = {
     public static final double minGrabEncoderValue = .40;
  
     public static final double maxExtensionValue = 52;
-    public static final double minExtensionValue = -2;
+    public static final double minExtensionValue = 0.7; //Before -2 3/21/23
 
     public static final double limelightSingleTargetPoseLengthCutoff = 1.9;
 
