@@ -102,6 +102,10 @@ public class RobotContainer {
       new RunFeeder(feeder, -1).withTimeout(1));
   }
 
+  AutoBalance GenerateAutoBalance(){
+    return new AutoBalance(drivetrain, xbox1, 5);
+  }
+
   //Command Groups
   SequentialCommandGroup RedAuto;
   SequentialCommandGroup BlueAuto;
@@ -346,7 +350,7 @@ public class RobotContainer {
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
       GeneratePath(Constants.RedScoringWpToConeWpTag2and7)),
       GeneratePath(Constants.RedConeBalanceToBalanceWpTag2and7),
-      AutoBalance
+      GenerateAutoBalance()
     );   
     
     //Places one cone on first high pole, cycles for two cones and places on the rest of the high poles
