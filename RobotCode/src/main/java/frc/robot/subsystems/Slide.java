@@ -114,7 +114,7 @@ public class Slide extends SubsystemBase {
 
     }
  
-    if (angle > Constants.maxAngleEncoderValue) {
+    if (speed > 0 && angle > Constants.maxAngleEncoderValue) {
 
       angMotor.set(ControlMode.PercentOutput, 0);
 
@@ -176,7 +176,7 @@ public class Slide extends SubsystemBase {
 
   public void extendArmUsingPower(double speed) {
 
-    if (getExtensionEncoderInches() > Constants.maxExtensionValue - extOffset) {
+    if (speed > 0 && getExtensionEncoderInches() > Constants.maxExtensionValue - extOffset) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
