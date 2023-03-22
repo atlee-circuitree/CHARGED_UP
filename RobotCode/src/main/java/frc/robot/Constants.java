@@ -560,7 +560,7 @@ public static double[][] BlueScoreTag3and6North = {
     public static final double minGrabEncoderValue = .40;
  
     public static final double maxExtensionValue = 52;
-    public static final double minExtensionValue = .7; //Before -2 3/21/23
+    public static final double minExtensionValue = -2; //Before -2 3/21/23
 
     public static final double limelightSingleTargetPoseLengthCutoff = 1.9;
 

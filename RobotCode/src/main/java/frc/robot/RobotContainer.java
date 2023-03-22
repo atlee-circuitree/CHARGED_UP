@@ -694,7 +694,7 @@ public class RobotContainer {
 
     driver2Y.onTrue(TopPosition);
     driver2B.onTrue(MiddlePosition);
-    //driver2A.onTrue(new GoToAngleAndExtension(slide, -17, 2.2, 1, false, 2.2));
+    driver2A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, 2.2));
     driver2X.whileTrue(new KillArm(slide));
 
     // Negative speed for cone, positive speed for cube
