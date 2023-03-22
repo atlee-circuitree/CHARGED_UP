@@ -23,9 +23,11 @@ public class AutoBalance extends CommandBase {
   private double rollTolerance;
   
   private double horizontalSpeed;
-  private double turnSpeed;
+  private double currentPitch;
+  private double lastPitch = 0;
+  private static final double PITCH_THRESHHOLD = .01;
 
-  private double state = 0;
+
 
   private String movementDirection = "Level";
 
@@ -43,8 +45,6 @@ public class AutoBalance extends CommandBase {
   @Override
   public void initialize() {
 
-    //state = 0;
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -53,16 +53,29 @@ public class AutoBalance extends CommandBase {
 
     //Telemetry
     SmartDashboard.putNumber("Robot Straight Speed", horizontalSpeed);
-    SmartDashboard.putNumber("Robot Turn Speed", turnSpeed);
     SmartDashboard.putString("Is robot level", movementDirection);
-    SmartDashboard.putNumber("Roll", drivetrain.getNavXRollOutput());
-    
+    SmartDashboard.putNumber("Roll", currentPitch);
 
-
+    currentPitch = drivetrain.getNavXRollOutput();
 
     //Speed PID calculations
-    horizontalSpeed = Math.sin(Math.toRadians(drivetrain.getNavXRollOutput()) * Constants.aBalanceXConstant);
-    //turnSpeed = Math.abs(drivetrain.getNavXYawOutput()) * Constants.aBalanceTurnConstant;
+    horizontalSpeed = Math.sin(Math.toRadians(currentPitch) * Constants.aBalanceXConstant);
+
+    /*if (lastPitch >= 0) {     //Code for positive Pitch
+    
+      if (lastPitch - currentPitch > PITCH_THRESHHOLD) {    //Ramp is falling
+        horizontalSpeed = 0;
+      }
+      
+    } else if (lastPitch < 0) {   //Code for negeative Pitch
+
+      if (lastPitch - currentPitch < -PITCH_THRESHHOLD) {   //Ramp is falling
+        horizontalSpeed = 0;
+      }
+
+    }
+
+    lastPitch = currentPitch;*/
 
      //Speed clamps
     if (horizontalSpeed < -.27) {
@@ -71,55 +84,14 @@ public class AutoBalance extends CommandBase {
       horizontalSpeed = .27;
     }
 
-    /*if (turnSpeed < -1) {
-      turnSpeed = -1;
-    } else if (turnSpeed > 1) {
-      turnSpeed = 1;
-    }*/
-
-    //AutoBalance Movement
-    //Rotates robot until heading is perpendicular with ramp
-   /*if (state == 0) {
-       
-    //When NavX thinks yaw is less than 2, turns right.
-    if (drivetrain.getNavXYawOutput() < -yawTolerance) {
-     //Sets wheel angle to turn position
-     drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 45, 1);
-     drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 315, 1);
-     drivetrain.rotateModule(SwerveModule.REAR_LEFT, 135, 1);
-     drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 225, 1);
-        
-     drivetrain.driveAllModules(turnSpeed);
-     movementDirection = "Turning Right";
-
-     //When NavX thinks yaw is greater than 2, turns left.
-    } else if (drivetrain.getNavXYawOutput() > yawTolerance) {
-
-     //Sets wheel angle to turn position
-     drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 45, 1);
-     drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 315, 1);
-     drivetrain.rotateModule(SwerveModule.REAR_LEFT, 135, 1);
-     drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 225, 1);
-        
-     drivetrain.driveAllModules(-turnSpeed);
-     movementDirection = "Turning Left";
-
-    } else {
-
-     drivetrain.driveAllModules(0);
-     state = 1;
-        
-    }
-  }*/
-
      //When NavX thinks tilted back, drive motors forward
-     if (drivetrain.getNavXRollOutput() > rollTolerance) {
+     if (currentPitch > rollTolerance) {
         
        drivetrain.driveAllModules(-horizontalSpeed);
        movementDirection = "Moving Forwards";
        
      //When NavX thinks tilted forward, drive motors backwards
-     } else if (drivetrain.getNavXRollOutput() < -rollTolerance) {
+     } else if (currentPitch < -rollTolerance) {
 
        drivetrain.driveAllModules(-horizontalSpeed);
        movementDirection = "Moving Backwards";
@@ -128,32 +100,15 @@ public class AutoBalance extends CommandBase {
 
        drivetrain.driveAllModules(0);
        movementDirection = "Level";    
-       //state = 0;
-    
+
       }
 
-/* 
-      if (drivetrain.getNavXRollOutput() < rollTolerance && drivetrain.getNavXRollOutput() > -rollTolerance) {
-
-        drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 90, 1);
-        drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 90, 1);
-        drivetrain.rotateModule(SwerveModule.REAR_LEFT, 90, 1);
-        drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 90, 1); 
-
-      } else {
-  
         drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 0, 1);
         drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
         drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
         drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
-  
-      }
+        
 
-*/
-        drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 0, 1);
-        drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
-        drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
-        drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
     }
     
   
@@ -161,7 +116,6 @@ public class AutoBalance extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    
   }
 
   // Returns true when the command should end.

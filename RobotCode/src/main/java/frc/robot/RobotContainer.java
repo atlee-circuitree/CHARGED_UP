@@ -89,7 +89,7 @@ public class RobotContainer {
     PathEQ path;
     PathFollower pathFollower;
     path = new PathEQ(Cords, true);
-    pathFollower = new PathFollower(drivetrain, limelight, path, .4, 5);
+    pathFollower = new PathFollower(drivetrain, limelight, path, .3, 5);
 
     return pathFollower;
 
@@ -214,7 +214,7 @@ public class RobotContainer {
 
     resetExtensionEncoder = new ResetExtensionEncoder(slide);
  
-    AutoBalance = new AutoBalance(drivetrain, xbox1, 5);
+    AutoBalance = new AutoBalance(drivetrain, xbox1, 1);
 
     playAudio = new PlayAudio(audio, 0, 0);
  
