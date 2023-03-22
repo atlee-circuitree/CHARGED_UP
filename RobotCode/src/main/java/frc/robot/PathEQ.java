@@ -404,6 +404,43 @@ public class PathEQ {
 
     }
 
+
+
+    public double solveSpeed(double uValue){
+
+        double targetSpeed;
+        double endpoints[][] = new double[2][2];
+
+        //If u too big, return final heading
+        if(uValue >= coords[coords.length-1][0]){
+            targetSpeed = coords[coords.length-1][4];
+        }
+        //If u too small, return first heading
+        else if(uValue <= coords[0][0]){
+            targetSpeed = coords[0][4];
+        }
+        //Otherwise, cycle through each coordinate to find which ones uValue falls between
+        else{
+            for(int i = 0; i < coords.length; i++){
+                if(uValue <= coords[i][0]){
+                    endpoints[0][0] = coords[i-1][0];
+                    endpoints[0][1] = coords[i-1][4];
+                    endpoints[1][0] = coords[i][0];
+                    endpoints[1][1] = coords[i][4];
+                    break;
+                }
+            }
+
+            targetSpeed = (slope(endpoints[0], endpoints[1]) * (uValue - endpoints[0][0])) + endpoints[0][1];
+
+        }
+
+        return targetSpeed;
+
+    }
+
+
+
     
     public double solvePointTolerance(double uValue){
 
@@ -412,17 +449,17 @@ public class PathEQ {
 
         //If u too big, return final heading
         if(uValue >= coords[coords.length-1][0]){
-            tolerance = coords[coords.length-1][4];
+            tolerance = coords[coords.length-1][5];
         }
         //If u too small, return first heading
         else if(uValue <= coords[0][0]){
-            tolerance = coords[0][4];
+            tolerance = coords[0][5];
         }
         //Otherwise, cycle through each coordinate to find which ones uValue falls between
         else{
             for(int i = 1; i < coords.length; i++){
                 if(uValue <= coords[i][0]){
-                    tolerance = coords[i-1][4];
+                    tolerance = coords[i-1][5];
                     break;
                 }
             }
