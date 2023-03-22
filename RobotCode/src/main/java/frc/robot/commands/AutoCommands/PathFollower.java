@@ -184,7 +184,7 @@ public class PathFollower extends CommandBase {
       rearRightSpeed = rearRightSpeed / max;
     }
 
-
+    speedMod = pathEQ.solveSpeed(targetUValue);
 
  
     //Set angles for modules (change speed mod later if needed)

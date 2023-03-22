@@ -79,15 +79,7 @@ public class Slide extends SubsystemBase {
     //Offset
     extOffset = extEncoder.getAbsolutePosition();
 
-    if (Constants.modeSelect.getSelected() != "Testing") {
-
-      double safetyBottomAngleCheck = 0;
-  
-    } else {
-
-      double safetyBottomAngleCheck = -99999999;
-
-    }
+    angMotor.setSelectedSensorPosition(0);
 
   }
 
@@ -108,14 +100,25 @@ public class Slide extends SubsystemBase {
     SmartDashboard.getNumber("Custom Angle", 0);
  
   }
-
+ 
   public void changeAngleUsingPower(double speed) {
+
+        
+    if (Constants.modeSelect.getSelected() != "Testing") {
+
+      safetyBottomAngleCheck = 0;
+  
+    } else {
+
+      safetyBottomAngleCheck = -99999999;
+
+    }
  
     if (speed > 0 && angle > Constants.maxAngleEncoderValue) {
 
       angMotor.set(ControlMode.PercentOutput, 0);
 
-    } else if (speed < 0 && angle < Constants.minAngleEncoderValue) {
+    } else if ((speed < 0 && angle < Constants.minAngleEncoderValue) || speed < 0 && angMotor.getSelectedSensorPosition() < safetyBottomAngleCheck) {
 
       angMotor.set(ControlMode.PercentOutput, 0);
   
@@ -173,13 +176,13 @@ public class Slide extends SubsystemBase {
 
   public void extendArmUsingPower(double speed) {
 
-    if (getExtensionEncoderInches() > Constants.maxExtensionValue - extOffset) {
+    if (speed > 0 && getExtensionEncoderInches() > Constants.maxExtensionValue - extOffset) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
       System.out.print("Max Limit Hit");
 
-    } else if((speed < 0 && getExtensionEncoderInches() < Constants.minExtensionValue) || speed < 0 && angMotor.getSelectedSensorPosition() < safetyBottomAngleCheck) {
+    } else if((speed < 0 && getExtensionEncoderInches() < Constants.minExtensionValue)) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);

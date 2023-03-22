@@ -102,6 +102,10 @@ public class RobotContainer {
       new RunFeeder(feeder, -1).withTimeout(1));
   }
 
+  AutoBalance GenerateAutoBalance(){
+    return new AutoBalance(drivetrain, xbox1, 5);
+  }
+
   //Command Groups
   SequentialCommandGroup RedAuto;
   SequentialCommandGroup BlueAuto;
@@ -228,9 +232,9 @@ public class RobotContainer {
     driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
  
-    TopPosition = new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, true);
+    TopPosition = new GoToAngleAndExtension(slide, 27.5, Constants.maxExtensionValue, 1, true);
     TopPositionAuto = new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false);
-    MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1, true);
+    MiddlePosition = new GoToAngleAndExtension(slide, 26.4, 29.5, 1, true);
 
     
     ScoreOpeningCube = new SequentialCommandGroup(
@@ -346,7 +350,7 @@ public class RobotContainer {
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
       GeneratePath(Constants.RedScoringWpToConeWpTag2and7)),
       GeneratePath(Constants.RedConeBalanceToBalanceWpTag2and7),
-      AutoBalance
+      GenerateAutoBalance()
     );   
     
     //Places one cone on first high pole, cycles for two cones and places on the rest of the high poles
@@ -694,7 +698,7 @@ public class RobotContainer {
 
     driver2Y.onTrue(TopPosition);
     driver2B.onTrue(MiddlePosition);
-    //driver2A.onTrue(new GoToAngleAndExtension(slide, -17, 2.2, 1, false, 2.2));
+    driver2A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, 2.2));
     driver2X.whileTrue(new KillArm(slide));
 
     // Negative speed for cone, positive speed for cube
