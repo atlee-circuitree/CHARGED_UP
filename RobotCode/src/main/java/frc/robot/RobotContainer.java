@@ -154,6 +154,7 @@ public class RobotContainer {
     Constants.autoSelect = new SendableChooser<>();
 
     Constants.modeSelect.setDefaultOption("Competition", "Competition");
+    Constants.modeSelect.addOption("Testing", "Testing");
     Constants.modeSelect.addOption("Player_Two", "Player_Two");
     Constants.autoSelect.setDefaultOption("Red Side", "Red Side");
     Constants.autoSelect.addOption("Blue Side", "Blue Side");

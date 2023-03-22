@@ -41,6 +41,7 @@ public class Slide extends SubsystemBase {
   SlewRateLimiter slowSlew;
  
   double angle;
+  double safetyBottomAngleCheck;
   double extension;
   double setExtensionOffset;
   double tolerance = 100;
@@ -78,6 +79,16 @@ public class Slide extends SubsystemBase {
     //Offset
     extOffset = extEncoder.getAbsolutePosition();
 
+    if (Constants.modeSelect.getSelected() != "Testing") {
+
+      double safetyBottomAngleCheck = 0;
+  
+    } else {
+
+      double safetyBottomAngleCheck = -99999999;
+
+    }
+
   }
 
   @Override
@@ -92,6 +103,8 @@ public class Slide extends SubsystemBase {
     SmartDashboard.putNumber("Extension Inches", getExtensionEncoderInches());
     SmartDashboard.putNumber("Extension Offset", extOffset);
     SmartDashboard.putBoolean("Extension Calibrated", runOnce);
+    SmartDashboard.putNumber("Angle Falcon Encoder", angMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Angle Safety Encoder", safetyBottomAngleCheck);
     SmartDashboard.getNumber("Custom Angle", 0);
  
   }
@@ -160,13 +173,13 @@ public class Slide extends SubsystemBase {
 
   public void extendArmUsingPower(double speed) {
 
-    if (speed > 0 && getExtensionEncoderInches() > Constants.maxExtensionValue - extOffset) {
+    if (getExtensionEncoderInches() > Constants.maxExtensionValue - extOffset) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
       System.out.print("Max Limit Hit");
 
-    } else if(speed < 0 && getExtensionEncoderInches() < Constants.minExtensionValue) {
+    } else if((speed < 0 && getExtensionEncoderInches() < Constants.minExtensionValue) || speed < 0 && angMotor.getSelectedSensorPosition() < safetyBottomAngleCheck) {
 
       leftExtMotor.set(ControlMode.PercentOutput, 0);
       rightExtMotor.set(ControlMode.PercentOutput, 0);
