@@ -232,9 +232,9 @@ public class RobotContainer {
     driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
  
-    TopPosition = new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, true);
+    TopPosition = new GoToAngleAndExtension(slide, 27.5, Constants.maxExtensionValue, 1, true);
     TopPositionAuto = new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false);
-    MiddlePosition = new GoToAngleAndExtension(slide, 20, 20, 1, true);
+    MiddlePosition = new GoToAngleAndExtension(slide, 26.4, 29.5, 1, true);
 
     
     ScoreOpeningCube = new SequentialCommandGroup(
