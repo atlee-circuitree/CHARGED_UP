@@ -185,7 +185,7 @@ public final class Constants {
         public static final double[] ScoreWayPoint = {6.000, -0.8, 0};
         public static final double[] MidWayPoint = {4.400, -0.8, 0};      
         public static final double[] ConeWayPoint = {1.8, -0.8, 0};
-        public static final double[] PlatformWayPoint = {4.70, -0.800, 0}; //Before x = 4.6 3/18/23 1:00 PM
+        public static final double[] PlatformWayPoint = {4.10, -0.800, 0}; //Before x = 4.7 3/18/23 1:00 PM
         public static final double[] ScorePlatformWayPoint = {6.000, -0.8, 0}; 
         public static final double[] ConePlatformWayPoint = {1.8, -0.8, 0}; //Before x = 2.75 3/16/23
     }

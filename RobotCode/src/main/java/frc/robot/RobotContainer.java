@@ -218,7 +218,7 @@ public class RobotContainer {
 
     resetExtensionEncoder = new ResetExtensionEncoder(slide);
  
-    AutoBalance = new AutoBalance(drivetrain, xbox1, 1);
+    AutoBalance = new AutoBalance(drivetrain, xbox1, .5);
 
     playAudio = new PlayAudio(audio, 0, 0);
  
@@ -347,7 +347,7 @@ public class RobotContainer {
     //Places one cone on high pole, drives pass line, and balances
     RedOneConeBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
       GenerateScoreHigh(),
-      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false), 
       GeneratePath(Constants.RedScoringWpToConeWpTag2and7)),
       GeneratePath(Constants.RedConeBalanceToBalanceWpTag2and7),
       GenerateAutoBalance()
