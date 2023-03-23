@@ -447,26 +447,23 @@ public class PathEQ {
         //Default value of 0.15 in case anyhting goes wrong
         double tolerance = 0.15;
 
-        /*
         //If u too big, return final heading
         if(uValue >= coords[coords.length-1][0]){
-            //tolerance = coords[coords.length-1][5];
+            tolerance = coords[coords.length-1][4];
         }
         //If u too small, return first heading
         else if(uValue <= coords[0][0]){
-           tolerance = coords[0][5];
+           tolerance = coords[0][4];
         }
         //Otherwise, cycle through each coordinate to find which ones uValue falls between
         else{
             for(int i = 1; i < coords.length; i++){
                 if(uValue <= coords[i][0]){
-                    tolerance = coords[i-1][5];
+                    tolerance = coords[i-1][4];
                     break;
                 }
             }
         }
-
-        */
         return tolerance;
 
     }
