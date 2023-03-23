@@ -43,6 +43,7 @@ import frc.robot.subsystems.Slide;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -96,10 +97,17 @@ public class RobotContainer {
   }
 
   SequentialCommandGroup GenerateScoreHigh(){
+
     return new SequentialCommandGroup(
-      new RunFeeder(feeder, .3).withTimeout(.5),
-      new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
-      new RunFeeder(feeder, -1).withTimeout(1));
+      new ParallelCommandGroup(new RunFeeder(feeder, .3).withTimeout(.5), new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false)),
+      new RunFeeder(feeder, -1).withTimeout(.5));
+
+  }
+
+  SequentialCommandGroup GenerateCollectPosition(){
+
+    return new SequentialCommandGroup(new GoToAngleAndExtension(slide, 27, 2.2, 1, false, 2.2));
+ 
   }
 
   AutoBalance GenerateAutoBalance(){
@@ -233,8 +241,8 @@ public class RobotContainer {
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
  
     TopPosition = new GoToAngleAndExtension(slide, 27.5, Constants.maxExtensionValue, 1, true);
-    TopPositionAuto = new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false);
-    MiddlePosition = new GoToAngleAndExtension(slide, 26.4, 29.5, 1, true);
+    TopPositionAuto = new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false, 2.2);
+    MiddlePosition = new GoToAngleAndExtension(slide, 26.4, 29.5, 1, true, 2.2);
 
     
     ScoreOpeningCube = new SequentialCommandGroup(
