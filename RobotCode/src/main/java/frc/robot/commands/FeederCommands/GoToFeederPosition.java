@@ -5,6 +5,7 @@
 package frc.robot.commands.FeederCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Feeder;
 
 public class GoToFeederPosition extends CommandBase {
@@ -47,12 +48,12 @@ public class GoToFeederPosition extends CommandBase {
   @Override
   public boolean isFinished() {
     
-    if (feeder.absoluteClawPosition() < .5 + tolerance && feeder.absoluteClawPosition() > .5 - tolerance && speed < 0) {
+    if (feeder.absoluteClawPosition() < .5 + tolerance && feeder.absoluteClawPosition() > Constants.CUBE_POSITION - tolerance && speed < 0) {
 
       System.out.println("Cube Position Met");
       return true;
 
-    } else if (feeder.absoluteClawPosition() < .76 + tolerance && feeder.absoluteClawPosition() > .76 - tolerance && speed > 0) {
+    } else if (feeder.absoluteClawPosition() < .76 + tolerance && feeder.absoluteClawPosition() > Constants.CONE_POSITION - tolerance && speed > 0) {
 
       System.out.println("Cone Position Met");
       return true;
