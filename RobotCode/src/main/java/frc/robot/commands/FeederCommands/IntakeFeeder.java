@@ -25,13 +25,16 @@ public class IntakeFeeder extends CommandBase {
   @Override
   public void initialize() {
 
-    if (feeder.absoluteClawPosition() < .5) {
+    if (feeder.absoluteClawPosition() < .7) {
 
-      speed = .25;
+      //speed = .25;
+      speed = .5;
 
     } else {
 
-      speed = .5;
+      //speed = .5;
+      //speed = .25;
+      speed = 0.4;
 
     }
 

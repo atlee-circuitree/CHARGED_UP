@@ -559,10 +559,17 @@ public static double[][] BlueScoreTag3and6North = {
     }
 
     //Encoder Values
+    /* 
     public static final double frontLeftEncoderOffset = 284.58984375;
     public static final double frontRightEncoderOffset = 254.267578125;
     public static final double rearLeftEncoderOffset = 127.353515625;
     public static final double rearRightEncoderOffset = 72.509765625;
+    */
+    public static final double frontLeftEncoderOffset = 282.568;
+    public static final double frontRightEncoderOffset = 251.806;
+    public static final double rearLeftEncoderOffset = 128.759;
+    public static final double rearRightEncoderOffset = 75.146;
+
 
     public static final int angleEncoderDIO = 0;
     public static final int feederRotationEncoderDIO = 1;
@@ -618,7 +625,7 @@ public static double[][] BlueScoreTag3and6North = {
 
     public static final double zControllerProportion = 20;
 
-    public static final double aBalanceXConstant = .8;
+    public static final double aBalanceXConstant = .7;
     
 
 

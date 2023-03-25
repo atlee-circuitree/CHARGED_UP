@@ -78,10 +78,10 @@ public class AutoBalance extends CommandBase {
     lastPitch = currentPitch;*/
 
      //Speed clamps
-    if (horizontalSpeed < -.5) {
-      horizontalSpeed = -.5;
-    } else if (horizontalSpeed > .5) {
-      horizontalSpeed = .5;
+    if (horizontalSpeed < -.27) {
+      horizontalSpeed = -.27;
+    } else if (horizontalSpeed > .27) {
+      horizontalSpeed = .27;
     }
 
      //When NavX thinks tilted back, drive motors forward
