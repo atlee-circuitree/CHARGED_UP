@@ -176,7 +176,7 @@ public class RobotContainer {
     //Constants.autoSelect.addOption("TEST Blue Side", "TEST Blue Side");
     //Constants.autoSelect.addOption("Red Side Balance", "Red Side Balance");
 
-    //Constants.autoSelect.addOption("AutoBalance", "AutoBalance");
+    Constants.autoSelect.addOption("AutoBalance", "AutoBalance");
 
     Constants.autoSelect.addOption("RedOneConeLineTag1and8", "RedOneConeLineTag1and8");
     //Constants.autoSelect.addOption("RedOneConeLineTag2and7", "RedOneConeLineTag2and7");
@@ -366,7 +366,7 @@ public class RobotContainer {
 
     //Places one cone on high pole, drives pass line, and balances
     RedOneConeBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
-      GenerateScoreHigh(),
+      //GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false), 
       GeneratePath(Constants.RedScoringWpToConeWpTag2and7)),
       GeneratePath(Constants.RedConeBalanceToBalanceWpTag2and7),
@@ -375,28 +375,33 @@ public class RobotContainer {
     
     //Places one cone on first high pole, cycles for two cones and places on the rest of the high poles
     RedTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
-      GenerateScoreHigh(),
-
-      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
-      GeneratePath(Constants.RedScoringWpToConeWpTag1and8)),
-      new GoToFeederPosition(feeder, -.2),
-      new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.RedCone1PickUp)),
-      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
-      GeneratePath(Constants.RedConeWpToScoringWpTag1and8),  
-      GeneratePath(Constants.RedScoreTag1and8South),
-      new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
-      new GoToFeederPosition(feeder, .2),
+    GenerateScoreHigh(),
       
-      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
-      GeneratePath(Constants.RedScoringWpToConeWpTag1and8)),
-      new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.RedCone2PickUp)),
-      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
-      GeneratePath(Constants.RedConeWpToScoringWpTag1and8),  
-      GeneratePath(Constants.RedScoreTag1and8North),
-      new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
-      new GoToFeederPosition(feeder, .2),
-      new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)
-    ); 
+    new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2),  
+    GeneratePath(Constants.RedScoringWpToConeWpTag1and8)),
+    new GoToFeederPosition(feeder, -.5).withTimeout(.5),
+    GeneratePath(Constants.RedCone1),
+    new ParallelCommandGroup(new RunFeederContinously(feeder, .75), GeneratePath(Constants.RedCone1PickUp).withTimeout(5)),
+    new RunFeederContinously(feeder, 0),  
+    new ParallelCommandGroup( new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+    //GeneratePath(Constants.RedConeWpToScoringWpTag3and6)),
+    GeneratePath(Constants.RedScoreTag1and8South)),
+    new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
+    new GoToFeederPosition(feeder, .5).withTimeout(2),
+    
+    //new GoToFeederPosition(feeder, .5).withTimeout(1),
+    new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2), 
+    GeneratePath(Constants.RedScoringWpToConeWpTag1and8), new GoToFeederPosition(feeder, -.2).withTimeout(.5)),
+    GeneratePath(Constants.RedCone2),
+    new ParallelCommandGroup(new RunFeederContinously(feeder, .6), GeneratePath(Constants.RedCone2PickUp).withTimeout(5)),
+    new RunFeederContinously(feeder, 0),  
+    new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+    GeneratePath(Constants.RedConeWpToScoringWpTag1and8),  
+    GeneratePath(Constants.RedScoreTag1and8North),
+    new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
+    new WaitCommand(1),
+    new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)
+  );
 
     //Places one cone on first high pole, cycles for two cones and places on the rest of the high poles
     RedTwoConeCollectTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1),  
@@ -418,10 +423,10 @@ public class RobotContainer {
       //Go to where we score the first cone
       GeneratePath(Constants.RedScoreTag3and6North)),
       new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
-      new GoToFeederPosition(feeder, -.5).withTimeout(2),
+      new GoToFeederPosition(feeder, .5).withTimeout(2),
       
       //Go to the second cone
-      new GoToFeederPosition(feeder, .5).withTimeout(1),
+      //new GoToFeederPosition(feeder, .5).withTimeout(1),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2), 
       GeneratePath(Constants.RedScoringWpToConeWpTag3and6), new GoToFeederPosition(feeder, -.2).withTimeout(.5)),
       GeneratePath(Constants.RedCone3),

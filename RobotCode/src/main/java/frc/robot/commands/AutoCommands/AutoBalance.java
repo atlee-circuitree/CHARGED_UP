@@ -54,7 +54,7 @@ public class AutoBalance extends CommandBase {
     //Telemetry
     SmartDashboard.putNumber("Robot Straight Speed", horizontalSpeed);
     SmartDashboard.putString("Is robot level", movementDirection);
-    SmartDashboard.putNumber("Roll", currentPitch);
+    SmartDashboard.putNumber("Pitch", currentPitch);
 
     currentPitch = drivetrain.getNavXRollOutput();
 
@@ -78,10 +78,10 @@ public class AutoBalance extends CommandBase {
     lastPitch = currentPitch;*/
 
      //Speed clamps
-    if (horizontalSpeed < -.27) {
-      horizontalSpeed = -.27;
-    } else if (horizontalSpeed > .27) {
-      horizontalSpeed = .27;
+    if (horizontalSpeed < -.35) {
+      horizontalSpeed = -.35;
+    } else if (horizontalSpeed > .35) {
+      horizontalSpeed = .35;
     }
 
      //When NavX thinks tilted back, drive motors forward
