@@ -163,13 +163,13 @@ public final class Constants {
 */
     public final static class CoordsCones{
         public static final double[] cone4PickUpStart = {2.0, 1.065, 180};
-        public static final double[] cone4PickUpEnd = {0.90, 1.065, 180};
+        public static final double[] cone4PickUpEnd = {0.80, 1.065, 180};
         public static final double[] cone3PickUpStart = {2.0, -0.2,180};
-        public static final double[] cone3PickUpEnd = {0.90, -0.2, 180};
+        public static final double[] cone3PickUpEnd = {0.80, -0.2, 180};
         public static final double[] cone2PickUpStart = {2.0, -1.400,180};
-        public static final double[] cone2PickUpEnd = {1.250, -1.400, 180};
+        public static final double[] cone2PickUpEnd = {0.80, -1.400, 180};
         public static final double[] cone1PickUpStart = {2.0, -2.630,180};
-        public static final double[] cone1PickUpEnd = {1.250, -2.630, 180};
+        public static final double[] cone1PickUpEnd = {0.80, -2.630, 180};
     }
     
     public final static class CoordsTags1and8{
@@ -239,6 +239,11 @@ public final class Constants {
         {1, CoordsTags3and6.ConeWayPoint[0] * side, CoordsTags3and6.ConeWayPoint[1], ((180 + (180 * -side))/2), 0.2}
     };
 
+    public static double[][] RedScoringWpToConeWpTag3and6ButBetter = {
+        {0, CoordsTags3and6.ScoreWayPoint[0] * side, CoordsTags3and6.ScoreWayPoint[1] + 0.15, 0, 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+        {1, CoordsTags3and6.ConeWayPoint[0] * side, CoordsTags3and6.ConeWayPoint[1] + 0.15, 0, 0.2}
+    };
+
     public static double[][] RedConeWpToScoringWpTag3and6 = {
         {0, CoordsTags3and6.ConeWayPoint[0] * side, CoordsTags3and6.ConeWayPoint[1], ((180 + (180 * -side))/2), 0.2},
         {1, CoordsTags3and6.ScoreWayPoint[0] * side, CoordsTags3and6.ScoreWayPoint[1], ((180 + (180 * -side))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
@@ -292,6 +297,11 @@ public final class Constants {
         {1, CoordsTags1and8.ConeWayPoint[0] * side, CoordsTags1and8.ConeWayPoint[1], ((180 + (180 * -side))/2), 0.2}
     };
 
+    public static double[][] RedScoringWpToConeWpTag1and8ButBetter = {
+        {0, CoordsTags1and8.ScoreWayPoint[0] * side, CoordsTags1and8.ScoreWayPoint[1] - 0.15, 0, 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+        {1, CoordsTags1and8.ConeWayPoint[0] * side, CoordsTags1and8.ConeWayPoint[1] - 0.15, 0, 0.2}
+    };
+
     public static double[][] RedConeWpToScoringWpTag1and8 = {
         {0, CoordsTags1and8.ConeWayPoint[0] * side, CoordsTags1and8.ConeWayPoint[1], ((180 + (180 * -side))/2), 0.2},
         {1, CoordsTags1and8.ScoreWayPoint[0] * side, CoordsTags1and8.ScoreWayPoint[1], ((180 + (180 * -side))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
@@ -319,8 +329,8 @@ public final class Constants {
    
 
     public static double[][] RedCone1PickUp = {
-        {0, CoordsCones.cone1PickUpStart[0] * side, CoordsCones.cone1PickUpStart[1], ((180 + (180 * side))/2), .2},  //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
-        {1, CoordsCones.cone1PickUpEnd[0] * side, CoordsCones.cone1PickUpEnd[1], ((180 + (180 * side))/2), .1}
+        {0, CoordsCones.cone1PickUpStart[0] * side, CoordsCones.cone1PickUpStart[1], 0, .2},  //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+        {1, CoordsCones.cone1PickUpEnd[0] * side, CoordsCones.cone1PickUpEnd[1], 180, .1}
     };
     
     public static double[][] RedCone2PickUp = {
@@ -329,8 +339,8 @@ public final class Constants {
     };
 
     public static double[][] RedCone3PickUp = {
-        {0, CoordsCones.cone3PickUpStart[0] * side, CoordsCones.cone3PickUpStart[1], ((180 + (180 * side))/2), .2},
-        {1, CoordsCones.cone3PickUpEnd[0] * side, CoordsCones.cone3PickUpEnd[1], ((180 + (180 * side))/2), .1}
+        {0, CoordsCones.cone3PickUpStart[0] * side, CoordsCones.cone3PickUpStart[1], 0, .2},
+        {1, CoordsCones.cone3PickUpEnd[0] * side, CoordsCones.cone3PickUpEnd[1], 180, .1}
     };
 
     public static double[][] RedCone4PickUp = {
@@ -388,6 +398,11 @@ public static double[][] BlueScoringWpToConeWpTag3and6 = {
     {1, CoordsTags3and6.ConeWayPoint[0] * BLUE_SIDE, CoordsTags3and6.ConeWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2}
 };
 
+public static double[][] BlueScoringWpToConeWpTag3and6ButBetter = {
+    {0, CoordsTags3and6.ScoreWayPoint[0] * BLUE_SIDE, CoordsTags3and6.ScoreWayPoint[1] * BLUE_SIDE_Y - 0.15, 0, 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+    {1, CoordsTags3and6.ConeWayPoint[0] * BLUE_SIDE, CoordsTags3and6.ConeWayPoint[1] * BLUE_SIDE_Y - 0.15, 0, 0.2}
+};
+
 public static double[][] BlueConeWpToScoringWpTag3and6 = {
     {0, CoordsTags3and6.ConeWayPoint[0] * BLUE_SIDE, CoordsTags3and6.ConeWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2},
     {1, CoordsTags3and6.ScoreWayPoint[0] * BLUE_SIDE, CoordsTags3and6.ScoreWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2}, //((180 + (180 * BLUE_SIDE))/2) calculates and angle of zero if BLUE_SIDE is 1 or 180 if side is -1
@@ -441,6 +456,11 @@ public static double[][] BlueScoringWpToConeWpTag1and8 = {
     {1, CoordsTags1and8.ConeWayPoint[0] * BLUE_SIDE, CoordsTags1and8.ConeWayPoint[1] * BLUE_SIDE_Y, 180, 0.2}
 };
 
+public static double[][] BlueScoringWpToConeWpTag1and8ButBetter = {
+    {0, CoordsTags1and8.ScoreWayPoint[0] * BLUE_SIDE, CoordsTags1and8.ScoreWayPoint[1] * BLUE_SIDE_Y + 0.15, 0, 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+    {1, CoordsTags1and8.ConeWayPoint[0] * BLUE_SIDE, CoordsTags1and8.ConeWayPoint[1] * BLUE_SIDE_Y + 0.15, 0, 0.2}
+};
+
 public static double[][] BlueConeWpToScoringWpTag1and8 = {
     {0, CoordsTags1and8.ConeWayPoint[0] * BLUE_SIDE, CoordsTags1and8.ConeWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2},
     {1, CoordsTags1and8.ScoreWayPoint[0] * BLUE_SIDE, CoordsTags1and8.ScoreWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
@@ -448,8 +468,8 @@ public static double[][] BlueConeWpToScoringWpTag1and8 = {
 
 
 public static double[][] BlueCone1PickUp = {
-    {0, CoordsCones.cone1PickUpStart[0] * BLUE_SIDE, CoordsCones.cone1PickUpStart[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05},  //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
-    {1, CoordsCones.cone1PickUpEnd[0] * BLUE_SIDE, CoordsCones.cone1PickUpEnd[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05}
+    {0, CoordsCones.cone1PickUpStart[0] * BLUE_SIDE, CoordsCones.cone1PickUpStart[1] * BLUE_SIDE_Y, 0, .05},  //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+    {1, CoordsCones.cone1PickUpEnd[0] * BLUE_SIDE, CoordsCones.cone1PickUpEnd[1] * BLUE_SIDE_Y, 180, .05}
 };
 
 public static double[][] BlueCone2PickUp = {
@@ -463,8 +483,8 @@ public static double[][] BlueCone3PickUp = {
 };
 
 public static double[][] BlueCone4PickUp = {
-    {0, CoordsCones.cone4PickUpStart[0] * BLUE_SIDE, CoordsCones.cone4PickUpStart[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .1},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
-    {1, CoordsCones.cone4PickUpEnd[0] * BLUE_SIDE, CoordsCones.cone4PickUpEnd[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05}
+    {0, CoordsCones.cone4PickUpStart[0] * BLUE_SIDE, CoordsCones.cone4PickUpStart[1] * BLUE_SIDE_Y, 0, .1},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+    {1, CoordsCones.cone4PickUpEnd[0] * BLUE_SIDE, CoordsCones.cone4PickUpEnd[1] * BLUE_SIDE_Y, 180, .05}
 };
 
 public static double[][] BlueScoreTag1and8South = {
@@ -628,7 +648,7 @@ public static double[][] BlueScoreTag3and6North = {
 
     public static final double zControllerProportion = 20;
 
-    public static final double aBalanceXConstant = .7;
+    public static final double aBalanceXConstant = .65;
     
 
 

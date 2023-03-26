@@ -73,7 +73,7 @@ public class RobotContainer {
 
   private GoToAngleAndExtension TopPosition;
   private GoToAngleAndExtension TopPositionAuto;
-  private GoToAngleAndExtension MiddlePosition;
+  private GoToAngleAndExtension SubstationPosition;
  
   private final DriveBackwardsToDistance GoPastStartingLine;
 
@@ -133,6 +133,7 @@ public class RobotContainer {
 
   SequentialCommandGroup RedOneConeLineTag2and7;
   SequentialCommandGroup RedOneConeBalanceTag2and7;
+  SequentialCommandGroup RedOneConeLineBalanceTag2and7;
   SequentialCommandGroup RedTwoConeBalanceTag2and7;
   SequentialCommandGroup RedTwoConeCollectTag2and7;
   SequentialCommandGroup RedTwoConeCollectBalanceTag2and7;
@@ -178,22 +179,28 @@ public class RobotContainer {
 
     Constants.autoSelect.addOption("AutoBalance", "AutoBalance");
 
-    Constants.autoSelect.addOption("RedOneConeLineTag1and8", "RedOneConeLineTag1and8");
+    //Constants.autoSelect.addOption("RedOneConeLineTag1and8", "RedOneConeLineTag1and8");
     //Constants.autoSelect.addOption("RedOneConeLineTag2and7", "RedOneConeLineTag2and7");
-    Constants.autoSelect.addOption("RedOneConeLineTag3and6", "RedOneConeLineTag3and6");
+    //Constants.autoSelect.addOption("RedOneConeLineTag3and6", "RedOneConeLineTag3and6");
     Constants.autoSelect.addOption("RedOneConeBalanceTag2and7", "RedOneConeBalanceTag2and7");
+    Constants.autoSelect.addOption("RedOneConeLineBalanceTag2and7", "RedOneConeLineBalanceTag2and7");
+
 
     //Constants.autoSelect.addOption("RedTwoConeChargeTag1and8", "RedTwoConeChargeTag1and8");
     //Constants.autoSelect.addOption("RedTwoConeCollectBalanceTag1and8", "RedTwoConeCollectBalanceTag1and8");
 
-    //Constants.autoSelect.addOption("RedTwoConeCollectTag1and8", "RedTwoConeCollectTag1and8");
+    Constants.autoSelect.addOption("RedTwoConeCollectTag1and8", "RedTwoConeCollectTag1and8");
 
     //Constants.autoSelect.addOption("RedTwoConeChargeTag2and7", "RedTwoConeChargeTag2and7");
     //Constants.autoSelect.addOption("RedTwoConeCollectBalanceTag2and7", "RedTwoConeCollectBalanceTag2and7");
     //Constants.autoSelect.addOption("RedTwoConeCollectTag2and7", "RedTwoConeCollectTag2and7");
     //Constants.autoSelect.addOption("RedTwoConeChargeTag3and6", "RedTwoConeChargeTag3and6");
     //Constants.autoSelect.addOption("RedTwoConeCollectBalanceTag3and6", "RedTwoConeCollectBalanceTag3and6");
-    //Constants.autoSelect.addOption("RedTwoConeCollectTag3and6", "RedTwoConeCollectTag3and6");
+    Constants.autoSelect.addOption("RedTwoConeCollectTag3and6", "RedTwoConeCollectTag3and6");
+
+    Constants.autoSelect.addOption("BlueTwoConeCollectTag1and8", "BlueTwoConeCollectTag1and8");
+    Constants.autoSelect.addOption("BlueTwoConeCollectTag3and6", "BlueTwoConeCollectTag3and6");
+
 
   /* 
     Constants.autoSelect.addOption("BlueOneConeLineTag1and8", "BlueOneConeLineTag1and8");
@@ -248,7 +255,7 @@ public class RobotContainer {
  
     TopPosition = new GoToAngleAndExtension(slide, 27.5, Constants.maxExtensionValue, 1, true);
     TopPositionAuto = new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false, 2.2);
-    MiddlePosition = new GoToAngleAndExtension(slide, 26.4, 29.5, 1, true, 2.2);
+    SubstationPosition = new GoToAngleAndExtension(slide, 17, Constants.maxExtensionValue, 1, false, 2.2);
 
     
     ScoreOpeningCube = new SequentialCommandGroup(
@@ -365,25 +372,35 @@ public class RobotContainer {
     );  
 
     //Places one cone on high pole, drives pass line, and balances
-    RedOneConeBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
-      //GenerateScoreHigh(),
+    RedOneConeLineBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+      GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false), 
       GeneratePath(Constants.RedScoringWpToConeWpTag2and7)),
       GeneratePath(Constants.RedConeBalanceToBalanceWpTag2and7),
       GenerateAutoBalance()
     );   
+
+    //Places one cone on high pole, drives pass line, and balances
+    RedOneConeBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+      GenerateScoreHigh(),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false), 
+      GeneratePath(Constants.RedScoringBalanceToBalanceWpTag2and7)),
+      GenerateAutoBalance()
+    );  
     
     //Places one cone on first high pole, cycles for two cones and places on the rest of the high poles
     RedTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
     GenerateScoreHigh(),
       
     new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2),  
-    GeneratePath(Constants.RedScoringWpToConeWpTag1and8)),
+    GeneratePath(Constants.RedScoringWpToConeWpTag1and8ButBetter)),
     new GoToFeederPosition(feeder, -.5).withTimeout(.5),
-    GeneratePath(Constants.RedCone1),
+    //GeneratePath(Constants.RedCone1), This is redundant, this has same waypoint from start to end so it goes in a loop
+    
     new ParallelCommandGroup(new RunFeederContinously(feeder, .75), GeneratePath(Constants.RedCone1PickUp).withTimeout(5)),
     new RunFeederContinously(feeder, 0),  
-    new ParallelCommandGroup( new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+    new ParallelCommandGroup( new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false))  
+    /*
     //GeneratePath(Constants.RedConeWpToScoringWpTag3and6)),
     GeneratePath(Constants.RedScoreTag1and8South)),
     new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
@@ -401,6 +418,7 @@ public class RobotContainer {
     new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
     new WaitCommand(1),
     new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)
+    */
   );
 
     //Places one cone on first high pole, cycles for two cones and places on the rest of the high poles
@@ -409,18 +427,19 @@ public class RobotContainer {
       //Initial Score
       GenerateScoreHigh(),
       
-      //Go to the first waypoint
+      //Heads to the cone and flips around
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2),  
-      GeneratePath(Constants.RedScoringWpToConeWpTag3and6)),
-      //GeneratePath(Constants.RedCone4), This is redundant, RedCone4PickUp below has the same coords as this
+      GeneratePath(Constants.RedScoringWpToConeWpTag3and6ButBetter)),
+      //GeneratePath(Constants.RedCone4), This is redundant, this has same waypoint from start to end so it goes in a loop
 
-      //Run the feeder to collect the Cone
+      //Pick up the cone
       new ParallelCommandGroup(new RunFeederContinously(feeder, .75), GeneratePath(Constants.RedCone4PickUp).withTimeout(5)),
       new RunFeederContinously(feeder, 0),  
-      new ParallelCommandGroup( new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
-      //GeneratePath(Constants.RedConeWpToScoringWpTag3and6)),
-
+      new ParallelCommandGroup( new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false))  
+    
+      /*
       //Go to where we score the first cone
+      //GeneratePath(Constants.RedConeWpToScoringWpTag3and6)),
       GeneratePath(Constants.RedScoreTag3and6North)),
       new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
       new GoToFeederPosition(feeder, .5).withTimeout(2),
@@ -442,7 +461,7 @@ public class RobotContainer {
       new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
       new WaitCommand(1),
       new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)
-      
+      */
     );  
 
     RedTwoConeCollectBalanceTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
@@ -553,25 +572,31 @@ public class RobotContainer {
       //AutoBalance
     );  
 
-    BlueTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
+    BlueTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
       GenerateScoreHigh(),
-      GeneratePath(Constants.BlueScoringWpToConeWpTag1and8), 
-      GeneratePath(Constants.BlueCone1PickUp), 
-      GeneratePath(Constants.BlueConeWpToScoringWpTag1and8), 
-      GeneratePath(Constants.BlueScoreTag1and8South), 
-      GeneratePath(Constants.BlueScoringWpToConeWpTag1and8),
-      GeneratePath(Constants.BlueCone2PickUp)
+        
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2),  
+      GeneratePath(Constants.BlueScoringWpToConeWpTag1and8ButBetter)),
+      new GoToFeederPosition(feeder, -.5).withTimeout(.5),
+      //GeneratePath(Constants.RedCone1), This is redundant, this has same waypoint from start to end so it goes in a loop
+      
+      new ParallelCommandGroup(new RunFeederContinously(feeder, .75), GeneratePath(Constants.RedCone1PickUp).withTimeout(5)),
+      new RunFeederContinously(feeder, 0),  
+      new ParallelCommandGroup( new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false))
     ); 
 
-    BlueTwoConeCollectTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
-      GenerateScoreHigh(), 
-      GeneratePath(Constants.BlueScoringWpToConeWpTag3and6), 
-      GeneratePath(Constants.BlueCone4PickUp), 
-      GeneratePath(Constants.BlueConeWpToScoringWpTag3and6), 
-      GeneratePath(Constants.BlueScoreTag3and6North),
-      GeneratePath(Constants.BlueScoringWpToConeWpTag3and6),
-      GeneratePath(Constants.BlueCone3PickUp)
-    );    
+    BlueTwoConeCollectTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+      GenerateScoreHigh(),
+        
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2),  
+      GeneratePath(Constants.BlueScoringWpToConeWpTag3and6ButBetter)),
+      new GoToFeederPosition(feeder, -.5).withTimeout(.5),
+      //GeneratePath(Constants.RedCone1), This is redundant, this has same waypoint from start to end so it goes in a loop
+      
+      new ParallelCommandGroup(new RunFeederContinously(feeder, .75), GeneratePath(Constants.RedCone1PickUp).withTimeout(5)),
+      new RunFeederContinously(feeder, 0),  
+      new ParallelCommandGroup( new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false))
+  );   
 
     BlueTwoConeChargeTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * Constants.BLUE_SIDE))/2)).withTimeout(.1), 
       GenerateScoreHigh(),
@@ -739,7 +764,7 @@ public class RobotContainer {
     //All four face button already used by SlideWithXbox
 
     driver2Y.onTrue(TopPosition);
-    driver2B.onTrue(MiddlePosition);
+    driver2B.onTrue(SubstationPosition);
     driver2A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, 2.2));
     driver2X.whileTrue(new KillArm(slide));
 
@@ -796,6 +821,10 @@ public class RobotContainer {
     } else if (Constants.autoSelect.getSelected() == "RedOneConeBalanceTag2and7") {
 
       return RedOneConeBalanceTag2and7;
+
+    } else if (Constants.autoSelect.getSelected() == "RedOneConeLineBalanceTag2and7") {
+
+      return RedOneConeLineBalanceTag2and7;
 
     } else if (Constants.autoSelect.getSelected() == "RedTwoConeChargeTag1and8") {
 

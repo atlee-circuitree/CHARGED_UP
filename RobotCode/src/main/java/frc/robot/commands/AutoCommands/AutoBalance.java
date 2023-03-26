@@ -78,22 +78,22 @@ public class AutoBalance extends CommandBase {
     lastPitch = currentPitch;*/
 
      //Speed clamps
-    if (horizontalSpeed < -.35) {
-      horizontalSpeed = -.35;
-    } else if (horizontalSpeed > .35) {
-      horizontalSpeed = .35;
+    if (horizontalSpeed < -.3) {
+      horizontalSpeed = -.3;
+    } else if (horizontalSpeed > .3) {
+      horizontalSpeed = .3;
     }
 
      //When NavX thinks tilted back, drive motors forward
      if (currentPitch > rollTolerance) {
         
-       drivetrain.driveAllModules(-horizontalSpeed);
+       drivetrain.driveAllModules(horizontalSpeed);
        movementDirection = "Moving Forwards";
        
      //When NavX thinks tilted forward, drive motors backwards
      } else if (currentPitch < -rollTolerance) {
 
-       drivetrain.driveAllModules(-horizontalSpeed);
+       drivetrain.driveAllModules(horizontalSpeed);
        movementDirection = "Moving Backwards";
   
      } else {
@@ -103,10 +103,10 @@ public class AutoBalance extends CommandBase {
 
       }
 
-        drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 0, 1);
-        drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 0, 1);
-        drivetrain.rotateModule(SwerveModule.REAR_LEFT, 0, 1);
-        drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 0, 1);
+        drivetrain.rotateModule(SwerveModule.FRONT_LEFT, 180, 1);
+        drivetrain.rotateModule(SwerveModule.FRONT_RIGHT, 180, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_LEFT, 180, 1);
+        drivetrain.rotateModule(SwerveModule.REAR_RIGHT, 180, 1);
         
 
     }
