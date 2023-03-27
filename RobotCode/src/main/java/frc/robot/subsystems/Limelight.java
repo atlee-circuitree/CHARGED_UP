@@ -236,16 +236,6 @@ public class Limelight extends SubsystemBase {
     limelightDashboard = limelightDashboard + "Theoretical Distance To Target/" + getDistanceToTarget() + ";";
     SmartDashboard.putNumber("Limelight Distance", getDistanceToTarget());
 
-    if (IsRedUsingAprilTags() == true) {
-
-      Constants.side = 1;
-
-    } else {
-
-      Constants.side = -1;
-
-    }
-
   }
 
 
