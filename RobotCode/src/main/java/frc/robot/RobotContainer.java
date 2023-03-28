@@ -11,9 +11,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.CoordsTags1and8;
-import frc.robot.Constants.CoordsTags2and7;
-import frc.robot.Constants.CoordsTags3and6;
 import frc.robot.commands.AutoCommands.AngleAndExtendInAuto;
 import frc.robot.commands.AutoCommands.AutoBalance;
 import frc.robot.commands.AutoCommands.CenterToDistance;
@@ -47,7 +44,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
+import frc.robot.Paths;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -232,10 +229,9 @@ public class RobotContainer {
  
 
    
-      
 
     //Places one cone on high pole, drives pass line, and balances
-    RedOneConeLineBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+    RedOneConeLineBalanceTag2and7 = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, 0).withTimeout(.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false), 
       GeneratePath(Constants.RedScoringWpToConeWpTag2and7)),
@@ -244,7 +240,7 @@ public class RobotContainer {
     );   
 
     //Places one cone on high pole, drives pass line, and balances
-    RedOneConeBalanceTag2and7 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags2and7.ScoreWestEast[0], -CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+    RedOneConeBalanceTag2and7 = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, 180).withTimeout(.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false), 
       GeneratePath(Constants.RedScoringBalanceToBalanceWpTag2and7)),
@@ -252,7 +248,7 @@ public class RobotContainer {
     );  
     
     //Places one cone on first high pole, cycles for two cones and places on the rest of the high poles
-    RedTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+    RedTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, 0).withTimeout(.1), 
     GenerateScoreHigh(),
       
     new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2),  
@@ -266,7 +262,7 @@ public class RobotContainer {
   );
 
     //Places one cone on first high pole, cycles for two cones and places on the rest of the high poles
-    RedTwoConeCollectTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1),  
+    RedTwoConeCollectTag3and6 = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, 0).withTimeout(.1),  
       
       //Initial Score
       GenerateScoreHigh(),
@@ -290,7 +286,7 @@ public class RobotContainer {
 
   
 
-    BlueTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+    BlueTwoConeCollectTag1and8 = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, 180).withTimeout(.1), 
       GenerateScoreHigh(),
         
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2),  
@@ -303,7 +299,7 @@ public class RobotContainer {
       new ParallelCommandGroup( new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false))
     ); 
 
-    BlueTwoConeCollectTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags1and8.ScoreWestEast[0], -CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+    BlueTwoConeCollectTag3and6 = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, 180).withTimeout(.1), 
       GenerateScoreHigh(),
         
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2),  
