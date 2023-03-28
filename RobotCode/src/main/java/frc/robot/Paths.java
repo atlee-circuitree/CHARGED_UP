@@ -119,7 +119,7 @@ public class Paths {
         //Scores preload, balances on charge station
         public static final class JustBalance{
             
-            public static double[][] GridToChargeStation = {
+            public static final double[][] GridToChargeStation = {
                 //Start at the grid in front of Tag 2
                 {0,     6, -0.8, 0,         0.3, 0.2},
                 //Drive up onto the charge station
@@ -131,14 +131,14 @@ public class Paths {
         //Scores preload, drives over charge station out of community, balances on charge station
         public static final class BehindTheLineBalance{
             
-            public static double[][] GridToOverChargeStation = {
+            public static final double[][] GridToOverChargeStation = {
                 //Start at the grid in front of Tag 2
                 {0,     6, -0.8, 0,         0.3, 0.2},
                 //Drive up over the charge station and cross the tape line
                 {1,     1.8, -0.8, 0,       0.3, 0.2}
             };
 
-            public static double[][] BackUpOntoChargeStation = {
+            public static final double[][] BackUpOntoChargeStation = {
                 //Start in front of the charge station near the cones
                 {0,     1.8, -0.8, 0,       0.3, 0.2},
                 //Drive up onto the charge station
@@ -151,15 +151,129 @@ public class Paths {
     //All the paths that start in front of Tag 3
     public static final class Tag3{
 
+        //Score preload, drive out of community, grabs top cone
         public static final class GrabTopCone{
+
+            public static final double[][] GridToTopCone = {
+                //Start at the grid in front of Tag 3
+                {0,     6, 1.041, 0,        0.3, 0.2},
+                //Head to the top-most cone
+                {1,     2.5, 1.041, 0,      0.3, 0.2}
+            };
+
+            public static final double[][] TopConePickUp = {
+                //Start right behind the top-most cone facing the blue side
+                {0,     2, 1.065, 180,      0.3, 0.2},
+                //Drive through the cone and pick it up
+                {1,     0.8, 1.065, 180,    0.3, 0.1}
+            };
 
         }
 
+        //Score preload, drive out of community, grabs top-middle cone
         public static final class GrabTopMiddleCone{
+
+            public static final double[][] GridToTopMiddleCone = {
+                //Start at grid in front of grid in front of Tag 3
+                {0,     6, 0.88, 0,         0.3, 0.2},
+                //Go past the charge station and out of the community
+                {1,     2.94, 1, 0,         0.3, 0.2},
+                //Go to the top middle cone and face the blue side
+                {2,     1.8, -0.17, 180,      0.3, 0.2}
+            };
+
+            public static final double[][] PickUpTopMiddleCone = {
+                //Start behind top middle cone facing blue side
+                {0,     1.8, -0.17, 180,      0.3, 0.2},
+                //Drive through top middle cone to pick it up
+                {1,     0.80, -0.17, 180,      0.3, 0.2}
+            };
 
         } 
     }
     
+
+    //All the paths that start in front of Tag 6
+    public static final class Tag6{
+
+        //Score preload, drive out of community, grabs top cone
+        public static final class GrabTopCone{
+
+            public static final double[][] GridToTopCone = {
+                //Start at the grid in front of Tag 6
+                {0,     -6, 1.041, 180,        0.3, 0.2},
+                //Head to the top-most cone
+                {1,     -2.5, 1.041, 180,      0.3, 0.2}
+            };
+
+            public static final double[][] TopConePickUp = {
+                //Start right behind the top-most cone facing the red side
+                {0,     -2, 1.065, 0,      0.3, 0.2},
+                //Drive through the cone and pick it up
+                {1,     -0.8, 1.065, 0,    0.3, 0.1}
+            };
+        }
+    }
+
+
+    //All the paths that start in front of Tag 7
+    public static final class Tag7{
+
+        //Scores preload, balances on charge station
+        public static final class JustBalance{
+            
+            public static final double[][] GridToChargeStation = {
+                //Start at the grid in front of Tag 7
+                {0,     -6, -0.8, 180,         0.3, 0.2},
+                //Drive up onto the charge station
+                {1,     -4.1, -0.8, 180,       0.3, 0.05}
+            };
+
+        }
+
+        //Scores preload, drives over charge station out of community, balances on charge station
+        public static final class BehindTheLineBalance{
+            
+            public static final double[][] GridToOverChargeStation = {
+                //Start at the grid in front of Tag 7
+                {0,     -6, -0.8, 180,         0.3, 0.2},
+                //Drive up over the charge station and cross the tape line
+                {1,     -1.8, -0.8, 180,       0.3, 0.2}
+            };
+
+            public static final double[][] BackUpOntoChargeStation = {
+                //Start in front of the charge station near the cones
+                {0,     -1.8, -0.8, 180,       0.3, 0.2},
+                //Drive up onto the charge station
+                {1,     -4.1, -0.8, 180,       0.3, 0.05}
+            };
+
+        }
+    }
+
+
+    //All the paths that start in front of Tag 8
+    public static final class Tag8{
+
+        //Scores preload, drives out of community, grabs bottom cone
+        public static final class GrabBottomCone{
+
+            public static final double[][] GridToBottomCone = {
+                //Start at the grid in front of Tag 1
+                {0,     -6, -2.63, 180,        0.3, 0.2},
+                //Head to the bottom-most cone
+                {1,     -2.5, -2.63, 180,      0.3, 0.2} 
+            };
+
+            public static final double[][] BottomConePickUp = {
+                //Start right behind the bottom-most cone facing the blue side
+                {0,     -2, -2.63, 0,      0.3, 0.2},
+                //Drive through the cone and pick it up
+                {1,     -0.8, -2.63, 0,    0.3, 0.1}
+            };
+
+        }
+    }
 
 
     public static double[][] RedScoringWpToConeWpTag3and6 = {
