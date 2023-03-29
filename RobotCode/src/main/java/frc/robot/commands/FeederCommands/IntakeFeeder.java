@@ -6,6 +6,7 @@ package frc.robot.commands.FeederCommands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Feeder;
 
 public class IntakeFeeder extends CommandBase {
@@ -25,16 +26,17 @@ public class IntakeFeeder extends CommandBase {
   @Override
   public void initialize() {
 
-    if (feeder.absoluteClawPosition() < .7) {
+    if (feeder.absoluteClawPosition() < Constants.CONE_POSITION - 0.1) {
 
       //speed = .25;
-      speed = .5;
+      speed = 0.4;
+      //speed = .5;
 
     } else {
 
-      //speed = .5;
-      //speed = .25;
-      speed = 0.4;
+      speed = .5;
+      //speed = 0.25;
+      //speed = 0.4;
 
     }
 

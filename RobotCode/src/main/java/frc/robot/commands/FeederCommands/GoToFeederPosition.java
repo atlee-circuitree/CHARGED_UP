@@ -12,7 +12,7 @@ public class GoToFeederPosition extends CommandBase {
  
   Feeder feeder;
   double speed;
-  double tolerance = .04;
+  double tolerance = .05;
  
   public GoToFeederPosition(Feeder Feeder, double Speed) {
 
@@ -48,12 +48,12 @@ public class GoToFeederPosition extends CommandBase {
   @Override
   public boolean isFinished() {
     
-    if (feeder.absoluteClawPosition() < .5 + tolerance && feeder.absoluteClawPosition() > Constants.CUBE_POSITION - tolerance && speed < 0) {
+    if (feeder.absoluteClawPosition() < Constants.CUBE_POSITION + tolerance && feeder.absoluteClawPosition() > Constants.CUBE_POSITION - tolerance && speed < 0) {
 
       System.out.println("Cube Position Met");
       return true;
 
-    } else if (feeder.absoluteClawPosition() < .76 + tolerance && feeder.absoluteClawPosition() > Constants.CONE_POSITION - tolerance && speed > 0) {
+    } else if (feeder.absoluteClawPosition() < Constants.CONE_POSITION + tolerance && feeder.absoluteClawPosition() > Constants.CONE_POSITION - tolerance && speed > 0) {
 
       System.out.println("Cone Position Met");
       return true;

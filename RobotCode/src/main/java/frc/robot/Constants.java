@@ -119,8 +119,8 @@ public final class Constants {
 
 
 
-    public static double CONE_POSITION = .76;
-    public static double CUBE_POSITION = .45;
+    public static double CONE_POSITION = .95;
+    public static double CUBE_POSITION = .61;
 
     //Create Mode Select
     public static SendableChooser<String> modeSelect;
@@ -184,8 +184,8 @@ public final class Constants {
     public static final int extensionEncoderDIO = 9;
  
     public static final double angleOffset = -4.5; //Before -11.5
-    public static final double maxAngleEncoderValue = 27; //Before 36.2 3/21/23 1:05 PM
-    public static final double minAngleEncoderValue = -22; //Before -17.0 3/21/23 1:05 PM
+    public static final double maxAngleEncoderValue = 20; 
+    public static final double minAngleEncoderValue = -29; 
 
     //public static final double maxRotationEncoderValue = 0.886;
     //public static final double minRotationEncoderValue = 0.348;

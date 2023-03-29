@@ -213,7 +213,7 @@ public class RobotContainer {
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
  
     TopPosition = new GoToAngleAndExtension(slide, 27.5, Constants.maxExtensionValue, 1, true);
-    TopPositionAuto = new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false, 2.2);
+    
     SubstationPosition = new GoToAngleAndExtension(slide, 17, Constants.maxExtensionValue, 1, false, 2.2);
 
 
@@ -412,11 +412,15 @@ public class RobotContainer {
     driver2X.whileTrue(new KillArm(slide));
 
     // Negative speed for cone, positive speed for cube
-    driver2LB.onTrue(new GoToFeederPosition(feeder, -.5)); //Open for cube
-    driver2RB.onTrue(new GoToFeederPosition(feeder, .5)); //Close for cone
+    driver2LB.onTrue(new GoToFeederPosition(feeder, 0.05)); 
+    driver2RB.onTrue(new GoToFeederPosition(feeder, -0.05)); 
+
+    //driver2LB.whileTrue(new RotateFeeder(feeder, 0.05));
+    //driver2RB.whileTrue(new RotateFeeder(feeder, -0.05));
 
     driver1RT.whileTrue(new IntakeFeeder(feeder));
     driver1LT.whileTrue(new RunFeeder(feeder, -1));
+
 
   }
 
