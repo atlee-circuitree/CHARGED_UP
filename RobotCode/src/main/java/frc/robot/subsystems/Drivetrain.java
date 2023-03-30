@@ -167,7 +167,7 @@ public class Drivetrain extends SubsystemBase {
     new SwerveModuleState(positionChangePer100msToMetersPerSecond(rearRightDrvMotor.getSelectedSensorVelocity()), 
     Rotation2d.fromDegrees(getRotEncoderValue(SwerveModule.REAR_RIGHT))));
 
-    //resetOdometryToLimelight();
+    resetOdometryToLimelight();
 
   }
 
@@ -572,7 +572,7 @@ public double getOdometryZ(){
 
 public void resetOdometryToLimelight(){
 
-  if(limelight.SeesMultipleTags() || (limelight.SeesAprilTag() && limelight.getDistanceToAprilTag() <= Constants.limelightSingleTargetPoseLengthCutoff)){
+  if((limelight.SeesMultipleTags() && limelight.getDistanceToAprilTag() <= Constants.limelightMultiTargetPoseLengthCutoff) || (limelight.SeesAprilTag() && limelight.getDistanceToAprilTag() <= Constants.limelightSingleTargetPoseLengthCutoff)){
     try{  
       odometry.resetPosition(new Pose2d(-limelight.BotPose()[0], -limelight.BotPose()[1], new Rotation2d(-getNavXOutputRadians())),
        new Rotation2d(-getNavXOutputRadians()));

@@ -119,8 +119,8 @@ public final class Constants {
 
 
 
-    public static double CONE_POSITION = .95;
-    public static double CUBE_POSITION = .61;
+    public static double CONE_POSITION = .61;
+    public static double CUBE_POSITION = .96;
 
     //Create Mode Select
     public static SendableChooser<String> modeSelect;
@@ -184,7 +184,7 @@ public final class Constants {
     public static final int extensionEncoderDIO = 9;
  
     public static final double angleOffset = -4.5; //Before -11.5
-    public static final double maxAngleEncoderValue = 20; 
+    public static final double maxAngleEncoderValue = 22.1; 
     public static final double minAngleEncoderValue = -29; 
 
     //public static final double maxRotationEncoderValue = 0.886;
@@ -201,6 +201,7 @@ public final class Constants {
     public static final double minExtensionValue = -1; //Before -2 3/21/23
 
     public static final double limelightSingleTargetPoseLengthCutoff = 1.9;
+    public static final double limelightMultiTargetPoseLengthCutoff = 3.0;
 
     public static final double trackwidth = 22.5;
     public static final double wheelbase = 22.5;

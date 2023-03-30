@@ -71,6 +71,7 @@ public class RobotContainer {
   private GoToAngleAndExtension TopPosition;
   private GoToAngleAndExtension TopPositionAuto;
   private GoToAngleAndExtension SubstationPosition;
+  private GoToAngleAndExtension BottomPosition;
  
   private final DriveBackwardsToDistance GoPastStartingLine;
 
@@ -212,10 +213,9 @@ public class RobotContainer {
     driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
     slideWithXbox = new SlideWithXbox(xbox1, xbox2, slide);
  
-    TopPosition = new GoToAngleAndExtension(slide, 27.5, Constants.maxExtensionValue, 1, true);
-    
-    SubstationPosition = new GoToAngleAndExtension(slide, 17, Constants.maxExtensionValue, 1, false, 2.2);
-
+    TopPosition = new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, true);
+    SubstationPosition = new GoToAngleAndExtension(slide, 13.8, Constants.maxExtensionValue, 1, false, 2.2);
+    BottomPosition = new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, 2.2);
 
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
@@ -408,15 +408,12 @@ public class RobotContainer {
 
     driver2Y.onTrue(TopPosition);
     driver2B.onTrue(SubstationPosition);
-    driver2A.onTrue(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, 2.2));
+    driver2A.onTrue(BottomPosition);
     driver2X.whileTrue(new KillArm(slide));
 
     // Negative speed for cone, positive speed for cube
-    driver2LB.onTrue(new GoToFeederPosition(feeder, 0.05)); 
-    driver2RB.onTrue(new GoToFeederPosition(feeder, -0.05)); 
-
-    //driver2LB.whileTrue(new RotateFeeder(feeder, 0.05));
-    //driver2RB.whileTrue(new RotateFeeder(feeder, -0.05));
+    driver2LB.onTrue(new GoToFeederPosition(feeder, 0.5)); 
+    driver2RB.onTrue(new GoToFeederPosition(feeder, -0.5)); 
 
     driver1RT.whileTrue(new IntakeFeeder(feeder));
     driver1LT.whileTrue(new RunFeeder(feeder, -1));

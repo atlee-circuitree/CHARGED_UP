@@ -79,4 +79,56 @@ public class Feeder extends SubsystemBase {
 
   }
 
+  public boolean withinAbsoluteTolerance(double value, double targetValue, double tolerance) {
+
+    // Create the area of tolerance
+    double upperLimit = targetValue + tolerance;
+    double lowerLimit = targetValue - tolerance;
+
+    // Check if any of the limits loop around, then adjust 
+    boolean upperOverrun = false;
+    boolean lowerOverrun = false;
+    if (upperLimit > 1) {
+
+      upperLimit = upperLimit - 1;
+      upperOverrun = true;
+
+    }
+    if (lowerLimit < 0) {
+
+      lowerLimit = lowerLimit + 1;
+      lowerOverrun = true;
+
+    }
+
+    // Check if within limit bounds
+    if (upperOverrun == false && lowerOverrun == false) {
+
+      if (value > lowerLimit && value < upperLimit) {
+
+        return true;
+
+      } else {
+
+        return false;
+
+      }
+
+    } else {
+
+      if (value > lowerLimit || value < upperLimit) {
+
+        return true;
+
+      } else {
+
+        return false;
+
+      }
+
+    }
+
+  }
+
+
 }
