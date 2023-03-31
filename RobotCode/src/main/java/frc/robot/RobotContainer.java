@@ -238,7 +238,7 @@ public class RobotContainer {
       GeneratePath(Paths.Tag3.GrabTopCone.GridToTopCone)),
       
       //Pick up the cone
-      new ParallelCommandGroup(new RunFeeder(feeder, .5), GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUp)),
+      new ParallelCommandGroup(new RunFeeder(feeder, .5).withTimeout(2), GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUp)),
       new ParallelCommandGroup( new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),
       new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush))  
     );  

@@ -209,12 +209,12 @@ public class PathFollower extends CommandBase {
 
     //If robot at target position, increment the target u value
     if(driveController.atReference()){
-      if(pathEQ.solveAngle(targetUValue) - aTolerance <= drivetrain.getOdometryZ() && 
-        drivetrain.getOdometryZ() <= pathEQ.solveAngle(targetUValue) + aTolerance){
+      //if(pathEQ.solveAngle(targetUValue) - aTolerance <= drivetrain.getOdometryZ() && 
+      //  drivetrain.getOdometryZ() <= pathEQ.solveAngle(targetUValue) + aTolerance){
         
         targetUValue = targetUValue + uIncrement;
 
-      }
+      //}
     }
 
 

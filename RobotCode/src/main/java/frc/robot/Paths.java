@@ -158,7 +158,7 @@ public class Paths {
                 //Start at the grid in front of Tag 3
                 {0,     6, 1.041, 0,        0.3, 0.2},
                 //Start to rotate
-                {1,     5, 1.041, 0,        0.3, 0.2},
+                {1,     5.5, 1.041, 0,        0.3, 0.2},
                 //Head to the top-most cone
                 {2,     2.5, 1.041, 180,      0.3, 0.2}
             };
