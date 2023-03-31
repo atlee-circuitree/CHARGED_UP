@@ -119,7 +119,8 @@ public final class Constants {
 
 
 
-    public static double CONE_POSITION = .61;
+    public static double CRUSH_POSITION = .61;
+    public static double CONE_POSITION = .75;
     public static double CUBE_POSITION = .96;
 
     //Create Mode Select
@@ -157,10 +158,9 @@ public final class Constants {
     public static final int rightFeederMotorPort = 21;
     public static final int rotationFeederMotorPort = 26;
     public static final int rotationEncoderChannel = 5;
-    public enum GrabPosition {
+    public enum FeederPosition {
 
-        Init,
-        Open,
+        Crush,
         Cone,
         Cube
 

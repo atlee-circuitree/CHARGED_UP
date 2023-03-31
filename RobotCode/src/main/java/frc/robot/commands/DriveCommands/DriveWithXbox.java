@@ -189,9 +189,9 @@ public class DriveWithXbox extends CommandBase {
       drivetrain.rotateMotor(Motors.REAR_RIGHT_DRV, rearRightSpeed);
     }
 
-    SmartDashboard.putNumber("getOdometryX()", drivetrain.getOdometryX());
-    SmartDashboard.putNumber("getOdometryY()", drivetrain.getOdometryY());
-    SmartDashboard.putNumber("getOdometryZ()", drivetrain.getOdometryZ());
+    SmartDashboard.putNumber("Current X", drivetrain.getOdometryX());
+    SmartDashboard.putNumber("Current Y", drivetrain.getOdometryY());
+    SmartDashboard.putNumber("Current Z", drivetrain.getOdometryZ());
 
     SmartDashboard.putNumber("getRawOdometryX()", drivetrain.getRawOdometryX());
     SmartDashboard.putNumber("getRawOdometryY()", drivetrain.getRawOdometryY());

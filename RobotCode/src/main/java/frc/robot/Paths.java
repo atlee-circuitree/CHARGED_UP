@@ -157,15 +157,17 @@ public class Paths {
             public static final double[][] GridToTopCone = {
                 //Start at the grid in front of Tag 3
                 {0,     6, 1.041, 0,        0.3, 0.2},
+                //Start to rotate
+                {1,     5, 1.041, 0,        0.3, 0.2},
                 //Head to the top-most cone
-                {1,     2.5, 1.041, 0,      0.3, 0.2}
+                {2,     2.5, 1.041, 180,      0.3, 0.2}
             };
 
             public static final double[][] TopConePickUp = {
                 //Start right behind the top-most cone facing the blue side
-                {0,     2, 1.065, 180,      0.3, 0.2},
+                {0,     2, 1.041, 180,      0.15, 0.1},
                 //Drive through the cone and pick it up
-                {1,     0.8, 1.065, 180,    0.3, 0.1}
+                {1,     0.8, 1.041, 180,    0.15, 0.1}
             };
 
         }

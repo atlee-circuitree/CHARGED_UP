@@ -52,24 +52,7 @@ public class Feeder extends SubsystemBase {
 
   public void rotateFeeder(double speed) {
 
-    /*
-    if (speed > 0 && feederEncoder.getAbsolutePosition() > .1 && feederEncoder.getAbsolutePosition() < .5) {
-
-      rotationFeederMotor.set(0);
-
-    } else if (speed < 0 && feederEncoder.getAbsolutePosition() < .8 && feederEncoder.getAbsolutePosition() > .5) {
-
-      rotationFeederMotor.set(0);
-
-    } else {
-
-      rotationFeederMotor.set(speed);
-
-    }
-    */
-
     rotationFeederMotor.set(speed);
-   
 
   }
 
