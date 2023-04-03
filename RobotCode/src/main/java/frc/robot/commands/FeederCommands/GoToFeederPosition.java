@@ -28,8 +28,10 @@ public class GoToFeederPosition extends CommandBase {
  
   @Override
   public void initialize() {
-    
-    if (position == FeederPosition.Cone && feeder.absoluteClawPosition() > Constants.CONE_POSITION) {
+    if(feeder.absoluteClawPosition() < Constants.CRUSH_POSITION - 0.15 || feeder.absoluteClawPosition() > Constants.CUBE_POSITION){
+      speed = -speed;
+    }
+    else if(position == FeederPosition.Cone && feeder.absoluteClawPosition() > Constants.CONE_POSITION) {
       speed = -speed;
     } else if (position == FeederPosition.Crush) {
       speed = -speed;
@@ -60,17 +62,17 @@ public class GoToFeederPosition extends CommandBase {
   @Override
   public boolean isFinished() {
     
-    if (feeder.withinAbsoluteTolerance(feeder.absoluteClawPosition(), Constants.CUBE_POSITION, tolerance) == true && speed > 0 && position == Constants.FeederPosition.Cube) {
+    if (feeder.withinAbsoluteTolerance(feeder.absoluteClawPosition(), Constants.CUBE_POSITION, tolerance) == true && position == FeederPosition.Cube) {
 
       System.out.println("Cube Position Met");
       return true;
 
-    } else if (feeder.withinAbsoluteTolerance(feeder.absoluteClawPosition(), Constants.CONE_POSITION, tolerance) == true && position == Constants.FeederPosition.Cone) {
+    } else if (feeder.withinAbsoluteTolerance(feeder.absoluteClawPosition(), Constants.CONE_POSITION, tolerance) == true && position == FeederPosition.Cone) {
 
       System.out.println("Cone Position Met");
       return true;
 
-    } else if (feeder.withinAbsoluteTolerance(feeder.absoluteClawPosition(), Constants.CRUSH_POSITION, tolerance) == true && speed < 0 && position == Constants.FeederPosition.Crush) {
+    } else if (feeder.withinAbsoluteTolerance(feeder.absoluteClawPosition(), Constants.CRUSH_POSITION, tolerance) == true && speed < 0 && position == FeederPosition.Crush) {
 
       System.out.println("Crush Position Met");
       return true;

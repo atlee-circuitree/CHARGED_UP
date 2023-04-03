@@ -167,7 +167,13 @@ public class Drivetrain extends SubsystemBase {
     new SwerveModuleState(positionChangePer100msToMetersPerSecond(rearRightDrvMotor.getSelectedSensorVelocity()), 
     Rotation2d.fromDegrees(getRotEncoderValue(SwerveModule.REAR_RIGHT))));
 
-    resetOdometryToLimelight();
+    if(Constants.autoSelect.getSelected() == "Tag2BehindTheLineBalance"){
+      //Do nothing
+    }
+    else{
+      resetOdometryToLimelight();
+    }
+    
 
   }
 

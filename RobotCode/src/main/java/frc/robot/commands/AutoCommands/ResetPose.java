@@ -21,7 +21,7 @@ public class ResetPose extends CommandBase {
   public ResetPose(Drivetrain dt, double X, double Y, double Rot) {
     
     drivetrain = dt;
-    x = X;
+    x = -X;
     y = Y;
     rot = Rot;
 

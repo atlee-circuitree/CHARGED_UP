@@ -9,17 +9,24 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Limelight;
+import java.text.DecimalFormat;
 
 public class ResetPoseToLimelight extends CommandBase {
   /** Creates a new ResetPose. */
   Drivetrain drivetrain;
+  Limelight limelight;
   Pose2d pose;
-  Rotation2d rotation;
+  double limelightAngle;
+  double rotation;
   double rot;
 
-  public ResetPoseToLimelight(Drivetrain dt, double Rot) {
+  DecimalFormat odometryRounder = new DecimalFormat("###");
+
+  public ResetPoseToLimelight(Drivetrain dt, Limelight lt, double Rot) {
     
     drivetrain = dt;
+    limelight = lt;
     rot = Math.toRadians(Rot);
     
 
@@ -32,8 +39,9 @@ public class ResetPoseToLimelight extends CommandBase {
   public void initialize() {
 
     drivetrain.zeroNavXYaw();
-    rotation = new Rotation2d(rot);
-    pose = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(), rotation);
+    limelightAngle = -(limelight.BotPose()[5]);
+    rotation = Math.toRadians(Double.valueOf(odometryRounder.format(limelightAngle)));
+    pose = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(), new Rotation2d(rotation));
     drivetrain.resetOdometry(pose);
     
 

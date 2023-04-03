@@ -121,7 +121,7 @@ public final class Constants {
 
     public static double CRUSH_POSITION = .61;
     public static double CONE_POSITION = .75;
-    public static double CUBE_POSITION = .96;
+    public static double CUBE_POSITION = .9;
 
     //Create Mode Select
     public static SendableChooser<String> modeSelect;
@@ -200,8 +200,8 @@ public final class Constants {
     public static final double maxExtensionValue = 52;
     public static final double minExtensionValue = -1; //Before -2 3/21/23
 
-    public static final double limelightSingleTargetPoseLengthCutoff = 1.9;
-    public static final double limelightMultiTargetPoseLengthCutoff = 3.0;
+    public static final double limelightSingleTargetPoseLengthCutoff = 1.2;
+    public static final double limelightMultiTargetPoseLengthCutoff = 5.5;
 
     public static final double trackwidth = 22.5;
     public static final double wheelbase = 22.5;
@@ -234,7 +234,7 @@ public final class Constants {
 
     public static final double zControllerProportion = 20;
 
-    public static final double aBalanceXConstant = .65;
+    public static final double aBalanceXConstant = .5;
     
 
 

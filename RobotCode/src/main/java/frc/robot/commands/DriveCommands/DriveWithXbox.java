@@ -205,6 +205,8 @@ public class DriveWithXbox extends CommandBase {
     SmartDashboard.putNumber("Rear Right Rotation Encoder", drivetrain.getAbsoluteRotEncoderValue(SwerveModule.REAR_RIGHT));
     SmartDashboard.putNumber("Rear Left Rotation Encoder", drivetrain.getAbsoluteRotEncoderValue(SwerveModule.REAR_LEFT));
 
+    SmartDashboard.putNumber("Limelight Botpose TZ", limelight.BotPose()[5]);
+
 
     SmartDashboard.putNumber("Limelight Botpose TX", limelight.BotPose()[0]);
     SmartDashboard.putNumber("Limelight Botpose TY", limelight.BotPose()[1]);

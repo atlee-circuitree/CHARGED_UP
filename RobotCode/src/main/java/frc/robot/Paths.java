@@ -133,16 +133,16 @@ public class Paths {
             
             public static final double[][] GridToOverChargeStation = {
                 //Start at the grid in front of Tag 2
-                {0,     6, -0.8, 0,         0.3, 0.2},
+                {0,     6, -1.2, 0,         0.3, 0.2},
                 //Drive up over the charge station and cross the tape line
-                {1,     1.8, -0.8, 0,       0.3, 0.2}
+                {1,     1.8, -1.2, 0,       0.3, 0.2}
             };
 
             public static final double[][] BackUpOntoChargeStation = {
                 //Start in front of the charge station near the cones
-                {0,     1.8, -0.8, 0,       0.3, 0.2},
+                {0,     1.8, -1.2, 0,       0.3, 0.2},
                 //Drive up onto the charge station
-                {1,     4.1, -0.8, 0,       0.3, 0.05}
+                {1,     4.1, -1.2, 0,       0.3, 0.05}
             };
 
         }
@@ -151,23 +151,37 @@ public class Paths {
     //All the paths that start in front of Tag 3
     public static final class Tag3{
 
+        public static final double[][] StraightBackTest = {
+            //Start to drive from TopConePickUp to grid
+            {0,     6, 0.8, 0,        0.3, 0.3},
+            {1,     6, 0.8, 180,      0.3, 0.3},
+            
+        };
+
         //Score preload, drive out of community, grabs top cone
         public static final class GrabTopCone{
 
             public static final double[][] GridToTopCone = {
                 //Start at the grid in front of Tag 3
-                {0,     6, 1.041, 0,        0.3, 0.2},
+                {0,     6, 0.8, 0,        0.3, 0.2},
                 //Start to rotate
-                {1,     5.5, 1.041, 0,        0.3, 0.2},
+                {1,     4, 0.8, 0,      0.3, 0.2},
                 //Head to the top-most cone
-                {2,     2.5, 1.041, 180,      0.3, 0.2}
+                {2,     1.5, 0.7, 180,      0.15, 0.01}
             };
 
             public static final double[][] TopConePickUp = {
                 //Start right behind the top-most cone facing the blue side
-                {0,     2, 1.041, 180,      0.15, 0.1},
+                {0,     1.4, 0.7, 180,    0.15, 0.01},
                 //Drive through the cone and pick it up
-                {1,     0.8, 1.041, 180,    0.15, 0.1}
+                {1,     0.8, 0.7, 180,    0.15, 0.01}
+            };
+
+            public static final double[][] TopConePickUpToGrid = {
+                //Start to drive from TopConePickUp to grid
+                {0,     2, 1.1, 180,       0.3, 0.2 },
+                //Drives up to and rotates to right grid
+                {1,     6, 1.1, 0,         0.15, 0.01},
             };
 
         }
