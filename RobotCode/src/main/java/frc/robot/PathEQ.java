@@ -302,10 +302,13 @@ public class PathEQ {
     
         
         SmartDashboard.putNumber("solveAngle(0)", solveAngle(0));
+        SmartDashboard.putNumber("solveAngle(0.5)", solveAngle(0.5));
         SmartDashboard.putNumber("solveAngle(1)", solveAngle(1));
+        SmartDashboard.putNumber("solveAngle(1.5)", solveAngle(1.5));
         SmartDashboard.putNumber("solveAngle(2)", solveAngle(2));
+        SmartDashboard.putNumber("solveAngle(2.5)", solveAngle(2.5));
         SmartDashboard.putNumber("solveAngle(3)", solveAngle(3));
-        SmartDashboard.putNumber("solveAngle(4)", solveAngle(4));
+        SmartDashboard.putNumber("solveAngle(3.5)", solveAngle(3.5));
 
     }
 
@@ -396,8 +399,8 @@ public class PathEQ {
                 }
             }
 
-            targetTheta = (slope(endpoints[0], endpoints[1]) * (uValue - endpoints[0][0])) + endpoints[0][1];
-
+            //targetTheta = (slope(endpoints[0], endpoints[1]) * (uValue - endpoints[0][0])) + endpoints[0][1];
+            targetTheta = endpoints[1][1];
         }
 
         return targetTheta;
