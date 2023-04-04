@@ -118,6 +118,7 @@ public class RobotContainer {
 
   //Command Groups
   SequentialCommandGroup Tag1GrabBottomCone;
+  SequentialCommandGroup Tag1GrabBottomCube;
   
   SequentialCommandGroup Tag2JustBalance;
   SequentialCommandGroup Tag2BehindTheLineBalance;
@@ -145,8 +146,9 @@ public class RobotContainer {
     Constants.autoSelect.addOption("Red middle pass line balance", "Tag2BehindTheLineBalance");
 
     Constants.autoSelect.addOption("Red left grab bottom cone", "Tag1GrabBottomCone");
+    Constants.autoSelect.addOption("Red left grab bottom cube", "Tag1GrabBottomCube");
+
     Constants.autoSelect.addOption("Red right grab top cone", "Tag3GrabTopCone");
-    Constants.autoSelect.addOption("Red right straight back test", "Tag3StraightBackTest");
 
     Constants.autoSelect.addOption("Blue right grab bottom cone", "Tag8GrabBottomCone");
 
@@ -205,13 +207,28 @@ public class RobotContainer {
       
       //Head to bottom cone
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2),  
+      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone),  
       GeneratePath(Paths.Tag1.GrabBottomCone.GridToBottomCone)),
-      new GoToFeederPosition(feeder, -0.5, FeederPosition.Cone).withTimeout(.5),
       
       //Pick up bottom cone
-      new ParallelCommandGroup(new RunFeeder(feeder, 0.5).withTimeout(1.5), GeneratePath(Paths.Tag1.GrabBottomCone.BottomConePickUp)),
-      new ParallelCommandGroup( new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)),
+      new ParallelCommandGroup(new RunFeeder(feeder, 0.5).withTimeout(2.5), GeneratePath(Paths.Tag1.GrabBottomCone.BottomConePickUp)),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)),
       new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush)    
+    );
+
+    //Scores preload then grabs the bottom cone (does not score second cone)
+    Tag1GrabBottomCube = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 0).withTimeout(.1),
+      //Score preload 
+      GenerateScoreHigh(),
+      
+      //Head to bottom cone
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2),  
+      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cube),  
+      GeneratePath(Paths.Tag1.GrabBottomCone.GridToBottomCone)),
+      
+      //Pick up bottom cone
+      new ParallelCommandGroup(new RunFeeder(feeder, 0.5).withTimeout(2), GeneratePath(Paths.Tag1.GrabBottomCone.BottomConePickUp)),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false))
     );
 
     //Places one cone on high pole and balances
@@ -241,8 +258,8 @@ public class RobotContainer {
       new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone),  
       GeneratePath(Paths.Tag3.GrabTopCone.GridToTopCone)),
             
-      //Pick up the cone
-      new ParallelCommandGroup(new RunFeeder(feeder, .5).withTimeout(1.5), GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUp)),
+      //Pick up top cone
+      new ParallelCommandGroup(new RunFeeder(feeder, 0.5).withTimeout(2), GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUp)),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)),
       new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush)  
     );  
@@ -390,6 +407,10 @@ public class RobotContainer {
 
       return Tag1GrabBottomCone;
 
+    } else if (Constants.autoSelect.getSelected() == "Tag1GrabBottomCube") {
+
+        return Tag1GrabBottomCube;
+
     } else if (Constants.autoSelect.getSelected() == "Tag2JustBalance") {
 
       return Tag2JustBalance;
@@ -405,10 +426,6 @@ public class RobotContainer {
     } else if (Constants.autoSelect.getSelected() == "Tag8GrabBottomCone") {
 
       return Tag8GrabBottomCone;
-
-    } else if (Constants.autoSelect.getSelected() == "StraightBackTest") {
-
-      return StraightBackTest;
 
     } else if (Constants.autoSelect.getSelected() == "AutoBalance") {
 
