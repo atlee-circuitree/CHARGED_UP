@@ -126,7 +126,7 @@ public class RobotContainer {
   
   SequentialCommandGroup Tag8GrabBottomCone;
 
-  SequentialCommandGroup Tag3StraightBackTest;
+  SequentialCommandGroup StraightBackTest;
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -206,12 +206,12 @@ public class RobotContainer {
       //Head to bottom cone
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2),  
       GeneratePath(Paths.Tag1.GrabBottomCone.GridToBottomCone)),
-      new GoToFeederPosition(feeder, -.5, FeederPosition.Cone).withTimeout(.5),
+      new GoToFeederPosition(feeder, -0.5, FeederPosition.Cone).withTimeout(.5),
       
       //Pick up bottom cone
-      new ParallelCommandGroup(new RunFeederContinously(feeder, .75), GeneratePath(Paths.Tag1.GrabBottomCone.BottomConePickUp).withTimeout(5)),
-      new RunFeederContinously(feeder, 0),  
-      new ParallelCommandGroup( new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false))  
+      new ParallelCommandGroup(new RunFeeder(feeder, 0.5).withTimeout(1.5), GeneratePath(Paths.Tag1.GrabBottomCone.BottomConePickUp)),
+      new ParallelCommandGroup( new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)),
+      new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush)    
     );
 
     //Places one cone on high pole and balances
@@ -248,8 +248,8 @@ public class RobotContainer {
     );  
 
     //Scores preload the grabs the top cone
-    Tag3StraightBackTest = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 0).withTimeout(.1),  
-      GeneratePath(Paths.Tag3.StraightBackTest)
+    StraightBackTest = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 0).withTimeout(.1),  
+      GeneratePath(Paths.StraightBackTest)
     );  
 
 
@@ -406,9 +406,9 @@ public class RobotContainer {
 
       return Tag8GrabBottomCone;
 
-    } else if (Constants.autoSelect.getSelected() == "Tag3StraightBackTest") {
+    } else if (Constants.autoSelect.getSelected() == "StraightBackTest") {
 
-      return Tag3StraightBackTest;
+      return StraightBackTest;
 
     } else if (Constants.autoSelect.getSelected() == "AutoBalance") {
 

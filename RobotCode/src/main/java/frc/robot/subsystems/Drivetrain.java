@@ -578,6 +578,7 @@ public double getOdometryZ(){
 
 public void resetOdometryToLimelight(){
 
+ 
   if((limelight.SeesMultipleTags() && limelight.getDistanceToAprilTag() <= Constants.limelightMultiTargetPoseLengthCutoff) || (limelight.SeesAprilTag() && limelight.getDistanceToAprilTag() <= Constants.limelightSingleTargetPoseLengthCutoff)){
     try{  
       odometry.resetPosition(new Pose2d(-limelight.BotPose()[0], -limelight.BotPose()[1], new Rotation2d(-getNavXOutputRadians())),
@@ -589,8 +590,20 @@ public void resetOdometryToLimelight(){
       System.out.println("Haha good luck");
     }
   }
+  else if(limelight.SeesMultipleTagsRearLimelight() && limelight.getDistanceToAprilTagRearLimelight() <= Constants.rearlimelightMultiTargetPoseLengthCutoff){
+    try{  
+      odometry.resetPosition(new Pose2d(-limelight.BotPoseRearLimelight()[0], -limelight.BotPoseRearLimelight()[1], new Rotation2d(-getNavXOutputRadians())),
+       new Rotation2d(-getNavXOutputRadians()));
+
+      SmartDashboard.putBoolean("Running off of rear limelight pose", true);
+    }
+    catch(Exception e){
+      System.out.println("Haha good luck");
+    }
+  }
   else{
     SmartDashboard.putBoolean("Running off of limelight pose", false);
+    SmartDashboard.putBoolean("Running off of rear limelight pose", false);
   }
 
 }
