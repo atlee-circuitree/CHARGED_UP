@@ -6,6 +6,7 @@ package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
@@ -22,7 +23,7 @@ public class ResetPose extends CommandBase {
     
     drivetrain = dt;
     x = -X;
-    y = Y;
+    y = -Y;
     rot = Rot;
 
     addRequirements(drivetrain);
@@ -33,10 +34,13 @@ public class ResetPose extends CommandBase {
   @Override
   public void initialize() {
 
-    drivetrain.zeroNavXYaw();
-    rotation = new Rotation2d(rot);
+    rotation = new Rotation2d(Math.toRadians(rot));
     pose = new Pose2d(x, y, rotation);
     drivetrain.resetOdometry(pose);
+
+    SmartDashboard.putNumber("Current X", drivetrain.getOdometryX());
+    SmartDashboard.putNumber("Current Y", drivetrain.getOdometryY());
+    SmartDashboard.putNumber("Current Z", drivetrain.getOdometryZ());
 
   }
 

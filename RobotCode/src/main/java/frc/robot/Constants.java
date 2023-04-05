@@ -235,7 +235,7 @@ public final class Constants {
 
     public static final double zControllerProportion = 20;
 
-    public static final double aBalanceXConstant = .5;
+    public static final double aBalanceXConstant = .58;
     
 
 

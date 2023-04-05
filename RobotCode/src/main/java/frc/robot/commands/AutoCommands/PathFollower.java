@@ -92,14 +92,36 @@ public class PathFollower extends CommandBase {
     //We deal with the rotation separately since it is waaaay easier
     //However, because of this, if you want to know the current robot Z, DO NOT USE CURRENTPOS IT WILL JUST RETURN ZERO
     //Use drivetrain.getOdometryZ() instead
+
+    //FOR VIASSNA
+    /* 
+    if(Constants.autoSelect.getSelected() = "redautoName"){
+      //run the current pos with Rotation2d(0)
+    }
+    if(Constants.autoSelect.getSelected() = "blueautoName"){
+      //run the same thing but change rotation2d(0) to rotation2d(180)
+    }
+    */
+
+    /* 
     Pose2d currentPos = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(),
     new Rotation2d(0));
+    */
+    Pose2d currentPos = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(),
+      new Rotation2d(Math.toRadians(drivetrain.getOdometryZ())));
 
+    /* 
     Pose2d targetPos = new Pose2d(pathEQ.solvePoint(targetUValue)[0], pathEQ.solvePoint(targetUValue)[1], 
       new Rotation2d(0));
+    */
 
+    Pose2d targetPos = new Pose2d(pathEQ.solvePoint(targetUValue)[0], pathEQ.solvePoint(targetUValue)[1], 
+      new Rotation2d(Math.toRadians(drivetrain.getOdometryZ())));
 
-    ChassisSpeeds chassisSpeeds = driveController.calculate(currentPos, targetPos, 1, new Rotation2d(0));
+    //ChassisSpeeds chassisSpeeds = driveController.calculate(currentPos, targetPos, 1, new Rotation2d(0));
+
+    ChassisSpeeds chassisSpeeds = driveController.calculate(currentPos, targetPos, 1, new Rotation2d(Math.toRadians(drivetrain.getOdometryZ())));
+
 
     //forward = chassisSpeeds.vyMetersPerSecond;
     //strafe = chassisSpeeds.vxMetersPerSecond;
