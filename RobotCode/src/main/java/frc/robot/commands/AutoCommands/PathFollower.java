@@ -51,6 +51,8 @@ public class PathFollower extends CommandBase {
   private double strafe;
   private double rotation;
 
+  private double rotationPlaceholder = 0;
+
   private boolean isFinished = false;
  
   public PathFollower(Drivetrain dt, Limelight lt, PathEQ pathEquation, double speed, double angleTolerance) {
@@ -76,6 +78,42 @@ public class PathFollower extends CommandBase {
     //Reset odometry to the limelight pose
     //drivetrain.resetOdometryToLimelight();
 
+    
+    if (Constants.autoSelect.getSelected() == "Tag1GrabBottomCone") {
+
+      rotationPlaceholder = 0;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag2JustBalance") { 
+
+      rotationPlaceholder = 0;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag2BehindTheLineBalance") { 
+
+      rotationPlaceholder = 0;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag3GrabTopCone") { 
+
+      rotationPlaceholder = 0;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag6GrabTopCone") { 
+
+      rotationPlaceholder = 180;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag7JustBalance") { 
+
+      rotationPlaceholder = 180;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag7BehindTheLineBalance") { 
+
+      rotationPlaceholder = 180;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag8GrabBottomCone") { 
+
+      rotationPlaceholder = 180;
+
+    }
+
+
   }
 
   @Override
@@ -92,6 +130,11 @@ public class PathFollower extends CommandBase {
     //We deal with the rotation separately since it is waaaay easier
     //However, because of this, if you want to know the current robot Z, DO NOT USE CURRENTPOS IT WILL JUST RETURN ZERO
     //Use drivetrain.getOdometryZ() instead
+
+
+
+
+    /*
     Pose2d currentPos = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(),
     new Rotation2d(0));
 
@@ -100,6 +143,16 @@ public class PathFollower extends CommandBase {
 
 
     ChassisSpeeds chassisSpeeds = driveController.calculate(currentPos, targetPos, 1, new Rotation2d(0));
+    */
+
+    Pose2d currentPos = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(),
+    new Rotation2d(rotationPlaceholder));
+
+    Pose2d targetPos = new Pose2d(pathEQ.solvePoint(targetUValue)[0], pathEQ.solvePoint(targetUValue)[1], 
+      new Rotation2d(rotationPlaceholder));
+
+
+    ChassisSpeeds chassisSpeeds = driveController.calculate(currentPos, targetPos, 1, new Rotation2d(rotationPlaceholder));
 
     //forward = chassisSpeeds.vyMetersPerSecond;
     //strafe = chassisSpeeds.vxMetersPerSecond;

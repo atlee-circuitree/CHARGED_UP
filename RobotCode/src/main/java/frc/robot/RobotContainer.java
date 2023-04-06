@@ -124,7 +124,11 @@ public class RobotContainer {
   SequentialCommandGroup Tag2BehindTheLineBalance;
  
   SequentialCommandGroup Tag3GrabTopCone;
+
+  SequentialCommandGroup Tag6GrabTopCone;
   
+  SequentialCommandGroup Tag7BehindTheLineBalance;
+
   SequentialCommandGroup Tag8GrabBottomCone;
 
   SequentialCommandGroup StraightBackTest;
@@ -142,15 +146,22 @@ public class RobotContainer {
 
     Constants.autoSelect.addOption("AutoBalance", "AutoBalance");
 
-    Constants.autoSelect.addOption("Red middle just balance", "Tag2JustBalance");
-    Constants.autoSelect.addOption("Red middle pass line balance", "Tag2BehindTheLineBalance");
+    Constants.autoSelect.addOption("Red Left Grab Bottom Cone", "Tag1GrabBottomCone");
 
-    Constants.autoSelect.addOption("Red left grab bottom cone", "Tag1GrabBottomCone");
-    Constants.autoSelect.addOption("Red left grab bottom cube", "Tag1GrabBottomCube");
+    Constants.autoSelect.addOption("Red Middle pass Line Balance", "Tag2BehindTheLineBalance");
 
-    Constants.autoSelect.addOption("Red right grab top cone", "Tag3GrabTopCone");
+    Constants.autoSelect.addOption("Red Right Grab Top Cone", "Tag3GrabTopCone");
 
-    Constants.autoSelect.addOption("Blue right grab bottom cone", "Tag8GrabBottomCone");
+
+    Constants.autoSelect.addOption("Blue Right Grab Bottom Cone", "Tag8GrabBottomCone");
+
+    Constants.autoSelect.addOption("Blue Middle Pass Line Balance", "Tag7BehindTheLineBalance");
+
+    Constants.autoSelect.addOption("Blue Left Grab Top Cone", "Tag6GrabTopCone");
+
+
+    
+    
 
     SmartDashboard.putData("Select Mode", Constants.modeSelect);
     SmartDashboard.putData("Select Auto", Constants.autoSelect);
@@ -273,6 +284,33 @@ public class RobotContainer {
 //---------------------------------
 //Blue Autos
 //---------------------------------
+
+    //Scores preload the grabs the top cone
+    Tag6GrabTopCone = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 180).withTimeout(.1),  
+      //Score preload
+      GenerateScoreHigh(),
+      
+      //Head to top cone
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false, 2.2),
+      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone),  
+      GeneratePath(Paths.Tag6.GrabTopCone.GridToTopCone)),
+            
+      //Pick up top cone
+      new ParallelCommandGroup(new RunFeeder(feeder, 0.5).withTimeout(2), GeneratePath(Paths.Tag6.GrabTopCone.TopConePickUp)),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)),
+      new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush)
+    
+    );
+
+    //Places one cone on high pole, drives pass line, and balances. Does not use limelight readings
+    Tag7BehindTheLineBalance = new SequentialCommandGroup(new ResetPose(drivetrain, -6.25, -1.2, 180).withTimeout(0.1), 
+      GenerateScoreHigh(),
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false), 
+      GeneratePath(Paths.Tag7.BehindTheLineBalance.GridToOverChargeStation)),
+      GeneratePath(Paths.Tag7.BehindTheLineBalance.BackUpOntoChargeStation),
+      GenerateAutoBalance()
+    );     
+
 
     //Score preload, then grab bottom cone (doesn't score)
     Tag8GrabBottomCone = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 180).withTimeout(.1),
@@ -406,15 +444,7 @@ public class RobotContainer {
     if (Constants.autoSelect.getSelected() == "Tag1GrabBottomCone") {
 
       return Tag1GrabBottomCone;
-
-    } else if (Constants.autoSelect.getSelected() == "Tag1GrabBottomCube") {
-
-        return Tag1GrabBottomCube;
-
-    } else if (Constants.autoSelect.getSelected() == "Tag2JustBalance") {
-
-      return Tag2JustBalance;
-
+      
     } else if (Constants.autoSelect.getSelected() == "Tag2BehindTheLineBalance") {
 
       return Tag2BehindTheLineBalance;
@@ -422,6 +452,14 @@ public class RobotContainer {
     } else if (Constants.autoSelect.getSelected() == "Tag3GrabTopCone") {
 
       return Tag3GrabTopCone;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag6GrabTopCone") {
+
+      return Tag6GrabTopCone;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag7BehindTheLineBalance") {
+
+      return Tag7BehindTheLineBalance;
 
     } else if (Constants.autoSelect.getSelected() == "Tag8GrabBottomCone") {
 
