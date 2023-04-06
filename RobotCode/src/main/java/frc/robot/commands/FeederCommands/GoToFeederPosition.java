@@ -13,7 +13,8 @@ public class GoToFeederPosition extends CommandBase {
  
   Feeder feeder;
   double speed;
-  double tolerance = .02;
+  double actualSpeed;
+  double tolerance = .04;
   FeederPosition position;
  
   public GoToFeederPosition(Feeder Feeder, double Speed, FeederPosition Position) {
@@ -28,6 +29,7 @@ public class GoToFeederPosition extends CommandBase {
  
   @Override
   public void initialize() {
+    /* 
     if(feeder.absoluteClawPosition() < Constants.CRUSH_POSITION - 0.15 || feeder.absoluteClawPosition() > Constants.CUBE_POSITION){
       speed = -speed;
     }
@@ -36,13 +38,44 @@ public class GoToFeederPosition extends CommandBase {
     } else if (position == FeederPosition.Crush) {
       speed = -speed;
     }
+    */
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    if(position == FeederPosition.Cube){
+      if(feeder.absoluteClawPosition() < Constants.CRUSH_POSITION - 0.15){
+        actualSpeed = -speed;
+      }
+      else if(feeder.absoluteClawPosition() > Constants.CUBE_POSITION){
+        actualSpeed = -speed;
+      }
+      else{
+        actualSpeed = speed;
+      }
+    }
+
+    if(position == FeederPosition.Cone){
+      if(feeder.absoluteClawPosition() > Constants.CONE_POSITION){
+        actualSpeed = -speed;
+      }
+      else if(feeder.absoluteClawPosition() < Constants.CONE_POSITION){
+        actualSpeed = speed;
+      }
+    }
+
+    if(position == FeederPosition.Crush){
+      if(feeder.absoluteClawPosition() > Constants.CRUSH_POSITION){
+        actualSpeed = -speed;
+      }
+      else if(feeder.absoluteClawPosition() < Constants.CRUSH_POSITION){
+        actualSpeed = speed;
+      }
+    }
  
-    feeder.rotateFeeder(speed);
+    feeder.rotateFeeder(actualSpeed);
  
   }
 
@@ -72,7 +105,7 @@ public class GoToFeederPosition extends CommandBase {
       System.out.println("Cone Position Met");
       return true;
 
-    } else if (feeder.withinAbsoluteTolerance(feeder.absoluteClawPosition(), Constants.CRUSH_POSITION, tolerance) == true && speed < 0 && position == FeederPosition.Crush) {
+    } else if (feeder.withinAbsoluteTolerance(feeder.absoluteClawPosition(), Constants.CRUSH_POSITION, tolerance) == true && position == FeederPosition.Crush) {
 
       System.out.println("Crush Position Met");
       return true;

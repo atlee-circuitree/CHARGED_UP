@@ -146,7 +146,7 @@ public class Drivetrain extends SubsystemBase {
 
     limelight = new Limelight();
 
-    resetOdometryToLimelight();
+    //resetOdometryToLimelight();
   }
 
   @Override
@@ -167,12 +167,16 @@ public class Drivetrain extends SubsystemBase {
     new SwerveModuleState(positionChangePer100msToMetersPerSecond(rearRightDrvMotor.getSelectedSensorVelocity()), 
     Rotation2d.fromDegrees(getRotEncoderValue(SwerveModule.REAR_RIGHT))));
 
+    SmartDashboard.putNumber("NavX Yaw", getNavXOutput());
+
+    /*
     if(Constants.autoSelect.getSelected() == "Tag2BehindTheLineBalance"){
       //Do nothing
     }
     else{
       resetOdometryToLimelight();
     }
+    */
     
 
   }
@@ -497,6 +501,9 @@ public class Drivetrain extends SubsystemBase {
   }
   public void zeroNavXYaw(){
     navx.zeroYaw();
+  }
+  public void resetNavX(){
+    navx.reset();
   }
 
   public double getNavXRollOutput(){

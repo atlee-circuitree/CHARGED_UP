@@ -238,7 +238,7 @@ public class RobotContainer {
     );
 
     //Places one cone on high pole and balances
-    Tag2JustBalance = new SequentialCommandGroup(new ResetPose(drivetrain, 6, 1.2, 0).withTimeout(0.1), 
+    Tag2JustBalance = new SequentialCommandGroup(new ResetPose(drivetrain, 6, -1.3, 0).withTimeout(0.1), 
       GenerateScoreHigh(),
 
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),
@@ -248,7 +248,7 @@ public class RobotContainer {
     );
 
     //Places one cone on high pole, drives pass line, and balances. Does not use limelight readings
-    Tag2BehindTheLineBalance = new SequentialCommandGroup(new ResetPose(drivetrain, 6, 1.2, 0).withTimeout(0.1), 
+    Tag2BehindTheLineBalance = new SequentialCommandGroup(new ResetPose(drivetrain, 6, -1.3, 0).withTimeout(0.1), 
       GenerateScoreHigh(),
 
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false), 
@@ -256,6 +256,7 @@ public class RobotContainer {
       GeneratePath(Paths.Tag2.BehindTheLineBalance.GridToOverChargeStation)),
       GeneratePath(Paths.Tag2.BehindTheLineBalance.BackUpOntoChargeStation),
       GenerateAutoBalance()
+      
     );     
 
     //Scores preload the grabs the top cone
@@ -285,7 +286,7 @@ public class RobotContainer {
 //---------------------------------
 
     //Scores preload then grabs the bottom cone (does not score second cone)
-    Tag8GrabBottomCone = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 0).withTimeout(.1),
+    Tag8GrabBottomCone = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 180).withTimeout(.1),
       //Score preload 
       GenerateScoreHigh(),
       
@@ -301,7 +302,7 @@ public class RobotContainer {
     );
 
     //Places one cone on high pole and balances
-    Tag7JustBalance = new SequentialCommandGroup(new ResetPose(drivetrain, -6, -1.3, 0).withTimeout(0.1), 
+    Tag7JustBalance = new SequentialCommandGroup(new ResetPose(drivetrain, -6, -1.3, 180).withTimeout(0.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false), 
       GeneratePath(Paths.Tag7.JustBalance.GridToChargeStation)),
@@ -309,7 +310,7 @@ public class RobotContainer {
     );
 
     //Places one cone on high pole, drives pass line, and balances. Does not use limelight readings
-    Tag7BehindTheLineBalance = new SequentialCommandGroup(new ResetPose(drivetrain, -6, -1.3, -180).withTimeout(0.1), 
+    Tag7BehindTheLineBalance = new SequentialCommandGroup(new ResetPose(drivetrain, -6, -1.3, 180).withTimeout(0.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false), 
       GeneratePath(Paths.Tag7.BehindTheLineBalance.GridToOverChargeStation)),
@@ -318,7 +319,7 @@ public class RobotContainer {
     );     
 
     //Scores preload the grabs the top cone
-    Tag6GrabTopCone = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 0).withTimeout(0.1),  
+    Tag6GrabTopCone = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 180).withTimeout(0.1),  
       //Score preload
       GenerateScoreHigh(),
       
@@ -331,6 +332,7 @@ public class RobotContainer {
       new ParallelCommandGroup(new RunFeeder(feeder, 0.5).withTimeout(2.5), GeneratePath(Paths.Tag6.GrabTopCone.TopConePickUp)),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false)),
       new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush)  
+      
     );  
 
     configureButtonBindings();
@@ -434,9 +436,9 @@ public class RobotContainer {
     driver2Back.whileTrue(new KillArm(slide));
 
     //Feeder Positions
-    driver1LB.onTrue(new GoToFeederPosition(feeder, 0.5, FeederPosition.Cube)); 
-    driver1RB.onTrue(new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone)); 
-    driver1RS.onTrue(new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush));
+    driver1LB.onTrue(new GoToFeederPosition(feeder, 0.3, FeederPosition.Cube)); 
+    driver1RB.onTrue(new GoToFeederPosition(feeder, 0.3, FeederPosition.Cone)); 
+    driver1RS.onTrue(new GoToFeederPosition(feeder, 0.3, FeederPosition.Crush));
 
     driver1RT.whileTrue(new IntakeFeeder(feeder));
     driver1LT.whileTrue(new RunFeeder(feeder, -1));
@@ -484,7 +486,7 @@ public class RobotContainer {
 
     } else if (Constants.autoSelect.getSelected() == "AutoBalance") {
 
-      return AutoBalance;
+      return GenerateScoreHigh();
 
     } else if (Constants.autoSelect.getSelected() == "Nothing") {
 

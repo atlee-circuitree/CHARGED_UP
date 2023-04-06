@@ -216,6 +216,7 @@ public class DriveWithXbox extends CommandBase {
     //Reset gyro button
     if(xbox.getBackButtonPressed()){
       drivetrain.zeroNavXYaw();
+      //drivetrain.resetNavX();
       drivetrain.resetOdometry(new Pose2d(new Translation2d(0, new Rotation2d(0)), new Rotation2d(0)));
     }
   }  

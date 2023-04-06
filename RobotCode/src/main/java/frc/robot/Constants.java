@@ -119,9 +119,9 @@ public final class Constants {
 
 
 
-    public static final double CRUSH_POSITION = .61;
+    public static final double CRUSH_POSITION = .57;
     public static final double CONE_POSITION = .75;
-    public static final double CUBE_POSITION = .85;
+    public static final double CUBE_POSITION = .93;
 
     //Create Mode Select
     public static SendableChooser<String> modeSelect;

@@ -37,13 +37,13 @@ public class ResetPoseToLimelight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
-    drivetrain.zeroNavXYaw();
+    
+    /* 
     limelightAngle = -(limelight.BotPose()[5]);
     rotation = Math.toRadians(Double.valueOf(odometryRounder.format(limelightAngle)));
     pose = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(), new Rotation2d(rotation));
     drivetrain.resetOdometry(pose);
-    
+    */
 
     SmartDashboard.putNumber("getOdometryX()", drivetrain.getOdometryX());
     SmartDashboard.putNumber("getOdometryY()", drivetrain.getOdometryY());

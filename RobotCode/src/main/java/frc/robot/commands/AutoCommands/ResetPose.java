@@ -33,7 +33,7 @@ public class ResetPose extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    /*
     rotation = new Rotation2d(Math.toRadians(rot));
     pose = new Pose2d(x, y, rotation);
     drivetrain.resetOdometry(pose);
@@ -41,7 +41,7 @@ public class ResetPose extends CommandBase {
     SmartDashboard.putNumber("Current X", drivetrain.getOdometryX());
     SmartDashboard.putNumber("Current Y", drivetrain.getOdometryY());
     SmartDashboard.putNumber("Current Z", drivetrain.getOdometryZ());
-
+    */
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -215,21 +215,22 @@ public class Paths {
         public static final class GrabTopCone{
 
             public static final double[][] GridToTopCone = {
-                //Start at the grid in front of Tag 1
-                {0,     -6, 3, 180,        0.6, 0.2},
+                //Start at the grid in front of Tag 3
+                {0,     -6, 0.92, 180,        0.3, 0.2},
                 //Start to rotate
-                {1,     -3.5, 3, 180,      0.6, 0.2},
-                //Head to the bottom-most cone
-                {2,     -2, 3, -20,         0.3, 0.2}
+                {1,     -5.5, 0.92, 180,      0.3, 0.2},
+                //Head to the top-most cone
+                {2,     -2, 0.92, 20,         0.3, 0.2}
             };
 
             public static final double[][] TopConePickUp = {
-                //Start right behind the bottom-most cone facing the blue side
-                {0,     -1, 3, 0,          0.15, 0.01},
+                //Start right behind the top-most cone facing the red side
+                {0,     -1, 0.92, 0,      0.15, 0.01},
                 //Drive through the cone and pick it up
-                {1,     -0.8, 3, 0,        0.15, 0.01}
+                {1,     -0.8, 0.92, 0,    0.15, 0.01}
             };
 
+            //Not using currently
             public static final double[][] TopConePickUpToGrid = {
                 //Start to drive from TopConePickUp to grid
                 {0,     -2, 3, 0,          0.3, 0.2 },
@@ -286,21 +287,22 @@ public class Paths {
         public static final class GrabBottomCone{
 
             public static final double[][] GridToBottomCone = {
-                //Start at the grid in front of Tag 3
-                {0,     -6, -0.92, 180,        0.6, 0.2},
+                //Start at the grid in front of Tag 1
+                {0,     -6, -3, 180,        0.3, 0.2},
                 //Start to rotate
-                {1,     -5.5, -0.92, 180,      0.6, 0.2},
-                //Head to the top-most cone
-                {2,     -2, -0.92, 20,         0.3, 0.2}
+                {1,     -3.5, -3, 180,      0.3, 0.2},
+                //Head to the bottom-most cone
+                {2,     -2, -3, -20,      0.3, 0.2}
             };
 
             public static final double[][] BottomConePickUp = {
-                //Start right behind the top-most cone facing the blue side
-                {0,     -1, -0.92, 0,          0.15, 0.01},
+                //Start right behind the bottom-most cone facing the red side
+                {0,     -1, -3, 0,    0.15, 0.01},
                 //Drive through the cone and pick it up
-                {1,     -0.8, -0.92, 0,        0.15, 0.01}
+                {1,     -0.8, -3, 0,    0.15, 0.01}
             };
 
+            //Not using currently
             public static final double[][] BottomConePickUpToGrid = {
                 //Start to drive from TopConePickUp to grid
                 {0,     -2, -0.92, 0,          0.3, 0.2 },

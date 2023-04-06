@@ -50,6 +50,9 @@ public class PathFollower extends CommandBase {
   private double forward;
   private double strafe;
   private double rotation;
+  private Pose2d currentPos;
+
+  private double rotationPlaceholder;
 
   private boolean isFinished = false;
  
@@ -82,7 +85,15 @@ public class PathFollower extends CommandBase {
   public void execute() {
 
     //Auto calculations
-    
+    if ((Constants.autoSelect.getSelected() == "Tag2BehindTheLineBalance") || (Constants.autoSelect.getSelected() == "Tag7BehindTheLineBalance")) {
+
+      //do nothing
+
+    } else {
+
+    drivetrain.resetOdometryToLimelight();
+
+    }
     //Update the x/y tolerance levels
     driveController.setTolerance(
       new Pose2d(pathEQ.solvePointTolerance(targetUValue), pathEQ.solvePointTolerance(targetUValue), new Rotation2d(aTolerance)));
@@ -103,24 +114,67 @@ public class PathFollower extends CommandBase {
     }
     */
 
+   
+
+    if (Constants.autoSelect.getSelected() == "Tag1GrabBottomCone") {
+
+      rotationPlaceholder = 0;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag2JustBalance") { 
+
+      rotationPlaceholder = 0;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag2BehindTheLineBalance") { 
+
+      rotationPlaceholder = 0;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag3GrabTopCone") { 
+
+      rotationPlaceholder = 0;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag6GrabTopCone") { 
+
+      rotationPlaceholder = 180;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag6GrabTopCone") { 
+
+      rotationPlaceholder = 180;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag7JustBalance") { 
+
+      rotationPlaceholder = 180;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag7BehindTheLineBalance") { 
+
+      rotationPlaceholder = 180;
+
+    } else if (Constants.autoSelect.getSelected() == "Tag8GrabBottomCone") { 
+
+      rotationPlaceholder = 180;
+
+    }
+
     /* 
     Pose2d currentPos = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(),
     new Rotation2d(0));
     */
-    Pose2d currentPos = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(),
-      new Rotation2d(Math.toRadians(drivetrain.getOdometryZ())));
 
+    Pose2d currentPos = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(),
+    new Rotation2d(Math.toRadians(rotationPlaceholder)));
+
+    /*Pose2d currentPos = new Pose2d(drivetrain.getOdometryX(), drivetrain.getOdometryY(),
+      new Rotation2d(Math.toRadians(drivetrain.getOdometryZ())));
     /* 
     Pose2d targetPos = new Pose2d(pathEQ.solvePoint(targetUValue)[0], pathEQ.solvePoint(targetUValue)[1], 
       new Rotation2d(0));
     */
 
     Pose2d targetPos = new Pose2d(pathEQ.solvePoint(targetUValue)[0], pathEQ.solvePoint(targetUValue)[1], 
-      new Rotation2d(Math.toRadians(drivetrain.getOdometryZ())));
+      new Rotation2d(Math.toRadians(rotationPlaceholder)));
 
     //ChassisSpeeds chassisSpeeds = driveController.calculate(currentPos, targetPos, 1, new Rotation2d(0));
 
-    ChassisSpeeds chassisSpeeds = driveController.calculate(currentPos, targetPos, 1, new Rotation2d(Math.toRadians(drivetrain.getOdometryZ())));
+    ChassisSpeeds chassisSpeeds = driveController.calculate(currentPos, targetPos, 1, new Rotation2d(rotationPlaceholder));
 
 
     //forward = chassisSpeeds.vyMetersPerSecond;
