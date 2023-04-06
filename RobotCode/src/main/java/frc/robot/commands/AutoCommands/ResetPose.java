@@ -22,8 +22,8 @@ public class ResetPose extends CommandBase {
     
     drivetrain = dt;
     x = -X;
-    y = Y;
-    rot = Rot;
+    y = -Y;
+    rot = -Math.toRadians(Rot);
 
     addRequirements(drivetrain);
 

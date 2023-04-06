@@ -240,7 +240,7 @@ public class RobotContainer {
     );
 
     //Places one cone on high pole, drives pass line, and balances. Does not use limelight readings
-    Tag2BehindTheLineBalance = new SequentialCommandGroup(new ResetPose(drivetrain, 6.25, 1.2, 0).withTimeout(0.1), 
+    Tag2BehindTheLineBalance = new SequentialCommandGroup(new ResetPose(drivetrain, 6.25, -1.2, 0).withTimeout(0.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false), 
       GeneratePath(Paths.Tag2.BehindTheLineBalance.GridToOverChargeStation)),

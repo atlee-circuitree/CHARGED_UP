@@ -72,7 +72,7 @@ public class GoToFeederPosition extends CommandBase {
       System.out.println("Cone Position Met");
       return true;
 
-    } else if (feeder.withinAbsoluteTolerance(feeder.absoluteClawPosition(), Constants.CRUSH_POSITION, tolerance) == true && speed < 0 && position == FeederPosition.Crush) {
+    } else if (feeder.withinAbsoluteTolerance(feeder.absoluteClawPosition(), Constants.CRUSH_POSITION, tolerance) == true && position == FeederPosition.Crush) {
 
       System.out.println("Crush Position Met");
       return true;
