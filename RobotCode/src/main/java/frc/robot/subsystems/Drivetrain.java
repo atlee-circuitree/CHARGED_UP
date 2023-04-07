@@ -167,7 +167,7 @@ public class Drivetrain extends SubsystemBase {
     new SwerveModuleState(positionChangePer100msToMetersPerSecond(rearRightDrvMotor.getSelectedSensorVelocity()), 
     Rotation2d.fromDegrees(getRotEncoderValue(SwerveModule.REAR_RIGHT))));
 
-    if(Constants.autoSelect.getSelected() == "Tag2BehindTheLineBalance"){
+    if(Constants.autoSelect.getSelected() == "Tag2BehindTheLineBalance" || Constants.autoSelect.getSelected() == "Tag7BehindTheLineBalance"){
       //Do nothing
     }
     else{

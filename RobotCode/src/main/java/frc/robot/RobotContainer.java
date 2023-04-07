@@ -132,6 +132,9 @@ public class RobotContainer {
   SequentialCommandGroup Tag8GrabBottomCone;
 
   SequentialCommandGroup StraightBackTest;
+
+  SequentialCommandGroup JustScore;
+
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -146,18 +149,20 @@ public class RobotContainer {
 
     Constants.autoSelect.addOption("AutoBalance", "AutoBalance");
 
+    Constants.autoSelect.addOption("Just Score", "JustScore");
+
     Constants.autoSelect.addOption("Red Left Grab Bottom Cone", "Tag1GrabBottomCone");
 
-    Constants.autoSelect.addOption("Red Middle pass Line Balance", "Tag2BehindTheLineBalance");
+    Constants.autoSelect.addOption("Middle Pass Line Balance", "Tag2BehindTheLineBalance");
 
     Constants.autoSelect.addOption("Red Right Grab Top Cone", "Tag3GrabTopCone");
 
 
-    Constants.autoSelect.addOption("Blue Right Grab Bottom Cone", "Tag8GrabBottomCone");
+    //Constants.autoSelect.addOption("Blue Right Grab Bottom Cone", "Tag8GrabBottomCone");
 
-    Constants.autoSelect.addOption("Blue Middle Pass Line Balance", "Tag7BehindTheLineBalance");
+    //Constants.autoSelect.addOption("Blue Middle Pass Line Balance", "Tag7BehindTheLineBalance");
 
-    Constants.autoSelect.addOption("Blue Left Grab Top Cone", "Tag6GrabTopCone");
+    //Constants.autoSelect.addOption("Blue Left Grab Top Cone", "Tag6GrabTopCone");
 
 
     
@@ -179,7 +184,7 @@ public class RobotContainer {
 
     resetExtensionEncoder = new ResetExtensionEncoder(slide);
  
-    AutoBalance = new AutoBalance(drivetrain, xbox1, 5); //Before .5 3/25/23
+    AutoBalance = new AutoBalance(drivetrain, xbox1, 5);
 
     playAudio = new PlayAudio(audio, 0, 0);
  
@@ -210,6 +215,13 @@ public class RobotContainer {
 //---------------------------------
 //Red Autos
 //---------------------------------
+
+    JustScore = new SequentialCommandGroup(
+      GenerateScoreHigh(),
+
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
+      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone))
+    );
 
     //Scores preload then grabs the bottom cone (does not score second cone)
     Tag1GrabBottomCone = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 0).withTimeout(.1),
@@ -243,7 +255,7 @@ public class RobotContainer {
     );
 
     //Places one cone on high pole and balances
-    Tag2JustBalance = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 180).withTimeout(.1), 
+    Tag2JustBalance = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 0).withTimeout(.1), 
       GenerateScoreHigh(),
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false), 
       GeneratePath(Paths.Tag2.JustBalance.GridToChargeStation)),
@@ -465,11 +477,15 @@ public class RobotContainer {
 
       return Tag8GrabBottomCone;
 
+    } else if (Constants.autoSelect.getSelected() == "JustScore") {
+
+      return JustScore;
+
     } else if (Constants.autoSelect.getSelected() == "AutoBalance") {
 
       return AutoBalance;
 
-    }else if (Constants.autoSelect.getSelected() == "Nothing") {
+    } else if (Constants.autoSelect.getSelected() == "Nothing") {
 
       return null;
 

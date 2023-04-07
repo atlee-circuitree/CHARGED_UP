@@ -167,24 +167,10 @@ public final class Constants {
     }
 
     //Encoder Values
-    /* 
-    public static final double frontLeftEncoderOffset = 284.58984375;
-    public static final double frontRightEncoderOffset = 254.267578125;
-    public static final double rearLeftEncoderOffset = 127.353515625;
-    public static final double rearRightEncoderOffset = 72.509765625;
-    */
-    
     public static final double frontLeftEncoderOffset = 282.568;
     public static final double frontRightEncoderOffset = 251.806;
     public static final double rearLeftEncoderOffset = 128.759;
     public static final double rearRightEncoderOffset = 75.146;
-
-    /*
-    public static final double frontLeftEncoderOffset = 101.337;
-    public static final double frontRightEncoderOffset = 71.867;
-    public static final double rearLeftEncoderOffset = 309.287;
-    public static final double rearRightEncoderOffset = 255.586;
-*/
 
     public static final int angleEncoderDIO = 0;
     public static final int feederRotationEncoderDIO = 1;
@@ -193,9 +179,6 @@ public final class Constants {
     public static final double angleOffset = -4.5; //Before -11.5
     public static final double maxAngleEncoderValue = 22.1; 
     public static final double minAngleEncoderValue = -29; 
-
-    //public static final double maxRotationEncoderValue = 0.886;
-    //public static final double minRotationEncoderValue = 0.348;
 
     public static final double maxCounterClockwiseRotationEncoderValue = 0.742;
     public static final double middleRotationEncoderValue = .732; //when claw is horizontal
