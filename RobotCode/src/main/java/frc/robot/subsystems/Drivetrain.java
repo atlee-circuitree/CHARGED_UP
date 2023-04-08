@@ -146,6 +146,8 @@ public class Drivetrain extends SubsystemBase {
 
     limelight = new Limelight();
 
+    navx.setAngleAdjustment(180);
+
     resetOdometryToLimelight();
   }
 
@@ -494,6 +496,12 @@ public class Drivetrain extends SubsystemBase {
   }
   public double getNavXOutputRadians(){
     return Math.toRadians(navx.getYaw());
+  }
+  public double getNavXAdjustedOutput(){
+    return navx.getAngle();
+  }
+  public double getNavXAdjustedOutputRadians(){
+    return Math.toRadians(navx.getAngle());
   }
   public void zeroNavXYaw(){
     navx.zeroYaw();
