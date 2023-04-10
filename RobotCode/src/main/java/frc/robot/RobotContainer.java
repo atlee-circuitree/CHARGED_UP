@@ -69,16 +69,8 @@ public class RobotContainer {
   private final RecalibrateModules recalibrateModules;
 
   private GoToAngleAndExtension TopPosition;
-  private GoToAngleAndExtension TopPositionAuto;
   private GoToAngleAndExtension SubstationPosition;
   private GoToAngleAndExtension BottomPosition;
-
- 
-  private final DriveBackwardsToDistance GoPastStartingLine;
-
-  private SequentialCommandGroup ScoreOpeningCube;
-
-  private final CenterToDistance CenterToCubeNode;
 
   private final PlayAudio playAudio;
  
@@ -215,10 +207,6 @@ public class RobotContainer {
     playAudio = new PlayAudio(audio, 0, 0);
  
     //pathEQ = new PathEQ(Constants.testCoords, true);
-
-    GoPastStartingLine = new DriveBackwardsToDistance(drivetrain, limelight, 3, .2);
-
-    CenterToCubeNode = new CenterToDistance(drivetrain, limelight, 3, .1, .5);
  
     //Teleop commands
     driveWithXbox = new DriveWithXbox(drivetrain, limelight, xbox1, xbox2, false);
