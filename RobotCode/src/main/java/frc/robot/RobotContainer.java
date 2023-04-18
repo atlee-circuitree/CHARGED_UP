@@ -219,12 +219,12 @@ public class RobotContainer {
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
     AutoBalance.addRequirements(drivetrain);
-    drivetrain.setDefaultCommand(driveWithXbox);
+    //drivetrain.setDefaultCommand(driveWithXbox);
     slide.setDefaultCommand(slideWithXbox);
 
     recalibrateModules = new RecalibrateModules(drivetrain, xbox1);
-    //recalibrateModules.addRequirements(drivetrain);
-    //drivetrain.setDefaultCommand(recalibrateModules);
+    recalibrateModules.addRequirements(drivetrain);
+    drivetrain.setDefaultCommand(recalibrateModules);
 
 //---------------------------------
 //Plain Odometry Autos (No Limelight)
