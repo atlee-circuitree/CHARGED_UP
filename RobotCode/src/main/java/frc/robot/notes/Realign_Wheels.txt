@@ -1,0 +1,50 @@
+
+Here is how to realign the wheels in case the wheels are misaligned or a new CANCoder is added
+
+------------------------------------------
+   Step 1 : Enable Wheel Alignment Mode
+------------------------------------------
+
+1. Enable the robot and drive in one direction
+
+2. Disable the robot
+
+3. In Github, change the branch to "Align_Wheels"
+
+4. Deploy and upload to the robot
+
+
+------------------------------------------
+    Step 2 : Manually adjust wheels
+------------------------------------------
+
+1. Manually rotate the wheels until they are all aligned 
+(Use a straight piece of metal)
+
+2. Enable then disable the robot with the shuffleboard upload
+
+
+------------------------------------------
+    Step 3 : Adjust alignment in code
+------------------------------------------
+
+1. Open NetworkTables in Shuffleboard and pull up the absolute encoder readings
+ 
+2. Change the offsets in Constants.java to reflect those in Shuffleboard
+(Values below are example only and not real values)
+
+170  public static final double frontLeftEncoderOffset = 282.568;
+171  public static final double frontRightEncoderOffset = 251.806;
+172  public static final double rearLeftEncoderOffset = 128.759;
+173  public static final double rearRightEncoderOffset = 75.146;
+
+
+------------------------------------------
+   Step 4 : Return to competition mode
+------------------------------------------
+
+1. In Github, change the branch to the compeition branch in use
+
+2. (IMPORTANT!!!) Run a full systems check to check if the driving is correct
+
+3. If the drive is inverted, flip the offsets 180 degrees

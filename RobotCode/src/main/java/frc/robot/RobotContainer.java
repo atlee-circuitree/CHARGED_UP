@@ -548,7 +548,6 @@ public class RobotContainer {
     } else if (Constants.autoSelect.getSelected() == "ScoreHighAndDriveBackBottomTags") {
 
       return ScoreHighAndDriveBackBottomTags;
-
    
     } else if (Constants.autoSelect.getSelected() == "ScoreLowAndDriveBackTopTagRed") {
 
