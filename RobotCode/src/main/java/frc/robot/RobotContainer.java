@@ -146,6 +146,8 @@ public class RobotContainer {
   SequentialCommandGroup ScoreLowAndDriveBackTopTagBlue;
   SequentialCommandGroup ScoreHighAndDriveBackTopTagBlue;
 
+  SequentialCommandGroup BlueTwoConeCollectBalanceTag3and6;
+
   SequentialCommandGroup MiddlePassLineBalance;
 
   SequentialCommandGroup JustScore;
@@ -179,6 +181,7 @@ public class RobotContainer {
 
     // Comment out the ones that don't work
     Constants.autoSelect.addOption("RedTwoConeBalanceTag3and6", "RedTwoConeBalanceTag3and6");
+    Constants.autoSelect.addOption("BlueTwoConeBalanceTag3and6", "BlueTwoConeBalanceTag3and6");
     
 
     //Constants.autoSelect.addOption("Red Left Grab Bottom Cone", "Tag1GrabBottomCone");
@@ -251,7 +254,24 @@ public class RobotContainer {
     new GoToFeederPosition(feeder, .5, FeederPosition.Cone),
     new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
     GeneratePath(Constants.RedScoringBalanceToBalanceWpTag3and6) 
-  );   
+
+    );   
+
+    BlueTwoConeCollectBalanceTag3and6 = new SequentialCommandGroup(new ResetPose(drivetrain, -CoordsTags3and6.ScoreWestEast[0], -CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -Constants.side))/2)).withTimeout(.1), 
+    GenerateScoreHigh(),
+    new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
+    GeneratePath(Constants.BlueScoringWpToConeWpTag3and6)),
+    new GoToFeederPosition(feeder, .5, FeederPosition.Cone),
+    new ParallelCommandGroup(new IntakeFeeder(feeder).withTimeout(5), GeneratePath(Constants.RedCone4PickUp)),
+    new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false),  
+    GeneratePath(Constants.BlueConeWpToScoringWpTag3and6),  
+    GeneratePath(Constants.BlueScoreTag3and6North),
+    new GoToAngleAndExtension(slide, Constants.maxExtensionValue, Constants.maxExtensionValue, 1, false),
+    new GoToFeederPosition(feeder, .5, FeederPosition.Cone),
+    new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false), 
+    GeneratePath(Constants.BlueScoringBalanceToBalanceWpTag3and6) 
+
+    ); 
 
     SequentialCommandGroup RedTwoConeBalanceTag3and6;
 
@@ -679,6 +699,10 @@ public class RobotContainer {
     } else if (Constants.autoSelect.getSelected() == "RedTwoConeBalanceTag3and6") {
 
       return RedTwoConeCollectBalanceTag3and6;
+
+    } else if (Constants.autoSelect.getSelected() == "BlueTwoConeBalanceTag3and6") {
+
+      return BlueTwoConeCollectBalanceTag3and6;
 
     } else {
 
