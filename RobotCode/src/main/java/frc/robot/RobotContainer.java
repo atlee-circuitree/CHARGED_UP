@@ -8,27 +8,25 @@ import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.FeederPosition;
 import frc.robot.commands.AutoCommands.AutoBalance;
 import frc.robot.commands.AutoCommands.CenterToDistance;
 import frc.robot.commands.AutoCommands.DriveBackwardsToDistance;
+import frc.robot.commands.AutoCommands.DriveForwardsToDistance;
 import frc.robot.commands.AutoCommands.PathFollower;
 import frc.robot.commands.AutoCommands.ResetPose;
 import frc.robot.commands.AutoCommands.ResetPoseToLimelight;
 import frc.robot.commands.DriveCommands.DriveWithXbox;
 import frc.robot.commands.FeederCommands.GoToFeederPosition;
 import frc.robot.commands.FeederCommands.IntakeFeeder;
+import frc.robot.commands.FeederCommands.RotateFeeder;
 import frc.robot.commands.FeederCommands.RunFeeder;
 import frc.robot.commands.FeederCommands.RunFeederContinously;
 import frc.robot.commands.MiscCommands.PlayAudio;
 import frc.robot.commands.MiscCommands.RecalibrateModules;
+import frc.robot.commands.MiscCommands.TestPathFollower;
 import frc.robot.commands.SlideCommands.GoToAngleAndExtension;
 import frc.robot.commands.SlideCommands.KillArm;
 import frc.robot.commands.SlideCommands.ResetExtensionEncoder;
@@ -39,6 +37,14 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Slide;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Paths;
+import frc.robot.Constants.FeederPosition;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -93,15 +99,7 @@ public class RobotContainer {
   SequentialCommandGroup GenerateScoreHigh() {
 
     return new SequentialCommandGroup(
-      new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
-      new RunFeeder(feeder, -1).withTimeout(.5));
-
-  }
-
-  SequentialCommandGroup GenerateScoreLow() {
-
-    return new SequentialCommandGroup(
-      new GoToAngleAndExtension(slide, -20, Constants.minExtensionValue, 1, false),
+      new ParallelCommandGroup(new RunFeeder(feeder, .3).withTimeout(.5), new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false)),
       new RunFeeder(feeder, -1).withTimeout(.5));
 
   }
@@ -119,15 +117,6 @@ public class RobotContainer {
   }
 
   //Command Groups
-  SequentialCommandGroup ConePickUpTestTag1;
-  SequentialCommandGroup CubePickUpTestTag1;  
-
-  SequentialCommandGroup ScoreLowCycleConesTag3;
-
-  SequentialCommandGroup MiddlePassLineBalance;
-  SequentialCommandGroup MiddlePassLineBalanceTest;
-
-
   SequentialCommandGroup Tag1GrabBottomCone;
   SequentialCommandGroup Tag1GrabBottomCube;
   
@@ -167,17 +156,15 @@ public class RobotContainer {
 
     Constants.autoSelect.addOption("Just Score", "JustScore");
     
-    //Constants.autoSelect.addOption("Straight Back Bottom Tags", "ScoreAndDriveBackBottomTag");
+    Constants.autoSelect.addOption("Straight Back Bottom Tags", "ScoreAndDriveBackBottomTag");
 
-    //Constants.autoSelect.addOption("Straight Back Top Tag Red", "ScoreAndDriveBackTopTagRed");
+    Constants.autoSelect.addOption("Straight Back Top Tag Red", "ScoreAndDriveBackTopTagRed");
 
-    //Constants.autoSelect.addOption("Straight Back Top Tag Blue", "ScoreAndDriveBackTopTagBlue");
+    Constants.autoSelect.addOption("Straight Back Top Tag Blue", "ScoreAndDriveBackTopTagBlue");
 
     //Constants.autoSelect.addOption("Red Left Grab Bottom Cone", "Tag1GrabBottomCone");
 
-    Constants.autoSelect.addOption("Score Low Cycle Cones Tag3", "ScoreLowCycleConesTag3");
-
-    Constants.autoSelect.addOption("Middle Pass Line Balance", "MiddlePassLineBalance");
+    Constants.autoSelect.addOption("Middle Pass Line Balance", "Tag2BehindTheLineBalance");
 
     //Constants.autoSelect.addOption("Red Right Grab Top Cone", "Tag3GrabTopCone");
 
@@ -236,102 +223,6 @@ public class RobotContainer {
     //recalibrateModules.addRequirements(drivetrain);
     //drivetrain.setDefaultCommand(recalibrateModules);
  
-//---------------------------------
-//Plain Odometry Autos (No Limelight)
-//---------------------------------
-
-    //Starts at ConeWaypointTag1 to pick up bottom cone
-    ScoreLowCycleConesTag3 = new SequentialCommandGroup(new ResetPose(drivetrain, Constants.CoordsTags3and6.ScoreWestEast[0] , Constants.CoordsTags3and6.ScoreWestEast[1], 0).withTimeout(0.1), 
-      GenerateScoreLow(),
-       
-      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.GridToTopCone),
-        new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone)
-       ),
-      
-      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUp),
-        new RunFeeder(feeder, 0.5).withTimeout(2.5)
-       ),
-
-      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUpToMidpoint),
-        new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush),
-        new GoToAngleAndExtension(slide, -20, Constants.minExtensionValue, 1, false)
-       ),
-
-      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.MidwayPointToGrid),
-        new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.minExtensionValue, 1, false)
-       ),
-
-      new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
-      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cube),
-
-      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.GridToTopCone),
-        new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone),
-        new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, Constants.minExtensionValue)
-       ),
-
-      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUp),
-        new RunFeeder(feeder, 0.5).withTimeout(2.5)
-       ),
-
-      new ParallelCommandGroup(new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush),
-        new GoToAngleAndExtension(slide, -20, Constants.minExtensionValue, 1, false))  
-        
-    );  
-
-
-    //Starts at ConeWaypointTag1 to pick up bottom cone
-    ConePickUpTestTag1 = new SequentialCommandGroup(new ResetPose(drivetrain, Constants.CoordsCones.Cone1PickUpStart[0] + 1.55 , Constants.CoordsCones.Cone1PickUpStart[1], 0).withTimeout(0.1), 
-      GenerateScoreLow(),
-       
-      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.TurnToConePickUpTest),
-        new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone)
-      ),
-      
-      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.BottomConePickUp),
-        new RunFeeder(feeder, 0.5).withTimeout(2.5)
-      ),
-
-      new ParallelCommandGroup(new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush),
-        new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false))
-
-    );  
-
-    //Starts at ConeWaypointTag1 to pick up bottom cone
-    CubePickUpTestTag1 = new SequentialCommandGroup(new ResetPose(drivetrain, Constants.CoordsCones.Cone1PickUpStart[0] - 0.69 , Constants.CoordsCones.Cone1PickUpStart[1], 0).withTimeout(0.1), 
-      GenerateScoreLow(),
-       
-      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.TurnToConePickUpTest),
-        new GoToFeederPosition(feeder, 0.5, FeederPosition.Cube)
-      ),
-      
-      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.BottomConePickUp),
-        new RunFeeder(feeder, 0.5).withTimeout(2.5)
-      ),
-
-      new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false)
-
-    );  
-
-     //Places one cone on high pole, drives pass line, and balances. Does not use limelight readings
-     MiddlePassLineBalance = new SequentialCommandGroup(new ResetPose(drivetrain, 6.25, -1.2, 0).withTimeout(0.1), 
-     GenerateScoreHigh(),
-
-     new ParallelCommandGroup(new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false), 
-     GeneratePath(Paths.Tag2.BehindTheLineBalance.GridToOverChargeStation)),
-     GeneratePath(Paths.Tag2.BehindTheLineBalance.BackUpOntoChargeStation),
-     GenerateAutoBalance()
-   );   
-
-    //Places one cone on high pole, drives pass line, and balances. Does not use limelight readings
-    MiddlePassLineBalanceTest = new SequentialCommandGroup(new ResetPose(drivetrain, 6.25, -1.2, 0).withTimeout(0.1), 
-      GenerateScoreLow(),
-
-      new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, Constants.minExtensionValue), 
-      GeneratePath(Paths.Tag2.BehindTheLineBalance.GridToOverChargeStation)),
-      GeneratePath(Paths.Tag2.BehindTheLineBalance.BackUpOntoChargeStation),
-      GenerateAutoBalance()
-    );  
-
 //---------------------------------
 //Red Autos
 //---------------------------------
@@ -637,14 +528,6 @@ public class RobotContainer {
     } else if (Constants.autoSelect.getSelected() == "ScoreAndDriveBackTopTagBlue") {
 
       return ScoreAndDriveBackTopTagBlue;
-
-    } else if (Constants.autoSelect.getSelected() == "ScoreLowCycleConesTag3") {
-
-      return ScoreLowCycleConesTag3;
-
-    } else if (Constants.autoSelect.getSelected() == "MiddlePassLineBalance") {
-
-      return MiddlePassLineBalance;
 
     } else if (Constants.autoSelect.getSelected() == "AutoBalance") {
 
