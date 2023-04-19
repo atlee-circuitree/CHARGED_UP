@@ -81,24 +81,31 @@ public class Paths {
 
 
     //Please change the y to the tag you're starting at
-    public static final double[][] StraightBackBottom = {
-        {0,     0, 0, 0,        0.3, 0.2},
+    public static final double[][] StraightBackBottomRed = {
+        {0,     1.8, -2.630, 0,    0.3, 0.2},
         //Literally just drive back
-        {1,     -3.5, 0, 0,    0.3, 0.2},
+        {1,     1.8, -2.630, 0,    0.3, 0.2},
+        
+    };
+
+    public static final double[][] StraightBackBottomBlue = {
+        {0,     1.8, -2.630, 0,    0.3, 0.2},
+        //Literally just drive back
+        {1,     1.8, -2.630, 0,    0.3, 0.2},
         
     };
 
     public static final double[][] StraightBackTopRed = {
         {0,     0, 0.25, 0,        0.3, 0.2},
         //Literally just drive back
-        {1,     -3.5, 0.25, 0,    0.3, 0.2},
+        {1,     1.8, 0.25, 0,    0.3, 0.2},
         
     };
  
     public static final double[][] StraightBackTopBlue = {
         {0,     0, -0.25, 0,        0.3, 0.2},
         //Literally just drive back
-        {1,     -3.5, -0.25, 0,    0.3, 0.2},
+        {1,     1.8, -0.25, 0,    0.3, 0.2},
         
     };
 

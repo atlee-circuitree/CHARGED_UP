@@ -23,7 +23,6 @@ import frc.robot.commands.FeederCommands.GoToFeederPosition;
 import frc.robot.commands.FeederCommands.IntakeFeeder;
 import frc.robot.commands.FeederCommands.RotateFeeder;
 import frc.robot.commands.FeederCommands.RunFeeder;
-import frc.robot.commands.FeederCommands.RunFeederContinously;
 import frc.robot.commands.MiscCommands.PlayAudio;
 import frc.robot.commands.MiscCommands.RecalibrateModules;
 import frc.robot.commands.MiscCommands.TestPathFollower;
@@ -134,8 +133,11 @@ public class RobotContainer {
 
   SequentialCommandGroup Tag8GrabBottomCone;
 
-  SequentialCommandGroup ScoreLowAndDriveBackBottomTags;
-  SequentialCommandGroup ScoreHighAndDriveBackBottomTags;
+  SequentialCommandGroup ScoreLowAndDriveBackBottomTagRed;
+  SequentialCommandGroup ScoreHighAndDriveBackBottomTagRed;
+
+  SequentialCommandGroup ScoreLowAndDriveBackBottomTagBlue;
+  SequentialCommandGroup ScoreHighAndDriveBackBottomTagBlue;
   
   SequentialCommandGroup ScoreLowAndDriveBackTopTagRed;
   SequentialCommandGroup ScoreHighAndDriveBackTopTagRed;
@@ -143,7 +145,8 @@ public class RobotContainer {
   SequentialCommandGroup ScoreLowAndDriveBackTopTagBlue;
   SequentialCommandGroup ScoreHighAndDriveBackTopTagBlue;
 
-  SequentialCommandGroup MiddlePassLineBalance;
+  SequentialCommandGroup MiddleScoreHighPassLineBalance;
+  SequentialCommandGroup MiddleScoreLowPassLineBalance;
 
   SequentialCommandGroup JustScore;
 
@@ -163,16 +166,18 @@ public class RobotContainer {
 
     Constants.autoSelect.addOption("Just Score", "JustScore");
     
-    Constants.autoSelect.addOption("Score Low Straight Back Bottom Tags", "ScoreLowAndDriveBackBottomTags");
+    //Constants.autoSelect.addOption("Score Low Straight Back Bottom Tags", "ScoreLowAndDriveBackBottomTags");
     Constants.autoSelect.addOption("Score High Straight Back Bottom Tags", "ScoreHighAndDriveBackBottomTags");
 
-    Constants.autoSelect.addOption("Score Low Straight Back Top Tag Red", "ScoreLowAndDriveBackTopTagRed");
+    //Constants.autoSelect.addOption("Score Low Straight Back Top Tag Red", "ScoreLowAndDriveBackTopTagRed");
     Constants.autoSelect.addOption("Score High Straight Back Top Tag Red", "ScoreHighAndDriveBackTopTagRed");
 
-    Constants.autoSelect.addOption("Score Low Straight Back Top Tag Blue", "ScoreLowAndDriveBackTopTagBlue");
+    //Constants.autoSelect.addOption("Score Low Straight Back Top Tag Blue", "ScoreLowAndDriveBackTopTagBlue");
     Constants.autoSelect.addOption("Score High Straight Back Top Tag Blue", "ScoreHighAndDriveBackTopTagBlue");
     
-    Constants.autoSelect.addOption("Middle Pass Line Balance", "MiddlePassLineBalance");
+    Constants.autoSelect.addOption("Middle Score High Pass Line Balance", "MiddleScoreHighPassLineBalance");
+    Constants.autoSelect.addOption("Middle Score Low Pass Line Balance", "MiddleScoreLowPassLineBalance");
+
 
     //Constants.autoSelect.addOption("Red Left Grab Bottom Cone", "Tag1GrabBottomCone");
 
@@ -235,23 +240,43 @@ public class RobotContainer {
 //---------------------------------
 
     //Scores preload low and drives back to bottom cone
-    ScoreLowAndDriveBackBottomTags = new SequentialCommandGroup(new ResetPose(drivetrain, 0, 0, 0).withTimeout(0.1), 
+    ScoreLowAndDriveBackBottomTagRed = new SequentialCommandGroup(new ResetPose(drivetrain, Constants.CoordsTags1and8.ScoreWestEast[0], Constants.CoordsTags1and8.ScoreWestEast[1], 0).withTimeout(0.1), 
       GenerateScoreLow(),
-
-      new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
-      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone)),
-    
-      GeneratePath(Paths.StraightBackBottom)
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, Constants.minExtensionValue),
+            new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone),
+             GeneratePath(Paths.StraightBackBottomRed)
+          )
     );  
 
     //Scores preload high and drives back to bottom cone
-    ScoreHighAndDriveBackBottomTags = new SequentialCommandGroup(new ResetPose(drivetrain, 0, 0, 0).withTimeout(0.1), 
+    ScoreHighAndDriveBackBottomTagRed = new SequentialCommandGroup(new ResetPose(drivetrain, 6.25, -2.450, 0).withTimeout(0.1), 
       GenerateScoreHigh(),
 
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
       new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone)),
     
-      GeneratePath(Paths.StraightBackBottom)
+      GeneratePath(Paths.StraightBackBottomRed)
+    );  
+
+
+    //Scores preload low and drives back to bottom cone
+    ScoreLowAndDriveBackBottomTagBlue = new SequentialCommandGroup(new ResetPose(drivetrain, 6.25, -2.450, 0).withTimeout(0.1), 
+      GenerateScoreLow(),
+
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
+      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone)),
+    
+      GeneratePath(Paths.StraightBackBottomRed)
+    );  
+
+    //Scores preload high and drives back to bottom cone
+    ScoreHighAndDriveBackBottomTagBlue = new SequentialCommandGroup(new ResetPose(drivetrain, 6.25, -2.450, 0).withTimeout(0.1), 
+      GenerateScoreHigh(),
+
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
+      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone)),
+    
+      GeneratePath(Paths.StraightBackBottomRed)
     );  
 
 
@@ -301,16 +326,24 @@ public class RobotContainer {
 
 
     //Places one cone on high pole, drives pass line, and balances. Does not use limelight readings
-    MiddlePassLineBalance = new SequentialCommandGroup(new ResetPose(drivetrain, 6.25, -1.2, 0).withTimeout(0.1), 
+    MiddleScoreHighPassLineBalance = new SequentialCommandGroup(new ResetPose(drivetrain, 6.25, -1.2, 0).withTimeout(0.1), 
       GenerateScoreHigh(),
 
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false), 
       GeneratePath(Paths.Tag2.BehindTheLineBalance.GridToOverChargeStation)),
       GeneratePath(Paths.Tag2.BehindTheLineBalance.BackUpOntoChargeStation),
       GenerateAutoBalance()
-    );
-    
-    
+    );   
+
+    //Places one cone on high pole, drives pass line, and balances. Does not use limelight readings
+    MiddleScoreLowPassLineBalance = new SequentialCommandGroup(new ResetPose(drivetrain, 6.25, -1.2, 0).withTimeout(0.1), 
+      GenerateScoreLow(),
+
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false), 
+      GeneratePath(Paths.Tag2.BehindTheLineBalance.GridToOverChargeStation)),
+      GeneratePath(Paths.Tag2.BehindTheLineBalance.BackUpOntoChargeStation),
+      GenerateAutoBalance()
+    );   
  
 //---------------------------------
 //Red Autos
@@ -419,7 +452,7 @@ public class RobotContainer {
 
 
     //Score preload, then grab bottom cone (doesn't score)
-    Tag8GrabBottomCone = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 180).withTimeout(.1),
+   /* Tag8GrabBottomCone = new SequentialCommandGroup(new ResetPoseToLimelight(drivetrain, limelight, 180).withTimeout(.1),
       //Score preload 
       GenerateScoreHigh(),
         
@@ -430,7 +463,7 @@ public class RobotContainer {
       new ParallelCommandGroup(new RunFeederContinously(feeder, .75), GeneratePath(Paths.Tag8.GrabBottomCone.GridToBottomCone).withTimeout(5)),
       new RunFeederContinously(feeder, 0),  
       new ParallelCommandGroup( new GoToAngleAndExtension(slide, 0, Constants.minExtensionValue, 1, false))
-    );
+    );*/
 
     configureButtonBindings();
   }
@@ -547,13 +580,21 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
 
-    if (Constants.autoSelect.getSelected() == "ScoreLowAndDriveBackBottomTags") {
+    if (Constants.autoSelect.getSelected() == "ScoreLowAndDriveBackBottomTagRed") {
 
-      return ScoreLowAndDriveBackBottomTags;
+      return ScoreLowAndDriveBackBottomTagRed;
 
-    } else if (Constants.autoSelect.getSelected() == "ScoreHighAndDriveBackBottomTags") {
+    } else if (Constants.autoSelect.getSelected() == "ScoreHighAndDriveBackBottomTagRed") {
 
-      return ScoreHighAndDriveBackBottomTags;
+      return ScoreHighAndDriveBackBottomTagRed;
+
+    } else if (Constants.autoSelect.getSelected() == "ScoreLowAndDriveBackBottomTagBlue") {
+
+      return ScoreLowAndDriveBackBottomTagBlue;
+
+    } else if (Constants.autoSelect.getSelected() == "ScoreHighAndDriveBackBottomTagBlue") {
+
+      return ScoreHighAndDriveBackBottomTagBlue;
    
     } else if (Constants.autoSelect.getSelected() == "ScoreLowAndDriveBackTopTagRed") {
 
@@ -573,9 +614,13 @@ public class RobotContainer {
       return ScoreHighAndDriveBackTopTagBlue;
 
       
-    } else if (Constants.autoSelect.getSelected() == "MiddlePassLineBalance") {
+    } else if (Constants.autoSelect.getSelected() == "MiddleScoreHighPassLineBalance") {
 
-      return MiddlePassLineBalance;
+      return MiddleScoreHighPassLineBalance;
+
+    } else if (Constants.autoSelect.getSelected() == "MiddleScoreLowPassLineBalance") {
+
+      return MiddleScoreLowPassLineBalance;
 
     } else if (Constants.autoSelect.getSelected() == "JustScore") {
 
