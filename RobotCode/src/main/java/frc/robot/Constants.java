@@ -23,13 +23,9 @@ import frc.robot.subsystems.Limelight;
  * wherever the constants are needed, to reduce verbosity.
  */
  
+ 
 public final class Constants {
-
-    
-    //Declare coordinates in the form {u, x, y, angle, tolerance}
-    public static final double[][] autoCoordinates = {{0, 4,2 ,0, 0.2}, {1, 4.5,2 ,-90, 0.2}, {2, 5,2 ,180, 0.05}};
-    
-
+  
     //3 & 6 Score Wp = {6, 1.041, 0}
     //3 & 6 Cone Wp = {2.5, 1.041, 0}
 
@@ -45,8 +41,10 @@ public final class Constants {
 
     //Cone Coords Cone 4 Pickup Start = {2, 1.065, 180}
     //Cone Coords Cone 4 Pickup End = {0.8, 1.065, 180}
-    
+ 
+    private static final double BLUE_SIDE = 1;
 
+    private static final double BLUE_SIDE_Y = 1;
 
     public static double[][] RedScoringWpToConeWpTag3and6 = {
         //Start at the grid in front of Tag 3
@@ -96,21 +94,9 @@ public final class Constants {
         //Drive through the cone and pick it up
         {1,     0.8, 1.065, 180,    0.3, 0.1}
     };
-    
-    public static double[][] BlueScoringWpToConeWpTag3and6 = {
-        //Start at the grid in front of Tag 6
-        {0,     -6, 1.041, 180,        0.3, 0.2},
-        //Head to the top-most cone
-        {1,     -2.5, 1.041, 180,        0.3, 0.2}
-    };
 
-    public static double[][] BlueScoringWpToConeWpTag1and8 = {
-        //Start at the grid in front of Tag 8
-        {0,     -6, -2.63, 180,        0.3, 0.2},
-        //Head to the bottom-most cone
-        {1,     -2.5, -2.63, 180,      0.3, 0.2} 
-    };
-
+    public static double side = 1;
+ 
     // OLD Cords
     public final class BlueAutoCoordsTag6 {
         public double[] blueStartingPosition_1 = {6.495, 0.920, 0};
@@ -148,7 +134,7 @@ public final class Constants {
         public static final double[] moveToPlatformWayPoint_2 = {4, -4.400, -0.8, 0, 0.2};
         }
     
-        /*  public final static class RedAutoCoordsTag1{
+        public final static class RedAutoCoordsTag1{
         public static final double[] redStartingPosition_1 = {0, 6.495, -2.500, 0, 0.2};
         public static final double[] moveToSouthConeWayPoint_1 = {1, 2.750, -1.041, 0, 0.2};
         public static final double[] rotate180 = {2, 2.750, -1.041, 0, 0.2};
@@ -222,7 +208,7 @@ public final class Constants {
         public static final double[] cone1PickUpEnd = {1.250, -2.630, 180};
         public static final double[] rotate180_1 =  {1.250, -2.630, 0, 0.2};
         public static final double[] rotate180_2 = {1.250, -1.400, 0, 0.2};
-        public static final double[] rotate180_3 = {1.250, -0.200, 180, 0.2};
+        //public static final double[] rotate180_3 = {1.250, -0.200, 180, 0.2};
         public static final double[] rotate180_4 = {1.250, 1.041, 180, 0.2};
         public static final double[] moveToConeWayPoint = {2.750, 1.041, 0};
         public static final double[] moveToScoreWayPoint = {6.000, 1.041, 0};
@@ -236,7 +222,7 @@ public final class Constants {
         public static final double[] moveToPickupCone_3 = {1.750, -0.200,180};
         public static final double[] moveToPickupCone_4 = {1.750, 1.041, 180};
         }
-    */
+    
         public final static class CoordsCones{
             public static final double[] cone4PickUpStart = {2.0, 1.065, 180};
             public static final double[] cone4PickUpEnd = {0.80, 1.065, 180};
@@ -283,7 +269,273 @@ public final class Constants {
             public static final double[] ScorePlatformWayPoint = {6.000, -0.200, 0}; 
             public static final double[] ConePlatformWayPoint = {2.75, -0.200, 0}; 
         }
+
+        public static double[][] RedScoreTag1and8South = {
+            {0, CoordsTags1and8.ScoreSouth[0] * side, CoordsTags1and8.ScoreSouth[1], ((180 + (180 * -side))/2), .1},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+            {1, CoordsTags1and8.ScoreSouth[0] * side, CoordsTags1and8.ScoreSouth[1], ((180 + (180 * -side))/2), .05}
+        };
+        public static double[][] RedScoreTag1and8WestEast = {
+            {0, CoordsTags1and8.ScoreWestEast[0] * side, CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -side))/2), .1},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+            {1, CoordsTags1and8.ScoreWestEast[0] * side, CoordsTags1and8.ScoreWestEast[1], ((180 + (180 * -side))/2), .05}
+        };
+        public static double[][] RedScoreTag1and8North = {
+            {0, CoordsTags1and8.ScoreNorth[0] * side, CoordsTags1and8.ScoreNorth[1], ((180 + (180 * -side))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+            {1, CoordsTags1and8.ScoreNorth[0] * side, CoordsTags1and8.ScoreNorth[1], ((180 + (180 * -side))/2), .05}
+        };
+        
+        
+        public static double[][] RedScoreTag2and7South = {
+            {0, CoordsTags2and7.ScoreSouth[0] * side, CoordsTags2and7.ScoreSouth[1], ((180 + (180 * -side))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+            {1, CoordsTags2and7.ScoreSouth[0] * side, CoordsTags2and7.ScoreSouth[1], ((180 + (180 * -side))/2), .05}
+        };
+        public static double[][] RedScoreTag2and7WestEast = {
+            {0, CoordsTags2and7.ScoreWestEast[0] * side, CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -side))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+            {1, CoordsTags2and7.ScoreWestEast[0] * side, CoordsTags2and7.ScoreWestEast[1], ((180 + (180 * -side))/2), .05}
+        };
+        public static double[][] RedScoreTag2and7North = {
+            {0, CoordsTags2and7.ScoreNorth[0] * side, CoordsTags2and7.ScoreNorth[1], ((180 + (180 * -side))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+            {1, CoordsTags2and7.ScoreNorth[0] * side, CoordsTags2and7.ScoreNorth[1], ((180 + (180 * -side))/2), .05}
+        };
+        public static double[][] BlueScoringWpToConeWpTag3and6 = {
+            //Start at the grid in front of Tag 6
+            {0,     -6, 1.041, 180,        0.3, 0.2},
+            //Head to the top-most cone
+            {1,     -2.5, 1.041, 180,        0.3, 0.2}
+        };
+        
+        //Cone Coords Cone 1 Pickup Start = {2, -2.63, 180}
+        //Cone Coords Cone 1 Pickup End = {0.8, -2.63, 180}
     
+        public static double[][] RedScoringWpToConeWpTag3and6ButBetter = {
+            {0, CoordsTags3and6.ScoreWayPoint[0] * side, CoordsTags3and6.ScoreWayPoint[1] + 0.15, 0, 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+            {1, CoordsTags3and6.ConeWayPoint[0] * side, CoordsTags3and6.ConeWayPoint[1] + 0.15, 0, 0.2}
+        };
+        //Cone Coords Cone 4 Pickup Start = {2, 1.065, 180}
+        //Cone Coords Cone 4 Pickup End = {0.8, 1.065, 180}
+        
+    
+        public static double[][] RedConeWpToScoringWpTag3and6 = {
+            {0, CoordsTags3and6.ConeWayPoint[0] * side, CoordsTags3and6.ConeWayPoint[1], ((180 + (180 * -side))/2), 0.2},
+            {1, CoordsTags3and6.ScoreWayPoint[0] * side, CoordsTags3and6.ScoreWayPoint[1], ((180 + (180 * -side))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+        };
+    
+        public static double[][] RedScoringBalanceToBalanceWpTag3and6 = {
+            {0, CoordsTags3and6.ScorePlatformWayPoint[0] * side, CoordsTags3and6.ScorePlatformWayPoint[1], ((180 + (180 * -side))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+            {1, CoordsTags3and6.PlatformWayPoint[0] * side, CoordsTags3and6.PlatformWayPoint[1], ((180 + (180 * -side))/2), 0.05}
+        };
+    
+        public static double[][] RedScoringBalanceToBalanceWpTag1and8 = {
+            {0, CoordsTags1and8.ScorePlatformWayPoint[0] * side, CoordsTags1and8.ScorePlatformWayPoint[1], ((180 + (180 * -side))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+            {1, CoordsTags1and8.PlatformWayPoint[0] * side, CoordsTags1and8.PlatformWayPoint[1], ((180 + (180 * -side))/2), 0.05}
+        };
+    
+        public static double[][] RedConeBalanceToBalanceWpTag1and8 = {
+            {0, CoordsTags1and8.ConePlatformWayPoint[0] * side, CoordsTags1and8.ConeWayPoint[1], ((180 + (180 * -side))/2), 0.2},
+            {1, CoordsTags1and8.PlatformWayPoint[0] * side, CoordsTags1and8.PlatformWayPoint[1], ((180 + (180 * -side))/2), 0.05}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+        };
+    
+        public static double[][] RedConeWpToScoringWpTag2and7 = {
+            {0, CoordsTags2and7.ConeWayPoint[0] * side, CoordsTags2and7.ConeWayPoint[1], ((180 + (180 * -side))/2), 0.2},
+            {1, CoordsTags2and7.ScoreWayPoint[0] * side, CoordsTags2and7.ScoreWayPoint[1], ((180 + (180 * -side))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+            //Start at the grid in front of Tag 2
+            {0,     6, -0.8, 0,         0.3, 0.2},
+            //Drive up over the charge station to the cone
+            {1,     1.8, -0.8, 0,       0.3, 0.2}
+        };
+    
+        public static double[][] RedScoringWpToConeWpTag1and8ButBetter = {
+            {0, CoordsTags1and8.ScoreWayPoint[0] * side, CoordsTags1and8.ScoreWayPoint[1] - 0.15, 0, 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+            {1, CoordsTags1and8.ConeWayPoint[0] * side, CoordsTags1and8.ConeWayPoint[1] - 0.15, 0, 0.2}
+ 
+        };
+    
+        public static double[][] RedConeWpToScoringWpTag1and8 = {
+            {0, CoordsTags1and8.ConeWayPoint[0] * side, CoordsTags1and8.ConeWayPoint[1], ((180 + (180 * -side))/2), 0.2},
+            {1, CoordsTags1and8.ScoreWayPoint[0] * side, CoordsTags1and8.ScoreWayPoint[1], ((180 + (180 * -side))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+        };
+    
+        public static double[][] RedCone1 = {
+            {0, CoordsCones.cone1PickUpStart[0] * side, CoordsCones.cone1PickUpStart[1], ((180 + (180 * side))/2), .2},  //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+            {1, CoordsCones.cone1PickUpStart[0] * side, CoordsCones.cone1PickUpStart[1], ((180 + (180 * side))/2), .1}
+        };
+        
+        public static double[][] RedCone2 = {
+            {0, CoordsCones.cone2PickUpStart[0] * side, CoordsCones.cone2PickUpStart[1], ((180 + (180 * side))/2), .2},
+            {1, CoordsCones.cone2PickUpStart[0] * side, CoordsCones.cone2PickUpStart[1], ((180 + (180 * side))/2), .1}
+        };
+    
+        public static double[][] RedCone3 = {
+            {0, CoordsCones.cone3PickUpStart[0] * side, CoordsCones.cone3PickUpStart[1], ((180 + (180 * side))/2), .2},
+            {1, CoordsCones.cone3PickUpStart[0] * side, CoordsCones.cone3PickUpStart[1], ((180 + (180 * side))/2), .1}
+        };
+    
+        public static double[][] RedCone4 = {
+            {0, CoordsCones.cone4PickUpStart[0] * side, CoordsCones.cone4PickUpStart[1], ((180 + (180 * side))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+            {1, CoordsCones.cone4PickUpEnd[0] * side, CoordsCones.cone4PickUpEnd[1], ((180 + (180 * side))/2), .1}
+        };
+        
+        public static double[][] RedCone2PickUp = {
+            {0, CoordsCones.cone2PickUpStart[0] * side, CoordsCones.cone2PickUpStart[1], ((180 + (180 * side))/2), .2},
+            {1, CoordsCones.cone2PickUpEnd[0] * side, CoordsCones.cone2PickUpEnd[1], ((180 + (180 * side))/2), .1}
+        };
+    
+        public static double[][] RedCone3PickUp = {
+            {0, CoordsCones.cone3PickUpStart[0] * side, CoordsCones.cone3PickUpStart[1], 0, .2},
+            {1, CoordsCones.cone3PickUpEnd[0] * side, CoordsCones.cone3PickUpEnd[1], 180, .1}
+ 
+        };
+    
+        public static double[][] RedScoreTag3and6South = {
+            {0, CoordsTags3and6.ScoreSouth[0] * side - 0.5, CoordsTags3and6.ScoreSouth[1], ((180 + (180 * -side))/2), .1},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+            {1, CoordsTags3and6.ScoreSouth[0] * side, CoordsTags3and6.ScoreSouth[1], ((180 + (180 * -side))/2), .1}
+        };
+        public static double[][] RedScoreTag3and6WestEast = {
+            {0, CoordsTags3and6.ScoreWestEast[0] * side, CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -side))/2), .1},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+            {1, CoordsTags3and6.ScoreWestEast[0] * side, CoordsTags3and6.ScoreWestEast[1], ((180 + (180 * -side))/2), .1}
+        };
+        public static double[][] RedScoreTag3and6North = {
+            {0, CoordsTags3and6.ScoreNorth[0] * side - 0.5, CoordsTags3and6.ScoreNorth[1], ((180 + (180 * -side))/2), .1},   //((180 + (180 * side))/2) calculates and angle of zero if side is 1 or 180 if side is 1
+            {1, CoordsTags3and6.ScoreNorth[0] * side, CoordsTags3and6.ScoreNorth[1], ((180 + (180 * -side))/2), .1}
+        };
+  
+    //-----------------------------------------------------------------
+    //Blue Coords
+    //-----------------------------------------------------------------
+ 
+    public static double[][] BlueScoringWpToConeWpTag3and6ButBetter = {
+        {0, CoordsTags3and6.ScoreWayPoint[0] * BLUE_SIDE, CoordsTags3and6.ScoreWayPoint[1] * BLUE_SIDE_Y - 0.15, 0, 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+        {1, CoordsTags3and6.ConeWayPoint[0] * BLUE_SIDE, CoordsTags3and6.ConeWayPoint[1] * BLUE_SIDE_Y - 0.15, 0, 0.2}
+    };
+    
+    public static double[][] BlueConeWpToScoringWpTag3and6 = {
+        {0, CoordsTags3and6.ConeWayPoint[0] * BLUE_SIDE, CoordsTags3and6.ConeWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2},
+        {1, CoordsTags3and6.ScoreWayPoint[0] * BLUE_SIDE, CoordsTags3and6.ScoreWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2}, //((180 + (180 * BLUE_SIDE))/2) calculates and angle of zero if BLUE_SIDE is 1 or 180 if side is -1
+    };
+    
+    public static double[][] BlueScoringBalanceToBalanceWpTag3and6 = {
+        {0, CoordsTags3and6.ScorePlatformWayPoint[0] * BLUE_SIDE, CoordsTags3and6.ScorePlatformWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+        {1, CoordsTags3and6.PlatformWayPoint[0] * BLUE_SIDE, CoordsTags3and6.PlatformWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.05}
+    };
+    
+    public static double[][] BlueConeBalanceToBalanceWpTag3and6 = {
+        {0, CoordsTags3and6.ConePlatformWayPoint[0] * BLUE_SIDE, CoordsTags3and6.ConeWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2},
+        {1, CoordsTags3and6.PlatformWayPoint[0] * BLUE_SIDE, CoordsTags3and6.PlatformWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.05}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+    };
+    
+    public static double[][] BlueScoringBalanceToBalanceWpTag2and7 = {
+        {0, CoordsTags2and7.ScorePlatformWayPoint[0] * BLUE_SIDE, CoordsTags2and7.ScorePlatformWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+        {1, CoordsTags2and7.PlatformWayPoint[0] * BLUE_SIDE, CoordsTags2and7.PlatformWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.05}
+    };
+    
+    public static double[][] BlueConeBalanceToBalanceWpTag2and7 = {
+        {0, CoordsTags2and7.ConePlatformWayPoint[0] * BLUE_SIDE, CoordsTags2and7.ConeWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2},
+        {1, CoordsTags2and7.PlatformWayPoint[0] * BLUE_SIDE, CoordsTags2and7.PlatformWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.05}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+    };
+    
+    
+    public static double[][] BlueScoringBalanceToBalanceWpTag1and8 = {
+        {0, CoordsTags1and8.ScorePlatformWayPoint[0] * BLUE_SIDE, CoordsTags1and8.ScorePlatformWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+        {1, CoordsTags1and8.PlatformWayPoint[0] * BLUE_SIDE, CoordsTags1and8.PlatformWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.05}
+    };
+    
+    public static double[][] BlueConeBalanceToBalanceWpTag1and8 = {
+        {0, CoordsTags1and8.ConePlatformWayPoint[0] * BLUE_SIDE, CoordsTags1and8.ConeWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2},
+        {1, CoordsTags1and8.PlatformWayPoint[0] * BLUE_SIDE, CoordsTags1and8.PlatformWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.05}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+    };
+    
+    
+    
+    public static double[][] BlueScoringWpToConeWpTag2and7 = {
+        {0, CoordsTags2and7.ScoreWayPoint[0] * BLUE_SIDE, CoordsTags2and7.ScoreWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+        {1, CoordsTags2and7.ConeWayPoint[0] * BLUE_SIDE, CoordsTags2and7.ConeWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2}
+    };
+    
+    public static double[][] BlueConeWpToScoringWpTag2and7 = {
+        {0, CoordsTags2and7.ConeWayPoint[0] * BLUE_SIDE, CoordsTags2and7.ConeWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2},
+        {1, CoordsTags2and7.ScoreWayPoint[0] * BLUE_SIDE, CoordsTags2and7.ScoreWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+    };
+    
+    public static double[][] BlueScoringWpToConeWpTag1and8 = {
+        {0, CoordsTags1and8.ScoreWayPoint[0] * BLUE_SIDE, CoordsTags1and8.ScoreWayPoint[1] * BLUE_SIDE_Y, 180, 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+        {1, CoordsTags1and8.ConeWayPoint[0] * BLUE_SIDE, CoordsTags1and8.ConeWayPoint[1] * BLUE_SIDE_Y, 180, 0.2}
+    };
+    
+    public static double[][] BlueScoringWpToConeWpTag1and8ButBetter = {
+        {0, CoordsTags1and8.ScoreWayPoint[0] * BLUE_SIDE, CoordsTags1and8.ScoreWayPoint[1] * BLUE_SIDE_Y + 0.15, 0, 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+        {1, CoordsTags1and8.ConeWayPoint[0] * BLUE_SIDE, CoordsTags1and8.ConeWayPoint[1] * BLUE_SIDE_Y + 0.15, 0, 0.2}
+    };
+    
+    public static double[][] BlueConeWpToScoringWpTag1and8 = {
+        {0, CoordsTags1and8.ConeWayPoint[0] * BLUE_SIDE, CoordsTags1and8.ConeWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2},
+        {1, CoordsTags1and8.ScoreWayPoint[0] * BLUE_SIDE, CoordsTags1and8.ScoreWayPoint[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), 0.2}, //((180 + (180 * -side))/2) calculates and angle of zero if side is 1 or 180 if side is -1
+    };
+    
+    
+    public static double[][] BlueCone1PickUp = {
+        {0, CoordsCones.cone1PickUpStart[0] * BLUE_SIDE, CoordsCones.cone1PickUpStart[1] * BLUE_SIDE_Y, 0, .05},  //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+        {1, CoordsCones.cone1PickUpEnd[0] * BLUE_SIDE, CoordsCones.cone1PickUpEnd[1] * BLUE_SIDE_Y, 180, .05}
+    };
+    
+    public static double[][] BlueCone2PickUp = {
+        {0, CoordsCones.cone2PickUpStart[0] * BLUE_SIDE, CoordsCones.cone2PickUpStart[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05},
+        {1, CoordsCones.cone2PickUpEnd[0] * BLUE_SIDE, CoordsCones.cone2PickUpEnd[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05}
+    };
+    
+    public static double[][] BlueCone3PickUp = {
+        {0, CoordsCones.cone3PickUpStart[0] * BLUE_SIDE, CoordsCones.cone3PickUpStart[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05},
+        {1, CoordsCones.cone3PickUpEnd[0] * BLUE_SIDE, CoordsCones.cone3PickUpEnd[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05}
+    };
+    
+    public static double[][] BlueCone4PickUp = {
+        {0, CoordsCones.cone4PickUpStart[0] * BLUE_SIDE, CoordsCones.cone4PickUpStart[1] * BLUE_SIDE_Y, 0, .1},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+        {1, CoordsCones.cone4PickUpEnd[0] * BLUE_SIDE, CoordsCones.cone4PickUpEnd[1] * BLUE_SIDE_Y, 180, .05}
+    };
+    
+    public static double[][] BlueScoreTag1and8South = {
+        {0, CoordsTags1and8.ScoreSouth[0] * BLUE_SIDE, CoordsTags1and8.ScoreSouth[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+        {1, CoordsTags1and8.ScoreSouth[0] * BLUE_SIDE, CoordsTags1and8.ScoreSouth[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05}
+    };
+    public static double[][] BlueScoreTag1and8WestEast = {
+        {0, CoordsTags1and8.ScoreWestEast[0] * BLUE_SIDE, CoordsTags1and8.ScoreWestEast[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+        {1, CoordsTags1and8.ScoreWestEast[0] * BLUE_SIDE, CoordsTags1and8.ScoreWestEast[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05}
+    };
+    public static double[][] BlueScoreTag1and8North = {
+        {0, CoordsTags1and8.ScoreNorth[0] * BLUE_SIDE, CoordsTags1and8.ScoreNorth[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+        {1, CoordsTags1and8.ScoreNorth[0] * BLUE_SIDE, CoordsTags1and8.ScoreNorth[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05}
+    };
+    
+    
+    public static double[][] BlueScoreTag2and7South = {
+        {0, CoordsTags2and7.ScoreSouth[0] * BLUE_SIDE, CoordsTags2and7.ScoreSouth[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+        {1, CoordsTags2and7.ScoreSouth[0] * BLUE_SIDE, CoordsTags2and7.ScoreSouth[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05}
+    };
+    public static double[][] BlueScoreTag2and7WestEast = {
+        {0, CoordsTags2and7.ScoreWestEast[0] * BLUE_SIDE, CoordsTags2and7.ScoreWestEast[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+        {1, CoordsTags2and7.ScoreWestEast[0] * BLUE_SIDE, CoordsTags2and7.ScoreWestEast[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05}
+    };
+    public static double[][] BlueScoreTag2and7North = {
+        {0, CoordsTags2and7.ScoreNorth[0] * BLUE_SIDE, CoordsTags2and7.ScoreNorth[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+        {1, CoordsTags2and7.ScoreNorth[0] * BLUE_SIDE, CoordsTags2and7.ScoreNorth[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05}
+    };
+    
+    
+    public static double[][] BlueScoreTag3and6South = {
+        {0, CoordsTags3and6.ScoreSouth[0] * BLUE_SIDE, CoordsTags3and6.ScoreSouth[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+        {1, CoordsTags3and6.ScoreSouth[0] * BLUE_SIDE, CoordsTags3and6.ScoreSouth[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05}
+    };
+    public static double[][] BlueScoreTag3and6WestEast = {
+        {0, CoordsTags3and6.ScoreWestEast[0] * BLUE_SIDE, CoordsTags3and6.ScoreWestEast[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is -1 or 180 if side is 1
+        {1, CoordsTags3and6.ScoreWestEast[0] * BLUE_SIDE, CoordsTags3and6.ScoreWestEast[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05}
+    };
+    public static double[][] BlueScoreTag3and6North = {
+        {0, CoordsTags3and6.ScoreNorth[0] * BLUE_SIDE, CoordsTags3and6.ScoreNorth[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .2},   //((180 + (180 * side))/2) calculates and angle of zero if side is 1 or 180 if side is 1
+        {1, CoordsTags3and6.ScoreNorth[0] * BLUE_SIDE, CoordsTags3and6.ScoreNorth[1] * BLUE_SIDE_Y, ((180 + (180 * BLUE_SIDE))/2), .05}
+    };
+ 
+    public static double[][] RedConeBalanceToBalanceWpTag3and6 = {
+        {0, CoordsTags3and6.ConePlatformWayPoint[0] * side, CoordsTags3and6.ConeWayPoint[1], ((180 + (180 * -side))/2), 0.2},
+        {1, CoordsTags3and6.PlatformWayPoint[0] * side, CoordsTags3and6.PlatformWayPoint[1], ((180 + (180 * -side))/2), 0.05}, //((180 + (180 * -side))/2) c
+    };
 
     public static final double CRUSH_POSITION = .57;
     public static final double CONE_POSITION = .75;
@@ -409,27 +661,4 @@ public final class Constants {
     public static final TrapezoidProfile.Constraints thetaControllerConstraints =
         new TrapezoidProfile.Constraints(Math.PI, Math.PI);
 
-    
-
-    public static double smoothUsingError(double Encoder, double Range, double SetPoint, double MinSpeed, double MaxSpeed) {
-
-        double error = (Math.abs(Encoder - SetPoint) / Range);
-
-        if (error < MinSpeed) {
-
-            error = MinSpeed;
-
-        }
-        
-        if (error > MaxSpeed) {
-
-            error = MaxSpeed;
-
-        }
-
-        return error;
-
-    }
- 
 }
- 
