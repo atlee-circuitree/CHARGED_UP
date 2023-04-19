@@ -238,32 +238,32 @@ public final class Constants {
         }
     */
         public final static class CoordsCones{
-            public static final double[] cone4PickUpStart = {2.0, 1.065, 180};
-            public static final double[] cone4PickUpEnd = {0.80, 1.065, 180};
-            public static final double[] cone3PickUpStart = {2.0, -0.2,180};
-            public static final double[] cone3PickUpEnd = {0.80, -0.2, 180};
-            public static final double[] cone2PickUpStart = {2.0, -1.400,180};
-            public static final double[] cone2PickUpEnd = {0.80, -1.400, 180};
-            public static final double[] cone1PickUpStart = {2.0, -2.630,180};
-            public static final double[] cone1PickUpEnd = {0.80, -2.630, 180};
+            public static final double[] Cone4PickUpStart = {2.0, 0.565, 180};
+            public static final double[] Cone4PickUpEnd = {0.80, 0.565, 180};
+            public static final double[] Cone3PickUpStart = {2.0, -0.648, 180};
+            public static final double[] Cone3PickUpEnd = {0.80, -0.648, 180};
+            public static final double[] Cone2PickUpStart = {2.0, -1.872, 180};
+            public static final double[] Cone2PickUpEnd = {0.80, -1.872, 180};
+            public static final double[] Cone1PickUpStart = {2.0, -3.092, 180};
+            public static final double[] Cone1PickUpEnd = {0.80, -3.092, 180};
         }
         
         public final static class CoordsTags1and8{
-            public static final double[] ScoreNorth = {6.495, -1.900, 0};
-            public static final double[] ScoreWestEast = {6.495, -2.450, 0};
-            public static final double[] ScoreSouth = {6.495, -3, 0};
-            public static final double[] ScoreWayPoint = {6.000, -2.630, 0};
-            public static final double[] MidWayPoint = {4.400, -2.630, 0};
-            public static final double[] ConeWayPoint = {2.5, -2.630, 0};
-            public static final double[] PlatformWayPoint = {4.400, -1.4, 0};
-            public static final double[] ScorePlatformWayPoint = {6.000, -1.4, 0}; 
-            public static final double[] ConePlatformWayPoint = {2.75, -1.4, 0}; 
+            public static final double[] ScoreNorth = {6.4694, -2.376, 0};
+            public static final double[] ScoreWestEast = {6.4694, -2.927, 0};
+            public static final double[] ScoreSouth = {6.4694, -3.494, 0};
+            public static final double[] ScoreWayPoint = {6.000, -3.092, 0};
+            public static final double[] MidWayPoint = {4.400, -3.092, 0};
+            public static final double[] ConeWayPoint = {2.5, -3.092, 0};
+            public static final double[] PlatformWayPoint = {4.400, -1.862, 0};
+            public static final double[] ScorePlatformWayPoint = {6.000, -1.862, 0}; 
+            public static final double[] ConePlatformWayPoint = {2.75, -1.862, 0}; 
         }
         
         public final static class CoordsTags2and7{
-            public static final double[] ScoreNorth = {6.495, -0.250, 0};
-            public static final double[] ScoreWestEast = {6.495, -0.8, 0};
-            public static final double[] ScoreSouth = {6.495, -1.350, 0};
+            public static final double[] ScoreNorth = {6.4694, -0.250, 0};
+            public static final double[] ScoreWestEast = {6.4694, -0.8, 0};
+            public static final double[] ScoreSouth = {6.4694, -1.350, 0};
             public static final double[] ScoreWayPoint = {6.000, -0.8, 0};
             public static final double[] MidWayPoint = {4.400, -0.8, 0};      
             public static final double[] ConeWayPoint = {1.8, -0.8, 0};
@@ -273,15 +273,15 @@ public final class Constants {
         }
     
         public final static class CoordsTags3and6 {
-            public static final double[] ScoreNorth = {6.495, 1.40, 0};
-            public static final double[] ScoreWestEast = {6.495, 0.900, 0};
-            public static final double[] ScoreSouth = {6.495, 0.345, 0};
-            public static final double[] ScoreWayPoint = {6.000, 1.041, 0};
-            public static final double[] MidWayPoint = {4.400, 1.041, 0};
-            public static final double[] ConeWayPoint = {2.5, 1.041, 0}; 
-            public static final double[] PlatformWayPoint = {4.40, -0.200, 0};
-            public static final double[] ScorePlatformWayPoint = {6.000, -0.200, 0}; 
-            public static final double[] ConePlatformWayPoint = {2.75, -0.200, 0}; 
+            public static final double[] ScoreNorth = {6.4694, 0.970, 0};
+            public static final double[] ScoreWestEast = {6.4694, 0.413, 0};
+            public static final double[] ScoreSouth = {6.4694, -0.141, 0};
+            public static final double[] ScoreWayPoint = {6.000, 0.565, 0};
+            public static final double[] MidWayPoint = {4.400, 0.565, 0};
+            public static final double[] ConeWayPoint = {2.5, 0.565, 0}; 
+            public static final double[] PlatformWayPoint = {4.40, -0.648, 0};
+            public static final double[] ScorePlatformWayPoint = {6.000, -0.648, 0}; 
+            public static final double[] ConePlatformWayPoint = {2.75, -0.648, 0}; 
         }
     
 

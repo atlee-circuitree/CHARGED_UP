@@ -90,7 +90,7 @@ public class RobotContainer {
   SequentialCommandGroup GenerateScoreHigh() {
 
     return new SequentialCommandGroup(
-      new ParallelCommandGroup(new RunFeeder(feeder, .3).withTimeout(.5), new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false)),
+      new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
       new RunFeeder(feeder, -1).withTimeout(.5));
 
   }
@@ -98,7 +98,7 @@ public class RobotContainer {
   SequentialCommandGroup GenerateScoreLow() {
 
     return new SequentialCommandGroup(
-      new ParallelCommandGroup(new RunFeeder(feeder, .3).withTimeout(.5), new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.maxExtensionValue, 1, false)),
+      new GoToAngleAndExtension(slide, -20, 0, 1, false),
       new RunFeeder(feeder, -1).withTimeout(.5));
 
   }
@@ -118,6 +118,12 @@ public class RobotContainer {
   //Command Groups
   
   SequentialCommandGroup RedTwoConeCollectBalanceTag3and6;
+
+  SequentialCommandGroup ConePickUpTestTag1;
+  SequentialCommandGroup CubePickUpTestTag1;  
+
+  SequentialCommandGroup ScoreLowCycleConesTag3;
+  
 
   SequentialCommandGroup Tag1GrabBottomCone;
   SequentialCommandGroup Tag1GrabBottomCube;
@@ -148,6 +154,8 @@ public class RobotContainer {
   SequentialCommandGroup MiddleScoreHighPassLineBalance;
   SequentialCommandGroup MiddleScoreLowPassLineBalance;
 
+  SequentialCommandGroup MiddlePassLineBalanceTest;
+
   SequentialCommandGroup JustScore;
 
   
@@ -164,19 +172,26 @@ public class RobotContainer {
 
     Constants.autoSelect.addOption("AutoBalance", "AutoBalance");
 
+    //Constants.autoSelect.addOption("Middle Test", "MiddlePassLineBalanceTest");
+
     Constants.autoSelect.addOption("Just Score", "JustScore");
+
+    //Constants.autoSelect.addOption("Cone Pick Up Test Tag 1", "ConePickUpTestTag1");
+    //Constants.autoSelect.addOption("Cube Pick Up Test Tag 1", "CubePickUpTestTag1");
     
+    Constants.autoSelect.addOption("Score Low Cycle Cones Tag 3", "ScoreLowPickUpConeTag3");
+
     //Constants.autoSelect.addOption("Score Low Straight Back Bottom Tags", "ScoreLowAndDriveBackBottomTags");
-    Constants.autoSelect.addOption("Score High Straight Back Bottom Tags", "ScoreHighAndDriveBackBottomTags");
+    //Constants.autoSelect.addOption("Score High Straight Back Bottom Tags", "ScoreHighAndDriveBackBottomTags");
 
     //Constants.autoSelect.addOption("Score Low Straight Back Top Tag Red", "ScoreLowAndDriveBackTopTagRed");
-    Constants.autoSelect.addOption("Score High Straight Back Top Tag Red", "ScoreHighAndDriveBackTopTagRed");
+    //Constants.autoSelect.addOption("Score High Straight Back Top Tag Red", "ScoreHighAndDriveBackTopTagRed");
 
     //Constants.autoSelect.addOption("Score Low Straight Back Top Tag Blue", "ScoreLowAndDriveBackTopTagBlue");
-    Constants.autoSelect.addOption("Score High Straight Back Top Tag Blue", "ScoreHighAndDriveBackTopTagBlue");
+    //Constants.autoSelect.addOption("Score High Straight Back Top Tag Blue", "ScoreHighAndDriveBackTopTagBlue");
     
     Constants.autoSelect.addOption("Middle Score High Pass Line Balance", "MiddleScoreHighPassLineBalance");
-    Constants.autoSelect.addOption("Middle Score Low Pass Line Balance", "MiddleScoreLowPassLineBalance");
+    //Constants.autoSelect.addOption("Middle Score Low Pass Line Balance", "MiddleScoreLowPassLineBalance");
 
 
     //Constants.autoSelect.addOption("Red Left Grab Bottom Cone", "Tag1GrabBottomCone");
@@ -238,6 +253,78 @@ public class RobotContainer {
 //---------------------------------
 //Plain Odometry Autos (No Limelight)
 //---------------------------------
+
+    //Starts at ConeWaypointTag1 to pick up bottom cone
+    ScoreLowCycleConesTag3 = new SequentialCommandGroup(new ResetPose(drivetrain, Constants.CoordsTags3and6.ScoreWestEast[0] , Constants.CoordsTags3and6.ScoreWestEast[1], 0).withTimeout(0.1), 
+      GenerateScoreLow(),
+       
+      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.GridToTopCone),
+        new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone)
+       ),
+      
+      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUp),
+        new RunFeeder(feeder, 0.5).withTimeout(2.5)
+       ),
+
+      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUpToMidpoint),
+        new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush),
+        new GoToAngleAndExtension(slide, -20, Constants.minExtensionValue, 1, false)
+       ),
+
+      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.MidwayPointToGrid),
+        new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.minExtensionValue, 1, false)
+       ),
+
+      new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
+      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cube),
+
+      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.GridToTopCone),
+        new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone),
+        new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, Constants.minExtensionValue)
+       ),
+
+      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUp),
+        new RunFeeder(feeder, 0.5).withTimeout(2.5)
+       ),
+
+      new ParallelCommandGroup(new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush),
+        new GoToAngleAndExtension(slide, -20, Constants.minExtensionValue, 1, false))  
+        
+    );  
+
+
+    //Starts at ConeWaypointTag1 to pick up bottom cone
+    ConePickUpTestTag1 = new SequentialCommandGroup(new ResetPose(drivetrain, Constants.CoordsCones.Cone1PickUpStart[0] + 1.55 , Constants.CoordsCones.Cone1PickUpStart[1], 0).withTimeout(0.1), 
+      GenerateScoreLow(),
+       
+      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.TurnToConePickUpTest),
+        new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone)
+      ),
+      
+      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.BottomConePickUp),
+        new RunFeeder(feeder, 0.5).withTimeout(2.5)
+      ),
+
+      new ParallelCommandGroup(new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush),
+        new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false))
+
+    );  
+
+    //Starts at ConeWaypointTag1 to pick up bottom cone
+    CubePickUpTestTag1 = new SequentialCommandGroup(new ResetPose(drivetrain, Constants.CoordsCones.Cone1PickUpStart[0] - 0.69 , Constants.CoordsCones.Cone1PickUpStart[1], 0).withTimeout(0.1), 
+      GenerateScoreLow(),
+       
+      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.TurnToConePickUpTest),
+        new GoToFeederPosition(feeder, 0.5, FeederPosition.Cube)
+      ),
+      
+      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.BottomConePickUp),
+        new RunFeeder(feeder, 0.5).withTimeout(2.5)
+      ),
+
+      new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false)
+
+    );  
 
     //Scores preload low and drives back to bottom cone
     ScoreLowAndDriveBackBottomTagRed = new SequentialCommandGroup(new ResetPose(drivetrain, Constants.CoordsTags1and8.ScoreWestEast[0], Constants.CoordsTags1and8.ScoreWestEast[1], 0).withTimeout(0.1), 
@@ -324,6 +411,15 @@ public class RobotContainer {
     );
 
 
+    //Places one cone on high pole, drives pass line, and balances. Does not use limelight readings
+    MiddlePassLineBalanceTest = new SequentialCommandGroup(new ResetPose(drivetrain, 6.25, -1.2, 0).withTimeout(0.1), 
+      GenerateScoreLow(),
+
+      new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, Constants.minExtensionValue), 
+      GeneratePath(Paths.Tag2.BehindTheLineBalance.GridToOverChargeStation)),
+      GeneratePath(Paths.Tag2.BehindTheLineBalance.BackUpOntoChargeStation),
+      GenerateAutoBalance()
+    );   
 
     //Places one cone on high pole, drives pass line, and balances. Does not use limelight readings
     MiddleScoreHighPassLineBalance = new SequentialCommandGroup(new ResetPose(drivetrain, 6.25, -1.2, 0).withTimeout(0.1), 
@@ -622,9 +718,25 @@ public class RobotContainer {
 
       return MiddleScoreLowPassLineBalance;
 
+    } else if (Constants.autoSelect.getSelected() == "ScoreLowCycleConesTag3") {
+
+      return ScoreLowCycleConesTag3;
+
+    } else if (Constants.autoSelect.getSelected() == "ConePickUpTestTag1") {
+
+      return ConePickUpTestTag1;
+
+    } else if (Constants.autoSelect.getSelected() == "CubePickUpTestTag1") {
+
+      return CubePickUpTestTag1;
+
     } else if (Constants.autoSelect.getSelected() == "JustScore") {
 
       return JustScore;
+
+    } else if (Constants.autoSelect.getSelected() == "MiddlePassLineBalanceTest") {
+
+      return MiddlePassLineBalanceTest;
 
     } else if (Constants.autoSelect.getSelected() == "AutoBalance") {
 
