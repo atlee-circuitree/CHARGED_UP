@@ -303,9 +303,9 @@ public class RobotContainer {
       GenerateScoreHigh(),
 
       new ParallelCommandGroup(new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, Constants.minExtensionValue, 1, false),  
-      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone)),
+      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone))
     
-      GeneratePath(Paths.StraightBackBottom)
+      //GeneratePath(Paths.StraightBackBottom)
     );  
 
     //Scores preload the grabs the top cone
