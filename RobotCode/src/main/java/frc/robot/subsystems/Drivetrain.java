@@ -148,7 +148,7 @@ public class Drivetrain extends SubsystemBase {
 
     navx.setAngleAdjustment(180);
 
-    resetOdometryToLimelight();
+    //resetOdometryToLimelight();
   }
 
   @Override
