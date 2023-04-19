@@ -117,6 +117,9 @@ public class RobotContainer {
   }
 
   //Command Groups
+  
+  SequentialCommandGroup RedTwoConeCollectBalanceTag3and6;
+
   SequentialCommandGroup Tag1GrabBottomCone;
   SequentialCommandGroup Tag1GrabBottomCube;
   
@@ -225,6 +228,7 @@ public class RobotContainer {
     recalibrateModules = new RecalibrateModules(drivetrain, xbox1);
     //recalibrateModules.addRequirements(drivetrain);
     //drivetrain.setDefaultCommand(recalibrateModules);
+ 
 
 //---------------------------------
 //Plain Odometry Autos (No Limelight)
@@ -304,7 +308,9 @@ public class RobotContainer {
       GeneratePath(Paths.Tag2.BehindTheLineBalance.GridToOverChargeStation)),
       GeneratePath(Paths.Tag2.BehindTheLineBalance.BackUpOntoChargeStation),
       GenerateAutoBalance()
-    );   
+    );
+    
+    
  
 //---------------------------------
 //Red Autos
