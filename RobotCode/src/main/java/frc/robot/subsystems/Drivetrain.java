@@ -148,6 +148,7 @@ public class Drivetrain extends SubsystemBase {
 
     navx.setAngleAdjustment(180);
 
+    resetOdometryToLimelight();
   }
 
   @Override
@@ -167,6 +168,16 @@ public class Drivetrain extends SubsystemBase {
     
     new SwerveModuleState(positionChangePer100msToMetersPerSecond(rearRightDrvMotor.getSelectedSensorVelocity()), 
     Rotation2d.fromDegrees(getRotEncoderValue(SwerveModule.REAR_RIGHT))));
+
+    if(Constants.autoSelect.getSelected() == "Tag2BehindTheLineBalance" || Constants.autoSelect.getSelected() == "Tag7BehindTheLineBalance"
+    || Constants.autoSelect.getSelected() == "ScoreAndDriveBackBottomTag" || Constants.autoSelect.getSelected() == "ScoreAndDriveBackTopTagRed"
+    || Constants.autoSelect.getSelected() == "ScoreAndDriveBackTopTagBlue"){
+      //Do nothing
+    }
+    else{
+      resetOdometryToLimelight();
+    }
+    
 
   }
 
