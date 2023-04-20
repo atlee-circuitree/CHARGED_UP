@@ -104,6 +104,14 @@ public class RobotContainer {
 
   }
 
+  SequentialCommandGroup GenerateScoreLow() {
+
+    return new SequentialCommandGroup(
+      new GoToAngleAndExtension(slide, -20, 0, 1, false),
+      new RunFeeder(feeder, -1).withTimeout(.5));
+
+  }
+
   SequentialCommandGroup GenerateCollectPosition() {
 
     return new SequentialCommandGroup(new GoToAngleAndExtension(slide, 27, 2.2, 1, false, 2.2));
@@ -137,9 +145,17 @@ public class RobotContainer {
 
   SequentialCommandGroup ScoreAndDriveBackTopTagBlue;
 
-
   SequentialCommandGroup JustScore;
 
+  SequentialCommandGroup ConePickUpTestTag1;
+  SequentialCommandGroup CubePickUpTestTag1;  
+
+  SequentialCommandGroup ScoreLowCycleConesTag3;
+
+  SequentialCommandGroup MiddleScoreHighPassLineBalance;
+  SequentialCommandGroup MiddleScoreLowPassLineBalance;
+
+  SequentialCommandGroup MiddlePassLineBalanceTest;
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -223,6 +239,82 @@ public class RobotContainer {
     //recalibrateModules.addRequirements(drivetrain);
     //drivetrain.setDefaultCommand(recalibrateModules);
  
+//---------------------------------
+//Plain Odometry Autos (No Limelight)
+//---------------------------------
+
+    //Starts at ConeWaypointTag1 to pick up bottom cone
+    ScoreLowCycleConesTag3 = new SequentialCommandGroup(new ResetPose(drivetrain, Constants.CoordsTags3and6.ScoreWestEast[0] , Constants.CoordsTags3and6.ScoreWestEast[1], 0).withTimeout(0.1), 
+      GenerateScoreLow(),
+       
+      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.GridToTopCone),
+        new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone)
+       ),
+      
+      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUp),
+        new RunFeeder(feeder, 0.5).withTimeout(2.5)
+       ),
+
+      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUpToMidpoint),
+        new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush),
+        new GoToAngleAndExtension(slide, -20, Constants.minExtensionValue, 1, false)
+       ),
+
+      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.MidwayPointToGrid),
+        new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.minExtensionValue, 1, false)
+       ),
+
+      new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
+      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cube),
+
+      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.GridToTopCone),
+        new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone),
+        new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, Constants.minExtensionValue)
+       ),
+
+      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUp),
+        new RunFeeder(feeder, 0.5).withTimeout(2.5)
+       ),
+
+      new ParallelCommandGroup(new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush),
+        new GoToAngleAndExtension(slide, -20, Constants.minExtensionValue, 1, false))  
+        
+    );  
+
+
+    //Starts at ConeWaypointTag1 to pick up bottom cone
+    ConePickUpTestTag1 = new SequentialCommandGroup(new ResetPose(drivetrain, Constants.CoordsCones.Cone1PickUpStart[0] + 1.55 , Constants.CoordsCones.Cone1PickUpStart[1], 0).withTimeout(0.1), 
+      GenerateScoreLow(),
+       
+      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.TurnToConePickUpTest),
+        new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone)
+      ),
+      
+      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.BottomConePickUp),
+        new RunFeeder(feeder, 0.5).withTimeout(2.5)
+      ),
+
+      new ParallelCommandGroup(new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush),
+        new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false))
+
+    );  
+
+    //Starts at ConeWaypointTag1 to pick up bottom cone
+    CubePickUpTestTag1 = new SequentialCommandGroup(new ResetPose(drivetrain, Constants.CoordsCones.Cone1PickUpStart[0] - 0.69 , Constants.CoordsCones.Cone1PickUpStart[1], 0).withTimeout(0.1), 
+      GenerateScoreLow(),
+       
+      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.TurnToConePickUpTest),
+        new GoToFeederPosition(feeder, 0.5, FeederPosition.Cube)
+      ),
+      
+      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.BottomConePickUp),
+        new RunFeeder(feeder, 0.5).withTimeout(2.5)
+      ),
+
+      new GoToAngleAndExtension(slide, -17, Constants.minExtensionValue, 1, false)
+
+    );  
+
 //---------------------------------
 //Red Autos
 //---------------------------------
