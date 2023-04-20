@@ -211,7 +211,7 @@ public class RobotContainer {
  
     TopPosition = new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, true);
     SubstationPosition = new GoToAngleAndExtension(slide, 15, Constants.maxExtensionValue, 1, false, 2.2);
-    BottomPosition = new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, Constants.minExtensionValue);
+    BottomPosition = new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, Constants.minExtensionValue - 1);
 
     driveWithXbox.addRequirements(drivetrain);
     slideWithXbox.addRequirements(slide);
