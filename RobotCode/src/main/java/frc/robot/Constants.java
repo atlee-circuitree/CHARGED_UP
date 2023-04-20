@@ -238,8 +238,8 @@ public final class Constants {
          }
      */
          public final static class CoordsCones{
-             public static final double[] Cone4PickUpStart = {2.0, 0.565, 180};
-             public static final double[] Cone4PickUpEnd = {0.80, 0.565, 180};
+             public static final double[] Cone4PickUpStart = {2.4, 0.605, 180};
+             public static final double[] Cone4PickUpEnd = {1.35, 0.605, 180};
              public static final double[] Cone3PickUpStart = {2.0, -0.648, 180};
              public static final double[] Cone3PickUpEnd = {0.80, -0.648, 180};
              public static final double[] Cone2PickUpStart = {2.0, -1.872, 180};

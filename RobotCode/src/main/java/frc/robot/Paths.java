@@ -117,11 +117,11 @@ public class Paths {
 
             public static final double[][] GridToBottomCone = {
                 //Start at the grid in front of Tag 1
-                {0,     6, -3, 0,        0.6, 0.2},
+                {0,     Constants.CoordsTags1and8.ScoreWayPoint[0], Constants.CoordsTags1and8.ScoreWayPoint[1], 0, 0.3, 0.2},
                 //Start to rotate
-                {1,     3.5, -3, 0,      0.6, 0.2},
+                {1,     Constants.CoordsTags1and8.ConeWayPoint[0], Constants.CoordsTags1and8.ConeWayPoint[1], 0, 0.3, 0.2},
                 //Head to the bottom-most cone
-                {2,     2, -3, 160,      0.3, 0.2}
+                {2,     Constants.CoordsCones.Cone1PickUpStart[0], Constants.CoordsCones.Cone1PickUpStart[1], 180, 0.3, 0.2}
             };
 
             public static final double[][] BottomConePickUp = {

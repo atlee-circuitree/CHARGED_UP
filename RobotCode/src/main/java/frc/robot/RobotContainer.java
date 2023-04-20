@@ -150,6 +150,7 @@ public class RobotContainer {
   SequentialCommandGroup ConePickUpTestTag1;
   SequentialCommandGroup CubePickUpTestTag1;  
 
+  SequentialCommandGroup ScoreLowCycleConesTag1;
   SequentialCommandGroup ScoreLowCycleConesTag3;
 
   SequentialCommandGroup MiddleScoreHighPassLineBalance;
@@ -172,21 +173,12 @@ public class RobotContainer {
 
     Constants.autoSelect.addOption("Just Score", "JustScore");
     
-    Constants.autoSelect.addOption("Score Low Cycle Cones Tag 3", "ScoreLowCycleConesTag3");
 
-    //Constants.autoSelect.addOption("Red Left Grab Bottom Cone", "Tag1GrabBottomCone");
+    Constants.autoSelect.addOption("Score Low Cycle Cones Tag 1", "ScoreLowCycleConesTag1");
+    Constants.autoSelect.addOption("Score Low Cycle Cones Tag 3", "ScoreLowCycleConesTag3");
+      
 
     Constants.autoSelect.addOption("Middle Pass Line Balance", "Tag2BehindTheLineBalance");
-
-    //Constants.autoSelect.addOption("Red Right Grab Top Cone", "Tag3GrabTopCone");
-
-
-    //Constants.autoSelect.addOption("Blue Right Grab Bottom Cone", "Tag8GrabBottomCone");
-
-    //Constants.autoSelect.addOption("Blue Middle Pass Line Balance", "Tag7BehindTheLineBalance");
-
-    //Constants.autoSelect.addOption("Blue Left Grab Top Cone", "Tag6GrabTopCone");
-
 
     
     
@@ -239,19 +231,32 @@ public class RobotContainer {
 //Plain Odometry Autos (No Limelight)
 //---------------------------------
 
-    //Starts at ConeWaypointTag1 to pick up bottom cone
+    ScoreLowCycleConesTag1 = new SequentialCommandGroup(new ResetPose(drivetrain, Constants.CoordsTags1and8.ScoreWestEast[0] , Constants.CoordsTags1and8.ScoreWestEast[1], 0).withTimeout(0.1), 
+      GenerateScoreLow(),
+       
+      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.GridToBottomCone),
+        new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, Constants.minExtensionValue - 1),
+        new GoToFeederPosition(feeder, 0.5, FeederPosition.Cube)
+       ),
+      
+      new ParallelCommandGroup(GeneratePath(Paths.Tag1.GrabBottomCone.BottomConePickUp),
+        new RunFeeder(feeder, 0.5).withTimeout(2.5)
+       )
+    );
+
     ScoreLowCycleConesTag3 = new SequentialCommandGroup(new ResetPose(drivetrain, Constants.CoordsTags3and6.ScoreWestEast[0] , Constants.CoordsTags3and6.ScoreWestEast[1], 0).withTimeout(0.1), 
       GenerateScoreLow(),
        
       new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.GridToTopCone),
+        new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, Constants.minExtensionValue - 1),
         new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone)
        ),
       
       new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUp),
         new RunFeeder(feeder, 0.5).withTimeout(2.5)
-       ),
+       )
 
-      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUpToMidpoint),
+      /*new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.TopConePickUpToMidpoint),
         new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush),
         new GoToAngleAndExtension(slide, -20, Constants.minExtensionValue, 1, false)
        ),
@@ -263,7 +268,7 @@ public class RobotContainer {
       new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
       new GoToFeederPosition(feeder, 0.5, FeederPosition.Cube)
 
-     /* new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.GridToTopCone),
+      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.GridToTopCone),
         new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone),
         new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, Constants.minExtensionValue)
        ),
@@ -601,6 +606,10 @@ public class RobotContainer {
 
       return Tag8GrabBottomCone;
 
+    } else if (Constants.autoSelect.getSelected() == "ScoreLowCycleConesTag1") {
+
+      return ScoreLowCycleConesTag1;
+      
     } else if (Constants.autoSelect.getSelected() == "ScoreLowCycleConesTag3") {
 
       return ScoreLowCycleConesTag3;
