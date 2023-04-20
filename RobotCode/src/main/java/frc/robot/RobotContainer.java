@@ -172,11 +172,7 @@ public class RobotContainer {
 
     Constants.autoSelect.addOption("Just Score", "JustScore");
     
-    Constants.autoSelect.addOption("Straight Back Bottom Tags", "ScoreAndDriveBackBottomTag");
-
-    Constants.autoSelect.addOption("Straight Back Top Tag Red", "ScoreAndDriveBackTopTagRed");
-
-    Constants.autoSelect.addOption("Straight Back Top Tag Blue", "ScoreAndDriveBackTopTagBlue");
+    Constants.autoSelect.addOption("Score Low Cycle Cones Tag 3", "ScoreLowCycleConesTag3");
 
     //Constants.autoSelect.addOption("Red Left Grab Bottom Cone", "Tag1GrabBottomCone");
 
@@ -265,9 +261,9 @@ public class RobotContainer {
        ),
 
       new GoToAngleAndExtension(slide, Constants.maxAngleEncoderValue, Constants.maxExtensionValue, 1, false),
-      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cube),
+      new GoToFeederPosition(feeder, 0.5, FeederPosition.Cube)
 
-      new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.GridToTopCone),
+     /* new ParallelCommandGroup(GeneratePath(Paths.Tag3.GrabTopCone.GridToTopCone),
         new GoToFeederPosition(feeder, 0.5, FeederPosition.Cone),
         new GoToAngleAndExtension(slide, Constants.minAngleEncoderValue, 2.2, 1, false, Constants.minExtensionValue)
        ),
@@ -277,7 +273,7 @@ public class RobotContainer {
        ),
 
       new ParallelCommandGroup(new GoToFeederPosition(feeder, 0.5, FeederPosition.Crush),
-        new GoToAngleAndExtension(slide, -20, Constants.minExtensionValue, 1, false))  
+        new GoToAngleAndExtension(slide, -20, Constants.minExtensionValue, 1, false))*/
         
     );  
 
@@ -605,21 +601,21 @@ public class RobotContainer {
 
       return Tag8GrabBottomCone;
 
+    } else if (Constants.autoSelect.getSelected() == "ScoreLowCycleConesTag3") {
+
+      return ScoreLowCycleConesTag3;
+
+    } else if (Constants.autoSelect.getSelected() == "ConePickUpTestTag1") {
+
+      return ConePickUpTestTag1;
+
+    } else if (Constants.autoSelect.getSelected() == "CubePickUpTestTag1") {
+
+      return CubePickUpTestTag1;
+
     } else if (Constants.autoSelect.getSelected() == "JustScore") {
 
       return JustScore;
-
-    } else if (Constants.autoSelect.getSelected() == "ScoreAndDriveBackBottomTag") {
-
-      return ScoreAndDriveBackBottomTag;
-
-    } else if (Constants.autoSelect.getSelected() == "ScoreAndDriveBackTopTagRed") {
-
-      return ScoreAndDriveBackTopTagRed;
-
-    } else if (Constants.autoSelect.getSelected() == "ScoreAndDriveBackTopTagBlue") {
-
-      return ScoreAndDriveBackTopTagBlue;
 
     } else if (Constants.autoSelect.getSelected() == "AutoBalance") {
 
