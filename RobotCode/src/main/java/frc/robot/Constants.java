@@ -238,14 +238,14 @@ public final class Constants {
          }
      */
          public final static class CoordsCones{
-             public static final double[] Cone4PickUpStart = {2.4, 0.605, 180};
-             public static final double[] Cone4PickUpEnd = {1.35, 0.605, 180};
-             public static final double[] Cone3PickUpStart = {2.0, -0.648, 180};
-             public static final double[] Cone3PickUpEnd = {0.80, -0.648, 180};
-             public static final double[] Cone2PickUpStart = {2.0, -1.872, 180};
-             public static final double[] Cone2PickUpEnd = {0.80, -1.872, 180};
-             public static final double[] Cone1PickUpStart = {2.0, -3.092, 180};
-             public static final double[] Cone1PickUpEnd = {0.80, -3.092, 180};
+             public static final double[] Cone4PickUpStart = {0.95, 0.605, 180};
+             public static final double[] Cone4PickUpEnd = {0.9, 0.605, 180};
+             public static final double[] Cone3PickUpStart = {0.95, -0.608, 180};
+             public static final double[] Cone3PickUpEnd = {0.9, -0.608, 180};
+             public static final double[] Cone2PickUpStart = {0.95, -1.832, 180};
+             public static final double[] Cone2PickUpEnd = {0.9, -1.832, 180};
+             public static final double[] Cone1PickUpStart = {0.95, -3.092, 180};
+             public static final double[] Cone1PickUpEnd = {0.9, -3.092, 180};
          }
          
          public final static class CoordsTags1and8{
@@ -253,7 +253,7 @@ public final class Constants {
              public static final double[] ScoreWestEast = {6.4694, -2.927, 0};
              public static final double[] ScoreSouth = {6.4694, -3.494, 0};
              public static final double[] ScoreWayPoint = {6.000, -3.092, 0};
-             public static final double[] MidWayPoint = {4.400, -3.092, 0};
+             public static final double[] MidWayPoint = {3.600, -3.092, 0};
              public static final double[] ConeWayPoint = {2.5, -3.092, 0};
              public static final double[] PlatformWayPoint = {4.400, -1.862, 0};
              public static final double[] ScorePlatformWayPoint = {6.000, -1.862, 0}; 
@@ -266,19 +266,19 @@ public final class Constants {
              public static final double[] ScoreSouth = {6.4694, -1.350, 0};
              public static final double[] ScoreWayPoint = {6.000, -0.8, 0};
              public static final double[] MidWayPoint = {4.400, -0.8, 0};      
-             public static final double[] ConeWayPoint = {1.8, -0.8, 0};
-             public static final double[] PlatformWayPoint = {4.10, -0.800, 0}; //Before x = 4.7 3/18/23 1:00 PM
+             public static final double[] ConeWayPoint = {2.5, -0.8, 0};
+             public static final double[] PlatformWayPoint = {4.40, -0.800, 0};
              public static final double[] ScorePlatformWayPoint = {6.000, -0.8, 0}; 
-             public static final double[] ConePlatformWayPoint = {1.8, -0.8, 0}; //Before x = 2.75 3/16/23
+             public static final double[] ConePlatformWayPoint = {2.75, -0.8, 0};
          }
      
          public final static class CoordsTags3and6 {
              public static final double[] ScoreNorth = {6.4694, 0.970, 0};
              public static final double[] ScoreWestEast = {6.4694, 0.413, 0};
              public static final double[] ScoreSouth = {6.4694, -0.141, 0};
-             public static final double[] ScoreWayPoint = {6.000, 0.565, 0};
-             public static final double[] MidWayPoint = {4.400, 0.565, 0};
-             public static final double[] ConeWayPoint = {2.5, 0.565, 0}; 
+             public static final double[] ScoreWayPoint = {6.000, 0.605, 0};
+             public static final double[] MidWayPoint = {4.400, 0.605, 0};
+             public static final double[] ConeWayPoint = {2.5, 0.605, 0}; 
              public static final double[] PlatformWayPoint = {4.40, -0.648, 0};
              public static final double[] ScorePlatformWayPoint = {6.000, -0.648, 0}; 
              public static final double[] ConePlatformWayPoint = {2.75, -0.648, 0}; 

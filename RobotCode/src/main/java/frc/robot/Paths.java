@@ -118,9 +118,9 @@ public class Paths {
             public static final double[][] GridToBottomCone = {
                 //Start at the grid in front of Tag 1
                 {0,     Constants.CoordsTags1and8.ScoreWayPoint[0], Constants.CoordsTags1and8.ScoreWayPoint[1], 0, 0.3, 0.2},
-                //Start to rotate
-                {1,     Constants.CoordsTags1and8.ConeWayPoint[0], Constants.CoordsTags1and8.ConeWayPoint[1], 0, 0.3, 0.2},
-                //Head to the bottom-most cone
+                //Start to rotate                    (Switch to midpoint and see if rotate is better)
+                {1,     Constants.CoordsTags1and8.MidWayPoint[0], Constants.CoordsTags1and8.MidWayPoint[1], 0, 0.3, 0.2},
+                //Head to the bottom-most cone       (Change Cone1PickUpStart to be further back and see if rotate finishes)
                 {2,     Constants.CoordsCones.Cone1PickUpStart[0], Constants.CoordsCones.Cone1PickUpStart[1], 180, 0.3, 0.2}
             };
 
@@ -193,7 +193,7 @@ public class Paths {
                 //Strafes from starting position to the left to clear charge station
                 {0,     Constants.CoordsTags3and6.ScoreWayPoint[0], Constants.CoordsTags3and6.ScoreWayPoint[1],     0, 0.3, 0.2},
                 //Drives backwards to ConeWayPoint
-                {1,     Constants.CoordsTags3and6.ConeWayPoint[0], Constants.CoordsTags3and6.ConeWayPoint[1],     0, 0.3, 0.2},
+                {1,     Constants.CoordsTags3and6.MidWayPoint[0], Constants.CoordsTags3and6.MidWayPoint[1],     0, 0.3, 0.2},
                 //Start to rotate
                 {2,     Constants.CoordsCones.Cone4PickUpStart[0], Constants.CoordsCones.Cone4PickUpStart[1],   180, 0.3, 0.2},
             };
@@ -261,19 +261,19 @@ public class Paths {
         public static final class GrabTopCone{
 
             public static final double[][] GridToTopCone = {
-                //Start at the grid in front of Tag 3
-                {0,     -6, 0.92, 180,        0.6, 0.2},
+                //Strafes from starting position to the left to clear charge station
+                {0,     Constants.CoordsTags3and6.ScoreWayPoint[0], -Constants.CoordsTags3and6.ScoreWayPoint[1],     0, 0.3, 0.2},
+                //Drives backwards to ConeWayPoint
+                {1,     Constants.CoordsTags3and6.MidWayPoint[0], -Constants.CoordsTags3and6.MidWayPoint[1],     0, 0.3, 0.2},
                 //Start to rotate
-                {1,     -5.5, 0.92, 180 ,      0.6, 0.2},
-                //Head to the top-most cone
-                {2,     -2, 0.92, 20,     0.3, 0.2}
+                {2,     Constants.CoordsCones.Cone4PickUpStart[0], -Constants.CoordsCones.Cone4PickUpStart[1],   180, 0.3, 0.2},
             };
 
             public static final double[][] TopConePickUp = {
-                //Start right behind the top-most cone facing the red side
-                {0,     -1.5, 0.85, 0,      0.15, 0.01},
-                //Drive through the cone and pick it up
-                {1,     -1.2, 0.85, 0,    0.15, 0.01}
+                //Drives forward from cone pick up start to pick up the cone
+                {0,     Constants.CoordsCones.Cone4PickUpStart[0], -Constants.CoordsCones.Cone4PickUpStart[1],   180, 0.3, 0.01},
+                //Drives forward from cone pick up start to pick up the cone
+                {1,     Constants.CoordsCones.Cone4PickUpEnd[0], -Constants.CoordsCones.Cone4PickUpEnd[1],   180, 0.3, 0.01},
             };
 
             //Not using
@@ -333,19 +333,19 @@ public class Paths {
         public static final class GrabBottomCone{
 
             public static final double[][] GridToBottomCone = {
-                //Start at the grid in front of Tag 1
-                {0,     -6, -3, 180,        0.6, 0.2},
+                //Start at the grid in front of Tag 8
+                {0,     Constants.CoordsTags1and8.ScoreWayPoint[0], -Constants.CoordsTags1and8.ScoreWayPoint[1], 0, 0.3, 0.2},
                 //Start to rotate
-                {1,     -3.5, -3, 180,      0.6, 0.2},
+                {1,     Constants.CoordsTags1and8.MidWayPoint[0], -Constants.CoordsTags1and8.MidWayPoint[1], 0, 0.3, 0.2},
                 //Head to the bottom-most cone
-                {2,     -2, -3, -20,      0.3, 0.2}
+                {2,     Constants.CoordsCones.Cone1PickUpStart[0], -Constants.CoordsCones.Cone1PickUpStart[1], 180, 0.3, 0.2}
             };
 
             public static final double[][] BottomConePickUp = {
-                //Start right behind the bottom-most cone facing the red side
-                {0,     1.5, -3, 0,    0.15, 0.01},
-                //Drive through the cone and pick it up
-                {1,     1.2, -3, 0,    0.15, 0.01}
+                //Drives forward from cone pick start to pick up the cone
+                {0,     Constants.CoordsCones.Cone1PickUpStart[0], -Constants.CoordsCones.Cone1PickUpStart[1],   180, 0.3, 0.01},
+                //Drives forward from cone pick start to pick up the cone
+                {1,     Constants.CoordsCones.Cone1PickUpEnd[0], -Constants.CoordsCones.Cone1PickUpEnd[1],   180, 0.3, 0.01},
             };
 
             //Not using
