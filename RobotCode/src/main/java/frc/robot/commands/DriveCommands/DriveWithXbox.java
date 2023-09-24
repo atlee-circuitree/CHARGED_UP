@@ -100,17 +100,17 @@ public class DriveWithXbox extends CommandBase {
     //A Button = TURBO MODE
     if(xbox.getXButton()){
     //if(xbox.getStartButton()){
-      forward = xbox.getLeftY();
-      strafe = xbox.getLeftX();
+      forward = -xbox.getLeftY();
+      strafe = -xbox.getLeftX();
       rotation = xbox.getRightX();
     } else if(xbox.getAButton()){
       //if(xbox.getStartButton()){
-      forward = xbox.getLeftY() * 0.8;
-      strafe = xbox.getLeftX() * 0.8;
+      forward = -xbox.getLeftY() * 0.8;
+      strafe = -xbox.getLeftX() * 0.8;
       rotation = xbox.getRightX() * 0.8;
     } else{
-      forward = xbox.getLeftY() * 0.5;
-      strafe = xbox.getLeftX() * 0.5;
+      forward = -xbox.getLeftY() * 0.5;
+      strafe = -xbox.getLeftX() * 0.5;
       rotation = xbox.getRightX() * 0.5;
     }
 

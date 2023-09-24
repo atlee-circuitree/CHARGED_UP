@@ -187,7 +187,7 @@ public final class Constants {
     public static final double maxGrabEncoderValue = .7;
     public static final double minGrabEncoderValue = .40;
  
-    public static final double maxExtensionValue = 52;
+    public static final double maxExtensionValue = 48.8;
     public static final double minExtensionValue = -1; //Before -2 3/21/23
 
     public static final double limelightSingleTargetPoseLengthCutoff = 1.2;
