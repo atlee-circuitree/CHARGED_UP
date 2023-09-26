@@ -72,7 +72,7 @@ public class SlideWithXbox extends CommandBase {
     if (secondaryXbox.getStartButton()) {
 
       slide.extendArmUsingPowerNoLimit(-secondaryXbox.getRightY() / 2);
-      slide.resetExtensionEncoder();
+      //slide.resetExtensionEncoder();
   
     } else {
   

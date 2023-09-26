@@ -519,9 +519,9 @@ public class RobotContainer {
 
     //All four face button already used by SlideWithXbox
 
-    driver2Y.onTrue(TopPosition);
-    driver2B.onTrue(SubstationPosition);
-    driver2A.onTrue(BottomPosition);
+    driver2Y.onTrue(TopPosition.withTimeout(5));
+    driver2B.onTrue(SubstationPosition.withTimeout(5));
+    driver2A.onTrue(BottomPosition.withTimeout(5));
     driver2X.whileTrue(new KillArm(slide));
 
     //Feeder Positions
